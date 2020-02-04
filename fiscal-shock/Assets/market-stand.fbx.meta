@@ -11,8 +11,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Corrugated01s
-    second: {fileID: -8154990726786444148, guid: af49e7ee9c2b67f4885e43e1be9e1108,
-      type: 3}
+    second: {fileID: 2100000, guid: bf520d31c13ac864ba78704ea2d97062, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -29,8 +28,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: wood
-    second: {fileID: -8154990726786444148, guid: af49e7ee9c2b67f4885e43e1be9e1108,
-      type: 3}
+    second: {fileID: 2100000, guid: bf520d31c13ac864ba78704ea2d97062, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
