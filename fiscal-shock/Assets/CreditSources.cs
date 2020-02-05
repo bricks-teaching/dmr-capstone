@@ -11,7 +11,7 @@ public class CreditSources : MonoBehaviour
     public CreditSources(int x, int y, double z) //all values subject to change
     {
         maxLoan = x;
-        threatLevel = y; 
+        threatLevel = y;
         interestRate = z;
     }
     // Start is called before the first frame update

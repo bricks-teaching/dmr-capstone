@@ -2,7 +2,7 @@
 //using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerFinance //: MonoBehaviour (remove parentheses and comment slashes if we need MonoBehavior)
+public class PlayerFinance : MonoBehaviour //(remove parentheses and comment slashes if we need MonoBehavior)
 {
     public int money;
     public int debt;
