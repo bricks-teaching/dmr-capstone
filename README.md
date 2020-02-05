@@ -6,23 +6,15 @@ This is the capstone repository of Team 12, Spring 2020. Please use Unity 2019.3
 ## Cloning
 Please make sure to have your login information available when you clone the repository. It will ask you to login.
 
+If you use the git CLI, please set up an SSH key following the instructions at the following link:
+https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent. If you use Windows, you'll need git bash to do this.
+
+## WARNINGS
+- *In most cases*, the Unity project will not correctly pass the project to Visual Studio Code until you right click on any of the C# scripts and click "Open C# Project" in the context menu. Once Tiff's PR #71 goes through, please follow the instructions listed in Opening the Project for the First Time *only one more time*.
+- Meta files get added for assets, scripts, *and* directories (folders). Please do not name two files or directories the same. If we end up with fragmented directories, we can always consolidate them later.
+
 ## Opening the Project for the First Time
-Due to Unity's tedious nature with git control and script editing with outside editors, please do the following the first time you access the project:
-1. Open the project in Unity FIRST.
-2. From Unity, go to the assets and bring up the context menu by right clicking on a C# script inside the folder. Click on "Open C# Project".
-3. The project will open in the text editor that you configured when you first set up Unity for scripting. Depending on your editor, you may not see certain files relevant to your project. You may have to go into your settings and turn off file exclusion for certain files. In our Google Drive, I have added a link to an example settings.json file exclusion settings inside of the VSCode FAQs file (Working -> Dev Environment -> VSCode FAQs).
-
-The reason I recommend this course of action is because you may accidentally end up ignoring the .gitignore file inside the editor, which we may need to edit often as we get a hang of this project.
-
-Additionally, if you are using Visual Studio Code, please ensure that you add the following line to the .csproj file that is generated the first time you open the project through Unity and that you remove any broken references to ItemGroups in that file if they exist:
-```xml
-<PropertyGroup>
-    <CodeAnalysisRuleSet>./roslynator.ruleset</CodeAnalysisRuleSet>
-</PropertyGroup>
-```
-This may also work for other IDEs or text editors, but I am not really sure. If anyone decides to go with a different approach and successfully gets code analysis working, please add to the code analysis file under Working -> Dev Environment.
-
-**Beware**: Opening with Open C# Project after the first time will replace your .csproj file with the default. Instead, just click on the script you want to change it.
+Tiff has commented instructions for correctly setting up the project in fiscal-shock/fiscal-shock.csproj. Please read those instructions closely and follow them the next time you set up your project.
 
 ## Contributing
 Please read the information in CONTRIBUTING.md before putting in a pull request. If you do not follow the rules, your build may fail and your pull request will be delayed until your contribution follows the rules.
