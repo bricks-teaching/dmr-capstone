@@ -1,32 +1,14 @@
 fileFormatVersion: 2
-guid: 2e8bd914b7bc2164b917465ae387500f
+guid: 4ded06230f2903d439aa7b7287ea17f0
 ModelImporter:
   serializedVersion: 19300
-  internalIDToNameTable:
-  - first:
-      74: 1260504559586848900
-    second: Mesh20 Group14 Model|Mesh20 Group14 ModelAction
+  internalIDToNameTable: []
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Corrugated01s
-    second: {fileID: 2100000, guid: eb184954b87356a458f00ef29fa20089, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: THATCH
+      name: SignMat
     second: {fileID: 2100000, guid: 1d60e5993f082154d909a0281d12d5b0, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: WOOD #2_
-    second: {fileID: 2100000, guid: eb184954b87356a458f00ef29fa20089, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: wood
-    second: {fileID: 2100000, guid: eb184954b87356a458f00ef29fa20089, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
