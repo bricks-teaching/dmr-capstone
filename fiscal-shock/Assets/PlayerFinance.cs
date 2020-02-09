@@ -2,10 +2,25 @@
 //using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerFinance : MonoBehaviour //(remove parentheses and comment slashes if we need MonoBehavior)
+interface PlayerF {
+    //property signatures
+    int money
+    {
+        get;
+        set;
+    }
+
+    int debt
+    {
+        get;
+        set;
+    }
+}
+
+public class PlayerFinance : PlayerF
 {
-    public int money;
-    public int debt;
+    public int money{get; set;}
+    public int debt{get; set;}
     // Start is called before the first frame update
     public PlayerFinance(int x, int y)
     {
@@ -13,15 +28,5 @@ public class PlayerFinance : MonoBehaviour //(remove parentheses and comment sla
         debt = y; //to be changed later, will depend of value of initial equipment
     }
 
-    void Start()
-    {
-        PlayerFinance pf = new PlayerFinance(0, 1000);
-    }
-    /* Unsure if needed, keeping just in case
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    */
+    public PlayerFinance finances = new PlayerFinance(0, 1000);
 }
