@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+Here is the tutorial I followed:
+Player Movement: https://www.youtube.com/watch?v=_QajrabyTJc&t=1s
+
+Character Controller documentation: https://docs.unity3d.com/Manual/class-CharacterController.html
+*/
 public class PlayerMovement : MonoBehaviour
 {
     public CharacterController controller;
