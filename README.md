@@ -9,6 +9,11 @@ Please make sure to have your login information available when you clone the rep
 If you use the git CLI, please set up an SSH key following the instructions at the following link:
 https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent. If you use Windows, you'll need git bash to do this.
 
+## GitHub Large File Storage
+GitHub's LFS is a way to store image files, 3D models, and other large files without placing them inside the repository. Please install GitHub LFS from https://git-lfs.github.com/ and follow Step 1 of the Getting Started section. This will prepare the repository for use with the LFS API.
+
+If something seems to be missing or working strangely, attempt pulling the actual object from the GitHub LFS server using `git lfs pull`.
+
 ## WARNINGS
 - *In most cases*, the Unity project will not correctly pass the project to Visual Studio Code until you right click on any of the C# scripts and click "Open C# Project" in the context menu. Once Tiff's PR #71 goes through, please follow the instructions listed in Opening the Project for the First Time *only one more time*.
 - Meta files get added for assets, scripts, *and* directories (folders). Please do not name two files or directories the same. If we end up with fragmented directories, we can always consolidate them later.
