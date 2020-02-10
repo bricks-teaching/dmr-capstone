@@ -1,12 +1,13 @@
+using System;
 using System.Linq;
 using System.Collections.Generic;
 
 /// <summary>
-/// C# implementation of Guibas & Stolfi's Delaunay triangulation algorithm.
-/// The divide-and-conquer algorithm requires all points for the Delaunay triangulation to be known. So, it only tries to make connections between those given points. The incremental algorithm allows the addition of new sites to an existing triangulation. Since this requires verifying Delaunayhood and fixing it if required, it is slower.
+/// <para>C# implementation of Guibas & Stolfi's Delaunay triangulation algorithm.</para>
+/// <para>The divide-and-conquer algorithm requires all points for the Delaunay triangulation to be known. So, it only tries to make connections between those given points. The incremental algorithm allows the addition of new sites to an existing triangulation. Since this requires verifying Delaunayhood and fixing it if required, it is slower.</para>
 ///
 ///
-/// References:
+/// <para>References:
 ///
 /// Guibas, L., and Stolfi, J. (1985). Primitives for the Manipulation of General Subdivisions and the Computation of Voronoi Diagrams. Retrieved from https://dl-acm-org.leo.lib.unomaha.edu/doi/pdf/10.1145/282918.282923?download=true.
 ///     Original paper on the divide-and-conquer and incremental algorithms to compute a Delaunay triangulation, hereafter referred to as "G&S."
@@ -15,10 +16,10 @@ using System.Collections.Generic;
 ///     An explanation and implementation of the quad-edge data structure introduced in G&S in C++. The actual C++ code is by Andrew Bernard, based on existing code by Dani Lischinski.
 ///
 /// Cheung, B. (2019). bennycheung/PyDelaunay: Python implementation of Delaunay and Voronoi Tessellation. Retrieved from https://github.com/bennycheung/PyDelaunay.
-///     Incremental G&S algorithm in Python. MIT-licensed.
+///     Incremental G&S algorithm in Python. MIT-licensed.</para>
 /// </summary>
 
-namespace FiscalShock.GraphUtils {
+namespace FiscalShock.QraphUtils {
     public static class LinAlg {
         /// <summary>
         /// Determinant of a 4x4 matrix for InCircle test based on 4 points using Laplace expansion
@@ -67,15 +68,15 @@ namespace FiscalShock.GraphUtils {
 
         /// <summary>
         /// Area of the triangle abc is the following determinant:
-        /// |.x	a .ya  1 |
-        /// |.x	b .yb  1 |
-        /// |.x	c .yc  1 |
+        /// | a.x  a.y  1 |
+        /// | b.x  b.y  1 |
+        /// | c.x  c.y  1 |
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <param name="c"></param>
         /// <returns></returns>
-        public static double areaOfTriangle(Vertex	 a, Vertex b, Vertex c) {
+        public static double areaOfTriangle(Vertex a, Vertex b, Vertex c) {
             return (b.x	- a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x);
         }
     }
@@ -84,11 +85,20 @@ namespace FiscalShock.GraphUtils {
         public double x { get; set; }
         public double y { get; set; }
         // possibly incident edges
+
+        public Vertex(double xX, double yY) {
+            x = xX;
+            y = yY;
+        }
+
+        public string toString() {
+            return $"({x}, {y})";
+        }
     }
 
     public class Edge {
         // ID of this edge within the QuadEdge
-        public uint id { get; set; }
+        public int id { get; set; }
 
         // Next edge
         public Edge next { get; set; }
@@ -98,6 +108,10 @@ namespace FiscalShock.GraphUtils {
         public Vertex head { get; set; }
 
         public QuadEdge quad { get; set; }
+
+        public string toString() {
+            return $"Edge {id} from {tail.toString()} to {head.toString()}";
+        }
 
         /// <summary>
         /// Get the right-to-left dual of this edge
@@ -136,6 +150,13 @@ namespace FiscalShock.GraphUtils {
         /// </summary>
         /// <returns></returns>
         public Edge nextFromTail() {  // Onext
+            if (id == 0 || id == 2) {
+                Console.WriteLine($"Onext is myself? id: {id} {this == next}");
+            } else if (id == 1) {
+                Console.WriteLine($"Onext is 3? id: {id} {quad.edges[3] == next}");
+            } else if (id == 3) {
+                Console.WriteLine($"Onext is 1? id: {id} {quad.edges[1] == next}");
+            }
             return next;
         }
 
@@ -209,33 +230,39 @@ namespace FiscalShock.GraphUtils {
         // 1    e.rotate()          e*, rotated counterclockwise 90 degrees
         // 2    e.symmetric()       e, with head and tail flipped
         // 3    e.inverseRotate()   e*, rotated clockwise 90 degrees
-        public Edge[] edges;
+        public List<Edge> edges;
 
         public QuadEdge() {
-            edges = new Edge[4];
+            edges = new List<Edge> { new Edge(), new Edge(), new Edge(), new Edge() };  // TODO not so dumb
 
-            uint i = 0;
+            int i = 0;
             foreach (Edge e in edges) {
                 e.id = i;
+                e.quad = this;
 
-                e.next = (i != 0?
-                          edges[4 - i] : e);
                 i++;
             }
+            edges[0].next = edges[0];
+            edges[1].next = edges[3];
+            edges[2].next = edges[2];
+            edges[3].next = edges[1];
         }
 
         /// <summary>
-        /// Set the endpoints for the primal edges of the quad edge
+        /// <para>Set the endpoints for the primal edges of the quad edge</para>
         ///
-        /// We can't set the endpoints of the duals (1, 3) without already knowing the triangulation. But the D&C algorithm also states that it doesn't need the endpoints of the dual edges to run, so we shouldn't encounter problems.
+        /// <para>We can't set the endpoints of the duals (1, 3) without already knowing the triangulation. But the D&C algorithm also states that it doesn't need the endpoints of the dual edges to run, so we shouldn't encounter problems.</para>
         /// </summary>
         /// <param name="origin"></param>
         /// <param name="destination"></param>
         public QuadEdge(Vertex origin, Vertex destination) : this() {  // also call the default constructor first
+        Console.WriteLine("Calling vertex constructor");
             edges[0].tail = origin;
             edges[0].head = destination;
             edges[2].tail = destination;
             edges[2].head = origin;
+            Console.WriteLine($"0: {edges[0].toString()}");
+            Console.WriteLine($"2: {edges[2].toString()}");
         }
 
         /// <summary>
@@ -262,10 +289,10 @@ namespace FiscalShock.GraphUtils {
                 beta.nextFromTail()
             };
 
-            b.next = tmp[1];
-            a.next = tmp[2];
-            beta.next = tmp[3];
-            alpha.next = tmp[4];
+            b.next = tmp[0];
+            a.next = tmp[1];
+            beta.next = tmp[2];
+            alpha.next = tmp[3];
         }
 
         /// <summary>
@@ -309,6 +336,7 @@ namespace FiscalShock.GraphUtils {
         }
 
         private bool leftOf(Vertex point, Edge e) {
+            // e.tail and e.head are not defined here during triangulation
             return ccw(point, e.tail, e.head);
         }
 
@@ -326,6 +354,12 @@ namespace FiscalShock.GraphUtils {
             return LinAlg.determinant4(a, b, c, d) > 0;
         }
 
+        private void printPoints(List<Edge> edges) {  // temp
+            foreach (Edge e in edges) {
+                System.Console.WriteLine($"{e.toString()}");
+            }
+        }
+
         /// <summary>
         /// TODO
         /// </summary>
@@ -333,6 +367,9 @@ namespace FiscalShock.GraphUtils {
         public Delaunay(List<Vertex> points) {
             // Sort the input list by x, then y
             delaunayPoints = points.OrderBy(p => p.x).ThenBy(p => p.y).ToList();
+
+            // triangulate right now just returns 2 edges, how 2 store the right ones
+            List<Edge> ded = triangulate(delaunayPoints);
         }
 
         private List<Edge> triangulate(List<Vertex> points) {
@@ -340,7 +377,6 @@ namespace FiscalShock.GraphUtils {
 
             if (points.Count == 2) {
                 // Only two points, so make an edge from points[0] to points[1]
-                // a = make edge;
                 Edge a = new QuadEdge(points[0], points[1]).getEdge();
                 return new List<Edge> { a, a.symmetric() };
             } else if (points.Count == 3) {
@@ -351,6 +387,9 @@ namespace FiscalShock.GraphUtils {
                 a.tail = points[0];
                 a.head = b.tail = points[1];
                 b.head = points[2];
+            Console.WriteLine("Spliced:");
+            Console.WriteLine($"a: {a.toString()}");
+            Console.WriteLine($"b: {b.toString()}");
                 // Two edges, so we can make a triangle here
                 if (ccw(points[0], points[1], points[2])) {
                     QuadEdge.connect(b, a);  // throw away the resulting line for some reason
@@ -363,10 +402,10 @@ namespace FiscalShock.GraphUtils {
                 }
             } else {  // divide-and-conquer
                 // split into L and R
-                int leftHalfEnd = (points.Count & 1) == 1?
+                int leftHalfSize = (points.Count & 1) == 1?
                                   (points.Count/2) + 1 : (points.Count/2);
-                List<Vertex> leftHalf = points.GetRange(0, leftHalfEnd);
-                List<Vertex> rightHalf = points.GetRange(leftHalfEnd + 1, points.Count);
+                List<Vertex> leftHalf = points.GetRange(0, leftHalfSize);
+                List<Vertex> rightHalf = points.GetRange(leftHalfSize, points.Count - leftHalfSize);
                 List<Edge> ld = triangulate(leftHalf);  // ld[0] = ldo, ld[1] = ldi
                 List<Edge> rd = triangulate(rightHalf);  // rd[0] = rdo, rd[1] = rdi
 
@@ -432,6 +471,23 @@ namespace FiscalShock.GraphUtils {
             }
 
             return candidate;
+        }
+    }
+
+    // Test method
+    static class TestClass {
+        public static void Main() {
+            Console.WriteLine("making points");
+            List<Vertex> pts = new List<Vertex> {
+                new Vertex(0, 0),
+                new Vertex(1, 2),
+                new Vertex(3, 1),
+                new Vertex(1, 3),
+                new Vertex(3, 0),
+                new Vertex(0, 6)
+            };
+
+            Delaunay dt = new Delaunay(pts);
         }
     }
 }
