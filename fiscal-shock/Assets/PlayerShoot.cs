@@ -32,7 +32,7 @@ public class PlayerShoot : MonoBehaviour
     void fireBullet(float accuracy, int damage)
     {
         fireSound.PlayOneShot(fireSoundClip);
-        GameObject bullet = Instantiate(bulletPrefab, gameObject.transform.position, gameObject.transform.rotation) as GameObject;
+        GameObject bullet = Instantiate(bulletPrefab, gameObject.transform.position + (gameObject.transform.forward * 50), gameObject.transform.rotation) as GameObject;
         BulletBehavior bulletScript = (bullet.GetComponent(typeof(BulletBehavior)) as BulletBehavior);
         bulletScript.damage = damage;
         Vector3 rotationVector = bullet.transform.rotation.eulerAngles;
