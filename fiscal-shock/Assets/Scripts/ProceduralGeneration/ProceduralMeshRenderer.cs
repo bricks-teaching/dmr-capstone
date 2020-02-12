@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Globalization;
+using System.Collections.Generic;
 using UnityEngine;
 using FiscalShock.Graphs;
 
@@ -39,19 +40,38 @@ public class ProceduralMeshRenderer : MonoBehaviour {
     void renderLines(List<Edge> edges, Color color) {
         // Start immediate mode drawing for lines
         GL.PushMatrix();
-        GL.Begin(GL.LINES);
-        GL.Color(color);
 
-        foreach (Edge e in edges) {
-            Vector3 a = e.vertices[0].toVector3AtHeight(renderHeight);
-            Vector3 b = e.vertices[1].toVector3AtHeight(renderHeight);
+        //foreach (Edge e in edges) {
+        //    GL.Begin(GL.LINES);
+        //    GL.Color(color);
+        //    Vector3 a = e.vertices[0].toVector3AtHeight(renderHeight);
+        //    Vector3 b = e.vertices[1].toVector3AtHeight(renderHeight);
 
-            // Connect two vertices
+        //    // Connect two vertices
+        //    GL.Vertex3(a.x, a.y, a.z);
+        //    GL.Vertex3(b.x, b.y, b.z);
+        //    GL.End();
+        //}
+
+        // drawing every triangle
+        for (int i = 0; i < dungen.dt.triangulation.triangles.Count; i += 3) {
+            GL.Begin(GL.LINES);
+            GL.Color(color);
+            float[] verts = dungen.dt.getTriangleVertices(i);
+            Vector3 a = new Vector3(verts[0], renderHeight, verts[1]);
+            Vector3 b = new Vector3(verts[2], renderHeight, verts[3]);
+            Vector3 c = new Vector3(verts[4], renderHeight, verts[5]);
+
+            // ab
             GL.Vertex3(a.x, a.y, a.z);
             GL.Vertex3(b.x, b.y, b.z);
+            // bc
+            GL.Vertex3(c.x, c.y, c.z);
+            // ca
+            GL.Vertex3(a.x, a.y, a.z);
+            GL.End();
         }
 
-        GL.End();
         GL.PopMatrix();
         Debug.Log($"Drew {edges.Count} edges.");
     }

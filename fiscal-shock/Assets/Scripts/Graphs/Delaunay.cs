@@ -19,6 +19,19 @@ namespace FiscalShock.Graphs {
             setTypedGeometry(this);
         }
 
+
+        // testing
+        public float[] getTriangleVertices(int t) {
+            return new float[] {
+                (float)triangulation.coords[2*triangulation.triangles[t]],
+                (float)triangulation.coords[2*triangulation.triangles[t]+1],
+                (float)triangulation.coords[2*triangulation.triangles[t+1]],
+                (float)triangulation.coords[2*triangulation.triangles[t+1]+1],
+                (float)triangulation.coords[2*triangulation.triangles[t+2]],
+                (float)triangulation.coords[2*triangulation.triangles[t+2]+1]
+            };
+        }
+
         /// <summary>
         /// Sets up all geometry from the triangulation into data structures
         /// that are easier to deal with

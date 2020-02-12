@@ -365,11 +365,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seed: 5
   numberOfVertices: 100
-  unitScale: 1
-  minX: -100
-  maxX: 100
-  minY: -100
-  maxY: 100
+  unitScale: 3
+  minX: -33
+  maxX: 33
+  minY: -33
+  maxY: 33
 --- !u!4 &1546386903
 Transform:
   m_ObjectHideFlags: 0
