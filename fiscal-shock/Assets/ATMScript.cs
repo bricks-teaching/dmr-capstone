@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ATMScript : MonoBehaviour
 {
-    public bool bankPaid = false;
+    public bool bankDue = true;
 
     //figure out how to import script interfaces
     public bool addDebt(int amount){
@@ -23,12 +23,12 @@ public class ATMScript : MonoBehaviour
         } else if(){ //amount is more than the debt
             //display message stating less significant error
             //reduce debt to 0 and money on hand by the debt's value
-            bankPaid = true;
+            bankDue = false;
             return true;
         } else { //none of the above
             //display confirmation dialogue
             //reduce debt and money by amount
-            bankPaid = true;
+            bankDue = false;
             return true;
         }
     }

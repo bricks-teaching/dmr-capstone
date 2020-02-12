@@ -6,7 +6,7 @@ public class MobsterScript : MonoBehaviour
 {
     //figure out how to import script interfaces
     //Also need threat increase when not paid, gets bad at 5 and really bad at 8
-    public bool mobPaid{get; set;} = false;
+    public bool mobDue{get; set;} = true;
 
     public bool addDebt(int amount){
         if(){//mob threat is below 3 and is below max total debt
@@ -24,12 +24,12 @@ public class MobsterScript : MonoBehaviour
         } else if(){ //amount is more than the debt
             //display message stating less significant error
             //reduce debt to 0 and money on hand by the debt's value
-            mobPaid = true;
+            mobDue = false;
             return true;
         } else { //none of the above
             //display confirmation dialogue
             //reduce debt and money by amount
-            mobPaid = true;
+            mobDue = false;
             return true;
         }
     }

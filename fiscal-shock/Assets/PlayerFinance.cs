@@ -4,13 +4,19 @@ using UnityEngine;
 
 interface PlayerF {
     //property signatures
-    int money
+    public float cashOnHand
     {
         get;
         set;
     }
 
-    int debt
+    public float debtBank
+    {
+        get;
+        set;
+    }
+
+    public float debtMob
     {
         get;
         set;
@@ -19,14 +25,16 @@ interface PlayerF {
 
 public class PlayerFinance : PlayerF
 {
-    public int money{get; set;}
-    public int debt{get; set;}
+    public float cashOnHand{get; set;}
+    public float debtBank{get; set;}
+    public float debtMob{get; set;}
     // Start is called before the first frame update
-    public PlayerFinance(int x, int y)
+    public PlayerFinance(float cash, float bankDebt, float mobDebt)
     {
-        money = x;
-        debt = y; //to be changed later, will depend of value of initial equipment
+        cashOnHand = cash;
+        debtBank = bankDebt;
+        debtMob = mobDebt;
     }
 
-    public PlayerFinance finances = new PlayerFinance(0, 1000);
+    public PlayerFinance finances = new PlayerFinance(0.0f, 1000.0f, 0.0f);
 }

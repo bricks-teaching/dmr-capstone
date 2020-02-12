@@ -4,39 +4,36 @@ using UnityEngine;
 
 interface Creditor {
     //property signatures
-    int maxLoan
+    public float maxLoan
     {
         get;
-        set;
     }
 
-    int threatLevel
+    public int threatLevel
     {
         get;
-        set;
     }
 
-    double interestRate
+    public double interestRate
     {
         get;
-        set;
     }
 }
 
 public class CreditSources : Creditor
 {
     //Purpose of this script is to set up initial statistics for creditors, one hostile, one friendly.
-    public int maxLoan{get; set;}
-    public int threatLevel{get; set;}
-    public double interestRate{get; set;}
+    public float maxLoan{get;}
+    public int threatLevel{get;}
+    public double interestRate{get;}
 
-    public CreditSources(int x, int y, double z) //all values subject to change
+    public CreditSources(float loanMax, int threat, double interest) //all values subject to change
     {
-        maxLoan = x;
-        threatLevel = y;
-        interestRate = z;
+        maxLoan = loanMax;
+        threatLevel = threat;
+        interestRate = interest;
     }
 
-    public CreditSources bank = new CreditSources(10000, 0, 5.0);
-    public CreditSources mob = new CreditSources(4000, 3, 20.3);
+    public CreditSources bank = new CreditSources(10000.0f, 0, 5.0);
+    public CreditSources mob = new CreditSources(4000.0f, 3, 20.3);
 }
