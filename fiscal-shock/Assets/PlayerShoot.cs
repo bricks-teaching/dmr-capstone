@@ -8,6 +8,7 @@ public class PlayerShoot : MonoBehaviour
     private AudioSource fireSound;
     public AudioClip fireSoundClip;
     public GameObject weapon;
+    public bool weaponChanging = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +18,7 @@ public class PlayerShoot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !weaponChanging)
         {
             WeaponStats weaponScript = (weapon.GetComponent(typeof(WeaponStats)) as WeaponStats);
             if(weaponScript.ammo > 0)
