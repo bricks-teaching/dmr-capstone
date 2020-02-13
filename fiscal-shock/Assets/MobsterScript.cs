@@ -9,10 +9,10 @@ public class MobsterScript : MonoBehaviour
     public static bool mobDue{get; set;} = false; //This is because the player starts with no debt to the mob
 
     public bool addDebt(int amount){
-        if(PlayerFinance.getMobThreatLevel() < 5 && PlayerFinance.getMobMaxLoan() > (PlayerFinance.getDebtMob() + amount)){
+        if(PlayerFinance.mobThreatLevel < 5 && PlayerFinance.mobMaxLoan > (PlayerFinance.debtMob + amount)){
             //mob threat is below 3 and is below max total debt
-            PlayerFinance.setDebtMob(PlayerFinance.getDebtMob() + amount);
-            PlayerFinance.setCashOnHand(PlayerFinance.getCashOnHand() + amount);
+            PlayerFinance.debtMob += amount;
+            PlayerFinance.cashOnHand += amount;
             mobDue = true;
             return true;
         } else {
@@ -21,17 +21,17 @@ public class MobsterScript : MonoBehaviour
     }
 
     public bool payDebt(int amount){
-        if(PlayerFinance.getCashOnHand() < amount){//amount is more than money on hand
+        if(PlayerFinance.cashOnHand < amount){//amount is more than money on hand
             return false;
-        } else if(PlayerFinance.getDebtMob() < amount){ //amount is more than the debt
-            PlayerFinance.setCashOnHand(PlayerFinance.getCashOnHand() - PlayerFinance.getDebtMob());
-            PlayerFinance.setDebtMob(0.0f);//reduce debt to 0 and money on hand by the debt's value
+        } else if(PlayerFinance.debtMob < amount){ //amount is more than the debt
+            PlayerFinance.debtMob = 0.0f;//reduce debt to 0 and money on hand by the debt's value
+            PlayerFinance.cashOnHand -= PlayerFinance.debtMob;
             mobDue = false;
             return true;
         } else { //none of the above
             //reduce debt and money by amount
-            PlayerFinance.setDebtMob(PlayerFinance.getDebtMob() - amount);
-            PlayerFinance.setCashOnHand(PlayerFinance.getCashOnHand() - amount);
+            PlayerFinance.debtMob -= amount;
+            PlayerFinance.cashOnHand -= amount;
             mobDue = false;
             return true;
         }

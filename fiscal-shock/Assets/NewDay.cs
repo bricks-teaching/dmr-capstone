@@ -7,20 +7,19 @@ public class NewDay : MonoBehaviour
     // to be triggered on arrival from the dungeon, accrues interest and causes hostility if not paid
     public bool startNewDay(bool mobNotPaid, bool bankNotPaid){
         if(mobNotPaid){
-            PlayerFinance.setMobThreatLevel(PlayerFinance.getMobThreatLevel() + 1);
+            PlayerFinance.mobThreatLevel++;
         }
         if(bankNotPaid){
-            PlayerFinance.setBankThreatLevel(PlayerFinance.getBankThreatLevel() + 1);
+            PlayerFinance.bankThreatLevel++;
         }
         //Increase bank loan by interest rate and reset variable
-        PlayerFinance.setDebtBank(PlayerFinance.getDebtBank() + (PlayerFinance.getDebtBank() * PlayerFinance.getBankInterestRate()));
+        PlayerFinance.debtBank += PlayerFinance.debtBank * PlayerFinance.bankInterestRate;
         ATMScript.bankDue = true;
         //Increase Mob loan by interest rate and reset variable if mob debt exists
-        if(PlayerFinance.getDebtMob() > 0.0f){
-            PlayerFinance.setDebtMob(PlayerFinance.getDebtMob() + (PlayerFinance.getDebtMob() * PlayerFinance.getMobInterestRate()));
+        if(PlayerFinance.debtMob > 0.0f){
+            PlayerFinance.debtMob += PlayerFinance.debtMob * PlayerFinance.mobInterestRate;
             MobsterScript.mobDue = true;
         }
-
         return true;
     }
 }
