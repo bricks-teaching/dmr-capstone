@@ -17,10 +17,13 @@ public class Shoot : MonoBehaviour
     public int botAccuracy = 10;
     //How close the bot needs to be to fire bullets at the player.
     public int botRange = 1440;
+    //How close the bot gets to the player
+    public int botStoppingDistance = 1000;
     // the number of seconds between shots.
     public float botRate = 1.7f;
     public float botReaction = 7.0f;
     public float botSpeed = 20f;
+    public float volume = 1f;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,27 +31,30 @@ public class Shoot : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         Vector3 playerDirection = (player.transform.position - gameObject.transform.position).normalized;
         Quaternion rotatationToPlayer = Quaternion.LookRotation(playerDirection);
         gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, rotatationToPlayer, Time.fixedDeltaTime * botReaction);
         //Debug.Log("Distance: " + (gameObject.transform.position - player.transform.position).magnitude);
-        if((gameObject.transform.position - player.transform.position).magnitude < botRange)
+        float distance = (gameObject.transform.position - player.transform.position).magnitude;
+        if( distance < botRange)
         {
             time += Time.deltaTime;
             if(time > botRate){
-                fireBullet(botAccuracy, botDamage);
+                fireBullet(10 - botAccuracy, botDamage);
                 time = 0.0f;
             }
-        } else { // This will be replaced by AI pathfinding later
+        } 
+        if( distance > botStoppingDistance)
+        { // This will be replaced by AI pathfinding later
             gameObject.transform.position += gameObject.transform.forward * botSpeed;
         }
     }
 
     void fireBullet(float accuracy, int damage)
     {
-        fireSound.PlayOneShot(fireSoundClip);
+        fireSound.PlayOneShot(fireSoundClip, volume);
         GameObject bullet = Instantiate(bulletPrefab, gameObject.transform.position + (gameObject.transform.forward * botSize), gameObject.transform.rotation) as GameObject;
         BulletBehavior bulletScript = (bullet.GetComponent(typeof(BulletBehavior)) as BulletBehavior);
         bulletScript.damage = damage;

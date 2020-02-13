@@ -124,6 +124,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   strength: 10
-  ammo: 30
+  ammo: 200
   bulletCost: 1
-  accuracy: 6
+  accuracy: 7

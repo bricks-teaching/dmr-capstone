@@ -10,6 +10,8 @@ public class Damage : MonoBehaviour
     public GameObject explosion;
     private AudioSource hitSound;
     public AudioClip hitSoundClip;
+    public GameObject controller;
+    public float volume = 1f;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,11 +26,13 @@ public class Damage : MonoBehaviour
             int bulletDamage = bullet.damage;
             totalHealth -= bulletDamage;
             if(totalHealth <= 0){
+                WeaponDemo mainScript = controller.GetComponent(typeof(WeaponDemo)) as WeaponDemo;
+                mainScript.removeBot(gameObject);
                 Destroy(gameObject, 0.9f);
             }
             Debug.Log("Damage: " + bullet.damage + " points. Bot has " + totalHealth + " health points remaining");
             //Play sound effect and explosion particle system
-            hitSound.PlayOneShot(hitSoundClip, 0.4f);
+            hitSound.PlayOneShot(hitSoundClip, 0.5f * volume);
             GameObject explode = Instantiate(explosion, gameObject.transform.position, gameObject.transform.rotation);
             Destroy(explode, 0.5f);
             //If bot goes under 50% health, make it look damaged

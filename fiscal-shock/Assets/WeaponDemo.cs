@@ -6,20 +6,45 @@ using UnityEngine;
 public class WeaponDemo : MonoBehaviour
 {
     public GameObject robotBug;
+    public GameObject spidBot;
     public GameObject player;
     public GameObject gun1;
     public GameObject gun2;
+    public int[] gunAmmo = {0, -1, -1};
     public GameObject weapon;
-    private int slot = 0;
+    private int slot = 1;
     private int currentSlot = 0;
     public bool holsteringWeapon = false;
     public bool drawingWeapon = false;
     public float spawnRate = 10.0f;
     private float time = 9.0f;
-    private float weaponChangeTime = 0f;
-    // Update is called once per frame
-    void Update()
+    private float animatedTime;
+    private ArrayList bots = new ArrayList();
+    public GameObject gameMenu;
+    public GameObject pauseMenu;
+    public GameObject crossHair;
+    public float volume = 1f;
+    public void Start()
     {
+        crossHair.SetActive(false);
+        LoadWeapon();
+    }
+    // Update is called once per frame
+    public void Update()
+    {
+        //Bring up pause menu
+        if(Input.GetKeyDown("p"))
+        {
+            if(Time.timeScale == 0){
+                Time.timeScale = 1;
+            } else {
+                Time.timeScale = 0;
+            }
+            Cursor.lockState = CursorLockMode.None;
+            pauseMenu.SetActive(true);
+            crossHair.SetActive(false);
+        }
+        //Change weapon
         if(Input.GetKeyDown("1"))
         {
             slot = 1;
@@ -42,78 +67,120 @@ public class WeaponDemo : MonoBehaviour
                 LoadWeapon();
             }
         }
+        //If player is currently holstering or drawing a weapon, alter weapon position to animate the process.
         if(drawingWeapon)
         {
-            //Debug.Log("downDist " + (player.transform.GetChild(0).gameObject.transform.position - weapon.transform.position).magnitude);
-            if((player.transform.GetChild(0).gameObject.transform.position - weapon.transform.position).magnitude > .5)
+            if((player.transform.GetChild(slot - 1).gameObject.transform.position - weapon.transform.position).magnitude > .5)
             {
-                Debug.Log("downDist " + (player.transform.GetChild(0).gameObject.transform.position - weapon.transform.position).magnitude);
                 weapon.transform.position += player.transform.up * 5f;
             } 
             Vector3 rotationVector = player.transform.rotation.eulerAngles;
             rotationVector.x -= 100;
-            weapon.transform.rotation = Quaternion.Slerp(weapon.transform.rotation, Quaternion.Euler(rotationVector), Time.fixedDeltaTime * 5);
-            if(weaponChangeTime > 1f)
+            weapon.transform.rotation = Quaternion.Slerp(weapon.transform.rotation, Quaternion.Euler(rotationVector), Time.fixedDeltaTime * 6);
+            //After animation has run set weapon changing to false
+            if(animatedTime > 0.9f)
             {
-                weaponChangeTime = 0f;
+                animatedTime = 0f;
                 drawingWeapon = false;
                 PlayerShoot playerShootScript = player.GetComponent(typeof(PlayerShoot)) as PlayerShoot;
                 playerShootScript.weaponChanging = false;
-                Debug.Log("Weapon changed");
+                crossHair.SetActive(true);
             }
-            weaponChangeTime += Time.deltaTime;
+            animatedTime += Time.deltaTime;
         } else if (holsteringWeapon)
         {
-            weapon.transform.position -= player.transform.up * 5f;
+            Debug.Log(animatedTime);
+            weapon.transform.position -= (player.transform.up * 5f) + player.transform.forward;
             Vector3 rotationVector = player.transform.rotation.eulerAngles;
-            weapon.transform.rotation = Quaternion.Slerp(weapon.transform.rotation, Quaternion.Euler(rotationVector), Time.fixedDeltaTime * 5);
-            if(weaponChangeTime > 1f)
+            weapon.transform.rotation = Quaternion.Slerp(weapon.transform.rotation, Quaternion.Euler(rotationVector), Time.fixedDeltaTime * 6);
+            //After animation has run get the new weapon
+            if(animatedTime > 0.8f)
             {
-                weaponChangeTime = 0f;
+                animatedTime = 0f;
                 holsteringWeapon = false;
-                PlayerShoot playerShootScript = player.GetComponent(typeof(PlayerShoot)) as PlayerShoot;
-                playerShootScript.weaponChanging = false;
-                Debug.Log("CallLoadWeapon");
                 LoadWeapon();
             }
-            weaponChangeTime += Time.deltaTime;
+            animatedTime += Time.deltaTime;
         }
-        /*
+        //Spawn a new bot when time passed reaches spawnRate 
         time += Time.deltaTime;
         if(time > spawnRate){
-            //Add enemy to the scene
             GameObject bot = Instantiate(robotBug, new Vector3(Random.value * 2000, 850, Random.value * 2000), gameObject.transform.rotation);
+            bots.Add(bot);
             //Tell the bot to go after the player
             Shoot botShootingScript = bot.GetComponent(typeof(Shoot)) as Shoot;
             botShootingScript.player = player;
+            botShootingScript.volume = volume;
+            Damage botDamageScript = bot.GetComponent(typeof(Damage)) as Damage;
+            botDamageScript.volume = volume;
+            //set controller to this script so bot can remove itself from the bot arraylist when it is destroyed
+            botDamageScript.controller = gameObject;
             Debug.Log("enemy bot added");
             time = 0.0f;
         }
-        */
+        
     }
 
-    void LoadWeapon()
+    public void removeBot(GameObject bot){
+        bots.Remove(bot);
+    }
+
+    public void ChangeVolume(float vol)
     {
+        volume = vol;
+        //Go through all the scripts attached to player and the bots in the scene and update the volume
+        PlayerShoot playerShootScript = player.GetComponent(typeof(PlayerShoot)) as PlayerShoot;
+        playerShootScript.volume = vol;
+        for(int i = 0; i < bots.Count; i++)
+        {
+            GameObject bot = bots[i] as GameObject;
+            Shoot botShootingScript = bot.GetComponent(typeof(Shoot)) as Shoot;
+            botShootingScript.volume = vol;
+            Damage botDamageScript = bot.GetComponent(typeof(Damage)) as Damage;
+            botDamageScript.volume = vol;
+        }
+    }
+    private void LoadWeapon()
+    {
+        drawingWeapon = true;
+        //Update weapon slot and create weapon object
         currentSlot = slot;
         GameObject choice = gun1;
         if(slot == 2)
         {
             choice = gun2;
         }
-        drawingWeapon = true;
-        weapon = Instantiate(choice, player.transform.GetChild(0).gameObject.transform.position - (player.transform.up * 80f), player.transform.rotation);
+        if(weapon != null){
+            Destroy(weapon);
+        }
+        weapon = Instantiate(choice, player.transform.GetChild(slot - 1).gameObject.transform.position - (player.transform.up * 80f), player.transform.rotation);
+        if(gunAmmo[slot] > -1){
+            WeaponStats statsScript = weapon.GetComponent(typeof(WeaponStats)) as WeaponStats;
+            statsScript.ammo = gunAmmo[slot];
+        }
         weapon.transform.parent = player.transform;
+        //Attach weapon to shooting script
         PlayerShoot playerShootScript = player.GetComponent(typeof(PlayerShoot)) as PlayerShoot;
         playerShootScript.weapon = weapon;
         playerShootScript.weaponChanging = true;
     }
-
-    void HolsterWeapon()
+    
+    private void HolsterWeapon()
     {
+        //If weapon is already selected, do nothing
         if(slot == currentSlot)
         {
             return;
         }
         holsteringWeapon = true;
+        //Hide crossHair while weapon is changing
+        crossHair.SetActive(false);
+        //Update ammo left
+        WeaponStats statsScript = weapon.GetComponent(typeof(WeaponStats)) as WeaponStats;
+        gunAmmo[currentSlot] = statsScript.ammo;
+        //Disable ability for player to shoot
+        PlayerShoot playerShootScript = player.GetComponent(typeof(PlayerShoot)) as PlayerShoot;
+        playerShootScript.weapon = weapon;
+        playerShootScript.weaponChanging = true;
     }
 }
