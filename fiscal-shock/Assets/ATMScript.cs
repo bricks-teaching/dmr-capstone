@@ -4,30 +4,33 @@ using UnityEngine;
 
 public class ATMScript : MonoBehaviour
 {
-    public bool bankDue = true;
+    public static bool bankDue = true;
 
     //figure out how to import script interfaces
-    public bool addDebt(int amount){
-        if(){//bank threat is below 3 and is below max total debt
-            //increase debt by amount
+    public bool addDebt(float amount){
+        if(PlayerFinance.bankThreatLevel < 3 && PlayerFinance.bankMaxLoan > (PlayerFinance.debtBank + amount)){
+            //bank threat is below 3 and is below max total debt
+            PlayerFinance.debtBank += amount;
+            PlayerFinance.cashOnHand += amount;
             return true;
         } else {
             return false;
         }
     }
 
-    public bool payDebt(int amount){
-        if(){//amount is more than money on hand
+    public bool payDebt(float amount){
+        if(PlayerFinance.cashOnHand.CompareTo(amount) < 0){//amount is more than money on hand
             //display a message stating error
             return false;
-        } else if(){ //amount is more than the debt
-            //display message stating less significant error
-            //reduce debt to 0 and money on hand by the debt's value
+        } else if(PlayerFinance.debtBank.CompareTo(amount) < 0){ //amount is more than the debt
+            PlayerFinance.debtBank = 0.0f;//reduce debt to 0 and money on hand by the debt's value
+            PlayerFinance.cashOnHand -= PlayerFinance.debtBank;
             bankDue = false;
             return true;
         } else { //none of the above
-            //display confirmation dialogue
             //reduce debt and money by amount
+            PlayerFinance.debtBank -= amount;
+            PlayerFinance.cashOnHand -= amount;
             bankDue = false;
             return true;
         }

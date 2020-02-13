@@ -2,39 +2,27 @@
 //using System.Collections.Generic;
 using UnityEngine;
 
-interface PlayerF {
-    //property signatures
-    public float cashOnHand
-    {
-        get;
-        set;
-    }
-
-    public float debtBank
-    {
-        get;
-        set;
-    }
-
-    public float debtMob
-    {
-        get;
-        set;
-    }
-}
-
-public class PlayerFinance : PlayerF
+public class PlayerFinance
 {
-    public float cashOnHand{get; set;}
-    public float debtBank{get; set;}
-    public float debtMob{get; set;}
-    // Start is called before the first frame update
-    public PlayerFinance(float cash, float bankDebt, float mobDebt)
-    {
-        cashOnHand = cash;
-        debtBank = bankDebt;
-        debtMob = mobDebt;
-    }
+    public static float cashOnHand{get; set;}
+    public static float debtBank{get; set;}
+    public static float bankMaxLoan{get; set;}
+    public static int bankThreatLevel{get; set;}
+    public static float bankInterestRate{get; set;}
+    public static float debtMob{get; set;}
+    public static float mobMaxLoan{get; set;}
+    public static int mobThreatLevel{get; set;}
+    public static float mobInterestRate{get; set;}
 
-    public PlayerFinance finances = new PlayerFinance(0.0f, 1000.0f, 0.0f);
+    public PlayerFinance(){
+        cashOnHand = 1000.0f;
+        debtBank = 2500.0f;
+        bankMaxLoan = 10000.0f;
+        bankThreatLevel = 0;
+        bankInterestRate = 3.5f;
+        debtMob = 0.0f;
+        mobMaxLoan = 4000.0f;
+        mobThreatLevel = 3;
+        mobInterestRate = 15.5f;
+    }
 }
