@@ -20,7 +20,11 @@ namespace FiscalShock.Graphs {
             setTypedGeometry(this);
         }
 
-        // testing
+        /// <summary>
+        /// Get Delaunator-based triangle vertices
+        /// </summary>
+        /// <param name="t">id of the Delaunator triangle</param>
+        /// <returns>array of vertices</returns>
         public float[] getTriangleVertices(int t) {
             return new float[] {
                 (float)triangulation.coords[2 * triangulation.triangles[t]],
@@ -38,7 +42,6 @@ namespace FiscalShock.Graphs {
         /// Sets up all geometry from the triangulation into data structures
         /// that are easier to deal with
         /// </summary>
-        /// <returns></returns>
         public static void setTypedGeometry(Delaunay dt) {
             dt.vertices = new List<Vertex>();
             dt.edges = new List<Edge>();
@@ -46,7 +49,7 @@ namespace FiscalShock.Graphs {
             for (int i = 0; i < dt.triangulation.triangles.Count; i += 3) {
                 // TODO do the points need to be in clockwise order?
                 float[] vertices = dt.getTriangleVertices(i);
-                // TODO get vertex ids, or are they necessary? the indices of coords are sorted, I think
+                // TODO get vertex ids, or are they necessary? the indices of "coords" are sorted, I think
                 Vertex a = new Vertex(vertices[0], vertices[1]);
                 Vertex b = new Vertex(vertices[2], vertices[3]);
                 Vertex c = new Vertex(vertices[4], vertices[5]);
@@ -73,6 +76,10 @@ namespace FiscalShock.Graphs {
             }
         }
 
+        /// <summary>
+        /// Generates the corresponding Voronoi diagram for this triangulation
+        /// </summary>
+        /// <returns>dual graph</returns>
         public Voronoi makeVoronoi() {
             dual = new Voronoi(this);
             return dual;

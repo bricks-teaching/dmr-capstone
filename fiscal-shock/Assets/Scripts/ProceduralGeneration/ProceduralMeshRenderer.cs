@@ -47,9 +47,8 @@ namespace FiscalShock.Demo {
 
             foreach (Triangle t in del.triangles) {
                 GL.Begin(GL.LINES);
-                edgeMat.SetPass(0);
-                edgeMat.SetColor(Shader.PropertyToID("_Color"), color);  // set game view color
-                GL.Color(color);  // set editor color
+                setGraphColors(color);
+ 
                 Vector3 a = t.vertices[0].toVector3AtHeight(renderHeight);
                 Vector3 b = t.vertices[1].toVector3AtHeight(renderHeight);
                 Vector3 c = t.vertices[2].toVector3AtHeight(renderHeight);
@@ -73,10 +72,10 @@ namespace FiscalShock.Demo {
 
             foreach (Edge e in edges) {
                 GL.Begin(GL.LINES);
-                edgeMat.SetPass(0);
-                edgeMat.SetColor(Shader.PropertyToID("_Color"), color);  // set game view color
-                GL.Color(color);  // set editor color
+                setGraphColors(color);
 
+                // cheap hack to not display at same height as delaunay, it gets rendered weird
+                // TODO make more configurable when more graphs displayed
                 Vector3 a = e.vertices[0].toVector3AtHeight(renderHeight+0.5f);
                 Vector3 b = e.vertices[1].toVector3AtHeight(renderHeight+0.5f);
 
@@ -97,6 +96,12 @@ namespace FiscalShock.Demo {
             if (renderVoronoi && dungen.vd != null) {
                 renderEdges(dungen.vd.edges, voronoiColor);
             }
+        }
+
+        private void setGraphColors(Color color) {
+            edgeMat.SetPass(0);
+            edgeMat.SetColor(Shader.PropertyToID("_Color"), color);  // set game view color
+            GL.Color(color);  // set editor color
         }
 
         // Display in game
