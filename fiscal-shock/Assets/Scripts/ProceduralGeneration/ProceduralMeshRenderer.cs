@@ -40,32 +40,18 @@ namespace FiscalShock.Demo {
         [Tooltip("Material with a specific shader to color lines properly in game view. Don't change it unless you have a good reason!")]
         public Material edgeMat;
 
-        public void renderLines(List<Edge> edges, Color color) {
+        private void renderDelaunayTriangulation(Delaunay del, Color color) {
             // Start immediate mode drawing for lines
             GL.PushMatrix();
 
-            //foreach (Edge e in edges) {
-            //    GL.Begin(GL.LINES);
-            //    GL.Color(color);
-            //    Vector3 a = e.vertices[0].toVector3AtHeight(renderHeight);
-            //    Vector3 b = e.vertices[1].toVector3AtHeight(renderHeight);
-
-            //    // Connect two vertices
-            //    GL.Vertex3(a.x, a.y, a.z);
-            //    GL.Vertex3(b.x, b.y, b.z);
-            //    GL.End();
-            //}
-
-            // drawing every triangle
-            for (int i = 0; i < dungen.dt.triangulation.triangles.Count; i += 3) {
+            foreach (Triangle t in del.triangles) {
                 GL.Begin(GL.LINES);
                 edgeMat.SetPass(0);
                 edgeMat.SetColor(Shader.PropertyToID("_Color"), color);  // set game view color
-                GL.Color(color);                        // set editor color
-                float[] verts = dungen.dt.getTriangleVertices(i);
-                Vector3 a = new Vector3(verts[0], renderHeight, verts[1]);
-                Vector3 b = new Vector3(verts[2], renderHeight, verts[3]);
-                Vector3 c = new Vector3(verts[4], renderHeight, verts[5]);
+                GL.Color(color);  // set editor color
+                Vector3 a = t.vertices[0].toVector3AtHeight(renderHeight);
+                Vector3 b = t.vertices[1].toVector3AtHeight(renderHeight);
+                Vector3 c = t.vertices[2].toVector3AtHeight(renderHeight);
 
                 // ab
                 GL.Vertex3(a.x, a.y, a.z);
@@ -74,16 +60,41 @@ namespace FiscalShock.Demo {
                 GL.Vertex3(c.x, c.y, c.z);
                 // ca
                 GL.Vertex3(a.x, a.y, a.z);
+
                 GL.End();
             }
 
             GL.PopMatrix();
-            Debug.Log($"Drew {edges.Count} edges.");
+        }
+
+        private void renderEdges(List<Edge> edges, Color color) {
+            GL.PushMatrix();
+
+            foreach (Edge e in edges) {
+                GL.Begin(GL.LINES);
+                edgeMat.SetPass(0);
+                edgeMat.SetColor(Shader.PropertyToID("_Color"), color);  // set game view color
+                GL.Color(color);  // set editor color
+
+                Vector3 a = e.vertices[0].toVector3AtHeight(renderHeight);
+                Vector3 b = e.vertices[1].toVector3AtHeight(renderHeight);
+
+                // ab
+                GL.Vertex3(a.x, a.y, a.z);
+                GL.Vertex3(b.x, b.y, b.z);
+
+                GL.End();
+            }
+
+            GL.PopMatrix();
         }
 
         private void renderAllSelected() {
             if (renderDelaunay && dungen.dt != null) {
-                renderLines(dungen.dt.edges, delaunayColor);
+                renderDelaunayTriangulation(dungen.dt, delaunayColor);
+            }
+            if (renderVoronoi && dungen.vd != null) {
+                renderEdges(dungen.vd.edges, voronoiColor);
             }
         }
 

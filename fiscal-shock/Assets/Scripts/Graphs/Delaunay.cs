@@ -1,4 +1,3 @@
-using System.Security.Cryptography;
 using ThirdParty.Delaunator;
 using System.Collections.Generic;
 
@@ -12,6 +11,8 @@ namespace FiscalShock.Graphs {
         public List<Edge> edges { get; private set; }
         public List<Triangle> triangles { get; private set; }
 
+        public Voronoi dual { get; set; }
+
         public Delaunay(List<double> input) {
             triangulation = new Triangulation(input);
 
@@ -19,16 +20,17 @@ namespace FiscalShock.Graphs {
             setTypedGeometry(this);
         }
 
-
         // testing
         public float[] getTriangleVertices(int t) {
             return new float[] {
-                (float)triangulation.coords[2*triangulation.triangles[t]],
-                (float)triangulation.coords[2*triangulation.triangles[t]+1],
-                (float)triangulation.coords[2*triangulation.triangles[t+1]],
-                (float)triangulation.coords[2*triangulation.triangles[t+1]+1],
-                (float)triangulation.coords[2*triangulation.triangles[t+2]],
-                (float)triangulation.coords[2*triangulation.triangles[t+2]+1]
+                (float)triangulation.coords[2 * triangulation.triangles[t]],
+                (float)triangulation.coords[2 * triangulation.triangles[t] + 1],
+
+                (float)triangulation.coords[2 * triangulation.triangles[t + 1]],
+                (float)triangulation.coords[2 * triangulation.triangles[t + 1] + 1],
+
+                (float)triangulation.coords[2 * triangulation.triangles[t + 2]],
+                (float)triangulation.coords[2 * triangulation.triangles[t + 2] + 1]
             };
         }
 
@@ -41,41 +43,24 @@ namespace FiscalShock.Graphs {
             dt.vertices = new List<Vertex>();
             dt.edges = new List<Edge>();
             dt.triangles = new List<Triangle>();
-            /* The coordinates of triangle t are located at the following
-             * indices of dt.coords:
-             *    (2*dt.triangles[t],   2*dt.triangles[t] + 1)
-             *    (2*dt.triangles[t+1], 2*dt.triangles[t+1] + 1)
-             *    (2*dt.triangles[t+2], 2*dt.triangles[t+2] + 1)
-             */
-            for (int i = 0; i < dt.triangulation.triangles.Count/3; ++i) {
+            for (int i = 0; i < dt.triangulation.triangles.Count; i += 3) {
                 // TODO do the points need to be in clockwise order?
-                Vertex a = new Vertex(
-                    dt.triangulation.coords[2*dt.triangulation.triangles[i]],
-                    dt.triangulation.coords[2*dt.triangulation.triangles[i] + 1],
-                    2*dt.triangulation.triangles[i]
-                );
-                Vertex b = new Vertex(
-                    dt.triangulation.coords[2*dt.triangulation.triangles[i+1]],
-                    dt.triangulation.coords[2*dt.triangulation.triangles[i+1] + 1],
-                    2*dt.triangulation.triangles[i+1]
-                );
-                Vertex c = new Vertex(
-                    dt.triangulation.coords[2*dt.triangulation.triangles[i+2]],
-                    dt.triangulation.coords[2*dt.triangulation.triangles[i+2] + 1],
-                    2*dt.triangulation.triangles[i+2]
-                );
+                float[] vertices = dt.getTriangleVertices(i);
+                // TODO get vertex ids, or are they necessary? the indices of coords are sorted, I think
+                Vertex a = new Vertex(vertices[0], vertices[1]);
+                Vertex b = new Vertex(vertices[2], vertices[3]);
+                Vertex c = new Vertex(vertices[4], vertices[5]);
 
                 /* Link up the vertices. The ids for triangle t's edges are
                  *    3 * t, 3 * t + 1, 3 * t + 2
                  */
                 Edge ab = new Edge(a, b, 3*i);
                 Edge bc = new Edge(b, c, 3*i+1);
-                Edge ac = new Edge(a, c, 3*i+2);
-                // TODO add incident edges and adjacent vertices to Vertex objs
+                Edge ca = new Edge(c, a, 3*i+2);
 
                 // Add to the Delaunay object
                 List<Vertex> vabc = new List<Vertex> { a, b, c };
-                List<Edge> eabc = new List<Edge> { ab, bc, ac };
+                List<Edge> eabc = new List<Edge> { ab, bc, ca };
                 dt.vertices.AddRange(vabc);
                 dt.edges.AddRange(eabc);
 
@@ -86,6 +71,11 @@ namespace FiscalShock.Graphs {
                 );
                 dt.triangles.Add(t);
             }
+        }
+
+        public Voronoi makeVoronoi() {
+            dual = new Voronoi(this);
+            return dual;
         }
     }
 }
