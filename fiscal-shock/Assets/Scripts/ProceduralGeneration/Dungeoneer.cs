@@ -19,13 +19,13 @@ namespace FiscalShock.Procedural {
         public float unitScale = 1;
 
         [Tooltip("Minimum x-value of a vertex.")]
-        public int minX = 0;
+        public int minX = -100;
 
         [Tooltip("Maximum x-value of a vertex.")]
         public int maxX = 100;
 
         [Tooltip("Minimum y-value of a vertex.")]
-        public int minY = 0;
+        public int minY = -100;
 
         [Tooltip("Maximum y-value of a vertex.")]
         public int maxY = 100;

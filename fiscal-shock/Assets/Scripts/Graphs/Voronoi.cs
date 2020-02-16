@@ -69,7 +69,8 @@ namespace FiscalShock.Graphs {
                 // If we have a cell side for each neighbor, we're done
                 int delta = cellSides.Count - sites[i].neighborhood.Count;
                 if (delta == 0) {
-                    cells[i] = new Polygon(cellSides);
+                    cells.Add(new Polygon(cellSides));
+                    continue;
                 }
 
                 // If not all edges were guaranteed, we need to fall back to other methods
@@ -98,12 +99,13 @@ namespace FiscalShock.Graphs {
 
                     // ---------------------------------------------------------
                     // Try to find multiple edge "segments" separating hanging vertices.
-                    List<Edge> missingEdgePair = findMissingEdgePair(hanging);
+                    List<Edge> missingEdgePair = findMissingEdgePairs(hanging);
 
                     // Sanity check
-                    if (missingEdgePair.Count != 2) {
-                        Debug.Log($"WARNING: Found {missingEdgePair.Count} incident edges, expected 2.");
-                        // This will probably result in an infinite loop
+                    if ((missingEdgePair.Count & 1) == 1) {
+                        Debug.Log($"WARNING: Found {missingEdgePair.Count} incident edges, expected multiple of 2.");
+                        // Something probably went wrong here
+                        // Could cause infinite loop
                         // Set a breakpoint and debug if that happens
                     } else {
                         cellSides.AddRange(missingEdgePair);
@@ -114,7 +116,8 @@ namespace FiscalShock.Graphs {
                     delta = sites[i].neighborhood.Count - cellSides.Count;
                 } // end finding missing edges
 
-                cells[i] = new Polygon(cellSides);
+                // TODO check if cellSides is a cycle
+                cells.Add(new Polygon(cellSides));
             }
         }
 
@@ -159,29 +162,38 @@ namespace FiscalShock.Graphs {
         /// </summary>
         /// <param name="hanging">List of vertices to try finding a pair of edges connecting two of these vertices.</param>
         /// <returns>List of adjacent edges connecting two vertices in the list. Could be empty, so caller needs to check return value.</returns>
-        private List<Edge> findMissingEdgePair(List<Vertex> hanging) {
+        private List<Edge> findMissingEdgePairs(List<Vertex> hanging) {
             // Select a pair of nearby hanging vertices.
             /* Any initial vertex will do, because all remaining hanging
              * vertices must be separated by multiple edges, otherwise,
              * they would have been connected up above.
              */
-            Vertex a = hanging[0];
-            Vertex b = Vertex.findNearestInListTo(a, hanging);
-            List<Vertex> ab = new List<Vertex> { a, b };
+            List<Edge> missingEdgePairs = new List<Edge>();
+            foreach (Vertex a in hanging) {
+                Vertex b = Vertex.findNearestInListTo(a, hanging);
+                List<Vertex> ab = new List<Vertex> { a, b };
 
-            // Search their neighborhoods for a common vertex
-            Vertex commonNeighbor = ab
-                .SelectMany(u => u.neighborhood)  // Flatten lists
-                .GroupBy(v => v)  // Group duplicate vertices
-                .Where(g => g.Count() == 2)  // Take only groups with 2 members, implying it was in both neighborhoods
-                .Select(v => v.First())
+                // Search their neighborhoods for a common vertex
+                Vertex commonNeighbor = ab
+                    .SelectMany(u => u.neighborhood)  // Flatten lists
+                    .GroupBy(v => v)  // Group duplicate vertices
+                    .Where(g => g.Count() == 2)  // Take only groups with 2 members, implying it was in both neighborhoods
+                    .Select(v => v.First())
                 .First();
 
-            // Find the edges incident to commonNeighbor
-            return ab
-                .SelectMany(u => u.incidentEdges)
-                .Where(e => e.vertices.Contains(commonNeighbor))
-                .ToList();
+                // Find the edges incident to commonNeighbor
+                List<Edge> found = ab
+                    .SelectMany(u => u.incidentEdges)
+                    .Where(e => e.vertices.Contains(commonNeighbor))
+                    .ToList();
+
+                if (found.Count == 2) {
+                    missingEdgePairs.AddRange(found);
+                } else if (found.Count != 0) {
+                    Debug.Log($"INFO: Found {found.Count} edges, expected 0 or 2.");
+                }
+            }
+            return missingEdgePairs;
         }
     }
 }

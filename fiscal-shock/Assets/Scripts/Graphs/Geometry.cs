@@ -436,38 +436,12 @@ namespace FiscalShock.Graphs {
         public List<Edge> sides { get; } = new List<Edge>();
         public List<Vertex> vertices { get; } = new List<Vertex>();
         public List<Polygon> neighbors { get; set; } = new List<Polygon>();
-        // Whether this polygon (as a Voronoi cell) is complete.
-        public bool isClosed { get; set; }
 
         public Polygon(List<Edge> boundary) {
             sides = boundary;
-            vertices = sides.SelectMany(e => e.vertices).ToList();  // does this strip duplicates?
+            vertices = sides.SelectMany(e => e.vertices).Distinct().ToList();
         }
 
         public Polygon() {}
-
-        public static List<Polygon> findChordlessCycles(List<Edge> edges) {
-            List<Polygon> ccycles = new List<Polygon>();
-
-            // Pick an edge
-            Edge e = edges[0];
-            // Add its endpoints to a polygon
-            Polygon p = new Polygon();
-            p.vertices.AddRange(e.vertices);
-            p.sides.Add(e);
-            // Find the next edge (how to determine next?)
-
-            // 1. Pick a Voronoi site (Delaunay circumcenter)
-            // 2. Extend a ray outwards at a 0 degree angle
-            // 3. Add the first edge the ray intersects to the polygon (how do you determine "first edge that intersects"?)
-            // 4. Rotate the ray clockwise until it passes one endpoint of the edge
-            // 5. Repeat 3-5 until the same edge is encountered
-
-            // Each delaunay neighbor corresponds to an edge of a cell
-            // But the edge between each pair of neighbors doesn't necessarily intersect a new cell edge
-            // Can we guarantee that at least one neighbor *does* provide such an intersection? This narrows down edges to check
-
-            return ccycles;
-        }
     }
 }

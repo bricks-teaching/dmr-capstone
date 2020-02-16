@@ -1,36 +1,33 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class MouseLook : MonoBehaviour
-{
-    public float mouseSensitivity = 100f;
-
-    public Transform body;
-
-    float xRotation = 0f;
-    
-    // Cursor is locked to game
-    void Start()
+namespace FiscalShock.Controls {
+    public class MouseLook : MonoBehaviour
     {
-        Cursor.lockState = CursorLockMode.Locked;
-    }
+        public bool lockCursorToGame = true;
+        public float mouseSensitivity = 100f;
+        public float clampMinimum = -90f;
+        public float clampMaximum = 90f;
 
-    // Update is called once per frame
-    void Update()
-    {
-        // Moves the camera with the mouse, uses Time.deltaTime for FPS correction (Independent of current Frame rate)
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        public Transform body;
 
+        private float xRotation = 0f;
 
-        xRotation -= mouseY;
+        // Update is called once per frame
+        public void Update() {
+            if (lockCursorToGame) {
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+            // Moves the camera with the mouse, uses Time.deltaTime for FPS correction (Independent of current Frame rate)
+            float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+            float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
-        //Cannot look further than 90 degrees up
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+            xRotation -= mouseY;
 
-        transform.localRotation = Quaternion.Euler(xRotation,0f,0f);
-        body.Rotate(Vector3.up * mouseX);
-        
+            //Cannot look further than 90 degrees up
+            xRotation = Mathf.Clamp(xRotation, clampMinimum, clampMaximum);
+
+            transform.localRotation = Quaternion.Euler(xRotation,0f,0f);
+            body.Rotate(Vector3.up * mouseX);
+        }
     }
 }
