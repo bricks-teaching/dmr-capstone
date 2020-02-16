@@ -45,10 +45,6 @@ namespace FiscalShock.Procedural {
             // Generate vertices
             List<double> vertices = new List<double>();
 
-            /* Delaunator accepts a flat array of doubles, where each even
-             * index is an x-coordinate, and the following odd index is the
-             * corresponding y-coordinate.
-            */
             for (int i = 0; i < numberOfVertices; i += 2) {
                 vertices.Add(mt.Next(minX, maxX) * unitScale);
                 vertices.Add(mt.Next(minY, maxY) * unitScale);

@@ -1,3 +1,6 @@
+using System.Collections.ObjectModel;
+using UnityEngine;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace FiscalShock.Graphs {
@@ -46,31 +49,94 @@ namespace FiscalShock.Graphs {
                 }
             }
 
-            /* TODO find polygons (cells)
-             * much harder than it sounds - both vertex and edge are shared
-             * among many polygons
-             * but any given edge should be shared among at most 2 polygons
-             * => proof: an edge on a planar graph splits a face into 2
-             * so, iterating over edges is the easiest
-             *
-             * next concern: determining how to walk along edges
-             *
-             * pick any edge
-             *   polygon := null
-             *   add the edge's endpoints to the polygon
-             *   find the next edge, clockwise, from one endpoint
-             *      add this next edge's opposite endpoint to polygon
-             *      repeat until we land on an opposite endpoint already in
-             *        the polygon's vertices
-             * pick any edge that has NOT been used twice to make a polygon
-             * repeat
-             *
-             * problems:
-             * - polygons on convex hull, they're used just once
-             * >>> maybe find a way to detect and do something to them
-             * - probably inefficient but whatever; linq should make the syntax
-             *   very easy to handle
-             */
+            cells = new List<Polygon>(sites.Count);
+            for (int i = 0; i < sites.Count; ++i) {
+                // Draw lines to each neighbor.
+                List<Edge> delrays = new List<Edge>();
+                foreach (Vertex v in sites[i].neighborhood) {
+                    delrays.Add(new Edge(sites[i], v, false));
+                }
+
+                // Find Voronoi edges intersected by each line. Warning: expensive!
+                List<List<Edge>> intersectedVEdges = new List<List<Edge>>();
+                foreach (Edge e in delrays) {
+                    List<Edge> jEdges = new List<Edge>();
+                    foreach (Edge f in edges) {  // Check every Voronoi edge
+                        if (Edge.findIntersection(e, f) != null) {
+                            jEdges.Add(f);
+                        }
+                    }
+                    // Indices of delrays will correspond with intersections
+                    intersectedVEdges.Add(jEdges);
+                }
+
+                // When only 1 edge exists in the edge list, it's guaranteed to be a side of the Voronoi cell
+                List<Edge> cellSides = new List<Edge>();
+                foreach (List<Edge> l in intersectedVEdges) {
+                    if (l.Count == 1) {
+                        cellSides.Add(l[0]);
+                    }
+                }
+
+                // If we have a cell side for each neighbor, we're done
+                int delta = cellSides.Count - sites[i].neighborhood.Count;
+                if (delta == 0) {
+                    cells[i] = new Polygon(cellSides);
+                }
+
+                while (delta > 0) {
+                    // Find the "hanging" vertices
+                    List<Vertex> hanging = cellSides
+                        .SelectMany(e => e.vertices)  // Flatten vertex lists
+                        .GroupBy(v => v)  // Group each entry
+                        .Where(g => g.Count() == 1)  // Pick only unique entries
+                        .Select(v => v.First())  // Get only the objects from the grouping
+                        .ToList();
+
+                    if (delta == 1) {
+                        /* Case: one missing edge
+                         * Connect the two hanging vertices.
+                         */
+                        if (hanging.Count != 2) {
+                            Debug.Log($"FATAL: Missing one edge from Voronoi cell, but didn't find exactly 2 hanging vertices. (Found {hanging.Count} instead)");
+                            throw new System.Exception();
+                        }
+                        // Find the Voronoi edge connecting these two.
+                        foreach (Edge e in hanging[0].incidentEdges) {
+                            // If the endpoints are the same as the hanging vertices, this is it
+                            if (e.vertices.All(hanging.Contains)) {
+                                cellSides.Add(e);
+                                break;  // TODO don't break, make a function that returns e
+                            }
+                        }
+                    } else {
+                        /* Case: multiple missing edges
+                         * Connect the nearest vertex to one arbitrary vertex.
+                         */
+
+                        Vertex a = hanging[0];
+                        // Considering the topology of a Voronoi diagram, the nearest vertex in this case should *always* be connected and not create a chord
+                        Vertex b = Vertex.findNearestInList(a, hanging);
+                        List<Vertex> ab = new List<Vertex> { a, b };
+
+                        // Find the Voronoi edge that contains these two endpoints
+                        // It'll be incident to them, of course
+
+                        // TODO DRY LINE 107
+                        foreach (Edge e in hanging[0].incidentEdges) {
+                            // If the endpoints are the same as the hanging vertices, this is it
+                            if (e.vertices.All(ab.Contains)) {
+                                cellSides.Add(e);
+                                break;  // TODO don't break, make a function that returns e
+                            }
+                        }
+                    }
+
+                    delta = sites[i].neighborhood.Count - cellSides.Count;
+                } // end finding missing edges
+
+                cells[i] = new Polygon(cellSides);
+            }
         }
     }
 }

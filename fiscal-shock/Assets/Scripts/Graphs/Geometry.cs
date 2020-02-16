@@ -11,6 +11,7 @@ namespace FiscalShock.Graphs {
     public class Vertex {
         public float x { get; }
         public float y { get; }
+        public int id { get; }
 
         /* Spending the space to track connected components simplifies
          * any algorithms that need to traverse a graph.
@@ -24,6 +25,10 @@ namespace FiscalShock.Graphs {
         public Vertex(float xX, float yY) {
             x = xX;
             y = yY;
+        }
+
+        public Vertex(float xX, float yY, int vid) : this(xX, yY) {
+            id = vid;
         }
 
         public Vertex(double xX, double yY) : this((float)xX, (float)yY) {}
@@ -43,6 +48,26 @@ namespace FiscalShock.Graphs {
         }
         /* End overloaded constructors */
 
+        /* Comparator functions - needed for LINQ GroupBy */
+        public override bool Equals(object obj) {
+            if (obj is Vertex other) {
+                return x == other.x && y == other.y;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Taken from https://stackoverflow.com/a/2280213
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode() {
+            int hash = 23;
+            hash = (hash * 31) + x.GetHashCode();
+            hash = (hash * 31) + y.GetHashCode();
+            return hash;
+        }
+        /* End comparator functions */
+
         /// <summary>
         /// Euclidean distance between two Cartesian coordiates
         /// </summary>
@@ -60,6 +85,27 @@ namespace FiscalShock.Graphs {
         /// <returns>Euclidean distance between a and b</returns>
         public static double getDistanceBetween(Vertex a, Vertex b) {
             return a.getDistanceTo(b);
+        }
+
+        /// <summary>
+        /// Given a list of vertices and an origin vertex, find the nearest one (via Euclidean distance).
+        /// </summary>
+        /// <param name="origin"></param>
+        /// <param name="others"></param>
+        /// <returns></returns>
+        public static Vertex findNearestInList(Vertex origin, List<Vertex> others) {
+            // Find all distances to the origin
+            List<double> distances = others.Select(v => v.getDistanceTo(origin)).ToList();
+
+            /* If origin is in the list, we want the second minimum distance.
+             * This means we can't just take the minimum of this list.
+             * But we can just choose to skip the first element in the sorted list instead, or skip none.
+             */
+            int skip = others.Contains(origin)? 1 : 0;
+            double minimumDistance = distances.OrderBy(d => d).Skip(skip).First();
+            int indexOfNearest = distances.IndexOf(minimumDistance);
+
+            return others[indexOfNearest];
         }
 
         /// <summary>
@@ -94,6 +140,10 @@ namespace FiscalShock.Graphs {
         public int id { get; }  // TODO is this needed?
 
         /* Begin overloaded constructors */
+        public Edge(Vertex a, Vertex b, bool _) {  // Hack to avoid adding to neighborhood
+            vertices = new List<Vertex> { a, b };
+        }
+
         public Edge(Vertex a, Vertex b) {
             vertices = new List<Vertex> { a, b };
             a.neighborhood.Add(b);
@@ -150,6 +200,58 @@ namespace FiscalShock.Graphs {
             return getTriangleId(id);
         }
         /* End Delaunator helper functions */
+
+        /// <summary>
+        /// http://www.cs.swan.ac.uk/~cssimon/line_intersection.html
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static Vertex findIntersection(Edge a, Edge b) {
+            const float EPSILON = 1e-5f;  // Floating point correction
+            Vertex one = a.vertices[0];
+            Vertex two = a.vertices[1];
+            Vertex three = b.vertices[0];
+            Vertex four = b.vertices[1];
+
+            // Find numerator/denominator for t_a.
+            float ta_numer = ((three.y - four.y) * (one.x - three.x)) + ((four.x - three.x) * (one.y - three.y));
+            float ta_denom = ((four.x - three.x) * (one.y - two.y)) - ((one.x - two.x) * (four.y - three.y));
+
+            if (ta_denom == 0 || Math.Abs(ta_denom) < EPSILON) {  // Collinear
+                return null;
+            }
+
+            float ta = ta_numer / ta_denom;
+
+            if (ta < 0 || ta > 1) {  // Does not intersect on the segments
+                return null;
+            }
+
+            // -----------------------------------
+
+            // Find numerator/denominator for t_b.
+            float tb_numer = ((one.y - two.y) * (one.x - three.x)) + ((two.x - one.x) * (one.y - three.y));
+            float tb_denom = ((four.x - three.x) * (one.y - two.y)) - ((one.x - two.x) * (four.y - three.y));
+
+            if (tb_denom == 0 || Math.Abs(tb_denom) < EPSILON) {  // Collinear
+                return null;
+            }
+
+            float tb = tb_numer / tb_denom;
+
+            if (tb < 0 || tb > 1) {  // Does not intersect on the segments
+                return null;
+            }
+
+            // -----------------------------------
+
+            // At this point, we know they intersect, so plug ta or tb into equation
+            float x = one.x + (ta * (two.x - one.x));
+            float y = one.y + (ta * (two.y - one.y));
+
+            return new Vertex(x, y);
+        }
     }
 
     /// <summary>
@@ -285,10 +387,38 @@ namespace FiscalShock.Graphs {
         public List<Edge> sides { get; } = new List<Edge>();
         public List<Vertex> vertices { get; } = new List<Vertex>();
         public List<Polygon> neighbors { get; set; } = new List<Polygon>();
+        // Whether this polygon (as a Voronoi cell) is complete.
+        public bool isClosed { get; set; }
 
         public Polygon(List<Edge> boundary) {
             sides = boundary;
-            vertices = sides.SelectMany(e => e.vertices).ToList();
+            vertices = sides.SelectMany(e => e.vertices).ToList();  // does this strip duplicates?
+        }
+
+        public Polygon() {}
+
+        public static List<Polygon> findChordlessCycles(List<Edge> edges) {
+            List<Polygon> ccycles = new List<Polygon>();
+
+            // Pick an edge
+            Edge e = edges[0];
+            // Add its endpoints to a polygon
+            Polygon p = new Polygon();
+            p.vertices.AddRange(e.vertices);
+            p.sides.Add(e);
+            // Find the next edge (how to determine next?)
+
+            // 1. Pick a Voronoi site (Delaunay circumcenter)
+            // 2. Extend a ray outwards at a 0 degree angle
+            // 3. Add the first edge the ray intersects to the polygon (how do you determine "first edge that intersects"?)
+            // 4. Rotate the ray clockwise until it passes one endpoint of the edge
+            // 5. Repeat 3-5 until the same edge is encountered
+
+            // Each delaunay neighbor corresponds to an edge of a cell
+            // But the edge between each pair of neighbors doesn't necessarily intersect a new cell edge
+            // Can we guarantee that at least one neighbor *does* provide such an intersection? This narrows down edges to check
+
+            return ccycles;
         }
     }
 }

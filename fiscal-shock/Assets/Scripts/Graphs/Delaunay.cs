@@ -49,10 +49,10 @@ namespace FiscalShock.Graphs {
             for (int i = 0; i < dt.triangulation.triangles.Count; i += 3) {
                 // TODO do the points need to be in clockwise order?
                 float[] vertices = dt.getTriangleVertices(i);
-                // TODO get vertex ids, or are they necessary? the indices of "coords" are sorted, I think
-                Vertex a = new Vertex(vertices[0], vertices[1]);
-                Vertex b = new Vertex(vertices[2], vertices[3]);
-                Vertex c = new Vertex(vertices[4], vertices[5]);
+                // Track id to simplify Voronoi cell finding
+                Vertex a = new Vertex(vertices[0], vertices[1], dt.vertices.Count);
+                Vertex b = new Vertex(vertices[2], vertices[3], dt.vertices.Count + 1);
+                Vertex c = new Vertex(vertices[4], vertices[5], dt.vertices.Count + 2);
 
                 /* Link up the vertices. The ids for triangle t's edges are
                  *    3 * t, 3 * t + 1, 3 * t + 2
