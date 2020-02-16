@@ -93,7 +93,7 @@ namespace FiscalShock.Graphs {
         /// <param name="origin"></param>
         /// <param name="others"></param>
         /// <returns></returns>
-        public static Vertex findNearestInList(Vertex origin, List<Vertex> others) {
+        public static Vertex findNearestInListTo(Vertex origin, List<Vertex> others) {
             // Find all distances to the origin
             List<double> distances = others.Select(v => v.getDistanceTo(origin)).ToList();
 
@@ -106,6 +106,15 @@ namespace FiscalShock.Graphs {
             int indexOfNearest = distances.IndexOf(minimumDistance);
 
             return others[indexOfNearest];
+        }
+
+        /// <summary>
+        /// Calls static function
+        /// </summary>
+        /// <param name="others"></param>
+        /// <returns></returns>
+        public Vertex findNearestInList(List<Vertex> others) {
+            return findNearestInListTo(this, others);
         }
 
         /// <summary>
@@ -251,6 +260,46 @@ namespace FiscalShock.Graphs {
             float y = one.y + (ta * (two.y - one.y));
 
             return new Vertex(x, y);
+        }
+
+        /// <summary>
+        /// Finds all edges connecting vertices in a list. Can't find edges whose endpoints aren't in the original list of vertices.
+        /// </summary>
+        /// <param name="listToConnect">Vertices to connect</param>
+        /// <returns>List of connecting edges found. Can be empty.</returns>
+        public static List<Edge> findConnectingEdges(List<Vertex> listToConnect) {
+            bool doneFindingPairs = false;
+            List<Edge> connectors = new List<Edge>();
+            while (!doneFindingPairs) {
+                for (int i = 0; i < listToConnect.Count; ++i) {
+                    bool foundThisPair = false;
+                    foreach (Edge e in listToConnect[i].incidentEdges) {
+                        /* If the size of the intersection of the edge's
+                         * endpoints with the full list of vertices to connect
+                         * is the same size as the edge's endpoint list (2),
+                         * then that edge connects two vertices.
+                         */
+                        if (e.vertices.Intersect(listToConnect).Count() == e.vertices.Count) {
+                            // Remove these vertices from the search list
+                            listToConnect.Remove(e.vertices[0]);
+                            listToConnect.Remove(e.vertices[1]);
+                            connectors.Add(e);
+                            foundThisPair = true;
+                            break;
+                        }
+                    }
+                    if (foundThisPair && listToConnect.Count > 0) {
+                        // Reset the outer loop index to start the search over.
+                        i = 0;
+                    }
+                }
+                /* If we reached the end of the vertex list, no more edges can
+                 * be found with the current information.
+                 */
+                doneFindingPairs = true;
+            }
+
+            return connectors;
         }
     }
 
