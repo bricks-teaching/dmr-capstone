@@ -107,7 +107,9 @@ namespace FiscalShock.Demo {
         }
 
         /// <summary>
-        /// Unity doesn't have GL.POINTS ¯\_(ツ)_/¯
+        /// Unity doesn't have GL.POINTS `¯\_(ツ)_/¯`
+        /// <para>But hey, look at how easy it is to programmatically spawn stuff!
+        /// *And* give its material a new color!</para>
         /// </summary>
         /// <param name="points"></param>
         /// <param name="color"></param>
@@ -115,6 +117,7 @@ namespace FiscalShock.Demo {
         private void renderPoints(List<Vertex> points, Color color, float renderHeight) {
             foreach (Vertex v in points) {
                 GameObject tmp = Instantiate(pointPrefab);
+                // TODO set scale here in case it should be fatter
                 Material pointMat = tmp.GetComponent<Renderer>().material;
                 pointMat.SetColor(Shader.PropertyToID("_Color"), color);
                 tmp.transform.position = v.toVector3AtHeight(renderHeight);

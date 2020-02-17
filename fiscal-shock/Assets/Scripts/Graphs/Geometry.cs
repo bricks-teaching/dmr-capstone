@@ -35,20 +35,20 @@ namespace FiscalShock.Graphs {
 
         public Vertex(double[] xy) : this(xy[0], xy[1]) {
             if (xy.Length > 2) {
-                Debug.Log($"FATAL: Input array held more than two coordinates.");
+                Debug.LogError($"FATAL: Input array held more than two coordinates.");
                 throw new ArgumentException();
             }
         }
 
         public Vertex(List<double> xy) : this(xy[0], xy[1]) {
             if (xy.Count > 2) {
-                Debug.Log($"FATAL: Input list held more than two coordinates.");
+                Debug.LogError($"FATAL: Input list held more than two coordinates.");
                 throw new ArgumentException();
             }
         }
         /* End overloaded constructors */
 
-        /* Comparator functions - needed for LINQ GroupBy */
+        /* Comparator functions - needed for LINQ */
         public override bool Equals(object obj) {
             if (obj is Vertex other) {
                 return x == other.x && y == other.y;
@@ -74,7 +74,7 @@ namespace FiscalShock.Graphs {
         /// <param name="other">distant vertex</param>
         /// <returns>distance</returns>
         public double getDistanceTo(Vertex other) {
-            return Math.Sqrt(Math.Pow(x - other.x, 2) + Math.Pow(y - other.y, 2));
+            return Mathy.getDistanceBetween(x, y, other.x, other.y);
         }
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace FiscalShock.Graphs {
 
             /* If origin is in the list, we want the second minimum distance.
              * This means we can't just take the minimum of this list.
-             * But we can just choose to skip the first element in the sorted list instead, or skip none.
+             * But we can just choose to skip the first element in the sorted list instead, or skip na
              */
             int skip = others.Contains(origin)? 1 : 0;
             double minimumDistance = distances.OrderBy(d => d).Skip(skip).First();
@@ -115,6 +115,17 @@ namespace FiscalShock.Graphs {
         /// <returns></returns>
         public Vertex findNearestInList(List<Vertex> others) {
             return findNearestInListTo(this, others);
+        }
+
+        /// <summary>
+        /// Find a point on the line drawn at the angle theta from site that is distance units away from site.
+        /// </summary>
+        /// <param name="site">origin vertex</param>
+        /// <param name="theta">angle in radians</param>
+        /// <param name="distance">desired length of line segment</param>
+        /// <returns></returns>
+        public static Vertex getEndpointOfLineRotation(Vertex site, double theta, float distance) {
+            return new Vertex(Mathy.getEndpointOfLineRotation(site.x, site.y, theta, distance));
         }
 
         /// <summary>
@@ -167,13 +178,33 @@ namespace FiscalShock.Graphs {
 
         public Edge(List<Vertex> verts, int eid) {
             if (verts.Count != 2) {
-                Debug.Log($"FATAL: Wrong Vector3 list passed to Edge constructor (got {verts.Count}, not 2)");
+                Debug.LogError($"FATAL: Wrong Vector3 list passed to Edge constructor (got {verts.Count}, not 2)");
                 throw new ArgumentException();
             }
             vertices = verts;
             id = eid;
         }
         /* End overloaded constructors */
+
+        /* Comparator functions - needed for LINQ */
+        public override bool Equals(object obj) {
+            if (obj is Edge other) {
+                return vertices.Intersect(other.vertices).Count() == vertices.Count;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Taken from https://stackoverflow.com/a/2280213
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode() {
+            int hash = 23;
+            hash = (hash * 31) + vertices[0].GetHashCode();
+            hash = (hash * 31) + vertices[1].GetHashCode();
+            return hash;
+        }
+        /* End comparator functions *
 
         /// <summary>
         /// Length of an edge in this case is the Euclidean distance
@@ -211,55 +242,14 @@ namespace FiscalShock.Graphs {
         /* End Delaunator helper functions */
 
         /// <summary>
-        /// http://www.cs.swan.ac.uk/~cssimon/line_intersection.html
+        /// Find intersection point between two edges.
+        /// See <see cref="Mathy.findIntersection" />.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
-        /// <returns></returns>
+        /// <returns>`Vertex` representing intersection point, or null if edges don't intersect</returns>
         public static Vertex findIntersection(Edge a, Edge b) {
-            const float EPSILON = 1e-5f;  // Floating point correction
-            Vertex one = a.vertices[0];
-            Vertex two = a.vertices[1];
-            Vertex three = b.vertices[0];
-            Vertex four = b.vertices[1];
-
-            // Find numerator/denominator for t_a.
-            float ta_numer = ((three.y - four.y) * (one.x - three.x)) + ((four.x - three.x) * (one.y - three.y));
-            float ta_denom = ((four.x - three.x) * (one.y - two.y)) - ((one.x - two.x) * (four.y - three.y));
-
-            if (ta_denom == 0 || Math.Abs(ta_denom) < EPSILON) {  // Collinear
-                return null;
-            }
-
-            float ta = ta_numer / ta_denom;
-
-            if (ta < 0 || ta > 1) {  // Does not intersect on the segments
-                return null;
-            }
-
-            // -----------------------------------
-
-            // Find numerator/denominator for t_b.
-            float tb_numer = ((one.y - two.y) * (one.x - three.x)) + ((two.x - one.x) * (one.y - three.y));
-            float tb_denom = ((four.x - three.x) * (one.y - two.y)) - ((one.x - two.x) * (four.y - three.y));
-
-            if (tb_denom == 0 || Math.Abs(tb_denom) < EPSILON) {  // Collinear
-                return null;
-            }
-
-            float tb = tb_numer / tb_denom;
-
-            if (tb < 0 || tb > 1) {  // Does not intersect on the segments
-                return null;
-            }
-
-            // -----------------------------------
-
-            // At this point, we know they intersect, so plug ta or tb into equation
-            float x = one.x + (ta * (two.x - one.x));
-            float y = one.y + (ta * (two.y - one.y));
-
-            return new Vertex(x, y);
+            return new Vertex(Mathy.findIntersection(a.vertices[0].x, a.vertices[0].y, a.vertices[1].x, a.vertices[1].y, b.vertices[0].x, b.vertices[0].y, b.vertices[1].x, b.vertices[1].y));
         }
 
         /// <summary>
@@ -267,6 +257,7 @@ namespace FiscalShock.Graphs {
         /// </summary>
         /// <param name="listToConnect">Vertices to connect</param>
         /// <returns>List of connecting edges found. Can be empty.</returns>
+        /// TODO this is part of naive algorithm, maybe delete
         public static List<Edge> findConnectingEdges(List<Vertex> listToConnect) {
             bool doneFindingPairs = false;
             List<Edge> connectors = new List<Edge>();
@@ -299,7 +290,7 @@ namespace FiscalShock.Graphs {
                 doneFindingPairs = true;
             }
 
-            return connectors;
+            return connectors.Distinct().ToList();
         }
     }
 
@@ -341,7 +332,7 @@ namespace FiscalShock.Graphs {
         /// <returns>area of triangle on given list of vertices</returns>
         public static double getArea(List<Vertex> tri) {
             if (tri.Count != 3) {
-                Debug.Log($"FATAL: Input was not a triangle");
+                Debug.LogError($"FATAL: Input was not a triangle");
                 throw new ArgumentException();
             }
             return getArea(tri[0], tri[1], tri[2]);
@@ -433,15 +424,138 @@ namespace FiscalShock.Graphs {
     /// 2D polygon, defined by its edges (and thereby, vertices)
     /// </summary>
     public class Polygon {
-        public List<Edge> sides { get; } = new List<Edge>();
-        public List<Vertex> vertices { get; } = new List<Vertex>();
-        public List<Polygon> neighbors { get; set; } = new List<Polygon>();
+        public List<Edge> sides { get; private set; } = new List<Edge>();
+        public List<Vertex> vertices { get; private set; } = new List<Vertex>();
+
+        public Polygon() {}
 
         public Polygon(List<Edge> boundary) {
+            setSides(boundary);
+        }
+
+        public void setSides(List<Edge> boundary) {
             sides = boundary;
             vertices = sides.SelectMany(e => e.vertices).Distinct().ToList();
         }
+    }
 
-        public Polygon() {}
+    public class Cell : Polygon {
+        public Vertex site { get; set; }
+        public List<Cell> neighbors { get; set; } = new List<Cell>();
+        public int id { get; }
+
+        public Cell(Vertex delaunayVertex) {
+            site = delaunayVertex;
+            id = site.id;
+        }
+
+        new public void setSides(List<Edge> boundary) {
+            base.setSides(boundary);
+
+            if (sides.Count < 3) {
+                Debug.LogWarning($"{id}: Not a closed polygon ({sides.Count} sides)");
+            }
+            if (vertices.Count <= sides.Count) {
+                Debug.LogWarning($"{id}: Illogical number of vertices compared to edges ({vertices.Count} vs {sides.Count})");
+            }
+        }
+    }
+
+    /// <summary>
+    /// Math functions (can't name it `Math` because that collides with `System.Math`)
+    /// </summary>
+    public static class Mathy {
+        /// <summary>
+        /// Find determinant of a 2x2 matrix by cross-multiplying.
+        /// <para>`| a b |`</para><para/>
+        /// <para>`| c d |`</para>
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <returns>determinant of 2x2 matrix</returns>
+        public static double determinant2(double a, double b, double c, double d) {
+            return (a * d) - (b * c);
+        }
+
+        public static double determinant2(Vertex a, Vertex b) {
+            return determinant2(a.x, b.x, a.y, b.y);
+        }
+
+        /// <summary>
+        /// Euclidean distance between two Cartesian coordiates
+        /// </summary>
+        /// <returns>distance</returns>
+        public static double getDistanceBetween(double x1, double y1, double x2, double y2) {
+            return Math.Sqrt(Math.Pow(x1 - x2, 2) + Math.Pow(y1 - y2, 2));
+        }
+
+        /// <summary>
+        /// Find a point on the line drawn at the angle theta from site that is distance units away from site.
+        /// </summary>
+        /// <param name="x">x-coordinate of site</param>
+        /// <param name="y">y-coordinate of site</param>
+        /// <param name="theta">angle in radians</param>
+        /// <param name="distance">desired length of line segment</param>
+        /// <returns>2-element array representing the x- and y-coordinate of the point, respectively</returns>
+        public static double[] getEndpointOfLineRotation(double x, double y, double theta, float distance) {
+            double u = x + (distance * Math.Cos(theta));
+            double v = y + (distance * Math.Cos(theta));
+            return new double[] { u, v };
+        }
+
+        /// <summary>
+        /// Find intersection between the lines ab and cd
+        /// http://www.cs.swan.ac.uk/~cssimon/line_intersection.html
+        /// </summary>
+        /// <param name="ax"></param>
+        /// <param name="ay"></param>
+        /// <param name="bx"></param>
+        /// <param name="by"></param>
+        /// <param name="cx"></param>
+        /// <param name="cy"></param>
+        /// <param name="dx"></param>
+        /// <param name="dy"></param>
+        /// <returns>2-element double representing x- and y-coordinates, respectively</returns>
+        public static double[] findIntersection(float ax, float ay, float bx, float by, float cx, float cy, float dx, float dy) {
+            const float EPSILON = 1e-5f;  // Floating point correction
+
+            // Find numerator/denominator for t_a.
+            float ta_numer = ((cy - dy) * (ax - cx)) + ((dx - cx) * (ay - cy));
+            float ta_denom = ((dx - cx) * (ay - by)) - ((ax - bx) * (dy - cy));
+
+            if (ta_denom == 0 || Math.Abs(ta_denom) < EPSILON) {  // Collinear
+                return null;
+            }
+
+            float ta = ta_numer / ta_denom;
+
+            if (ta < 0 || ta > 1) {  // Does not intersect on the segments
+                return null;
+            }
+
+            // -----------------------------------
+            // Find numerator/denominator for t_b.
+            float tb_numer = ((ay - by) * (ax - cx)) + ((bx - ax) * (ay - cy));
+            float tb_denom = ((dx - cx) * (ay - by)) - ((ax - bx) * (dy - cy));
+
+            if (tb_denom == 0 || Math.Abs(tb_denom) < EPSILON) {  // Collinear
+                return null;
+            }
+
+            float tb = tb_numer / tb_denom;
+
+            if (tb < 0 || tb > 1) {  // Does not intersect on the segments
+                return null;
+            }
+
+            // -----------------------------------
+            // At this point, we know they intersect, so plug ta or tb into equation
+            float x = ax + (ta * (bx - ax));
+            float y = ay + (ta * (by - ay));
+
+            return new double[] { x, y };
+        }
     }
 }

@@ -1,4 +1,3 @@
-using System.Collections.ObjectModel;
 using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
@@ -22,7 +21,7 @@ namespace FiscalShock.Graphs {
         /// <summary>
         /// Polygons representing faces of the Voronoi diagram.
         /// </summary>
-        public List<Polygon> cells { get; private set; }
+        public List<Cell> cells { get; }
 
         public Delaunay dual { get; }
 
@@ -33,9 +32,11 @@ namespace FiscalShock.Graphs {
         public Voronoi(Delaunay del)  {
             dual = del;
             sites = dual.vertices;
+            cells = new List<Cell>();
 
             calculateVerticesAndEdgesFromDelaunator();
-            findVoronoiCells();
+            createCells();
+            findVoronoiCellsNaive();
         }
 
         /// <summary>
@@ -61,25 +62,25 @@ namespace FiscalShock.Graphs {
         /// Main function to determine the Voronoi cells.
         /// <para>See https://docs.google.com/document/d/1sLGPW8PTkT1xbsvpPxAPN4MfuH-lIZKejbIR041zVU8/edit#bookmark=id.f8uivvb00dbh for details.</para>
         /// </summary>
-        private void findVoronoiCells() {
-            cells = new List<Polygon>(sites.Count);
-            for (int i = 0; i < sites.Count; ++i) {
-                List<Edge> cellSides = findGuaranteedCellSidesOfSite(sites[i]);
+        private void findVoronoiCellsNaive() {
+            foreach (Cell cell in cells) {
+                List<Edge> cellSides = findGuaranteedCellSidesOfSite(cell.site);
 
                 // If we have a cell side for each neighbor, we're done
-                int delta = cellSides.Count - sites[i].neighborhood.Count;
-                if (delta == 0) {
-                    cells.Add(new Polygon(cellSides));
-                    continue;
-                }
+                int delta = cell.neighbors.Count - cellSides.Count;
 
                 // If not all edges were guaranteed, we need to fall back to other methods
+                int tries = 0;
                 while (delta > 0) {
+                    if (tries > 3) {
+                        Debug.Log($"{cell.id} Delta: {delta}, giving up");
+                        break;
+                    }
                     // Find the "hanging" vertices
                     List<Vertex> hanging = cellSides
                         .SelectMany(e => e.vertices)  // Flatten vertex lists
                         .GroupBy(v => v)  // Group each entry
-                        .Where(g => g.Count() == 1)  // Pick only unique entries
+                        .Where(g => g.Count() < 2)
                         .Select(v => v.First())  // Get only the objects from the grouping
                         .ToList();
 
@@ -89,11 +90,8 @@ namespace FiscalShock.Graphs {
                     if (connectors.Count > 0) {
                         // Restart the while-loop, in case we found all edges.
                         cellSides.AddRange(connectors);
-                        delta = sites[i].neighborhood.Count - cellSides.Count;
+                        delta = cell.neighbors.Count - cellSides.Count;
                         continue;
-                    } else {
-                        Debug.Log("INFO: Didn't find any edges connecting hanging vertices.");
-                        // That's fine, will remove this later
                     }
                     // ---------------------------------------------------------
 
@@ -103,7 +101,7 @@ namespace FiscalShock.Graphs {
 
                     // Sanity check
                     if ((missingEdgePair.Count & 1) == 1) {
-                        Debug.Log($"WARNING: Found {missingEdgePair.Count} incident edges, expected multiple of 2.");
+                        Debug.LogWarning($"{cell.id}: Found {missingEdgePair.Count} incident edges, expected multiple of 2.");
                         // Something probably went wrong here
                         // Could cause infinite loop
                         // Set a breakpoint and debug if that happens
@@ -113,11 +111,12 @@ namespace FiscalShock.Graphs {
                     // ---------------------------------------------------------
 
                     // Update the delta for the while-loop
-                    delta = sites[i].neighborhood.Count - cellSides.Count;
+                    delta = cell.neighbors.Count - cellSides.Count;
+                    tries++;
                 } // end finding missing edges
 
-                // TODO check if cellSides is a cycle
-                cells.Add(new Polygon(cellSides));
+                // TODO check if cellSides is a cycle?
+                cell.setSides(cellSides);
             }
         }
 
@@ -135,15 +134,15 @@ namespace FiscalShock.Graphs {
 
             // Find Voronoi edges intersected by each line. Warning: expensive!
             List<List<Edge>> intersectedVEdges = new List<List<Edge>>();
-            foreach (Edge e in delrays) {
-                List<Edge> jEdges = new List<Edge>();
-                foreach (Edge f in edges) {  // Check every Voronoi edge
-                    if (Edge.findIntersection(e, f) != null) {
-                        jEdges.Add(f);
+            foreach (Edge ray in delrays) {
+                List<Edge> voronoiEdges = new List<Edge>();
+                foreach (Edge voronoiEdge in edges) {  // Check every Voronoi edge
+                    if (Edge.findIntersection(ray, voronoiEdge) != null) {
+                        voronoiEdges.Add(voronoiEdge);
                     }
                 }
                 // Indices of delrays will correspond with intersections
-                intersectedVEdges.Add(jEdges);
+                intersectedVEdges.Add(voronoiEdges);
             }
 
             // When only 1 edge exists in the edge list, it's guaranteed to be a side of the Voronoi cell
@@ -151,10 +150,14 @@ namespace FiscalShock.Graphs {
             foreach (List<Edge> l in intersectedVEdges) {
                 if (l.Count == 1) {
                     cellSides.Add(l[0]);
+                } else if (l.Count == 0) {
+                    Debug.LogWarning($"{site.id}: No intersections! ({site.x}, {site.y})");
+                } else {
+                    Debug.Log($"{site.id}: Intersects {l.Count} edges");
                 }
             }
 
-            return cellSides;
+            return cellSides.Distinct().ToList();
         }
 
         /// <summary>
@@ -193,7 +196,25 @@ namespace FiscalShock.Graphs {
                     Debug.Log($"INFO: Found {found.Count} edges, expected 0 or 2.");
                 }
             }
-            return missingEdgePairs;
+            return missingEdgePairs.Distinct().ToList();
+        }
+
+        /// <summary>
+        /// Cell neighbors are just adjacent sites in the Delaunay triangulation.
+        /// This is ugly and inefficient, but C# is cranky about instantiating collections.
+        /// </summary>
+        private void createCells() {
+            // First, construct the list completely
+            foreach (Vertex site in sites) {
+                Cell cell = new Cell(site);
+                cells.Add(cell);
+            }
+            // Now we can reference other cells farther down the list
+            foreach (Cell cell in cells) {
+                foreach (Vertex neighbor in cell.site.neighborhood) {
+                    cell.neighbors.Add(cells[neighbor.id]);
+                }
+            }
         }
     }
 }

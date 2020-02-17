@@ -233,15 +233,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dungen: {fileID: 1546386902}
-  renderHeight: 1.1
+  pointPrefab: {fileID: 3024218742173863289, guid: c3de6190bf38277629fdd289670275b1,
+    type: 3}
   renderDelaunay: 1
+  renderDelaunayVertices: 1
   delaunayColor: {r: 1, g: 0, b: 0.9253464, a: 1}
+  delaunayRenderHeight: 1.1
   renderVoronoi: 1
   voronoiColor: {r: 0, g: 0.80742407, b: 1, a: 1}
+  voronoiRenderHeight: 1.6
   renderMasterDelaunay: 1
   masterDelaunayColor: {r: 1, g: 0.96458334, b: 0, a: 1}
+  masterDelaunayRenderHeight: 1.3
   renderSpanningTree: 1
   spanningTreeColor: {r: 0, g: 1, b: 0.008504152, a: 1}
+  spanningTreeRenderHeight: 1.4
   edgeMat: {fileID: 2100000, guid: 4c59fd6ae625a9500b147fcf863adeb3, type: 2}
 --- !u!1 &1203233314
 GameObject:
@@ -364,7 +370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68dfad3498916735e8263a54ab5d48b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seed: 0
+  seed: 555
   numberOfVertices: 100
   unitScale: 1
   minX: -100
@@ -392,6 +398,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3505161639062074496, guid: bc7ef44de2f694932a9d0fc4d3a3d809,
+        type: 3}
+      propertyPath: lockCursorToGame
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3505161639062074510, guid: bc7ef44de2f694932a9d0fc4d3a3d809,
         type: 3}
       propertyPath: m_BackGroundColor.r

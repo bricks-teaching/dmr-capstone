@@ -16,6 +16,8 @@ namespace FiscalShock.Controls {
         public void Update() {
             if (lockCursorToGame) {
                 Cursor.lockState = CursorLockMode.Locked;
+            } else {
+                Cursor.lockState = CursorLockMode.None;
             }
             // Moves the camera with the mouse, uses Time.deltaTime for FPS correction (Independent of current Frame rate)
             float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
