@@ -249,7 +249,12 @@ namespace FiscalShock.Graphs {
         /// <param name="b"></param>
         /// <returns>`Vertex` representing intersection point, or null if edges don't intersect</returns>
         public static Vertex findIntersection(Edge a, Edge b) {
-            return new Vertex(Mathy.findIntersection(a.vertices[0].x, a.vertices[0].y, a.vertices[1].x, a.vertices[1].y, b.vertices[0].x, b.vertices[0].y, b.vertices[1].x, b.vertices[1].y));
+            double[] intersection = Mathy.findIntersection(a.vertices[0].x, a.vertices[0].y, a.vertices[1].x, a.vertices[1].y, b.vertices[0].x, b.vertices[0].y, b.vertices[1].x, b.vertices[1].y);
+            if (intersection != null) {
+                return new Vertex(intersection);
+            } else {
+                return null;
+            }
         }
 
         /// <summary>
