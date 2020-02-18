@@ -128,6 +128,18 @@ namespace FiscalShock.Graphs {
             return new Vertex(Mathy.getEndpointOfLineRotation(site.x, site.y, theta, distance));
         }
 
+        public Vertex getEndpointOfLineRotation(double theta, float distance) {
+            return getEndpointOfLineRotation(this, theta, distance);
+        }
+
+        public static float getAngleOfRotation(Vertex a, Vertex b) {
+            return (float)Mathy.getAngleOfRotation(b.y, a.y, b.x, a.x);
+        }
+
+        public float getAngleOfRotationTo(Vertex other) {
+            return getAngleOfRotation(this, other);
+        }
+
         /// <summary>
         /// Convert to Unity Vector3
         /// Unity uses y-axis as height (up/down) and z-axis as depth, unlike
@@ -494,6 +506,10 @@ namespace FiscalShock.Graphs {
         /// <returns>distance</returns>
         public static double getDistanceBetween(double x1, double y1, double x2, double y2) {
             return Math.Sqrt(Math.Pow(x1 - x2, 2) + Math.Pow(y1 - y2, 2));
+        }
+
+        public static double getAngleOfRotation(double x1, double y1, double x2, double y2) {
+            return Math.Atan2(y2 - y1, x2 - x1);
         }
 
         /// <summary>

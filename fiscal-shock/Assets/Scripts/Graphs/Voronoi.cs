@@ -1,6 +1,4 @@
 using System;
-using System.Reflection.Metadata.Ecma335;
-using System.Collections.Immutable;
 using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
@@ -40,7 +38,7 @@ namespace FiscalShock.Graphs {
             calculateVerticesAndEdgesFromDelaunator();
             createCells();
             //findVoronoiCellsNaive();
-            findVoronoiCellsClock();
+            //findVoronoiCellsClock();
         }
 
         /// <summary>
@@ -81,6 +79,7 @@ namespace FiscalShock.Graphs {
         }
 
         private void findVoronoiCellsClock() {
+            const float ROTATE_DELTA = 0.87f;  // ~5 degrees to radians
             // Set the initial search point
             List<float> xs = vertices.Select(v => v.x).ToList();
             float xdelta = xs.Max() - xs.Min();
@@ -90,28 +89,77 @@ namespace FiscalShock.Graphs {
 
             foreach (Cell cell in cells) {
                 List<Vertex> checkedEndpoints = new List<Vertex>();
+                float theta;
 
                 // First pass for each site requires checking all Voronoi edges (expensive!)
-                Edge farcaster = new Edge(reallyFarAway, site);
-                List<Tuple<Edge, Vertex>> hits = new List<Tuple<Edge, Vertex>>();
-                foreach (Edge e in edges) {
-                    Vertex hit = Edge.findIntersection(farcaster, e);
-                    if (hit != null) {
-                        hits.Add(new Tuple<Edge, Vertex> (e, hit));
-                    }
+                Edge farcaster = new Edge(reallyFarAway, cell.site);
+                Edge firstEdge = findRayIntersections(cell.site, farcaster, edges);
+                cell.sides.Add(firstEdge);
+
+                // Find the angle of rotation between both endpoints of the first edge.
+                float theta_cand1 = cell.site.getAngleOfRotationTo(firstEdge.vertices[0]);
+                float theta_cand2 = cell.site.getAngleOfRotationTo(firstEdge.vertices[1]);
+                // Select the smallest angle, since we're going to decrement the angle.
+                if (theta_cand1 < theta_cand2) {
+                    theta = theta_cand1;
+                    checkedEndpoints.Add(firstEdge.vertices[0]);
+                } else {
+                    theta = theta_cand2;
+                    checkedEndpoints.Add(firstEdge.vertices[1]);
                 }
 
-                // Calculate distance to each intersected point
-                List<Tuple<Edge, double>> dists = hits.Select(v => new Tuple<Edge, double> (v.Item1, v.Item2.getDistanceTo(site))).ToList();
+                // Found one edge already, so start the loop index at 1
+                for (int i = 1; i < cell.site.neighborhood.Count; ++i) {
+                    // Rotate the angle and get a new point far away.
+                    Vertex distant = cell.site.getEndpointOfLineRotation(theta + ROTATE_DELTA, xdelta + ydelta);
+                    farcaster = new Edge(cell.site, distant);
 
-                // Minimum is the winner. Set the corresponding edge as a side
-                Edge newSide = dists.OrderBy(l => l.Item2).First().Item1;
-                
-                
+                    // Check if it intersects neighbors of the selected site.
+                    Edge intersectedEdge = findRayIntersections(cell.site, farcaster, checkedEndpoints.Last().incidentEdges);
+
+                    double temp_delta = ROTATE_DELTA;
+                    // probably also make a counter to abort infinite loops
+                    int tmp = 0;
+                    while (intersectedEdge == null) {
+                        if (tmp > 10) {
+                            throw new ArgumentNullException("Can't find intersection, fix your code");
+                        }
+                        // try again, but reduce the rotation
+                        temp_delta /= 2;
+                        distant = cell.site.getEndpointOfLineRotation(theta + temp_delta, xdelta + ydelta);
+                        farcaster = new Edge(cell.site, distant);
+                        intersectedEdge = findRayIntersections(cell.site, farcaster, checkedEndpoints.Last().incidentEdges);
+                        ++tmp;
+                    }
+
+                    cell.sides.Add(intersectedEdge);
+                    // Pick a new endpoint not in the list already
+                    checkedEndpoints.Add(
+                        intersectedEdge.vertices.Except(checkedEndpoints).First()
+                    );
+                }
             }
         }
 
-        //private void findRayIntersections(Vertex site,)
+        private Edge findRayIntersections(Vertex site, Edge ray, List<Edge> edgesToHit) {
+            List<Tuple<Edge, Vertex>> hits = new List<Tuple<Edge, Vertex>>();
+            foreach (Edge e in edgesToHit) {
+                Vertex hit = Edge.findIntersection(ray, e);
+                if (hit != null) {
+                    hits.Add(new Tuple<Edge, Vertex> (e, hit));
+                }
+            }
+
+            if (hits.Count < 1) {
+                return null;
+            }
+
+            // Calculate distance to each intersected point
+            List<Tuple<Edge, double>> dists = hits.Select(v => new Tuple<Edge, double> (v.Item1, v.Item2.getDistanceTo(site))).ToList();
+
+            // Minimum is the winner. Set the corresponding edge as a side
+            return dists.OrderBy(l => l.Item2).First().Item1;
+        }
 
         /// <summary>
         /// Main function to determine the Voronoi cells.
