@@ -1,3 +1,4 @@
+#pragma warning disable
 using System;
 // Implementation of the Mersenne Twister pseudorandom number generator (https://en.wikipedia.org/wiki/Mersenne_Twister)
 
