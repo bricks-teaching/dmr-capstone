@@ -2,26 +2,16 @@
 //using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerFinance : MonoBehaviour //(remove parentheses and comment slashes if we need MonoBehavior)
+public static class PlayerFinance
 {
-    public int money;
-    public int debt;
-    // Start is called before the first frame update
-    public PlayerFinance(int x, int y)
-    {
-        money = x;
-        debt = y; //to be changed later, will depend of value of initial equipment
-    }
+    public static float cashOnHand{get; set;} = 1000.0f;
+    public static float debtBank{get; set;} = 2500.0f;
+    public static float bankMaxLoan{get; set;} = 10000.0f;
+    public static float bankInterestRate{get; set;} = 0.035f;
+    public static int bankThreatLevel{get; set;} = 0;
+    public static float debtMob{get; set;} = 0.0f;
+    public static float mobMaxLoan{get; set;} = 4000.0f;
+    public static float mobInterestRate{get; set;} = 0.155f;
+    public static int mobThreatLevel{get; set;} = 3;
 
-    void Start()
-    {
-        PlayerFinance pf = new PlayerFinance(0, 1000);
-    }
-    /* Unsure if needed, keeping just in case
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    */
 }
