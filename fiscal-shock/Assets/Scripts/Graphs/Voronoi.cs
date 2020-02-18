@@ -1,3 +1,6 @@
+using System;
+using System.Reflection.Metadata.Ecma335;
+using System.Collections.Immutable;
 using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
@@ -36,7 +39,8 @@ namespace FiscalShock.Graphs {
 
             calculateVerticesAndEdgesFromDelaunator();
             createCells();
-            findVoronoiCellsNaive();
+            //findVoronoiCellsNaive();
+            findVoronoiCellsClock();
         }
 
         /// <summary>
@@ -57,6 +61,57 @@ namespace FiscalShock.Graphs {
                 }
             }
         }
+
+        /// <summary>
+        /// Cell neighbors are just adjacent sites in the Delaunay triangulation.
+        /// This is ugly and inefficient, but C# is cranky about instantiating collections.
+        /// </summary>
+        private void createCells() {
+            // First, construct the list completely
+            foreach (Vertex site in sites) {
+                Cell cell = new Cell(site);
+                cells.Add(cell);
+            }
+            // Now we can reference other cells farther down the list
+            foreach (Cell cell in cells) {
+                foreach (Vertex neighbor in cell.site.neighborhood) {
+                    cell.neighbors.Add(cells[neighbor.id]);
+                }
+            }
+        }
+
+        private void findVoronoiCellsClock() {
+            // Set the initial search point
+            List<float> xs = vertices.Select(v => v.x).ToList();
+            float xdelta = xs.Max() - xs.Min();
+            List<float> ys = vertices.Select(v => v.y).ToList();
+            float ydelta = ys.Max() - ys.Min();
+            Vertex reallyFarAway = new Vertex(xdelta, ydelta);
+
+            foreach (Cell cell in cells) {
+                List<Vertex> checkedEndpoints = new List<Vertex>();
+
+                // First pass for each site requires checking all Voronoi edges (expensive!)
+                Edge farcaster = new Edge(reallyFarAway, site);
+                List<Tuple<Edge, Vertex>> hits = new List<Tuple<Edge, Vertex>>();
+                foreach (Edge e in edges) {
+                    Vertex hit = Edge.findIntersection(farcaster, e);
+                    if (hit != null) {
+                        hits.Add(new Tuple<Edge, Vertex> (e, hit));
+                    }
+                }
+
+                // Calculate distance to each intersected point
+                List<Tuple<Edge, double>> dists = hits.Select(v => new Tuple<Edge, double> (v.Item1, v.Item2.getDistanceTo(site))).ToList();
+
+                // Minimum is the winner. Set the corresponding edge as a side
+                Edge newSide = dists.OrderBy(l => l.Item2).First().Item1;
+                
+                
+            }
+        }
+
+        //private void findRayIntersections(Vertex site,)
 
         /// <summary>
         /// Main function to determine the Voronoi cells.
@@ -197,24 +252,6 @@ namespace FiscalShock.Graphs {
                 }
             }
             return missingEdgePairs.Distinct().ToList();
-        }
-
-        /// <summary>
-        /// Cell neighbors are just adjacent sites in the Delaunay triangulation.
-        /// This is ugly and inefficient, but C# is cranky about instantiating collections.
-        /// </summary>
-        private void createCells() {
-            // First, construct the list completely
-            foreach (Vertex site in sites) {
-                Cell cell = new Cell(site);
-                cells.Add(cell);
-            }
-            // Now we can reference other cells farther down the list
-            foreach (Cell cell in cells) {
-                foreach (Vertex neighbor in cell.site.neighborhood) {
-                    cell.neighbors.Add(cells[neighbor.id]);
-                }
-            }
         }
     }
 }
