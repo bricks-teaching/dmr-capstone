@@ -38,7 +38,7 @@ namespace FiscalShock.Graphs {
             calculateVerticesAndEdgesFromDelaunator();
             createCells();
             //findVoronoiCellsNaive();
-            //findVoronoiCellsClock();
+            findVoronoiCellsClock();
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace FiscalShock.Graphs {
         }
 
         private void findVoronoiCellsClock() {
-            const float ROTATE_DELTA = 0.87f;  // ~5 degrees to radians
+            const float ROTATE_DELTA = 1f;//0.087f;
             // Set the initial search point
             List<float> xs = vertices.Select(v => v.x).ToList();
             float xdelta = xs.Max() - xs.Min();
@@ -92,7 +92,7 @@ namespace FiscalShock.Graphs {
                 float theta;
 
                 // First pass for each site requires checking all Voronoi edges (expensive!)
-                Edge farcaster = new Edge(reallyFarAway, cell.site);
+                Edge farcaster = new Edge(reallyFarAway, cell.site, false);
                 Edge firstEdge = findRayIntersections(cell.site, farcaster, edges);
                 cell.sides.Add(firstEdge);
 
@@ -110,9 +110,10 @@ namespace FiscalShock.Graphs {
 
                 // Found one edge already, so start the loop index at 1
                 for (int i = 1; i < cell.site.neighborhood.Count; ++i) {
+                    Debug.Log($"side {i} of {cell.site.neighborhood.Count}");
                     // Rotate the angle and get a new point far away.
-                    Vertex distant = cell.site.getEndpointOfLineRotation(theta + ROTATE_DELTA, xdelta + ydelta);
-                    farcaster = new Edge(cell.site, distant);
+                    Vertex distant = cell.site.getEndpointOfLineRotation(theta - ROTATE_DELTA, 200);
+                    farcaster = new Edge(cell.site, distant, false);
 
                     // Check if it intersects neighbors of the selected site.
                     Edge intersectedEdge = findRayIntersections(cell.site, farcaster, checkedEndpoints.Last().incidentEdges);
@@ -121,13 +122,14 @@ namespace FiscalShock.Graphs {
                     // probably also make a counter to abort infinite loops
                     int tmp = 0;
                     while (intersectedEdge == null) {
-                        if (tmp > 10) {
-                            throw new ArgumentNullException("Can't find intersection, fix your code");
+                        if (tmp > 1) {
+                            Debug.LogError("Can't find intersection, fix your code");
+                            throw new Exception();
                         }
                         // try again, but reduce the rotation
-                        temp_delta /= 2;
-                        distant = cell.site.getEndpointOfLineRotation(theta + temp_delta, xdelta + ydelta);
-                        farcaster = new Edge(cell.site, distant);
+                        temp_delta /= -1.1;
+                        distant = cell.site.getEndpointOfLineRotation(theta - temp_delta, 200);
+                        farcaster = new Edge(cell.site, distant, false);
                         intersectedEdge = findRayIntersections(cell.site, farcaster, checkedEndpoints.Last().incidentEdges);
                         ++tmp;
                     }
@@ -137,6 +139,8 @@ namespace FiscalShock.Graphs {
                     checkedEndpoints.Add(
                         intersectedEdge.vertices.Except(checkedEndpoints).First()
                     );
+                    theta = cell.site.getAngleOfRotationTo(checkedEndpoints.Last());
+                    Debug.Log($"going to next {cell.sides.Count}");
                 }
             }
         }
@@ -154,6 +158,7 @@ namespace FiscalShock.Graphs {
                 return null;
             }
 
+            // below is only for first...
             // Calculate distance to each intersected point
             List<Tuple<Edge, double>> dists = hits.Select(v => new Tuple<Edge, double> (v.Item1, v.Item2.getDistanceTo(site))).ToList();
 

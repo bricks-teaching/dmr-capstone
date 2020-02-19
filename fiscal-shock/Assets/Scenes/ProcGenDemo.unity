@@ -370,8 +370,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68dfad3498916735e8263a54ab5d48b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seed: 0
-  numberOfVertices: 500
+  seed: 555
+  numberOfVertices: 100
   unitScale: 1
   minX: -100
   maxX: 100

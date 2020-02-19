@@ -263,8 +263,10 @@ namespace FiscalShock.Graphs {
         public static Vertex findIntersection(Edge a, Edge b) {
             double[] intersection = Mathy.findIntersection(a.vertices[0].x, a.vertices[0].y, a.vertices[1].x, a.vertices[1].y, b.vertices[0].x, b.vertices[0].y, b.vertices[1].x, b.vertices[1].y);
             if (intersection != null) {
+                Debug.Log("found!");
                 return new Vertex(intersection);
             } else {
+                Debug.Log("returning null, found none");
                 return null;
             }
         }
@@ -482,6 +484,8 @@ namespace FiscalShock.Graphs {
     /// Math functions (can't name it `Math` because that collides with `System.Math`)
     /// </summary>
     public static class Mathy {
+        public const double HALF_PI = Math.PI / 2;
+
         /// <summary>
         /// Find determinant of a 2x2 matrix by cross-multiplying.
         /// <para>`| a b |`</para><para/>
@@ -508,6 +512,14 @@ namespace FiscalShock.Graphs {
             return Math.Sqrt(Math.Pow(x1 - x2, 2) + Math.Pow(y1 - y2, 2));
         }
 
+        /// <summary>
+        /// <para>atan2 range: [-π, π]</para>
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <returns></returns>
         public static double getAngleOfRotation(double x1, double y1, double x2, double y2) {
             return Math.Atan2(y2 - y1, x2 - x1);
         }
@@ -547,12 +559,14 @@ namespace FiscalShock.Graphs {
             float ta_denom = ((dx - cx) * (ay - by)) - ((ax - bx) * (dy - cy));
 
             if (ta_denom == 0 || Math.Abs(ta_denom) < EPSILON) {  // Collinear
+                Debug.Log("ta_denom 0");
                 return null;
             }
 
             float ta = ta_numer / ta_denom;
 
             if (ta < 0 || ta > 1) {  // Does not intersect on the segments
+                Debug.Log("ta not on segment");
                 return null;
             }
 
@@ -562,12 +576,14 @@ namespace FiscalShock.Graphs {
             float tb_denom = ((dx - cx) * (ay - by)) - ((ax - bx) * (dy - cy));
 
             if (tb_denom == 0 || Math.Abs(tb_denom) < EPSILON) {  // Collinear
+                Debug.Log("tb_denom 0");
                 return null;
             }
 
             float tb = tb_numer / tb_denom;
 
             if (tb < 0 || tb > 1) {  // Does not intersect on the segments
+                Debug.Log("tb not on segment");
                 return null;
             }
 
@@ -576,6 +592,7 @@ namespace FiscalShock.Graphs {
             float x = ax + (ta * (bx - ax));
             float y = ay + (ta * (by - ay));
 
+            Debug.Log($"found intersection at {x}, {y}");
             return new double[] { x, y };
         }
     }
