@@ -35,17 +35,22 @@ namespace FiscalShock.Procedural {
         // private Delaunay masterDt;
         // private Something spanningTree;
 
+        private MersenneTwister mt;
+
         public void Start() {
             // Set up the PRNG
             if (seed == 0) {
                 seed = DateTimeOffset.Now.ToUnixTimeSeconds();
             }
-            MersenneTwister mt = new MersenneTwister((int)seed);
+            mt = new MersenneTwister((int)seed);
+            UnityEngine.Random.InitState((int)seed);
 
             // Generate vertices
             List<double> vertices = new List<double>();
 
-            for (int i = 0; i < numberOfVertices; i += 2) {
+            for (int i = 0; i < numberOfVertices*2; i += 2) {
+                //vertices.Add(UnityEngine.Random.Range(minX, maxX) * unitScale);
+                //vertices.Add(UnityEngine.Random.Range(minY, maxY) * unitScale);
                 vertices.Add(mt.Next(minX, maxX) * unitScale);
                 vertices.Add(mt.Next(minY, maxY) * unitScale);
             }

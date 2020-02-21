@@ -17,7 +17,7 @@ namespace FiscalShock.Graphs {
             triangulation = new Triangulation(input);
 
             // Set up data structures for use in other scripts
-            setTypedGeometry(this);
+            setTypedGeometry();
         }
 
         /// <summary>
@@ -42,37 +42,32 @@ namespace FiscalShock.Graphs {
         /// Sets up all geometry from the triangulation into data structures
         /// that are easier to deal with
         /// </summary>
-        public static void setTypedGeometry(Delaunay dt) {
-            dt.vertices = new List<Vertex>();
-            dt.edges = new List<Edge>();
-            dt.triangles = new List<Triangle>();
-            for (int i = 0; i < dt.triangulation.triangles.Count; i += 3) {
+        public void setTypedGeometry() {
+            vertices = new List<Vertex>();
+            edges = new List<Edge>();
+            triangles = new List<Triangle>();
+            for (int i = 0; i < triangulation.triangles.Count; i += 3) {
                 // TODO do the points need to be in clockwise order?
-                float[] vertices = dt.getTriangleVertices(i);
+                float[] fVertices = getTriangleVertices(i);
                 // Track id to simplify Voronoi cell finding
-                Vertex a = new Vertex(vertices[0], vertices[1], dt.vertices.Count);
-                Vertex b = new Vertex(vertices[2], vertices[3], dt.vertices.Count + 1);
-                Vertex c = new Vertex(vertices[4], vertices[5], dt.vertices.Count + 2);
+                Vertex a = Vertex.getVertex(fVertices[0], fVertices[1], vertices);
+                Vertex b = Vertex.getVertex(fVertices[2], fVertices[3], vertices);
+                Vertex c = Vertex.getVertex(fVertices[4], fVertices[5], vertices);
 
-                /* Link up the vertices. The ids for triangle t's edges are
-                 *    3 * t, 3 * t + 1, 3 * t + 2
-                 */
-                Edge ab = new Edge(a, b, 3*i);
-                Edge bc = new Edge(b, c, 3*i+1);
-                Edge ca = new Edge(c, a, 3*i+2);
+                Edge ab = Edge.getEdge(a, b, edges);
+                Edge bc = Edge.getEdge(b, c, edges);
+                Edge ca = Edge.getEdge(c, a, edges);
 
                 // Add to the Delaunay object
                 List<Vertex> vabc = new List<Vertex> { a, b, c };
                 List<Edge> eabc = new List<Edge> { ab, bc, ca };
-                dt.vertices.AddRange(vabc);
-                dt.edges.AddRange(eabc);
 
                 Triangle t = new Triangle(
                     vabc,
                     eabc,
                     i
                 );
-                dt.triangles.Add(t);
+                triangles.Add(t);
             }
         }
 

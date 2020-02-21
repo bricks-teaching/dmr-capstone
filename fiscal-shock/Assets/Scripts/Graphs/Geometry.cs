@@ -9,8 +9,9 @@ namespace FiscalShock.Graphs {
     /// 2D Cartesian coordinates
     /// </summary>
     public class Vertex {
-        public float x { get; }
-        public float y { get; }
+        public Vector2 vector { get; }
+        public float x => vector.x;
+        public float y => vector.y;
         public int id { get; }
 
         /* Spending the space to track connected components simplifies
@@ -23,8 +24,7 @@ namespace FiscalShock.Graphs {
 
         /* Begin overloaded constructors */
         public Vertex(float xX, float yY) {
-            x = xX;
-            y = yY;
+            vector = new Vector2(xX, yY);
         }
 
         public Vertex(float xX, float yY, int vid) : this(xX, yY) {
@@ -51,7 +51,7 @@ namespace FiscalShock.Graphs {
         /* Comparator functions - needed for LINQ */
         public override bool Equals(object obj) {
             if (obj is Vertex other) {
-                return x == other.x && y == other.y;
+                return vector == other.vector;
             }
             return false;
         }
@@ -68,13 +68,28 @@ namespace FiscalShock.Graphs {
         }
         /* End comparator functions */
 
+        public static Vertex getVertex(float x, float y, List<Vertex> existingVertices) {
+            Vertex tmp = new Vertex(x, y, existingVertices.Count);
+            int idx = existingVertices.IndexOf(tmp);
+            if (idx == -1) {
+                // new vertex, add it
+                existingVertices.Add(tmp);
+                return tmp;
+            }
+            return existingVertices[idx];
+        }
+
         /// <summary>
         /// Euclidean distance between two Cartesian coordiates
         /// </summary>
         /// <param name="other">distant vertex</param>
         /// <returns>distance</returns>
-        public double getDistanceTo(Vertex other) {
+        public double getDistanceTo2(Vertex other) {
             return Mathy.getDistanceBetween(x, y, other.x, other.y);
+        }
+
+        public float getDistanceTo(Vertex other) {
+            return Vector2.Distance(vector, other.vector);
         }
 
         /// <summary>
@@ -95,14 +110,14 @@ namespace FiscalShock.Graphs {
         /// <returns></returns>
         public static Vertex findNearestInListTo(Vertex origin, List<Vertex> others) {
             // Find all distances to the origin
-            List<double> distances = others.Select(v => v.getDistanceTo(origin)).ToList();
+            List<float> distances = others.Select(v => v.getDistanceTo(origin)).ToList();
 
             /* If origin is in the list, we want the second minimum distance.
              * This means we can't just take the minimum of this list.
              * But we can just choose to skip the first element in the sorted list instead, or skip na
              */
             int skip = others.Contains(origin)? 1 : 0;
-            double minimumDistance = distances.OrderBy(d => d).Skip(skip).First();
+            float minimumDistance = distances.OrderBy(d => d).Skip(skip).First();
             int indexOfNearest = distances.IndexOf(minimumDistance);
 
             return others[indexOfNearest];
@@ -132,6 +147,9 @@ namespace FiscalShock.Graphs {
             return getEndpointOfLineRotation(this, theta, distance);
         }
 
+        public static float getAngleOfRotation2(Vertex a, Vertex b) {
+            return Vector2.Angle(a.vector, b.vector);
+        }
         public static float getAngleOfRotation(Vertex a, Vertex b) {
             return (float)Mathy.getAngleOfRotation(b.y, a.y, b.x, a.x);
         }
@@ -253,6 +271,17 @@ namespace FiscalShock.Graphs {
         }
         /* End Delaunator helper functions */
 
+        public static Edge getEdge(Vertex a, Vertex b, List<Edge> existingEdges) {
+            Edge tmp = new Edge(a, b, false);
+            int idx = existingEdges.IndexOf(tmp);
+            if (idx == -1) {
+                tmp = new Edge(a, b);
+                existingEdges.Add(tmp);
+                return tmp;
+            }
+            return existingEdges[idx];
+        }
+
         /// <summary>
         /// Find intersection point between two edges.
         /// See <see cref="Mathy.findIntersection" />.
@@ -263,10 +292,8 @@ namespace FiscalShock.Graphs {
         public static Vertex findIntersection(Edge a, Edge b) {
             double[] intersection = Mathy.findIntersection(a.vertices[0].x, a.vertices[0].y, a.vertices[1].x, a.vertices[1].y, b.vertices[0].x, b.vertices[0].y, b.vertices[1].x, b.vertices[1].y);
             if (intersection != null) {
-                Debug.Log("found!");
                 return new Vertex(intersection);
             } else {
-                Debug.Log("returning null, found none");
                 return null;
             }
         }
@@ -534,8 +561,19 @@ namespace FiscalShock.Graphs {
         /// <returns>2-element array representing the x- and y-coordinate of the point, respectively</returns>
         public static double[] getEndpointOfLineRotation(double x, double y, double theta, float distance) {
             double u = x + (distance * Math.Cos(theta));
-            double v = y + (distance * Math.Cos(theta));
+            double v = y + (distance * Math.Sin(theta));
             return new double[] { u, v };
+        }
+
+        public static Vector2 Rotate(this Vector2 v, float degrees) {
+            float sin = Mathf.Sin(degrees * Mathf.Deg2Rad);
+            float cos = Mathf.Cos(degrees * Mathf.Deg2Rad);
+
+            float tx = v.x;
+            float ty = v.y;
+            v.x = (cos * tx) - (sin * ty);
+            v.y = (sin * tx) + (cos * ty);
+            return v;
         }
 
         /// <summary>
@@ -559,14 +597,12 @@ namespace FiscalShock.Graphs {
             float ta_denom = ((dx - cx) * (ay - by)) - ((ax - bx) * (dy - cy));
 
             if (ta_denom == 0 || Math.Abs(ta_denom) < EPSILON) {  // Collinear
-                Debug.Log("ta_denom 0");
                 return null;
             }
 
             float ta = ta_numer / ta_denom;
 
             if (ta < 0 || ta > 1) {  // Does not intersect on the segments
-                Debug.Log("ta not on segment");
                 return null;
             }
 
@@ -576,14 +612,12 @@ namespace FiscalShock.Graphs {
             float tb_denom = ((dx - cx) * (ay - by)) - ((ax - bx) * (dy - cy));
 
             if (tb_denom == 0 || Math.Abs(tb_denom) < EPSILON) {  // Collinear
-                Debug.Log("tb_denom 0");
                 return null;
             }
 
             float tb = tb_numer / tb_denom;
 
             if (tb < 0 || tb > 1) {  // Does not intersect on the segments
-                Debug.Log("tb not on segment");
                 return null;
             }
 
@@ -595,5 +629,65 @@ namespace FiscalShock.Graphs {
             Debug.Log($"found intersection at {x}, {y}");
             return new double[] { x, y };
         }
+
+        public static bool LineIntersection(Vector2 p1, Vector2 p2, Vector2 p3, Vector2 p4, ref Vector2 intersection) {
+            float Ax,Bx,Cx,Ay,By,Cy,d,e,f,num/*,offset*/;
+            float x1lo,x1hi,y1lo,y1hi;
+            Ax = p2.x-p1.x;
+            Bx = p3.x-p4.x;
+            // X bound box test/
+            if(Ax<0) {
+                x1lo=p2.x; x1hi=p1.x;
+            } else {
+                x1hi=p2.x; x1lo=p1.x;
+            }
+            if(Bx>0) {
+                if(x1hi < p4.x || p3.x < x1lo) return false;
+            } else {
+                if(x1hi < p3.x || p4.x < x1lo) return false;
+            }
+            Ay = p2.y-p1.y;
+            By = p3.y-p4.y;
+            // Y bound box test//
+            if(Ay<0) {
+                y1lo=p2.y; y1hi=p1.y;
+            } else {
+                y1hi=p2.y; y1lo=p1.y;
+            }
+            if(By>0) {
+                if(y1hi < p4.y || p3.y < y1lo) return false;
+            } else {
+                if(y1hi < p3.y || p4.y < y1lo) return false;
+            }
+            Cx = p1.x-p3.x;
+            Cy = p1.y-p3.y;
+            d = By*Cx - Bx*Cy;  // alpha numerator//
+            f = Ay*Bx - Ax*By;  // both denominator//
+
+            // alpha tests//
+            if(f>0) {
+                if(d<0 || d>f) return false;
+            } else {
+                if(d>0 || d<f) return false;
+            }
+            e = Ax*Cy - Ay*Cx;  // beta numerator//
+
+            // beta tests //
+            if(f>0) {
+                if(e<0 || e>f) return false;
+            } else {
+                if(e>0 || e<f) return false;
+            }
+            // check if they are parallel
+            if(f==0) return false;
+
+            // compute intersection coordinates //
+            num = d*Ax; // numerator //
+            intersection.x = p1.x + num / f;
+            num = d*Ay;
+            intersection.y = p1.y + num / f;
+            return true;
+        }
+
     }
 }

@@ -48,14 +48,14 @@ namespace FiscalShock.Graphs {
         private void calculateVerticesAndEdgesFromDelaunator() {
             for (int e = 0; e < dual.triangulation.triangles.Count; e++) {
                 if (e < dual.triangulation.halfedges[e]) {
+                    // TODO clean up calls here
                     Vertex p = dual.triangles[Edge.getTriangleId(e)].findCircumcenter();
+                    p = Vertex.getVertex(p.x, p.y, vertices);
                     Vertex q = dual.triangles[Edge.getTriangleId(dual.triangulation.halfedges[e])].findCircumcenter();
+                    q = Vertex.getVertex(q.x, q.y, vertices);
 
-                    Edge pq = new Edge(p, q);
-
-                    vertices.Add(p);
-                    vertices.Add(q);
-                    edges.Add(pq);
+                    // getEdge adds to the list if necessary
+                    Edge.getEdge(p, q, edges);
                 }
             }
         }
@@ -79,7 +79,7 @@ namespace FiscalShock.Graphs {
         }
 
         private void findVoronoiCellsClock() {
-            const float ROTATE_DELTA = 1f;//0.087f;
+            const float ROTATE_DELTA = 0.087f;
             // Set the initial search point
             List<float> xs = vertices.Select(v => v.x).ToList();
             float xdelta = xs.Max() - xs.Min();
@@ -97,6 +97,9 @@ namespace FiscalShock.Graphs {
                 cell.sides.Add(firstEdge);
 
                 // Find the angle of rotation between both endpoints of the first edge.
+                Vector2 s = new Vector2(cell.site.x, cell.site.y);
+                //float theta_cand1 = Vector2.Angle(s, new Vector2(firstEdge.vertices[0].x, firstEdge.vertices[0].y));
+                //float theta_cand2 = Vector2.Angle(s, new Vector2(firstEdge.vertices[1].x, firstEdge.vertices[1].y));
                 float theta_cand1 = cell.site.getAngleOfRotationTo(firstEdge.vertices[0]);
                 float theta_cand2 = cell.site.getAngleOfRotationTo(firstEdge.vertices[1]);
                 // Select the smallest angle, since we're going to decrement the angle.
@@ -114,31 +117,34 @@ namespace FiscalShock.Graphs {
                     // Rotate the angle and get a new point far away.
                     Vertex distant = cell.site.getEndpointOfLineRotation(theta - ROTATE_DELTA, 200);
                     farcaster = new Edge(cell.site, distant, false);
+                    //Vector2 nu = s.Rotate(theta - ROTATE_DELTA);
+                    //farcaster = new Edge(cell.site, new Vertex(nu.x, nu.y), false);
 
                     // Check if it intersects neighbors of the selected site.
                     Edge intersectedEdge = findRayIntersections(cell.site, farcaster, checkedEndpoints.Last().incidentEdges);
 
-                    double temp_delta = ROTATE_DELTA;
+                    float temp_delta = ROTATE_DELTA;
                     // probably also make a counter to abort infinite loops
                     int tmp = 0;
-                    while (intersectedEdge == null) {
-                        if (tmp > 1) {
+                    while (intersectedEdge == null || cell.sides.Contains(intersectedEdge)) {
+                        if (tmp > 44) {
                             Debug.LogError("Can't find intersection, fix your code");
                             throw new Exception();
                         }
                         // try again, but reduce the rotation
-                        temp_delta /= -1.1;
+                        temp_delta *= -1.1f;
+                        //nu = s.Rotate(theta - temp_delta);
                         distant = cell.site.getEndpointOfLineRotation(theta - temp_delta, 200);
                         farcaster = new Edge(cell.site, distant, false);
+                        //farcaster = new Edge(cell.site, new Vertex(nu.x, nu.y), false);
                         intersectedEdge = findRayIntersections(cell.site, farcaster, checkedEndpoints.Last().incidentEdges);
                         ++tmp;
                     }
 
                     cell.sides.Add(intersectedEdge);
                     // Pick a new endpoint not in the list already
-                    checkedEndpoints.Add(
-                        intersectedEdge.vertices.Except(checkedEndpoints).First()
-                    );
+                    Vertex ie = intersectedEdge.vertices.Except(checkedEndpoints).First();
+                    checkedEndpoints.Add(ie);
                     theta = cell.site.getAngleOfRotationTo(checkedEndpoints.Last());
                     Debug.Log($"going to next {cell.sides.Count}");
                 }
@@ -149,13 +155,18 @@ namespace FiscalShock.Graphs {
             List<Tuple<Edge, Vertex>> hits = new List<Tuple<Edge, Vertex>>();
             foreach (Edge e in edgesToHit) {
                 Vertex hit = Edge.findIntersection(ray, e);
+                //Vector2 hit = new Vector2();
+                //bool was_hit = Mathy.LineIntersection(e.vertices[0].vector, e.vertices[1].vector, ray.vertices[0].vector, ray.vertices[1].vector, ref hit);
                 if (hit != null) {
-                    hits.Add(new Tuple<Edge, Vertex> (e, hit));
+                    hits.Add(new Tuple<Edge, Vertex> (e, new Vertex(hit.x, hit.y)));
                 }
             }
 
             if (hits.Count < 1) {
                 return null;
+            }
+            if (hits.Count == 1) {
+                return hits[0].Item1;
             }
 
             // below is only for first...
