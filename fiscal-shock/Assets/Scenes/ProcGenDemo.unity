@@ -214,35 +214,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &482029835 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3505161639062074498, guid: bc7ef44de2f694932a9d0fc4d3a3d809,
-    type: 3}
-  m_PrefabInstance: {fileID: 3505161640517785638}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &482029840
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 482029835}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18d262f8db7df7c6ead74923307508f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dungen: {fileID: 1546386902}
-  renderHeight: 1.1
-  renderDelaunay: 1
-  delaunayColor: {r: 1, g: 0, b: 0.9253464, a: 1}
-  renderVoronoi: 1
-  voronoiColor: {r: 0, g: 0.80742407, b: 1, a: 1}
-  renderMasterDelaunay: 1
-  masterDelaunayColor: {r: 1, g: 0.96458334, b: 0, a: 1}
-  renderSpanningTree: 1
-  spanningTreeColor: {r: 0, g: 1, b: 0.008504152, a: 1}
-  edgeMat: {fileID: 2100000, guid: 4c59fd6ae625a9500b147fcf863adeb3, type: 2}
 --- !u!1 &1203233314
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,21 +363,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3505161639062074510, guid: bc7ef44de2f694932a9d0fc4d3a3d809,
-        type: 3}
-      propertyPath: m_BackGroundColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3505161639062074510, guid: bc7ef44de2f694932a9d0fc4d3a3d809,
-        type: 3}
-      propertyPath: m_BackGroundColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3505161639062074510, guid: bc7ef44de2f694932a9d0fc4d3a3d809,
-        type: 3}
-      propertyPath: m_BackGroundColor.b
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3505161640531145082, guid: bc7ef44de2f694932a9d0fc4d3a3d809,
         type: 3}
       propertyPath: m_LocalPosition.x
