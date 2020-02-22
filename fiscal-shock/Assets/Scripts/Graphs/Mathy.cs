@@ -184,6 +184,5 @@ namespace FiscalShock.Graphs {
             intersection.y = p1.y + num / f;
             return true;
         }
-
     }
 }

@@ -53,12 +53,8 @@ namespace FiscalShock.Graphs {
                 Edge ca = Edge.getEdge(c, a, edges);
 
                 // Add to the Delaunay object
-                List<Vertex> vabc = new List<Vertex> { a, b, c };
-                List<Edge> eabc = new List<Edge> { ab, bc, ca };
-
                 Triangle t = new Triangle(
-                    vabc,
-                    eabc,
+                    new List<Edge> { ab, bc, ca },
                     i
                 );
                 triangles.Add(t);

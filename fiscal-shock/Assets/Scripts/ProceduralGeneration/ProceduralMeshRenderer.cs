@@ -62,13 +62,13 @@ namespace FiscalShock.Demo {
             // Start immediate mode drawing for lines
             GL.PushMatrix();
 
-            foreach (Triangle t in del.triangles) {
+            foreach (Triangle tri in del.triangles) {
                 GL.Begin(GL.LINES);
                 setGraphColors(color);
 
-                Vector3 a = t.vertices[0].toVector3AtHeight(renderHeight);
-                Vector3 b = t.vertices[1].toVector3AtHeight(renderHeight);
-                Vector3 c = t.vertices[2].toVector3AtHeight(renderHeight);
+                Vector3 a = tri.a.toVector3AtHeight(renderHeight);
+                Vector3 b = tri.b.toVector3AtHeight(renderHeight);
+                Vector3 c = tri.c.toVector3AtHeight(renderHeight);
 
                 // ab
                 GL.Vertex3(a.x, a.y, a.z);
@@ -91,8 +91,8 @@ namespace FiscalShock.Demo {
                 GL.Begin(GL.LINES);
                 setGraphColors(color);
 
-                Vector3 a = e.vertices[0].toVector3AtHeight(renderHeight);
-                Vector3 b = e.vertices[1].toVector3AtHeight(renderHeight);
+                Vector3 a = e.p.toVector3AtHeight(renderHeight);
+                Vector3 b = e.q.toVector3AtHeight(renderHeight);
 
                 // ab
                 GL.Vertex3(a.x, a.y, a.z);
