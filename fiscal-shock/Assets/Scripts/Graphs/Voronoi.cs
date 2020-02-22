@@ -43,13 +43,17 @@ namespace FiscalShock.Graphs {
         /// <para>https://mapbox.github.io/delaunator/</para>
         /// </summary>
         private void calculateVerticesAndEdgesFromDelaunator() {
-            for (int e = 0; e < dual.triangulation.triangles.Count; e++) {
-                if (e < dual.triangulation.halfedges[e]) {
+            for (int e = 0; e < dual.delaunator.triangles.Count; e++) {
+                if (e < dual.delaunator.halfedges[e]) {
                     // TODO clean up calls here
-                    Vertex p = dual.triangles[Edge.getTriangleId(e)].findCircumcenter();
-                    p = Vertex.getVertex(p.x, p.y, vertices);
-                    Vertex q = dual.triangles[Edge.getTriangleId(dual.triangulation.halfedges[e])].findCircumcenter();
-                    q = Vertex.getVertex(q.x, q.y, vertices);
+                    Vertex p = Vertex.getVertex(
+                        dual.triangles[Edge.getTriangleId(e)].findCircumcenter(),
+                        vertices
+                    );
+                    Vertex q = Vertex.getVertex(
+                        dual.triangles[Edge.getTriangleId(dual.delaunator.halfedges[e])].findCircumcenter(),
+                        vertices
+                    );
 
                     // getEdge adds to the list if necessary
                     Edge.getEdge(p, q, edges);
@@ -76,7 +80,7 @@ namespace FiscalShock.Graphs {
         }
 
         private void findVoronoiCellsClock() {
-            const float ROTATE_DELTA = 0.087f;
+            const float ROTATE_DELTA = (float)Math.PI/6.0f;
             // Set the initial search point
             List<float> xs = vertices.Select(v => v.x).ToList();
             float xdelta = xs.Max() - xs.Min();
@@ -85,66 +89,85 @@ namespace FiscalShock.Graphs {
             Vertex reallyFarAway = new Vertex(xdelta, ydelta);
 
             foreach (Cell cell in cells) {
-                List<Vertex> checkedEndpoints = new List<Vertex>();
-                float theta;
+                Debug.LogError($"Starting {cell.site.id}");
+                //List<Vertex> checkedEndpoints = new List<Vertex>();
+                Edge farcaster;
 
-                // First pass for each site requires checking all Voronoi edges (expensive!)
-                Edge farcaster = new Edge(reallyFarAway, cell.site);
-                Edge firstEdge = findRayIntersections(cell.site, farcaster, edges);
-                cell.sides.Add(firstEdge);
-
-                // Find the angle of rotation between both endpoints of the first edge.
-                Vector2 s = new Vector2(cell.site.x, cell.site.y);
-                //float theta_cand1 = Vector2.Angle(s, new Vector2(firstEdge.vertices[0].x, firstEdge.vertices[0].y));
-                //float theta_cand2 = Vector2.Angle(s, new Vector2(firstEdge.vertices[1].x, firstEdge.vertices[1].y));
-                float theta_cand1 = cell.site.getAngleOfRotationTo(firstEdge.vertices[0]);
-                float theta_cand2 = cell.site.getAngleOfRotationTo(firstEdge.vertices[1]);
-                // Select the smallest angle, since we're going to decrement the angle.
-                if (theta_cand1 < theta_cand2) {
-                    theta = theta_cand1;
-                    checkedEndpoints.Add(firstEdge.vertices[0]);
-                } else {
-                    theta = theta_cand2;
-                    checkedEndpoints.Add(firstEdge.vertices[1]);
-                }
+                float theta = findFirstEdge(reallyFarAway, cell/*,checkedEndpoints*/);
 
                 // Found one edge already, so start the loop index at 1
                 for (int i = 1; i < cell.site.neighborhood.Count; ++i) {
-                    Debug.Log($"side {i} of {cell.site.neighborhood.Count}");
                     // Rotate the angle and get a new point far away.
-                    Vertex distant = cell.site.getEndpointOfLineRotation(theta - ROTATE_DELTA, 200);
+                    Vertex distant = cell.site.getEndpointOfLineRotation(theta - ROTATE_DELTA, 2000);
                     farcaster = new Edge(cell.site, distant);
-                    //Vector2 nu = s.Rotate(theta - ROTATE_DELTA);
-                    //farcaster = new Edge(cell.site, new Vertex(nu.x, nu.y), false);
+                    //Vector2 nu = cell.site.vector.Rotate(theta - ROTATE_DELTA);
+                    //farcaster = new Edge(cell.site, new Vertex(nu.x, nu.y));
 
                     // Check if it intersects neighbors of the selected site.
-                    Edge intersectedEdge = findRayIntersections(cell.site, farcaster, checkedEndpoints.Last().incidentEdges);
+                    Edge intersectedEdge = findRayIntersections(cell.site, farcaster, edges);
 
                     float temp_delta = ROTATE_DELTA;
                     // probably also make a counter to abort infinite loops
                     int tmp = 0;
+                    bool duh = false;
                     while (intersectedEdge == null || cell.sides.Contains(intersectedEdge)) {
+                        //Debug.Log($"Trying again, was intersectedEdge null? {intersectedEdge == null}");
                         if (tmp > 44) {
-                            Debug.LogError("Can't find intersection, fix your code");
-                            throw new Exception();
+                            Debug.LogError($"Can't find intersection for {cell.site.id} side {i}/{cell.site.neighborhood.Count}, fix your code");
+                            duh = true;
+                            break;
                         }
                         // try again, but reduce the rotation
-                        temp_delta *= -1.1f;
-                        //nu = s.Rotate(theta - temp_delta);
-                        distant = cell.site.getEndpointOfLineRotation(theta - temp_delta, 200);
+                        temp_delta *= 1.1f;
+                        //nu = cell.site.vector.Rotate(theta - temp_delta);
+                        distant = cell.site.getEndpointOfLineRotation(theta - temp_delta, 2000);
                         farcaster = new Edge(cell.site, distant);
-                        //farcaster = new Edge(cell.site, new Vertex(nu.x, nu.y), false);
-                        intersectedEdge = findRayIntersections(cell.site, farcaster, checkedEndpoints.Last().incidentEdges);
+                        //farcaster = new Edge(cell.site, new Vertex(nu.x, nu.y));
+                        intersectedEdge = findRayIntersections(cell.site, farcaster, edges);
                         ++tmp;
                     }
 
+                    if (duh) continue;
                     cell.sides.Add(intersectedEdge);
                     // Pick a new endpoint not in the list already
-                    Vertex ie = intersectedEdge.vertices.Except(checkedEndpoints).First();
-                    checkedEndpoints.Add(ie);
-                    theta = cell.site.getAngleOfRotationTo(checkedEndpoints.Last());
-                    Debug.Log($"going to next {cell.sides.Count}");
+                    //Vertex ie = intersectedEdge.vertices.Except(checkedEndpoints).First();
+                    //checkedEndpoints.Add(ie);
+                    //theta = cell.site.getAngleOfRotationTo(checkedEndpoints.Last());
                 }
+                Debug.LogError($"Finished {cell.site.id}");
+            }
+        }
+
+        private float findFirstEdge(Vertex reallyFarAway, Cell cell/*, List<Vertex> checkedEndpoints*/) {
+            // First pass for each site requires checking all Voronoi edges (expensive!)
+            Edge farcaster = new Edge(reallyFarAway, cell.site);
+            Edge firstEdge = findRayIntersections(cell.site, farcaster, edges);
+            if (firstEdge == null) {  // This vertex might be on the convex hull
+                reallyFarAway = new Vertex(-reallyFarAway.x, -reallyFarAway.y);
+                farcaster = new Edge(reallyFarAway, cell.site);
+                firstEdge = findRayIntersections(cell.site, farcaster, edges);
+            }
+
+            cell.sides.Add(firstEdge);
+
+            // Find the angle of rotation between both endpoints of the first edge.
+            //Vector2 s = new Vector2(cell.site.x, cell.site.y);
+            //float theta_cand1 = Vector2.SignedAngle(s, new Vector2(firstEdge.vertices[0].x, firstEdge.vertices[0].y));
+            //float theta_cand2 = Vector2.SignedAngle(s, new Vector2(firstEdge.vertices[1].x, firstEdge.vertices[1].y));
+
+            if (cell.site.id == 88) {
+                Debug.Log("hi");
+            }
+            float theta_cand1 = cell.site.getAngleOfRotationTo(firstEdge.p);
+            float theta_cand2 = cell.site.getAngleOfRotationTo(firstEdge.q);
+
+            // Select the smallest angle, since we're going to decrement the angle.
+            if (theta_cand1 < theta_cand2) {
+                return theta_cand1;
+                //checkedEndpoints.Add(firstEdge.p);
+            } else {
+                return theta_cand2;
+                //checkedEndpoints.Add(firstEdge.q);
             }
         }
 
@@ -166,7 +189,7 @@ namespace FiscalShock.Graphs {
                 return hits[0].Item1;
             }
 
-            // below is only for first...
+            /* Only calculated for the first edge, otherwise returned above */
             // Calculate distance to each intersected point
             List<Tuple<Edge, double>> dists = hits.Select(v => new Tuple<Edge, double> (v.Item1, v.Item2.getDistanceTo(site))).ToList();
 

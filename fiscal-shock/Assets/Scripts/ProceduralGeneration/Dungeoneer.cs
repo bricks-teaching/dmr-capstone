@@ -38,6 +38,12 @@ namespace FiscalShock.Procedural {
         private MersenneTwister mt;
 
         public void Start() {
+            initPRNG();
+            generateDelaunay();
+            generateVoronoi();
+        }
+
+        public void initPRNG() {
             // Set up the PRNG
             if (seed == 0) {
                 seed = DateTimeOffset.Now.ToUnixTimeSeconds();
@@ -45,16 +51,22 @@ namespace FiscalShock.Procedural {
             // TODO Poisson disc sampling instead?
             mt = new MersenneTwister((int)seed);
             UnityEngine.Random.InitState((int)seed);
+        }
 
-            // Generate vertices
+        public List<double> makeRandomPoints() {
             List<double> vertices = new List<double>();
-
             for (int i = 0; i < numberOfVertices*2; i += 2) {
                 vertices.Add(mt.Next(minX, maxX) * unitScale);
                 vertices.Add(mt.Next(minY, maxY) * unitScale);
             }
+            return vertices;
+        }
 
-            dt = new Delaunay(vertices);
+        public void generateDelaunay() {
+            dt = new Delaunay(makeRandomPoints());
+        }
+
+        public void generateVoronoi() {
             vd = dt.makeVoronoi();
         }
     }

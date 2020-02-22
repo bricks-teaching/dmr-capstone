@@ -6,13 +6,15 @@ namespace FiscalShock.Graphs {
     /// Interface and extension of the Delaunator library
     /// </summary>
     public class Delaunay : Graph {
-        public Triangulation triangulation { get; }
+        public Triangulation delaunator { get; }
         public List<Triangle> triangles { get; } = new List<Triangle>();
 
         public Voronoi dual { get; set; }
 
         public Delaunay(List<double> input) {
-            triangulation = new Triangulation(input);
+            delaunator = new Triangulation(input);
+
+            var lol = delaunator.hull;
 
             // Set up data structures for use in other scripts
             setTypedGeometry();
@@ -25,14 +27,14 @@ namespace FiscalShock.Graphs {
         /// <returns>array of vertices</returns>
         public float[] getTriangleVertices(int t) {
             return new float[] {
-                (float)triangulation.coords[2 * triangulation.triangles[t]],
-                (float)triangulation.coords[2 * triangulation.triangles[t] + 1],
+                (float)delaunator.coords[2 * delaunator.triangles[t]],
+                (float)delaunator.coords[2 * delaunator.triangles[t] + 1],
 
-                (float)triangulation.coords[2 * triangulation.triangles[t + 1]],
-                (float)triangulation.coords[2 * triangulation.triangles[t + 1] + 1],
+                (float)delaunator.coords[2 * delaunator.triangles[t + 1]],
+                (float)delaunator.coords[2 * delaunator.triangles[t + 1] + 1],
 
-                (float)triangulation.coords[2 * triangulation.triangles[t + 2]],
-                (float)triangulation.coords[2 * triangulation.triangles[t + 2] + 1]
+                (float)delaunator.coords[2 * delaunator.triangles[t + 2]],
+                (float)delaunator.coords[2 * delaunator.triangles[t + 2] + 1]
             };
         }
 
@@ -41,7 +43,7 @@ namespace FiscalShock.Graphs {
         /// that are easier to deal with
         /// </summary>
         public void setTypedGeometry() {
-            for (int i = 0; i < triangulation.triangles.Count; i += 3) {
+            for (int i = 0; i < delaunator.triangles.Count; i += 3) {
                 float[] fVertices = getTriangleVertices(i);
                 // Track id to simplify Voronoi cell finding
                 Vertex a = Vertex.getVertex(fVertices[0], fVertices[1], vertices);

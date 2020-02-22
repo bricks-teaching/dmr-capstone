@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using FiscalShock.Graphs;
 using FiscalShock.Procedural;
@@ -133,8 +134,8 @@ namespace FiscalShock.Demo {
             if (renderVoronoi && dungen.vd != null) {
                 renderEdges(dungen.vd.edges, voronoiColor, voronoiRenderHeight);
                 // TEMPORARY testing cells
-                //List<Edge> es = dungen.vd.cells.SelectMany(c => c.sides).ToList();
-                //renderEdges(es, spanningTreeColor, voronoiRenderHeight + 0.5f);
+                List<Edge> es = dungen.vd.cells.SelectMany(c => c.sides).ToList();
+                renderEdges(es, spanningTreeColor, voronoiRenderHeight + 0.5f);
             }
         }
 

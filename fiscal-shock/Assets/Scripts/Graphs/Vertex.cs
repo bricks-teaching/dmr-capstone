@@ -72,6 +72,10 @@ namespace FiscalShock.Graphs {
             return existingVertices[idx];
         }
 
+        public static Vertex getVertex(Vertex v, List<Vertex> existingVertices) {
+            return Vertex.getVertex(v.x, v.y, existingVertices);
+        }
+
         /// <summary>
         /// Euclidean distance between two Cartesian coordiates
         /// </summary>
