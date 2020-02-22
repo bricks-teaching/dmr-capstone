@@ -1,0 +1,5 @@
+# Ignore previous .editorconfig files
+root = true
+
+[*]
+generated_code = true
