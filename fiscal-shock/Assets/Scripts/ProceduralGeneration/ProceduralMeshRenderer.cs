@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-using System.Linq;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using FiscalShock.Graphs;
 using FiscalShock.Procedural;

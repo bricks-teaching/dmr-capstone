@@ -42,6 +42,7 @@ namespace FiscalShock.Procedural {
             if (seed == 0) {
                 seed = DateTimeOffset.Now.ToUnixTimeSeconds();
             }
+            // TODO Poisson disc sampling instead?
             mt = new MersenneTwister((int)seed);
             UnityEngine.Random.InitState((int)seed);
 
@@ -49,8 +50,6 @@ namespace FiscalShock.Procedural {
             List<double> vertices = new List<double>();
 
             for (int i = 0; i < numberOfVertices*2; i += 2) {
-                //vertices.Add(UnityEngine.Random.Range(minX, maxX) * unitScale);
-                //vertices.Add(UnityEngine.Random.Range(minY, maxY) * unitScale);
                 vertices.Add(mt.Next(minX, maxX) * unitScale);
                 vertices.Add(mt.Next(minY, maxY) * unitScale);
             }

@@ -5,11 +5,9 @@ namespace FiscalShock.Graphs {
     /// <summary>
     /// Interface and extension of the Delaunator library
     /// </summary>
-    public class Delaunay {
+    public class Delaunay : Graph {
         public Triangulation triangulation { get; }
-        public List<Vertex> vertices { get; private set; }
-        public List<Edge> edges { get; private set; }
-        public List<Triangle> triangles { get; private set; }
+        public List<Triangle> triangles { get; } = new List<Triangle>();
 
         public Voronoi dual { get; set; }
 
@@ -43,11 +41,7 @@ namespace FiscalShock.Graphs {
         /// that are easier to deal with
         /// </summary>
         public void setTypedGeometry() {
-            vertices = new List<Vertex>();
-            edges = new List<Edge>();
-            triangles = new List<Triangle>();
             for (int i = 0; i < triangulation.triangles.Count; i += 3) {
-                // TODO do the points need to be in clockwise order?
                 float[] fVertices = getTriangleVertices(i);
                 // Track id to simplify Voronoi cell finding
                 Vertex a = Vertex.getVertex(fVertices[0], fVertices[1], vertices);

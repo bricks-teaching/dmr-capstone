@@ -4,10 +4,7 @@ using System.Linq;
 using System.Collections.Generic;
 
 namespace FiscalShock.Graphs {
-    public class Voronoi {
-        public List<Vertex> vertices { get; } = new List<Vertex>();
-        public List<Edge> edges { get; } = new List<Edge>();
-
+    public class Voronoi : Graph {
         /// <summary>
         /// Corresponds to the vertices of the Delaunay triangulation
         /// used to create this graph.
@@ -92,7 +89,7 @@ namespace FiscalShock.Graphs {
                 float theta;
 
                 // First pass for each site requires checking all Voronoi edges (expensive!)
-                Edge farcaster = new Edge(reallyFarAway, cell.site, false);
+                Edge farcaster = new Edge(reallyFarAway, cell.site);
                 Edge firstEdge = findRayIntersections(cell.site, farcaster, edges);
                 cell.sides.Add(firstEdge);
 
@@ -116,7 +113,7 @@ namespace FiscalShock.Graphs {
                     Debug.Log($"side {i} of {cell.site.neighborhood.Count}");
                     // Rotate the angle and get a new point far away.
                     Vertex distant = cell.site.getEndpointOfLineRotation(theta - ROTATE_DELTA, 200);
-                    farcaster = new Edge(cell.site, distant, false);
+                    farcaster = new Edge(cell.site, distant);
                     //Vector2 nu = s.Rotate(theta - ROTATE_DELTA);
                     //farcaster = new Edge(cell.site, new Vertex(nu.x, nu.y), false);
 
@@ -135,7 +132,7 @@ namespace FiscalShock.Graphs {
                         temp_delta *= -1.1f;
                         //nu = s.Rotate(theta - temp_delta);
                         distant = cell.site.getEndpointOfLineRotation(theta - temp_delta, 200);
-                        farcaster = new Edge(cell.site, distant, false);
+                        farcaster = new Edge(cell.site, distant);
                         //farcaster = new Edge(cell.site, new Vertex(nu.x, nu.y), false);
                         intersectedEdge = findRayIntersections(cell.site, farcaster, checkedEndpoints.Last().incidentEdges);
                         ++tmp;
@@ -248,7 +245,7 @@ namespace FiscalShock.Graphs {
             // Draw lines to each neighbor.
             List<Edge> delrays = new List<Edge>();
             foreach (Vertex v in site.neighborhood) {
-                delrays.Add(new Edge(site, v, false));
+                delrays.Add(new Edge(site, v));
             }
 
             // Find Voronoi edges intersected by each line. Warning: expensive!
@@ -292,7 +289,7 @@ namespace FiscalShock.Graphs {
              */
             List<Edge> missingEdgePairs = new List<Edge>();
             foreach (Vertex a in hanging) {
-                Vertex b = Vertex.findNearestInListTo(a, hanging);
+                Vertex b = a.findNearestInList(hanging);
                 List<Vertex> ab = new List<Vertex> { a, b };
 
                 // Search their neighborhoods for a common vertex
