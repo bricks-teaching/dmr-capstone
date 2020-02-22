@@ -24,9 +24,6 @@ Author: Page1208
 
 License: [CC-BY 3.0](https://creativecommons.org/licenses/by/3.0/)
 
-Files:
-- `ATM1.fbx`
-
 Modifications:
 1. Added texture created by @zalfenior
 
@@ -38,8 +35,13 @@ Author: DoodleStudio
 
 License: [TurboSquid Royalty Free License](https://blog.turbosquid.com/royalty-free-license/#Royalty-Free-License)
 
-Files:
-- `market-stand.fbx`
+----
+## Player
+[Original](https://shop.bitgem3d.com/products/npc-character-low-poly-3d-proto-series)
+
+Author: Bitgem
+
+License: [Bitgem Royalty Free License](https://shop.bitgem3d.com/pages/terms-of-use-license)
 
 ----
 ## Raygun
@@ -49,9 +51,6 @@ Author: knobknoster
 
 License: [TurboSquid Royalty Free License](https://blog.turbosquid.com/royalty-free-license/#Royalty-Free-License)
 
-Files:
-- *TBD*
-
 Modifications:
 1. *TBD*
 
@@ -60,9 +59,6 @@ Modifications:
 [Original](https://opengameart.org/content/robot-enemy-pack)
 
 License: [CC0 1.0](http://creativecommons.org/publicdomain/zero/1.0/)
-
-Files:
-- *TBD*
 
 Modifications:
 1. *TBD*
@@ -75,9 +71,6 @@ Author: Vertici
 
 License: [TurboSquid Royalty Free License](https://blog.turbosquid.com/royalty-free-license/#Royalty-Free-License)
 
-Files:
-- `Shopkeep.fbx`
-
 ----
 ## Wooden sign
 [Original](https://www.turbosquid.com/FullPreview/Index.cfm/ID/1263514)
@@ -86,17 +79,14 @@ Author: Defelozedd94
 
 License: [TurboSquid Royalty Free License](https://blog.turbosquid.com/royalty-free-license/#Royalty-Free-License)
 
-Files:
-- `Wooden_sign.fbx`
-
 ----
 
 
 # Third-Party Source Code
 The `fiscal-shock/Scripts/ThirdParty` directory contains all third-party source code not written or ported by the DMR team.
 
-* [MersenneTwister](#mersennetwister)
-* [Delaunator](#delaunator)
+1. [MersenneTwister](#mersennetwister)
+1. [Delaunator](#delaunator)
 
 ----
 
