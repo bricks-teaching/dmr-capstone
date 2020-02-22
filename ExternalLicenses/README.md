@@ -1,13 +1,14 @@
 # LICENSES
-All licenses for third-party assets or source code are stored here to respect their terms where applicable. When the modifications section is omitted, the asset in question was not modified by the DMR team.
+All licenses for third-party assets or source code are stored here to respect their terms where applicable. When the modifications section is omitted, the asset in question was not modified by the DMR team, or the license does not require such tracking.
 
-* [Assets](#assets)
+* [Graphics](#graphics)
+* [Sound](#sound)
 * [Source Code](#third-party-source-code)
 
 ----
 
-# Assets
-Graphics and audio assets are spread across the project.
+# Graphics
+Graphics assets are spread across the project.
 
 1. [ATM model](#atm)
 1. [Market stand model](#market-stand)
@@ -51,17 +52,13 @@ Author: knobknoster
 
 License: [TurboSquid Royalty Free License](https://blog.turbosquid.com/royalty-free-license/#Royalty-Free-License)
 
-Modifications:
-1. *TBD*
-
 ----
 ## Robot Enemies
 [Original](https://opengameart.org/content/robot-enemy-pack)
 
-License: [CC0 1.0](http://creativecommons.org/publicdomain/zero/1.0/)
+Author: Teh_Bucket
 
-Modifications:
-1. *TBD*
+License: [CC0 1.0](http://creativecommons.org/publicdomain/zero/1.0/)
 
 ----
 ## Shopkeeper NPC
@@ -81,6 +78,47 @@ License: [TurboSquid Royalty Free License](https://blog.turbosquid.com/royalty-f
 
 ----
 
+# Sound
+Audio assets are spread across the project.
+
+1. [Bullet firing and impact sounds](#bullet-firing-and-impact-sounds)
+1. [Dungeon and hub themes](#dungeon-and-hub-themes)
+1. [Main menu and win themes](#main-menu-and-win-themes)
+1. [Pause and lose themes](#pause-and-lose-themes)
+
+----
+
+## Bullet firing and impact sounds
+*TBD*
+
+----
+
+## Dungeon and hub themes
+[Original](https://www.gamedevmarket.net/asset/ultimate-free-music-bundle-5353/)
+
+Author: Marma
+
+License: [GDM Pro Licence](https://www.gamedevmarket.net/terms-conditions/#pro-licence)
+
+----
+
+## Main menu and win themes
+[Original](https://www.gamedevmarket.net/asset/the-nihilore-collection-5366/)
+
+Author: Nihilore
+
+License: [GDM Pro Licence](https://www.gamedevmarket.net/terms-conditions/#pro-licence)
+
+----
+
+## Pause and lose themes
+[Original](https://www.gamedevmarket.net/asset/royalty-free-music-pack/)
+
+Author: Tim Beek
+
+License: [GDM Pro Licence](https://www.gamedevmarket.net/terms-conditions/#pro-licence)
+
+----
 
 # Third-Party Source Code
 The `fiscal-shock/Scripts/ThirdParty` directory contains all third-party source code not written or ported by the DMR team.
