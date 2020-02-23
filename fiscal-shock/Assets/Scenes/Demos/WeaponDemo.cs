@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 // This script is to allow main camera movement in the Weapons Demo scene. It can be deleted once this demo scene is deleted.
@@ -31,7 +30,7 @@ public class WeaponDemo : MonoBehaviour
         LoadWeapon();
     }
 
-    public void Update()
+    public void FixedUpdate()
     {
         //Bring up pause menu
         if(Input.GetKeyDown("p"))
@@ -90,7 +89,7 @@ public class WeaponDemo : MonoBehaviour
             animatedTime += Time.deltaTime;
         } else if (holsteringWeapon)
         {
-            Debug.Log(animatedTime);
+            // Debug.Log(animatedTime);
             weapon.transform.position -= (player.transform.up * 5f) + player.transform.forward;
             Vector3 rotationVector = player.transform.rotation.eulerAngles;
             weapon.transform.rotation = Quaternion.Slerp(weapon.transform.rotation, Quaternion.Euler(rotationVector), Time.fixedDeltaTime * 6);
@@ -106,7 +105,7 @@ public class WeaponDemo : MonoBehaviour
         //Spawn a new bot when time passed reaches spawnRate
         time += Time.deltaTime;
         if(time > spawnRate){
-            GameObject bot = Instantiate(robotBug, new Vector3(Random.value * 2000, 850, Random.value * 2000), gameObject.transform.rotation);
+            GameObject bot = Instantiate(robotBug, new Vector3(Random.value * 2000, player.transform.position.y, Random.value * 2000), gameObject.transform.rotation);
             bots.Add(bot);
             //Tell the bot to go after the player
             EnemyShoot botShootingScript = bot.GetComponent(typeof(EnemyShoot)) as EnemyShoot;
@@ -152,7 +151,7 @@ public class WeaponDemo : MonoBehaviour
             choice = gun2;
         }
         if(weapon != null){
-            DestroyImmediate(weapon, true);
+            Destroy(weapon);
         }
         weapon = Instantiate(choice, player.transform.GetChild(slot - 1).gameObject.transform.position - (player.transform.up * 80f), player.transform.rotation);
         if(gunAmmo[slot] > -1){
