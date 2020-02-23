@@ -8,7 +8,7 @@ namespace FiscalShock.Controls {
         public float clampMinimum = -90f;
         public float clampMaximum = 90f;
 
-//        public Transform body;
+        public Transform body;
 
         private float xRotation = 0f;
 
@@ -29,7 +29,7 @@ namespace FiscalShock.Controls {
             xRotation = Mathf.Clamp(xRotation, clampMinimum, clampMaximum);
 
             transform.localRotation = Quaternion.Euler(xRotation,0f,0f);
-            //body.Rotate(Vector3.up * mouseX);
+            body.Rotate(Vector3.up * mouseX);
         }
     }
 }

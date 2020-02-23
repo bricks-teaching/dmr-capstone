@@ -7,7 +7,7 @@ namespace FiscalShock.Graphs {
     /// </summary>
     public class Polygon {
         public List<Edge> sides { get; private set; } = new List<Edge>();
-        public List<Vertex> vertices { get; private set; } = new List<Vertex>();
+        public List<Vertex> vertices { get; set; } = new List<Vertex>();
 
         public Polygon() {}
 
@@ -34,6 +34,10 @@ namespace FiscalShock.Graphs {
         public Triangle(List<Edge> tSides, int tid) {
             setSides(tSides);
             id = tid;
+        }
+
+        public Triangle(List<Vertex> corners) {
+            vertices = corners;
         }
 
         /// <summary>
@@ -76,6 +80,18 @@ namespace FiscalShock.Graphs {
             }
             return circumcenter;
         }
+
+        /// <summary>
+        /// When the area of the triangle (as a determinant) is less than
+        /// zero, the points, in the order given, form a counterclockwise
+        /// triangle.
+        /// <para>From Guibas &amp; Stolfi (1985)</para>
+        /// </summary>
+        /// <param name="points">list of vertices representing a triangle</param>
+        /// <returns>true if the vertices, in list index order, are oriented clockwise</returns>
+        public static bool isTriangleClockwise(List<Vertex> points) {
+            return new Triangle(points).getArea() < 0;
+        }
     }
 
     /// <summary>
@@ -85,6 +101,7 @@ namespace FiscalShock.Graphs {
         public Vertex site { get; set; }
         public List<Cell> neighbors { get; set; } = new List<Cell>();
         public int id { get; }
+        public bool incomplete { get; set; }  // Generally indicates a point that was on the Delaunay's convex hull that would have infinite edges. We don't want to use this to spawn anything, because it has no borders.
 
         public Cell(Vertex delaunayVertex) {
             site = delaunayVertex;

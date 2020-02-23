@@ -34,7 +34,6 @@ namespace FiscalShock.Graphs {
 
             calculateVerticesAndEdgesFromDelaunator();
             createCells();
-            //findVoronoiCellsNaive();
             findVoronoiCellsClock();
         }
 
@@ -45,7 +44,6 @@ namespace FiscalShock.Graphs {
         private void calculateVerticesAndEdgesFromDelaunator() {
             for (int e = 0; e < dual.delaunator.triangles.Count; e++) {
                 if (e < dual.delaunator.halfedges[e]) {
-                    // TODO clean up calls here
                     Vertex p = Vertex.getVertex(
                         dual.triangles[Edge.getTriangleId(e)].findCircumcenter(),
                         vertices
@@ -79,104 +77,133 @@ namespace FiscalShock.Graphs {
             }
         }
 
+        /// <summary>
+        /// Combination of the clock algorithm and the naive algorithm to clean up edges that the sweeping clock hand misses.
+        /// <para>See https://docs.google.com/document/d/1sLGPW8PTkT1xbsvpPxAPN4MfuH-lIZKejbIR041zVU8/edit#bookmark=id.f8uivvb00dbh for details.</para>
+        /// </summary>
         private void findVoronoiCellsClock() {
             const float ROTATE_DELTA = (float)Math.PI/6.0f;
-            // Set the initial search point
-            List<float> xs = vertices.Select(v => v.x).ToList();
-            float xdelta = xs.Max() - xs.Min();
-            List<float> ys = vertices.Select(v => v.y).ToList();
-            float ydelta = ys.Max() - ys.Min();
-            Vertex reallyFarAway = new Vertex(xdelta, ydelta);
+            // Set the initial search point far north
+            float greaterDistance = (dual.maxX - dual.minX) + (dual.maxY - dual.minY);
+            Vertex northMost = new Vertex(0, greaterDistance);
 
             foreach (Cell cell in cells) {
-                Debug.LogError($"Starting {cell.site.id}");
-                //List<Vertex> checkedEndpoints = new List<Vertex>();
+                List<Vertex> foundVertices = new List<Vertex>();
                 Edge farcaster;
 
-                float theta = findFirstEdge(reallyFarAway, cell/*,checkedEndpoints*/);
+                Tuple<Vertex, float> vf = findFirstEdge(northMost, cell);
+                foundVertices.Add(vf.Item1);
+
+                // theta: Angle of the "clock hand"
+                float theta = vf.Item2;
 
                 // Found one edge already, so start the loop index at 1
                 for (int i = 1; i < cell.site.neighborhood.Count; ++i) {
                     // Rotate the angle and get a new point far away.
-                    Vertex distant = cell.site.getEndpointOfLineRotation(theta - ROTATE_DELTA, 2000);
+                    Vertex distant = cell.site.getEndpointOfLineRotation(theta - ROTATE_DELTA, greaterDistance);
+                    // Draw an edge between the new point and the site.
                     farcaster = new Edge(cell.site, distant);
-                    //Vector2 nu = cell.site.vector.Rotate(theta - ROTATE_DELTA);
-                    //farcaster = new Edge(cell.site, new Vertex(nu.x, nu.y));
 
-                    // Check if it intersects neighbors of the selected site.
-                    Edge intersectedEdge = findRayIntersections(cell.site, farcaster, edges);
+                    // Check if the edge intersects neighbors of the selected site.
+                    // TODO Milestone 2/3 find a way to not check every edge
+                    Edge intersectedEdge = findClosestRayIntersection(cell.site, farcaster, edges);
 
                     float temp_delta = ROTATE_DELTA;
-                    // probably also make a counter to abort infinite loops
-                    int tmp = 0;
-                    bool duh = false;
+                    int infinityShield = 0;
+                    bool clockFailed = false;
+                    /* If this edge was already found or there was no
+                     * intersection, adjust the rotation and try again.
+                     */
                     while (intersectedEdge == null || cell.sides.Contains(intersectedEdge)) {
-                        //Debug.Log($"Trying again, was intersectedEdge null? {intersectedEdge == null}");
-                        if (tmp > 44) {
-                            Debug.LogError($"Can't find intersection for {cell.site.id} side {i}/{cell.site.neighborhood.Count}, fix your code");
-                            duh = true;
+                        if (infinityShield > 12) {
+                            clockFailed = true;
                             break;
                         }
-                        // try again, but reduce the rotation
-                        temp_delta *= 1.1f;
-                        //nu = cell.site.vector.Rotate(theta - temp_delta);
-                        distant = cell.site.getEndpointOfLineRotation(theta - temp_delta, 2000);
+                        temp_delta += ROTATE_DELTA;
+                        distant = cell.site.getEndpointOfLineRotation(theta - temp_delta, greaterDistance);
                         farcaster = new Edge(cell.site, distant);
-                        //farcaster = new Edge(cell.site, new Vertex(nu.x, nu.y));
-                        intersectedEdge = findRayIntersections(cell.site, farcaster, edges);
-                        ++tmp;
+                        intersectedEdge = findClosestRayIntersection(cell.site, farcaster, edges);
+                        ++infinityShield;
                     }
 
-                    if (duh) continue;
+                    /* Very short edges will be missed by the clock hand
+                     * rotating, so fall back to the naive algorithm to
+                     * make a last attempt.
+                     * In all tested cases, this patched up the cell when
+                     * its site was not one of the Delaunay convex hull
+                     * points that have infinite edges.
+                     * Some libraries opt to spend time clipping the diagram
+                     * to a "viewport," but we'll just mark the cell as
+                     * incomplete and not use it.
+                     */
+                    if (clockFailed) {
+                        tryFindMissingSides(cell);
+                        if (cell.sides.Count != cell.neighbors.Count) {
+                            cell.incomplete = true;
+                        }
+                        continue;
+                    }
+
+                    // Add this edge
                     cell.sides.Add(intersectedEdge);
-                    // Pick a new endpoint not in the list already
-                    //Vertex ie = intersectedEdge.vertices.Except(checkedEndpoints).First();
-                    //checkedEndpoints.Add(ie);
-                    //theta = cell.site.getAngleOfRotationTo(checkedEndpoints.Last());
-                }
-                Debug.LogError($"Finished {cell.site.id}");
-            }
+
+                    // Try to make an educated guess at the next best angle
+                    if (cell.sides.Count < cell.neighbors.Count) {
+                        Vertex[] cap = intersectedEdge.vertices.Except(foundVertices).ToArray();
+                        if (cap.Length > 0) {
+                            foundVertices.Add(cap[0]);
+                            theta = cell.site.getAngleOfRotationTo(cap[0]);
+                        }
+                    }
+                }  /* end finding sides of this cell */
+            }  /* end checking all cells */
         }
 
-        private float findFirstEdge(Vertex reallyFarAway, Cell cell/*, List<Vertex> checkedEndpoints*/) {
+        /// <summary>
+        /// Find the first edge for the clock algorithm and returns a best
+        /// guess at an angle to start rotating from.
+        /// </summary>
+        /// <param name="distantVertex">arbitrarily distant vertex</param>
+        /// <param name="cell"></param>
+        /// <returns>vertex to start rotating from and angle to it</returns>
+        private Tuple<Vertex, float> findFirstEdge(Vertex distantVertex, Cell cell) {
             // First pass for each site requires checking all Voronoi edges (expensive!)
-            Edge farcaster = new Edge(reallyFarAway, cell.site);
-            Edge firstEdge = findRayIntersections(cell.site, farcaster, edges);
-            if (firstEdge == null) {  // This vertex might be on the convex hull
-                reallyFarAway = new Vertex(-reallyFarAway.x, -reallyFarAway.y);
-                farcaster = new Edge(reallyFarAway, cell.site);
-                firstEdge = findRayIntersections(cell.site, farcaster, edges);
+            Edge farcaster = new Edge(distantVertex, cell.site);
+            Edge firstEdge = findClosestRayIntersection(cell.site, farcaster, edges);
+
+            if (firstEdge == null) {
+                // Maybe on the convex hull; search in the other direction
+                distantVertex = new Vertex(-distantVertex.x, -distantVertex.y);
+                farcaster = new Edge(distantVertex, cell.site);
+                firstEdge = findClosestRayIntersection(cell.site, farcaster, edges);
             }
 
             cell.sides.Add(firstEdge);
 
-            // Find the angle of rotation between both endpoints of the first edge.
-            //Vector2 s = new Vector2(cell.site.x, cell.site.y);
-            //float theta_cand1 = Vector2.SignedAngle(s, new Vector2(firstEdge.vertices[0].x, firstEdge.vertices[0].y));
-            //float theta_cand2 = Vector2.SignedAngle(s, new Vector2(firstEdge.vertices[1].x, firstEdge.vertices[1].y));
-
-            if (cell.site.id == 88) {
-                Debug.Log("hi");
-            }
+            // Find the angle of rotation between both endpoints of the first edge
             float theta_cand1 = cell.site.getAngleOfRotationTo(firstEdge.p);
             float theta_cand2 = cell.site.getAngleOfRotationTo(firstEdge.q);
 
-            // Select the smallest angle, since we're going to decrement the angle.
+            // Select the smallest angle, since we're going to decrement the angle
             if (theta_cand1 < theta_cand2) {
-                return theta_cand1;
-                //checkedEndpoints.Add(firstEdge.p);
+                return new Tuple<Vertex, float>(firstEdge.p, theta_cand1);
             } else {
-                return theta_cand2;
-                //checkedEndpoints.Add(firstEdge.q);
+                return new Tuple<Vertex, float>(firstEdge.q, theta_cand2);
             }
         }
 
-        private Edge findRayIntersections(Vertex site, Edge ray, List<Edge> edgesToHit) {
+        /// <summary>
+        /// Find the closest edge to the given ray in the list of edges.
+        /// Slow if you're iterating over every edge of a graph!
+        /// </summary>
+        /// <param name="site"></param>
+        /// <param name="ray"></param>
+        /// <param name="edgesToHit"></param>
+        /// <returns></returns>
+        private Edge findClosestRayIntersection(Vertex site, Edge ray, List<Edge> edgesToHit) {
             List<Tuple<Edge, Vertex>> hits = new List<Tuple<Edge, Vertex>>();
             foreach (Edge e in edgesToHit) {
                 Vertex hit = Edge.findIntersection(ray, e);
-                //Vector2 hit = new Vector2();
-                //bool was_hit = Mathy.LineIntersection(e.vertices[0].vector, e.vertices[1].vector, ray.vertices[0].vector, ray.vertices[1].vector, ref hit);
                 if (hit != null) {
                     hits.Add(new Tuple<Edge, Vertex> (e, new Vertex(hit.x, hit.y)));
                 }
@@ -189,7 +216,6 @@ namespace FiscalShock.Graphs {
                 return hits[0].Item1;
             }
 
-            /* Only calculated for the first edge, otherwise returned above */
             // Calculate distance to each intersected point
             List<Tuple<Edge, double>> dists = hits.Select(v => new Tuple<Edge, double> (v.Item1, v.Item2.getDistanceTo(site))).ToList();
 
@@ -198,105 +224,61 @@ namespace FiscalShock.Graphs {
         }
 
         /// <summary>
-        /// Main function to determine the Voronoi cells.
-        /// <para>See https://docs.google.com/document/d/1sLGPW8PTkT1xbsvpPxAPN4MfuH-lIZKejbIR041zVU8/edit#bookmark=id.f8uivvb00dbh for details.</para>
+        /// Runs parts of the original naive algorithm on a cell to try
+        /// and find missing edges. Works for sites not on the Delaunay's
+        /// convex hull.
         /// </summary>
-        private void findVoronoiCellsNaive() {
-            foreach (Cell cell in cells) {
-                List<Edge> cellSides = findGuaranteedCellSidesOfSite(cell.site);
-
-                // If we have a cell side for each neighbor, we're done
-                int delta = cell.neighbors.Count - cellSides.Count;
-
-                // If not all edges were guaranteed, we need to fall back to other methods
-                int tries = 0;
-                while (delta > 0) {
-                    if (tries > 3) {
-                        Debug.Log($"{cell.id} Delta: {delta}, giving up");
-                        break;
-                    }
-                    // Find the "hanging" vertices
-                    List<Vertex> hanging = cellSides
-                        .SelectMany(e => e.vertices)  // Flatten vertex lists
-                        .GroupBy(v => v)  // Group each entry
-                        .Where(g => g.Count() < 2)
-                        .Select(v => v.First())  // Get only the objects from the grouping
-                        .ToList();
-
-                    // ---------------------------------------------------------
-                    // Connect all hanging vertices only separated by one edge.
-                    List<Edge> connectors = Edge.findConnectingEdges(hanging);
-                    if (connectors.Count > 0) {
-                        // Restart the while-loop, in case we found all edges.
-                        cellSides.AddRange(connectors);
-                        delta = cell.neighbors.Count - cellSides.Count;
-                        continue;
-                    }
-                    // ---------------------------------------------------------
-
-                    // ---------------------------------------------------------
-                    // Try to find multiple edge "segments" separating hanging vertices.
-                    List<Edge> missingEdgePair = findMissingEdgePairs(hanging);
-
-                    // Sanity check
-                    if ((missingEdgePair.Count & 1) == 1) {
-                        Debug.LogWarning($"{cell.id}: Found {missingEdgePair.Count} incident edges, expected multiple of 2.");
-                        // Something probably went wrong here
-                        // Could cause infinite loop
-                        // Set a breakpoint and debug if that happens
-                    } else {
-                        cellSides.AddRange(missingEdgePair);
-                    }
-                    // ---------------------------------------------------------
-
-                    // Update the delta for the while-loop
-                    delta = cell.neighbors.Count - cellSides.Count;
-                    tries++;
-                } // end finding missing edges
-
-                // TODO check if cellSides is a cycle?
-                cell.setSides(cellSides);
+        /// <param name="cell"></param>
+        private void tryFindMissingSides(Cell cell) {
+            int infinityShield = 0;
+            while (cell.neighbors.Count > cell.sides.Count) {
+                addMissingEdgesFunc(cell, getHangingVertices(cell), Edge.findConnectingEdges);
+                if (infinityShield > cell.neighbors.Count) {
+                    return;
+                }
+                int delta = cell.neighbors.Count - cell.sides.Count;
+                if (delta == 0) {  // Done!
+                    return;
+                } else if (delta == 1) {
+                    // Just need to do addConnectingEdges again (except for convex hull trolls)
+                    infinityShield++;
+                    continue;
+                }
+                addMissingEdgesFunc(cell, getHangingVertices(cell), findMissingEdgePairs);
+                infinityShield++;
             }
         }
 
         /// <summary>
-        /// Finds edges in the Voronoi diagram that are guaranteed to sides of the Voronoi cell corresponding to the given site.
+        /// Gets vertices that aren't 2-connected in the current iteration
+        /// of the cell polygon. Since the 2D polygons we're making are
+        /// always 2-connected (all vertices connected to at least 2 other
+        /// vertices), that means we're missing an edge that should exist.
         /// </summary>
-        /// <param name="site">Voronoi site for which to find cell sides.</param>
-        /// <returns>List of edges of the Voronoi diagram guaranteed to be sides of this cell.</returns>
-        private List<Edge> findGuaranteedCellSidesOfSite(Vertex site) {
-            // Draw lines to each neighbor.
-            List<Edge> delrays = new List<Edge>();
-            foreach (Vertex v in site.neighborhood) {
-                delrays.Add(new Edge(site, v));
-            }
+        /// <param name="cell"></param>
+        /// <returns></returns>
+        private List<Vertex> getHangingVertices(Cell cell) {
+            return cell.sides
+                .SelectMany(e => e.vertices)  // Flatten vertex lists
+                .GroupBy(v => v)  // Group each entry
+                .Where(g => g.Count() < 2)
+                .Select(v => v.First())  // Get only the objects from the grouping
+                .ToList();
+        }
 
-            // Find Voronoi edges intersected by each line. Warning: expensive!
-            List<List<Edge>> intersectedVEdges = new List<List<Edge>>();
-            foreach (Edge ray in delrays) {
-                List<Edge> voronoiEdges = new List<Edge>();
-                foreach (Edge voronoiEdge in edges) {  // Check every Voronoi edge
-                    if (Edge.findIntersection(ray, voronoiEdge) != null) {
-                        voronoiEdges.Add(voronoiEdge);
-                    }
-                }
-                // Indices of delrays will correspond with intersections
-                intersectedVEdges.Add(voronoiEdges);
-            }
+        /// <summary>
+        /// Helper function to check the return values of `func` so we don't
+        /// try to add empty lists or null
+        /// </summary>
+        /// <param name="cell"></param>
+        /// <param name="hanging"></param>
+        /// <param name="func"></param>
+        private void addMissingEdgesFunc(Cell cell, List<Vertex> hanging, Func<List<Vertex>, List<Edge>> func) {
+            List<Edge> foundEdges = func(hanging);
 
-            // When only 1 edge exists in the edge list, it's guaranteed to be a side of the Voronoi cell
-            List<Edge> cellSides = new List<Edge>();
-            foreach (List<Edge> l in intersectedVEdges) {
-                if (l.Count == 1) {
-                    cellSides.Add(l[0]);
-                } else if (l.Count == 0) {
-                    Debug.LogWarning($"{site.id}: No intersections! ({site.x}, {site.y})");
-                } else {
-                    Debug.Log($"{site.id}: Intersects {l.Count} edges");
-                }
+            if (foundEdges?.Count > 0) {
+                cell.sides.AddRange(foundEdges);
             }
-
-            return cellSides.Distinct().ToList();
         }
 
         /// <summary>
@@ -316,12 +298,16 @@ namespace FiscalShock.Graphs {
                 List<Vertex> ab = new List<Vertex> { a, b };
 
                 // Search their neighborhoods for a common vertex
-                Vertex commonNeighbor = ab
+                List<Vertex> commonNeighbors = ab
                     .SelectMany(u => u.neighborhood)  // Flatten lists
                     .GroupBy(v => v)  // Group duplicate vertices
                     .Where(g => g.Count() == 2)  // Take only groups with 2 members, implying it was in both neighborhoods
                     .Select(v => v.First())
-                .First();
+                    .ToList();
+                if (commonNeighbors.Count < 1) {
+                    return null;
+                }
+                Vertex commonNeighbor = commonNeighbors[0];
 
                 // Find the edges incident to commonNeighbor
                 List<Edge> found = ab

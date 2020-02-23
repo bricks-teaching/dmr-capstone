@@ -31,7 +31,7 @@ namespace FiscalShock.Graphs {
         /* Comparator functions - needed for LINQ */
         public override bool Equals(object obj) {
             if (obj is Edge other) {
-                return vertices.Intersect(other.vertices).Count() == vertices.Count;
+                return (p.Equals(other.p) && q.Equals(other.q)) || (p.Equals(other.q) && q.Equals(other.p));
             }
             return false;
         }
@@ -57,6 +57,14 @@ namespace FiscalShock.Graphs {
             return p.getDistanceTo(q);
         }
 
+        /// <summary>
+        /// Create an edge only if it doesn't already exist and connect
+        /// the vertices.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="existingEdges"></param>
+        /// <returns></returns>
         public static Edge getEdge(Vertex a, Vertex b, List<Edge> existingEdges) {
             Edge tmp = new Edge(a, b);
             int idx = existingEdges.IndexOf(tmp);
@@ -89,7 +97,6 @@ namespace FiscalShock.Graphs {
         /// </summary>
         /// <param name="listToConnect">Vertices to connect</param>
         /// <returns>List of connecting edges found. Can be empty.</returns>
-        /// TODO this is part of naive algorithm, maybe delete
         public static List<Edge> findConnectingEdges(List<Vertex> listToConnect) {
             bool doneFindingPairs = false;
             List<Edge> connectors = new List<Edge>();

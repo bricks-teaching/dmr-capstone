@@ -1,3 +1,5 @@
+using System.Diagnostics;
+using System.Linq;
 using ThirdParty.Delaunator;
 using System.Collections.Generic;
 
@@ -11,13 +13,23 @@ namespace FiscalShock.Graphs {
 
         public Voronoi dual { get; set; }
 
-        public Delaunay(List<double> input) {
-            delaunator = new Triangulation(input);
+        // Track min/max values to aid in constructing the Voronoi
+        public int minX { get; }
+        public int maxX { get; }
+        public int minY { get; }
+        public int maxY { get; }
+        public List<Vertex> convexHull { get; } = new List<Vertex>();
 
-            var lol = delaunator.hull;
+        public Delaunay(List<double> input, int minX, int maxX, int minY, int maxY) {
+            this.minX = minX;
+            this.maxX = maxX;
+            this.minY = minY;
+            this.maxY = maxY;
+            delaunator = new Triangulation(input);
 
             // Set up data structures for use in other scripts
             setTypedGeometry();
+            convexHull = findConvexHull();
         }
 
         /// <summary>

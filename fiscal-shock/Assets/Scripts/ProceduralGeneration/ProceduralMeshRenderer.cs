@@ -57,6 +57,8 @@ namespace FiscalShock.Demo {
         [Tooltip("Material with a specific shader to color lines properly in game view. Don't change it unless you have a good reason!")]
         public Material edgeMat;
 
+        public TextMesh label;
+
         private bool alreadyDrewPoints = false;
 
         private void renderDelaunayTriangulation(Delaunay del, Color color, float renderHeight) {
@@ -120,6 +122,15 @@ namespace FiscalShock.Demo {
                 Material pointMat = tmp.GetComponent<Renderer>().material;
                 pointMat.SetColor(Shader.PropertyToID("_Color"), color);
                 tmp.transform.position = v.toVector3AtHeight(renderHeight);
+                tmp.name = $"Delaunay #{v.id}";
+
+                float offsetPosY = tmp.transform.position.y + 1.5f;
+                Vector3 offsetPos = new Vector3(tmp.transform.position.x, offsetPosY, tmp.transform.position.z);
+
+                TextMesh texto = Instantiate(label);
+                texto.transform.position = offsetPos;
+                texto.text = v.id.ToString();
+                texto.name = $"Label for #{v.id}";
             }
             alreadyDrewPoints = true; // TODO one for each points to render I guess
         }
@@ -129,13 +140,14 @@ namespace FiscalShock.Demo {
                 renderDelaunayTriangulation(dungen.dt, delaunayColor, delaunayRenderHeight);
             }
             if (renderDelaunayVertices && dungen.dt != null && !alreadyDrewPoints) {
-               renderPoints(dungen.dt.vertices, delaunayColor, delaunayRenderHeight);
+                renderPoints(dungen.dt.vertices, delaunayColor, delaunayRenderHeight);
             }
             if (renderVoronoi && dungen.vd != null) {
                 renderEdges(dungen.vd.edges, voronoiColor, voronoiRenderHeight);
-                // TEMPORARY testing cells
-                List<Edge> es = dungen.vd.cells.SelectMany(c => c.sides).ToList();
-                renderEdges(es, spanningTreeColor, voronoiRenderHeight + 0.5f);
+                // uncomment to verify Voronoi cells
+                // List<Edge> es = dungen.vd.cells.SelectMany(c => c.sides).ToList();
+                // var ef = es.Distinct().ToList();
+                // renderEdges(ef, spanningTreeColor, voronoiRenderHeight + 0.5f);
             }
         }
 

@@ -61,6 +61,15 @@ namespace FiscalShock.Graphs {
         }
         /* End comparator functions */
 
+        /// <summary>
+        /// Helper function to create a vertex only if it doesn't already
+        /// exist. Delaunator output leads to duplicate data structures when
+        /// this isn't used.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="existingVertices"></param>
+        /// <returns></returns>
         public static Vertex getVertex(float x, float y, List<Vertex> existingVertices) {
             Vertex tmp = new Vertex(x, y, existingVertices.Count);
             int idx = existingVertices.IndexOf(tmp);
@@ -72,6 +81,12 @@ namespace FiscalShock.Graphs {
             return existingVertices[idx];
         }
 
+        /// <summary>
+        /// Vertex creation sometimes called from a static context
+        /// </summary>
+        /// <param name="v"></param>
+        /// <param name="existingVertices"></param>
+        /// <returns></returns>
         public static Vertex getVertex(Vertex v, List<Vertex> existingVertices) {
             return Vertex.getVertex(v.x, v.y, existingVertices);
         }
@@ -83,11 +98,6 @@ namespace FiscalShock.Graphs {
         /// <returns>distance</returns>
         public double getDistanceTo(Vertex other) {
             return Mathy.getDistanceBetween(x, y, other.x, other.y);
-        }
-
-        // TODO remove if not using
-        public float getDistanceTo2(Vertex other) {
-            return Vector2.Distance(vector, other.vector);
         }
 
         /// <summary>
@@ -120,11 +130,11 @@ namespace FiscalShock.Graphs {
             return new Vertex(Mathy.getEndpointOfLineRotation(x, y, theta, distance));
         }
 
-        // TODO clean up here
-        public static float getAngleOfRotation2(Vertex a, Vertex b) {
-            return Vector2.Angle(a.vector, b.vector);
-        }
-
+        /// <summary>
+        /// Get the angle of rotation from this vertex to another
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
         public float getAngleOfRotationTo(Vertex other) {
             return (float)Mathy.getAngleOfRotation(other.y, y, other.x, x);
         }

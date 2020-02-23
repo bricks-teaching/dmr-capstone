@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System;
 using UnityEngine;
 using FiscalShock.Graphs;
 using ThirdParty;
@@ -39,14 +38,18 @@ namespace FiscalShock.Procedural {
 
         public void Start() {
             initPRNG();
+            System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+            sw.Start();
             generateDelaunay();
             generateVoronoi();
+            sw.Stop();
+            Debug.Log($"Finished generating graphs in {sw.ElapsedMilliseconds} ms");
         }
 
         public void initPRNG() {
             // Set up the PRNG
             if (seed == 0) {
-                seed = DateTimeOffset.Now.ToUnixTimeSeconds();
+                seed = System.DateTimeOffset.Now.ToUnixTimeSeconds();
             }
             // TODO Poisson disc sampling instead?
             mt = new MersenneTwister((int)seed);
@@ -63,7 +66,7 @@ namespace FiscalShock.Procedural {
         }
 
         public void generateDelaunay() {
-            dt = new Delaunay(makeRandomPoints());
+            dt = new Delaunay(makeRandomPoints(), minX, maxX, minY, maxY);
         }
 
         public void generateVoronoi() {
