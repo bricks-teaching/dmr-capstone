@@ -1,5 +1,9 @@
 fileFormatVersion: 2
-guid: 5867c2837be437cce86ddfce7bc10cb3
+<<<<<<< HEAD:fiscal-shock/Assets/EditModeTests.meta
+guid: 909d3ed09fe4b0fb5aa900147f7bc3ac
+=======
+guid: 4a21a79df6d2ab3cbab0847e4564694a
+>>>>>>> master:fiscal-shock/Assets/Audio.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

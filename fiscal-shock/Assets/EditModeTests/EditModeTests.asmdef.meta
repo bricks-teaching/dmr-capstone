@@ -1,6 +1,11 @@
 fileFormatVersion: 2
-guid: 54be4c2b9db108889b8e738e374176dd
+<<<<<<< HEAD:fiscal-shock/Assets/EditModeTests/EditModeTests.asmdef.meta
+guid: 8241409d775fd9c33b39b097ae017a65
 AssemblyDefinitionImporter:
+=======
+guid: a84a31ebc14c52040bc74a909aca3360
+TextScriptImporter:
+>>>>>>> master:fiscal-shock/Assets/Environment/Hub/Hub materials/_SNAPS_PrototypingAssets/Scripts/Editor/PackageChecker/PackageImportList.txt.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

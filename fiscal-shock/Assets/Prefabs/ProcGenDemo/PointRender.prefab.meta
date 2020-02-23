@@ -1,6 +1,11 @@
 fileFormatVersion: 2
-guid: c3de6190bf38277629fdd289670275b1
+<<<<<<< HEAD:fiscal-shock/Assets/Prefabs/ProcGenDemo/PointRender.prefab.meta
+guid: 6661f652006d0b97190e1a60269e5c2f
 PrefabImporter:
+=======
+guid: a63de6fc2de05264ab9dea772664afac
+TextScriptImporter:
+>>>>>>> master:fiscal-shock/Assets/Environment/Hub/Hub materials/_SNAPS_PrototypingAssets/Scripts/Editor/PackageChecker/settings/PackageImportList_ShaderGraph.txt.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
