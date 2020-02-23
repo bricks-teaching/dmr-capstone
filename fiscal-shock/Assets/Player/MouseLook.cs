@@ -33,4 +33,5 @@ public class MouseLook : MonoBehaviour
         body.Rotate(Vector3.up * mouseX);
         
     }
+
 }
