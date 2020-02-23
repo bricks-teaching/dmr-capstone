@@ -35,6 +35,7 @@ namespace FiscalShock.Graphs {
             calculateVerticesAndEdgesFromDelaunator();
             createCells();
             findVoronoiCellsClock();
+            calculateCellAreas();
         }
 
         /// <summary>
@@ -156,6 +157,7 @@ namespace FiscalShock.Graphs {
                         }
                     }
                 }  /* end finding sides of this cell */
+                cell.setVerticesFromSides();
             }  /* end checking all cells */
         }
 
@@ -322,6 +324,24 @@ namespace FiscalShock.Graphs {
                 }
             }
             return missingEdgePairs.Distinct().ToList();
+        }
+
+        /// <summary>
+        /// Calculate and store all cell areas. Don't run this until cells have
+        /// been found properly.
+        /// </summary>
+        private void calculateCellAreas() {
+            foreach (Cell c in cells) {
+                if (c.incomplete) {
+                    c.area = 0;
+                } else {
+                    c.orderVertices();
+                    double a = c.getArea();
+                    Debug.Log($"{c.id} area: {a}");
+                    c.signedArea = a;
+                    c.area = Math.Abs(a);
+                }
+            }
         }
     }
 }

@@ -1,7 +1,5 @@
-using System.Diagnostics;
-using System.Linq;
-using ThirdParty.Delaunator;
 using System.Collections.Generic;
+using ThirdParty.Delaunator;
 
 namespace FiscalShock.Graphs {
     /// <summary>

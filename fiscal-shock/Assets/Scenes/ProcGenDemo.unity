@@ -471,12 +471,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seed: 555
-  numberOfVertices: 500
-  unitScale: 1
-  minX: -200
-  maxX: 200
-  minY: -200
-  maxY: 200
+  numberOfVertices: 100
+  unitScale: 2
+  minX: -100
+  maxX: 100
+  minY: -100
+  maxY: 100
 --- !u!4 &1546386903
 Transform:
   m_ObjectHideFlags: 0

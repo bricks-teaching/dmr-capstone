@@ -1,9 +1,9 @@
 {
     "name": "EditModeTests",
     "references": [
+        "ScriptsAssembly",
         "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner",
-        "ScriptsAssembly"
+        "UnityEditor.TestRunner"
     ],
     "includePlatforms": [
         "Editor"

@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -8,6 +9,9 @@ namespace FiscalShock.Graphs {
     public class Polygon {
         public List<Edge> sides { get; private set; } = new List<Edge>();
         public List<Vertex> vertices { get; set; } = new List<Vertex>();
+        public bool clockwiseVertices { get; private set; }
+        public double signedArea { get; set; }
+        public double area { get; set; }
 
         public Polygon() {}
 
@@ -17,7 +21,28 @@ namespace FiscalShock.Graphs {
 
         public void setSides(List<Edge> boundary) {
             sides = boundary;
+            setVerticesFromSides();
+        }
+
+        public void setVerticesFromSides() {
             vertices = sides.SelectMany(e => e.vertices).Distinct().ToList();
+        }
+
+        /// <summary>
+        /// Requires vertices to be ordered counter-clockwise
+        /// </summary>
+        /// <returns></returns>
+        public double getArea() {
+            double area = 0;
+            for (int i = 0; i < vertices.Count; ++i) {
+                if (i == vertices.Count - 1) {  // Last one "wraps around"
+                    area += Mathy.determinant2(vertices[i], vertices[0]);
+                } else {
+                    area += Mathy.determinant2(vertices[i], vertices[i+1]);
+                }
+            }
+
+            return area * 0.5;
         }
     }
 
@@ -50,7 +75,7 @@ namespace FiscalShock.Graphs {
         /// <para>Formula derived from Laplacian expansion</para>
         /// </summary>
         /// <returns>area of triangle on given vertices</returns>
-        public double getArea() {
+        new public double getArea() {
             return 2 * (((b.x - a.x) * (c.y - a.y)) - ((b.y - a.y) * (c.x - a.x)));
         }
 
@@ -106,6 +131,21 @@ namespace FiscalShock.Graphs {
         public Cell(Vertex delaunayVertex) {
             site = delaunayVertex;
             id = site.id;
+        }
+
+        /// <summary>
+        /// Order vertices counterclockwise
+        /// </summary>
+        public void orderVertices() {
+            List<Vertex> ordered = new List<Vertex>();
+
+            List<Tuple<Vertex, float>> centroidAngles = new List<Tuple<Vertex, float>>();
+            centroidAngles = vertices.Select(
+                v => new Tuple<Vertex, float>(
+                        v, site.getAngleOfRotationTo(v)
+                    )).ToList();
+            ordered = centroidAngles.OrderByDescending(t => t.Item2).Select(t => t.Item1).ToList();
+            vertices = ordered;
         }
     }
 }
