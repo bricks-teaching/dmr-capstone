@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 // This script is to allow main camera movement in the Weapons Demo scene. It can be deleted once this demo scene is deleted.
 public class WeaponDemo : MonoBehaviour
@@ -10,8 +12,10 @@ public class WeaponDemo : MonoBehaviour
     public GameObject player;
     public GameObject gun1;
     public GameObject gun2;
+    public TextMeshProUGUI pocketChange;
     public int[] gunAmmo = {0, -1, -1};
     public GameObject weapon;
+    public float money = 1000;
     private int slot = 1;
     private int currentSlot = 0;
     public bool holsteringWeapon = false;
@@ -27,6 +31,7 @@ public class WeaponDemo : MonoBehaviour
     public void Start()
     {
         crossHair.SetActive(false);
+        pocketChange.text = "" + money.ToString("F2");
         LoadWeapon();
     }
     // Update is called once per frame
@@ -119,6 +124,11 @@ public class WeaponDemo : MonoBehaviour
             time = 0.0f;
         }
         
+    }
+
+    public void changeMoney( float delta){
+        money += delta;
+        pocketChange.text = "" + money.ToString("F2");
     }
 
     public void removeBot(GameObject bot){
