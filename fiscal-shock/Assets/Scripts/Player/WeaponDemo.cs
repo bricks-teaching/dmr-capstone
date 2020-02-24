@@ -1,16 +1,21 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 // This script is to allow main camera movement in the Weapons Demo scene. It can be deleted once this demo scene is deleted.
 public class WeaponDemo : MonoBehaviour
 {
-    public GameObject robotBug;
-    public GameObject spidBot;
+    public GameObject enemy1;
+    public GameObject enemy2;
     public GameObject player;
     public GameObject gun1;
     public GameObject gun2;
+    public TextMeshProUGUI pocketChange;
     public int[] gunAmmo = {0, -1, -1};
     public GameObject weapon;
+    public float money = 1000;
     private int slot = 1;
     private int currentSlot = 0;
     public bool holsteringWeapon = false;
@@ -18,19 +23,20 @@ public class WeaponDemo : MonoBehaviour
     public float spawnRate = 10.0f;
     private float time = 9.0f;
     private float animatedTime;
-    private readonly ArrayList bots = new ArrayList();
+    private ArrayList bots = new ArrayList();
     public GameObject gameMenu;
     public GameObject pauseMenu;
     public GameObject crossHair;
     public float volume = 1f;
-
     public void Start()
     {
         crossHair.SetActive(false);
+        pocketChange.text = "" + money.ToString("F2");
         LoadWeapon();
     }
 
-    public void FixedUpdate()
+    // Update is called once per frame
+    public void Update()
     {
         //Bring up pause menu
         if(Input.GetKeyDown("p"))
@@ -89,7 +95,7 @@ public class WeaponDemo : MonoBehaviour
             animatedTime += Time.deltaTime;
         } else if (holsteringWeapon)
         {
-            // Debug.Log(animatedTime);
+            Debug.Log(animatedTime);
             weapon.transform.position -= (player.transform.up * 5f) + player.transform.forward;
             Vector3 rotationVector = player.transform.rotation.eulerAngles;
             weapon.transform.rotation = Quaternion.Slerp(weapon.transform.rotation, Quaternion.Euler(rotationVector), Time.fixedDeltaTime * 6);
@@ -105,7 +111,7 @@ public class WeaponDemo : MonoBehaviour
         //Spawn a new bot when time passed reaches spawnRate
         time += Time.deltaTime;
         if(time > spawnRate){
-            GameObject bot = Instantiate(robotBug, new Vector3(Random.value * 2000, player.transform.position.y, Random.value * 2000), gameObject.transform.rotation);
+            GameObject bot = Instantiate(enemy1, new Vector3(player.transform.position.x+Random.value * 20, player.transform.position.y+2, player.transform.position.z+Random.value * 20), gameObject.transform.rotation);
             bots.Add(bot);
             //Tell the bot to go after the player
             EnemyShoot botShootingScript = bot.GetComponent(typeof(EnemyShoot)) as EnemyShoot;
@@ -118,6 +124,11 @@ public class WeaponDemo : MonoBehaviour
             Debug.Log("enemy bot added");
             time = 0.0f;
         }
+    }
+
+    public void changeMoney( float delta){
+        money += delta;
+        pocketChange.text = "" + money.ToString("F2");
     }
 
     public void removeBot(GameObject bot){

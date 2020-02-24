@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerShoot : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class PlayerShoot : MonoBehaviour
     private AudioSource fireSound;
     public AudioClip fireSoundClip;
     public GameObject weapon;
+    public GameObject controller;
+    public Text pocketChange;
     public float volume = 1f;
     public bool weaponChanging = true;
     // Start is called before the first frame update
@@ -25,7 +28,8 @@ public class PlayerShoot : MonoBehaviour
             if(weaponScript.ammo > 0)
             {
                 fireBullet(10 - weaponScript.accuracy, weaponScript.strength);
-                weaponScript.ammo--;
+                WeaponDemo mainScript = controller.GetComponent(typeof(WeaponDemo)) as WeaponDemo;
+                mainScript.changeMoney(-weaponScript.bulletCost);
                 Debug.Log("Cost: $" + weaponScript.bulletCost + " You have " + weaponScript.ammo + " bullets remaining");
             }
         }
