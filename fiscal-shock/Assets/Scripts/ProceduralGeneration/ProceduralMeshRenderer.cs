@@ -144,10 +144,10 @@ namespace FiscalShock.Demo {
             }
             if (renderVoronoi && dungen.vd != null) {
                 renderEdges(dungen.vd.edges, voronoiColor, voronoiRenderHeight);
-                // uncomment to verify Voronoi cells
-                // List<Edge> es = dungen.vd.cells.SelectMany(c => c.sides).ToList();
-                // var ef = es.Distinct().ToList();
-                // renderEdges(ef, spanningTreeColor, voronoiRenderHeight + 0.5f);
+                // Voronoi cells
+                List<Edge> es = dungen.vd.cells.SelectMany(c => c.sides).ToList();
+                var ef = es.Distinct().ToList();
+                renderEdges(ef, spanningTreeColor, voronoiRenderHeight + 0.5f);
             }
         }
 

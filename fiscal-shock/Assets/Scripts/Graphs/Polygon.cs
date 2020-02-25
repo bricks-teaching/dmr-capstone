@@ -9,7 +9,6 @@ namespace FiscalShock.Graphs {
     public class Polygon {
         public List<Edge> sides { get; private set; } = new List<Edge>();
         public List<Vertex> vertices { get; set; } = new List<Vertex>();
-        public bool clockwiseVertices { get; private set; }
         public double signedArea { get; set; }
         public double area { get; set; }
 
@@ -44,6 +43,23 @@ namespace FiscalShock.Graphs {
 
             return area * 0.5;
         }
+
+        /// <summary>
+        /// Orders vertices counter-clockwise based on their angles to an
+        /// interior point
+        /// </summary>
+        /// <param name="centroid"></param>
+        public void orderVerticesCounterClockwise(Vertex centroid) {
+            List<Vertex> ordered = new List<Vertex>();
+
+            List<Tuple<Vertex, float>> centroidAngles = new List<Tuple<Vertex, float>>();
+            centroidAngles = vertices.Select(
+                v => new Tuple<Vertex, float>(
+                        v, centroid.getAngleOfRotationTo(v)
+                    )).ToList();
+            ordered = centroidAngles.OrderByDescending(t => t.Item2).Select(t => t.Item1).ToList();
+            this.vertices = ordered;
+        }
     }
 
     /// <summary>
@@ -56,13 +72,12 @@ namespace FiscalShock.Graphs {
         public Vertex b => vertices[1];
         public Vertex c => vertices[2];
 
-        public Triangle(List<Edge> tSides, int tid) {
-            setSides(tSides);
-            id = tid;
-        }
-
         public Triangle(List<Vertex> corners) {
             vertices = corners;
+        }
+
+        public Triangle(List<Vertex> corners, int tid) : this(corners) {
+            id = tid;
         }
 
         /// <summary>
@@ -126,26 +141,18 @@ namespace FiscalShock.Graphs {
         public Vertex site { get; set; }
         public List<Cell> neighbors { get; set; } = new List<Cell>();
         public int id { get; }
-        public bool incomplete { get; set; }  // Generally indicates a point that was on the Delaunay's convex hull that would have infinite edges. We don't want to use this to spawn anything, because it has no borders.
 
         public Cell(Vertex delaunayVertex) {
             site = delaunayVertex;
             id = site.id;
+            site.cell = this;
         }
 
         /// <summary>
-        /// Order vertices counterclockwise
+        /// Order vertices counterclockwise based on the site
         /// </summary>
         public void orderVertices() {
-            List<Vertex> ordered = new List<Vertex>();
-
-            List<Tuple<Vertex, float>> centroidAngles = new List<Tuple<Vertex, float>>();
-            centroidAngles = vertices.Select(
-                v => new Tuple<Vertex, float>(
-                        v, site.getAngleOfRotationTo(v)
-                    )).ToList();
-            ordered = centroidAngles.OrderByDescending(t => t.Item2).Select(t => t.Item1).ToList();
-            vertices = ordered;
+            orderVerticesCounterClockwise(site);
         }
     }
 }

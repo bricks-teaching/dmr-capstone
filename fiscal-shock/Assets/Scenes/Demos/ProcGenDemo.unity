@@ -466,7 +466,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seed: 555
   numberOfVertices: 100
-  unitScale: 2
+  unitScale: 1
   minX: -100
   maxX: 100
   minY: -100

@@ -13,6 +13,8 @@ namespace FiscalShock.Graphs {
         public float x => vector.x;
         public float y => vector.y;
         public int id { get; }
+        public List<Triangle> triangles { get; } = new List<Triangle>();
+        public Cell cell;
 
         /* Spending the space to track connected components simplifies
          * any algorithms that need to traverse a graph.
@@ -62,36 +64,6 @@ namespace FiscalShock.Graphs {
         /* End comparator functions */
 
         /// <summary>
-        /// Helper function to create a vertex only if it doesn't already
-        /// exist. Delaunator output leads to duplicate data structures when
-        /// this isn't used.
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="existingVertices"></param>
-        /// <returns></returns>
-        public static Vertex getVertex(float x, float y, List<Vertex> existingVertices) {
-            Vertex tmp = new Vertex(x, y, existingVertices.Count);
-            int idx = existingVertices.IndexOf(tmp);
-            if (idx == -1) {
-                // new vertex, add it
-                existingVertices.Add(tmp);
-                return tmp;
-            }
-            return existingVertices[idx];
-        }
-
-        /// <summary>
-        /// Vertex creation sometimes called from a static context
-        /// </summary>
-        /// <param name="v"></param>
-        /// <param name="existingVertices"></param>
-        /// <returns></returns>
-        public static Vertex getVertex(Vertex v, List<Vertex> existingVertices) {
-            return Vertex.getVertex(v.x, v.y, existingVertices);
-        }
-
-        /// <summary>
         /// Euclidean distance between two Cartesian coordiates
         /// </summary>
         /// <param name="other">distant vertex</param>
@@ -118,16 +90,6 @@ namespace FiscalShock.Graphs {
             int indexOfNearest = distances.IndexOf(minimumDistance);
 
             return others[indexOfNearest];
-        }
-
-        /// <summary>
-        /// Find a point on the line drawn at the angle theta from site that is distance units away from site.
-        /// </summary>
-        /// <param name="theta">angle in radians</param>
-        /// <param name="distance">desired length of line segment</param>
-        /// <returns></returns>
-        public Vertex getEndpointOfLineRotation(double theta, float distance) {
-            return new Vertex(Mathy.getEndpointOfLineRotation(x, y, theta, distance));
         }
 
         /// <summary>
