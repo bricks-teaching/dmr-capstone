@@ -9,7 +9,7 @@ public class MainMenu : MonoBehaviour
     }
 
     public void PlayClick (){
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("Hub");
     }
 
     public void QuitClick (){
