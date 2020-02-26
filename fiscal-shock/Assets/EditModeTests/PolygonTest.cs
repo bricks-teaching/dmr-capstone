@@ -20,7 +20,6 @@ namespace Tests {
         }
 
         [Test]
-        [Ignore("Doesn't seem to work with vertices out of order even though they should be ordered")]
         public void testCellGetArea() {
             Cell p = new Cell(new Vertex(0, 0));
             p.vertices.Add(new Vertex(0, 1));

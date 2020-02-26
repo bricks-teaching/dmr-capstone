@@ -9,7 +9,6 @@ namespace FiscalShock.Graphs {
     public class Polygon {
         public List<Edge> sides { get; private set; } = new List<Edge>();
         public List<Vertex> vertices { get; set; } = new List<Vertex>();
-        public double signedArea { get; set; }
         public double area { get; set; }
 
         public Polygon() {}
@@ -41,7 +40,7 @@ namespace FiscalShock.Graphs {
                 }
             }
 
-            return area * 0.5;
+            return Math.Abs(area * 0.5);
         }
 
         /// <summary>

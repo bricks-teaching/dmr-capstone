@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8032028084769514503
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8032028084769514501}
+  - component: {fileID: 8032028084769514502}
+  m_Layer: 0
+  m_Name: DungeonType
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8032028084769514501
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8032028084769514503}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8032028084769514502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8032028084769514503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 971074e275c9d4e3c87e2a7190ccbf01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  randomEnemies:
+  - {fileID: -927199367670048503, guid: 3b846c6e6fd52fd4ba12f4b5bd5002c6, type: 3}
+  - {fileID: -927199367670048503, guid: 589c15f8cfcabad4abd0e7934d039a83, type: 3}
+  - {fileID: -927199367670048503, guid: b631f195065dcb749815853ba6b61b32, type: 3}
+  - {fileID: -927199367670048503, guid: 67d2643d2c5523542a14bcb0cce692e3, type: 3}
+  - {fileID: -927199367670048503, guid: 1e4333e81c27fac43aa194a0086e908a, type: 3}
+  - {fileID: -927199367670048503, guid: 7307ad8bd720d5d47905a3e21ce894d4, type: 3}
+  - {fileID: -927199367670048503, guid: 58d01ab44370fb948b78b552666b0012, type: 3}
+  - {fileID: -927199367670048503, guid: e8c7d724a2710dc4fb1b3eae712d7d4c, type: 3}
+  - {fileID: -927199367670048503, guid: 29e1ed14c9e582147a3c58c452a5beff, type: 3}
+  - {fileID: -927199367670048503, guid: 716649df03aff22408b3c6c0fd2a47bd, type: 3}
+  - {fileID: -927199367670048503, guid: f8220cf7d7a27354cad07f7bfb577c2e, type: 3}
+  - {fileID: -927199367670048503, guid: 68dfd1e59ea95164385a2bf2710766ed, type: 3}
+  groundTiles: []
+  groundTileScale: 1
+  obstacles: []
+  decorations: []
