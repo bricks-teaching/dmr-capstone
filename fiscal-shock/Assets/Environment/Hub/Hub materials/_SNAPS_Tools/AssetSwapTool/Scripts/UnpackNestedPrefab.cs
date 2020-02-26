@@ -1,10 +1,10 @@
-﻿using System.Collections;
+﻿#pragma warning disable
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.IO;
 using System.Text.RegularExpressions;
-
 
 namespace SNAP
 {

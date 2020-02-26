@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System;
 using UnityEngine;
 using FiscalShock.Graphs;
 using ThirdParty;
@@ -19,13 +18,13 @@ namespace FiscalShock.Procedural {
         public float unitScale = 1;
 
         [Tooltip("Minimum x-value of a vertex.")]
-        public int minX = 0;
+        public int minX = -100;
 
         [Tooltip("Maximum x-value of a vertex.")]
         public int maxX = 100;
 
         [Tooltip("Minimum y-value of a vertex.")]
-        public int minY = 0;
+        public int minY = -100;
 
         [Tooltip("Maximum y-value of a vertex.")]
         public int maxY = 100;
@@ -35,26 +34,42 @@ namespace FiscalShock.Procedural {
         // private Delaunay masterDt;
         // private Something spanningTree;
 
+        private MersenneTwister mt;
+
         public void Start() {
+            initPRNG();
+            System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+            sw.Start();
+            generateDelaunay();
+            generateVoronoi();
+            sw.Stop();
+            Debug.Log($"Finished generating graphs in {sw.ElapsedMilliseconds} ms");
+        }
+
+        public void initPRNG() {
             // Set up the PRNG
             if (seed == 0) {
-                seed = DateTimeOffset.Now.ToUnixTimeSeconds();
+                seed = System.DateTimeOffset.Now.ToUnixTimeSeconds();
             }
-            MersenneTwister mt = new MersenneTwister((int)seed);
+            // TODO Poisson disc sampling instead?
+            mt = new MersenneTwister((int)seed);
+            UnityEngine.Random.InitState((int)seed);
+        }
 
-            // Generate vertices
+        public List<double> makeRandomPoints() {
             List<double> vertices = new List<double>();
-
-            /* Delaunator accepts a flat array of doubles, where each even
-             * index is an x-coordinate, and the following odd index is the
-             * corresponding y-coordinate.
-            */
-            for (int i = 0; i < numberOfVertices; i += 2) {
+            for (int i = 0; i < numberOfVertices*2; i += 2) {
                 vertices.Add(mt.Next(minX, maxX) * unitScale);
                 vertices.Add(mt.Next(minY, maxY) * unitScale);
             }
+            return vertices;
+        }
 
-            dt = new Delaunay(vertices);
+        public void generateDelaunay() {
+            dt = new Delaunay(makeRandomPoints(), minX, maxX, minY, maxY);
+        }
+
+        public void generateVoronoi() {
             vd = dt.makeVoronoi();
         }
     }
