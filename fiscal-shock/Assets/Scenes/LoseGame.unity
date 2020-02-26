@@ -205,7 +205,7 @@ GameObject:
   - component: {fileID: 182031801}
   - component: {fileID: 182031802}
   m_Layer: 5
-  m_Name: MainMenu
+  m_Name: LoseMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -242,7 +242,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 182031800}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9552139440109e4da3c40a2fbc50870, type: 3}
+  m_Script: {fileID: 11500000, guid: 986b8c19e4b19894a8043d854fe184ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &310796189
@@ -428,7 +428,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 182031802}
-        m_MethodName: PlayClick
+        m_MethodName: RetryClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1072,7 +1072,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 182031802}
-        m_MethodName: QuitClick
+        m_MethodName: BankruptClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
