@@ -3,60 +3,64 @@
 //This script controls the health of enemy bots
 public class EnemyHealth: MonoBehaviour
 {
-    public int totalHealth = 30;
     public int startingHealth = 30;
     public GameObject explosion;
-    private AudioSource hitSound;
     public AudioClip hitSoundClip;
-    public GameObject controller;
+    public float pointValue = 20;
     public float volume = 1f;
+    private int totalHealth;
+    private GameObject lastBulletCollision;
 
-    void Start()
-    {
-        hitSound = GetComponent<AudioSource>();
+    void Start(){
+        totalHealth = startingHealth;
     }
 
     void OnCollisionEnter(Collision col)
     {
         if(col.gameObject.tag == "Bullet")
         {
+            if(col.gameObject == lastBulletCollision){return;}
+            lastBulletCollision = col.gameObject;
             //Reduce health
             BulletBehavior bullet = col.gameObject.GetComponent(typeof(BulletBehavior)) as BulletBehavior;
             int bulletDamage = bullet.damage;
             totalHealth -= bulletDamage;
             if(totalHealth <= 0){
-                WeaponDemo mainScript = controller.GetComponent(typeof(WeaponDemo)) as WeaponDemo;
-                mainScript.removeBot(gameObject);
-                Destroy(gameObject, 0.9f);
+                GameController.removeBot(gameObject);
+                PlayerFinance.cashOnHand += pointValue;
+                Destroy(gameObject);
             }
             Debug.Log("Damage: " + bullet.damage + " points. Bot has " + totalHealth + " health points remaining");
+            GameObject explode = Instantiate(explosion, gameObject.transform.position + transform.up, gameObject.transform.rotation);
             //Play sound effect and explosion particle system
+            AudioSource hitSound = explode.GetComponent<AudioSource>();
             hitSound.PlayOneShot(hitSoundClip, 0.5f * volume);
-            GameObject explode = Instantiate(explosion, gameObject.transform.position, gameObject.transform.rotation);
-            Destroy(explode, 0.5f);
+            Destroy(explode, 0.9f);
             //If bot goes under 50% health, make it look damaged
             if(totalHealth <= startingHealth / 2 && (totalHealth + bulletDamage) > startingHealth / 2){
-                if(gameObject.tag == "RobotBug")
+                if(gameObject.tag == "Blaster")
                 {
-                    for(int i = 3; i < 5; i++){
-                        Vector3 randomDirection = (new Vector3(Random.value, Random.value, Random.value)).normalized;
+                    for(int i = 0; i < 2; i++){
+                        Vector3 randomDirection = new Vector3(Random.value, Random.value, Random.value).normalized;
                         gameObject.transform.GetChild(0).gameObject.
-                        transform.GetChild(0).gameObject.transform.GetChild(i)
-                        .gameObject.transform.rotation = Quaternion.LookRotation(randomDirection);
+                        transform.GetChild(0).gameObject.
+                        transform.GetChild(2).gameObject.transform.GetChild(i)
+                        .gameObject.transform.GetChild(0).gameObject.transform.rotation = Quaternion.LookRotation(randomDirection);
                     }
-                } else if(gameObject.tag == "SpidBot")
+                } 
+                if(gameObject.tag == "Lobber")
                 {
-                    Vector3 randomDirection = (new Vector3(Random.value, Random.value, Random.value)).normalized;
-                    gameObject.transform.GetChild(0).gameObject.
-                    transform.GetChild(1).gameObject.transform.GetChild(0)
-                    .gameObject.transform.GetChild(0).gameObject.transform
-                    .rotation = Quaternion.LookRotation(randomDirection);
-                    Destroy(gameObject.transform.GetChild(0).gameObject.
-                    transform.GetChild(0).gameObject.transform.GetChild(0)
-                    .gameObject.transform.GetChild(0).gameObject.transform.GetChild(0)
-                    .gameObject.transform.GetChild(0).gameObject.transform.GetChild(0)
-                    .gameObject);
-                }
+                    for(int i = 0; i < 2; i++){
+                        Debug.Log(gameObject.transform.GetChild(0).gameObject.
+                        transform.GetChild(0).gameObject.
+                        transform.GetChild(4).gameObject.transform.GetChild(2 * i)
+                        .gameObject);
+                        gameObject.transform.GetChild(0).gameObject.
+                        transform.GetChild(0).gameObject.
+                        transform.GetChild(4).gameObject.transform.GetChild(2 * i)
+                        .gameObject.transform.position += new Vector3(0, 0.1f, 0);
+                    }
+                } 
             }
         }
     }
