@@ -55,4 +55,8 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+# TextMesh Pro docs
 *.pdf
+
+# Test Runner files
+Assets/**/InitTestScene*
