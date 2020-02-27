@@ -6,7 +6,7 @@ using UnityEngine;
 public class WeaponStats : MonoBehaviour
 {
     public int strength = 10;
-    public int ammo = 5;
     public int bulletCost = 1;
     public float accuracy = 6;
+    public GameObject bulletPrefab;
 }

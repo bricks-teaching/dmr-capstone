@@ -226,6 +226,7 @@ namespace FiscalShock.Procedural {
                 }
 
                 // Next, try an enemy
+                // TODO always try to spawn enemy and stick it on top of the item
                 cumulativeRate += dungeonType.enemyRate;
                 if (randSpawn < cumulativeRate) {
                     //cell.spawnedObject = spawnFromList(dungeonType.randomEnemies, cell);

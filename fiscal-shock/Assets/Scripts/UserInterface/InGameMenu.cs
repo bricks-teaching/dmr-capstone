@@ -12,6 +12,7 @@ public class InGameMenu : MonoBehaviour
 
     void Start()
     {
+        GameController.pauseMenu = pausePanel;
         pausePanel.SetActive(false);
         quitPanel.SetActive(false);
         optionsPanel.SetActive(false);
@@ -56,8 +57,7 @@ public class InGameMenu : MonoBehaviour
     public void AdjustSFX(float value)
     {
         Debug.Log("Volume is - " + value);
-        WeaponDemo demoScript = controller.GetComponent(typeof(WeaponDemo)) as WeaponDemo;
-        demoScript.ChangeVolume(value);
+        GameController.ChangeVolume(value);
     }
 
     public void AdjustMouseSensitivity(float value)

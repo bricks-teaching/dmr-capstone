@@ -1,19 +1,23 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainMenu : MonoBehaviour
+public class LoseMenu : MonoBehaviour
 {
+
     public void Start(){
         Debug.Log(SceneManager.GetActiveScene().buildIndex);
         Debug.Log(SceneManager.GetActiveScene().name);
     }
 
-    public void PlayClick (){
+    public void RetryClick (){
         SceneManager.LoadScene("Hub");
     }
 
-    public void QuitClick (){
+    public void BankruptClick (){
         Debug.Log("Quit");
         Application.Quit();
     }
+
 }
