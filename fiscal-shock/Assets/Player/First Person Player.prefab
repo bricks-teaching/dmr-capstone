@@ -680,7 +680,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfd0928dd05da484880f40a31a6baeea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lockCursorToGame: 1
   mouseSensitivity: 100
+  clampMinimum: -90
+  clampMaximum: 90
   body: {fileID: 208130074868200881}
 --- !u!1 &208130074398731318
 GameObject:
