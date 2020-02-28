@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 33000013592684478}
   - component: {fileID: 23000012787384246}
   - component: {fileID: 1372211245662921870}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Stairs 6
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295

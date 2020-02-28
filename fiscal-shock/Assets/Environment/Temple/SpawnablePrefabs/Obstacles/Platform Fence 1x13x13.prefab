@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 33000012693516136}
   - component: {fileID: 23000012052274614}
   - component: {fileID: -8520635287028026399}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Platform Fence 1x13x13
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295

@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 33000011745558516}
   - component: {fileID: 23000013755540058}
   - component: {fileID: -3396776940837352942}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Fence Bright Corner
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295

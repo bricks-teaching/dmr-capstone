@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 4000012752836916}
   - component: {fileID: 33000010627123092}
   - component: {fileID: 23000010300167196}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plant 1
-  m_TagString: Untagged
+  m_TagString: Decoration
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295

@@ -853,8 +853,8 @@ GameObject:
   - component: {fileID: 1342625752417486047}
   - component: {fileID: 2055187250603981074}
   - component: {fileID: 9092076683911019700}
-  - component: {fileID: 3445903391760918348}
   - component: {fileID: 6543011163009545418}
+  - component: {fileID: 4917716088313872687}
   m_Layer: 0
   m_Name: lobberA
   m_TagString: Lobber
@@ -1019,19 +1019,6 @@ MonoBehaviour:
   hitSoundClip: {fileID: 8300000, guid: 861e537fb624418428af6d6d55c73dfb, type: 3}
   pointValue: 20
   volume: 1
---- !u!135 &3445903391760918348
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3359091100508390666}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 4
-  m_Center: {x: 0, y: 3.4, z: 0}
 --- !u!54 &6543011163009545418
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1048,6 +1035,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!64 &4917716088313872687
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3359091100508390666}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &3377342136944527584
 GameObject:
   m_ObjectHideFlags: 0

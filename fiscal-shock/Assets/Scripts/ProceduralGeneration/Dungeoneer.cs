@@ -5,7 +5,7 @@ using FiscalShock.Graphs;
 using ThirdParty;
 
 /// <summary>
-/// Generates graphs and stuff
+/// Generates a dungeon floor
 /// </summary>
 namespace FiscalShock.Procedural {
     public class Dungeoneer : MonoBehaviour {
@@ -38,10 +38,11 @@ namespace FiscalShock.Procedural {
         // private Delaunay masterDt;
         // private Something spanningTree;
 
-        private GameObject player;
-
         private MersenneTwister mt;
         private DungeonType dungeonType;
+
+        public List<GameObject> enemies { get; } = new List<GameObject>();
+        public GameObject player { get; private set; }
 
         public void Start() {
             initPRNG();
@@ -53,8 +54,6 @@ namespace FiscalShock.Procedural {
             Debug.Log($"Finished generating graphs in {sw.ElapsedMilliseconds} ms");
 
             setDungeon();
-            // TODO point default camera at a "loading" screen
-            // Once the player is spawned, make that the active camera
             spawnPlayer();
         }
 
@@ -90,8 +89,30 @@ namespace FiscalShock.Procedural {
             setFloor();
             setWalls();
             randomizeCells();
+            spawnEnemies();
             makeSun();  // just for fun
-            // TODO add escape point
+            makeEscapePoint();
+            // make deeper point
+        }
+
+        private void makeEscapePoint() {
+            int escapeSite;
+            do {
+                escapeSite = mt.Next(numberOfVertices-1);
+            } while (isPointOnOrNearConvexHull(vd.cells[escapeSite].site));
+            // Remove any currently spawned objects here
+            if (vd.cells[escapeSite].spawnedObject != null) {
+                Destroy(vd.cells[escapeSite].spawnedObject);
+            }
+            // Also remove neighbors because of clipping issues
+            foreach (Cell c in vd.cells[escapeSite].neighbors) {
+                if (c.spawnedObject != null) {
+                    Destroy(c.spawnedObject);
+                }
+            }
+
+            Vector3 where = new Vector3(vd.cells[escapeSite].site.x, dungeonType.groundTileDimensions.y, vd.cells[escapeSite].site.y);
+            vd.cells[escapeSite].spawnedObject = Instantiate(dungeonType.returnPrefab, where, dungeonType.returnPrefab.transform.rotation);
         }
 
         private void makeSun() {
@@ -104,12 +125,6 @@ namespace FiscalShock.Procedural {
         private void setFloor() {
             float floorGridWidth = maxX - minX;
             float floorGridHeight = maxY - minY;
-
-            // TODO remove later, it helps the graph coloring on camera for now
-            // Widen the default floor to catch the player
-            GameObject floor = GameObject.Find("DefaultGround");
-            floor.transform.localScale = new Vector3(floorGridWidth, 1, floorGridHeight);
-            floor.transform.position = new Vector3(floor.transform.position.x, -1, floor.transform.position.z);
 
             // "Skin" the floor randomly using valid ground tiles
             int tilesPerRow = Mathf.CeilToInt(floorGridWidth / dungeonType.groundTileDimensions.x);
@@ -170,7 +185,7 @@ namespace FiscalShock.Procedural {
                     GameObject gro = Instantiate(tileToSpawn, where, tileToSpawn.transform.rotation);
 
                     // Move higher walls up
-                    gro.transform.position = new Vector3(where.x, where.y + j * dungeonType.wallTileDimensions.y, where.z);
+                    gro.transform.position = new Vector3(where.x, where.y + (j * dungeonType.wallTileDimensions.y), where.z);
 
                     // Name it for debugging in the editor
                     gro.name = $"Wall {tileToSpawn.name} ({wallAngle}: {i}, {j})";
@@ -196,12 +211,12 @@ namespace FiscalShock.Procedural {
                     // Rotate to face interior
                     top.transform.Rotate(0, wallAngle, 0);
                     // Move it to the top of the wall
-                    top.transform.position = new Vector3(where.x, where.y + dungeonType.maxWallHeight * dungeonType.wallTileDimensions.y, where.z);
+                    top.transform.position = new Vector3(where.x, where.y + (dungeonType.maxWallHeight * dungeonType.wallTileDimensions.y), where.z);
                 }
             }
         }
 
-        public void randomizeCells() {
+        private void randomizeCells() {
             foreach (Cell cell in vd.cells) {
                 // Don't spawn things on the convex hull for now
                 if (isPointOnOrNearConvexHull(cell.site)) {
@@ -214,32 +229,14 @@ namespace FiscalShock.Procedural {
                     // Not going to spawn something
                     continue;
                 }
+
                 // Roll another 1d100 to figure out what to spawn
                 randSpawn = mt.Next(100);
 
-                // First try a light source, since they're relatively rare
+                // Light sources
                 float cumulativeRate = dungeonType.lightSourceRate;
                 if (randSpawn < cumulativeRate) {
                     cell.spawnedObject = spawnFromList(dungeonType.lightSources, cell);
-                    Debug.Log($"Light source: {randSpawn}");
-                    continue;
-                }
-
-                // Next, try an enemy
-                // TODO always try to spawn enemy and stick it on top of the item
-                cumulativeRate += dungeonType.enemyRate;
-                if (randSpawn < cumulativeRate) {
-                    //cell.spawnedObject = spawnFromList(dungeonType.randomEnemies, cell);
-                    // Randomly resize enemy +/- the variation
-                    // Example: +/- 15% => [0.85, 1.15] return values
-                    float enemySize = (mt.Next(dungeonType.enemySizeVariation * 2) / 100f) - dungeonType.enemySizeVariation + 1;
-                    /*
-                    cell.spawnedObject.transform.localScale = new Vector3(
-                        cell.spawnedObject.transform.localScale *= enemySize;
-                    );
-                    */
-                    Debug.Log($"Enemy: {randSpawn}");
-                    // Attach enemy AI scripts here to cell.spawnedObject
                     continue;
                 }
 
@@ -247,7 +244,6 @@ namespace FiscalShock.Procedural {
                 cumulativeRate += dungeonType.decorationRate;
                 if (randSpawn < cumulativeRate) {
                     cell.spawnedObject = spawnFromList(dungeonType.decorations, cell);
-                    Debug.Log($"Decoration: {randSpawn}");
                     continue;
                 }
 
@@ -255,8 +251,39 @@ namespace FiscalShock.Procedural {
                 cumulativeRate += dungeonType.obstacleRate;
                 if (randSpawn < cumulativeRate) {
                     cell.spawnedObject = spawnFromList(dungeonType.obstacles, cell);
-                    Debug.Log($"Obstacle: {randSpawn}");
-                    // continue;
+                }
+            }
+        }
+
+        private void spawnEnemies() {
+            foreach (Cell cell in vd.cells) {
+                // Don't spawn things on the convex hull for now
+                if (isPointOnOrNearConvexHull(cell.site)) {
+                    continue;
+                }
+
+                int enemySpawn = mt.Next(100);
+                if (enemySpawn < dungeonType.enemyRate) {
+                    GameObject enemy = spawnFromList(dungeonType.randomEnemies, cell);
+                    enemies.Add(enemy);
+
+                    // Position enemy on top of the object already here
+                    if (cell.spawnedObject != null) {
+                        enemy.transform.position += new Vector3(0, cell.spawnedObject.transform.position.y, 0);
+                    }
+
+                    // Randomly resize enemy +/- the variation
+                    // Example: +/- 15% => [0.85, 1.15] return values
+                    float enemySize = ((mt.Next(dungeonType.enemySizeVariation * 2) - dungeonType.enemySizeVariation) / 100f) + 1;
+                    enemy.transform.localScale = new Vector3(enemy.transform.localScale.x * enemySize, enemy.transform.localScale.y * enemySize, enemy.transform.localScale.z * enemySize);
+
+                    // Attach AI here
+                    EnemyShoot botShootingScript = enemy.GetComponent(typeof(EnemyShoot)) as EnemyShoot;
+                    EnemyHealth botDamageScript = enemy.GetComponent(typeof(EnemyHealth)) as EnemyHealth;
+
+                    // TODO fix volume to not be hardcoded
+                    botShootingScript.volume = .3f;
+                    botDamageScript.volume = .3f;
                 }
             }
         }
@@ -267,7 +294,7 @@ namespace FiscalShock.Procedural {
             GameObject thingToSpawn = spawnables[idx].prefab;
 
             // Place it at the correct point
-            Vector3 where = location.site.toVector3AtHeight(dungeonType.groundTileDimensions.y);
+            Vector3 where = location.site.toVector3AtHeight(dungeonType.groundTileDimensions.y + thingToSpawn.transform.position.y);
 
             GameObject thing = Instantiate(thingToSpawn, where, thingToSpawn.transform.rotation);
 
@@ -277,8 +304,8 @@ namespace FiscalShock.Procedural {
             return thing;
         }
 
-        public void spawnPlayer() {
-            // TODO player needs to be static
+        private void spawnPlayer() {
+            // TODO player needs to be static, do we need to do anything other than check "static" on the prefab?
             Vertex spawnPoint = dt.vertices[mt.Next(numberOfVertices-1)];
             while (isPointOnOrNearConvexHull(spawnPoint)) {
                 spawnPoint = dt.vertices[mt.Next(numberOfVertices-1)];
@@ -287,6 +314,9 @@ namespace FiscalShock.Procedural {
             player.name = "Player Character";
 
             // Attach any other stuff to player here
+
+            // Disable loading screen camera in this scene
+            GameObject.Find("LoadCamera").GetComponent<Camera>().enabled = false;
         }
 
         private bool isPointOnOrNearConvexHull(Vertex point) {

@@ -56,5 +56,11 @@ namespace FiscalShock.Procedural {
 
         [Tooltip("Prefabs for all valid light sources attached to wall.")]
         public List<SpawnableObject> wallLights;
+
+        [Tooltip("Prefab for the object that returns you to the hub.")]
+        public GameObject returnPrefab;
+
+        [Tooltip("Prefab for the object that send you down another level in the dungeon.")]
+        public GameObject delvePrefab;
     }
 }

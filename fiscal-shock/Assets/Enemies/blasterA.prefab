@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1078341041609382848}
   - component: {fileID: 3393988917688406179}
   - component: {fileID: 4106496990200208738}
-  - component: {fileID: 3803137631656672708}
+  - component: {fileID: 9065781989727626761}
   m_Layer: 0
   m_Name: blasterA
   m_TagString: Blaster
@@ -158,6 +158,8 @@ MonoBehaviour:
   botReaction: 7
   botSpeed: 20
   volume: 1
+  gunHeight: 0
+  visionRadius: 25
 --- !u!114 &4106496990200208738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,11 +176,10 @@ MonoBehaviour:
   explosion: {fileID: 4856741112863513470, guid: c4dccf8958d42ac48a60fefb19d80fb9,
     type: 3}
   hitSoundClip: {fileID: 8300000, guid: 861e537fb624418428af6d6d55c73dfb, type: 3}
-  controller: {fileID: 0}
   pointValue: 30
   volume: 1
---- !u!65 &3803137631656672708
-BoxCollider:
+--- !u!64 &9065781989727626761
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -187,9 +188,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 10, y: 12, z: 5}
-  m_Center: {x: 0, y: 6.63, z: 0}
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &697954628164564041
 GameObject:
   m_ObjectHideFlags: 0

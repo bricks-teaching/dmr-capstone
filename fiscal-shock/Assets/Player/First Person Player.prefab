@@ -1262,7 +1262,7 @@ GameObject:
   - component: {fileID: 208130074868200895}
   m_Layer: 0
   m_Name: First Person Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1315,9 +1315,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 208130074868200880}
-  speed: 6
+  speed: 20
   gravity: -50
-  jumpBy: 1.5
+  jumpBy: 6
   groundCheck: {fileID: 208130074375257317}
   groundDistance: 0.4
   groundMask:

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 33000011791001450}
   - component: {fileID: 23000010631550142}
   - component: {fileID: -8554916648409896735}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall Lantern With Orb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 33000011385326586}
   - component: {fileID: 23000013222267484}
   - component: {fileID: 4033250487764541837}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Light Orb
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4000013835745146}
   - component: {fileID: 33000012978631432}
   - component: {fileID: 23000010096636442}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Single Cube 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 4000010247757780}
   - component: {fileID: 33000014183735000}
   - component: {fileID: 23000012925566510}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Single Cube 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: 4000011326429804}
   - component: {fileID: 33000010639870230}
   - component: {fileID: 23000010337811354}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plants Hanging 1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -252,7 +252,7 @@ GameObject:
   - component: {fileID: 4000013823822106}
   - component: {fileID: 33000013748738958}
   - component: {fileID: 23000010330769702}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plant 3 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -331,7 +331,7 @@ GameObject:
   - component: {fileID: 4000010556995854}
   - component: {fileID: 33000011188306772}
   - component: {fileID: 23000013908441886}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plants Hanging 1 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -414,7 +414,7 @@ GameObject:
   - component: {fileID: 4000011591816048}
   - component: {fileID: 33000011607588978}
   - component: {fileID: 23000011729018188}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plant 3 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -493,7 +493,7 @@ GameObject:
   - component: {fileID: 4000011818654622}
   - component: {fileID: 33000013471736466}
   - component: {fileID: 23000012760187264}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plant 3 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -572,7 +572,7 @@ GameObject:
   - component: {fileID: 4000012179711990}
   - component: {fileID: 33000011445754266}
   - component: {fileID: 23000012879975706}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plant 3 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -651,7 +651,7 @@ GameObject:
   - component: {fileID: 4000010973918636}
   - component: {fileID: 33000012196568556}
   - component: {fileID: 23000011391680866}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plant 2 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -730,7 +730,7 @@ GameObject:
   - component: {fileID: 4000010313343822}
   - component: {fileID: 33000010461335066}
   - component: {fileID: 23000011916291044}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plant 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -809,7 +809,7 @@ GameObject:
   - component: {fileID: 4000011078898852}
   - component: {fileID: 33000010923879806}
   - component: {fileID: 23000011596688210}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Block 1x4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -888,7 +888,7 @@ GameObject:
   - component: {fileID: 4000013976682632}
   - component: {fileID: 33000011094638132}
   - component: {fileID: 23000010985749700}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Block 1x2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -967,7 +967,7 @@ GameObject:
   - component: {fileID: 4000011294897834}
   - component: {fileID: 33000011045859620}
   - component: {fileID: 23000011477386180}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Block 2x2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1046,7 +1046,7 @@ GameObject:
   - component: {fileID: 4000010562980758}
   - component: {fileID: 33000014148499998}
   - component: {fileID: 23000012443435576}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plant 6 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1125,7 +1125,7 @@ GameObject:
   - component: {fileID: 4000011206455054}
   - component: {fileID: 33000011137382804}
   - component: {fileID: 23000010732161318}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plant 2 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1204,7 +1204,7 @@ GameObject:
   - component: {fileID: 4000010295206472}
   - component: {fileID: 33000011564125918}
   - component: {fileID: 23000012863903562}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Single Cube 1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1283,7 +1283,7 @@ GameObject:
   - component: {fileID: 4000012595008760}
   - component: {fileID: 33000010865344912}
   - component: {fileID: 23000011425674954}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Block 3x3x5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1362,7 +1362,7 @@ GameObject:
   - component: {fileID: 4000013438491702}
   - component: {fileID: 33000012945376460}
   - component: {fileID: 23000011203394156}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plant 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1441,7 +1441,7 @@ GameObject:
   - component: {fileID: 4000013369361584}
   - component: {fileID: 33000011266772452}
   - component: {fileID: 23000014016726486}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plant 3 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1520,7 +1520,7 @@ GameObject:
   - component: {fileID: 4000010120020588}
   - component: {fileID: 33000011987951690}
   - component: {fileID: 23000011760225724}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plant 3 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1599,7 +1599,7 @@ GameObject:
   - component: {fileID: 4000012581196890}
   - component: {fileID: 33000012826842128}
   - component: {fileID: 23000010089527374}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plant 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1678,7 +1678,7 @@ GameObject:
   - component: {fileID: 4000011428614026}
   - component: {fileID: 33000014261867892}
   - component: {fileID: 23000012247845632}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plant 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1757,7 +1757,7 @@ GameObject:
   - component: {fileID: 4000013317164030}
   - component: {fileID: 33000013661583530}
   - component: {fileID: 23000012183064020}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sig Sag 1x2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1836,7 +1836,7 @@ GameObject:
   - component: {fileID: 4000013222022074}
   - component: {fileID: 33000012325887112}
   - component: {fileID: 23000011787890640}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plants Hanging 1 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1919,7 +1919,7 @@ GameObject:
   - component: {fileID: 4000010994338060}
   - component: {fileID: 33000013744860232}
   - component: {fileID: 23000011729438710}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plant 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1998,7 +1998,7 @@ GameObject:
   - component: {fileID: 4000012713237248}
   - component: {fileID: 33000012023197332}
   - component: {fileID: 23000013701851508}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plants Hanging 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2081,7 +2081,7 @@ GameObject:
   - component: {fileID: 4000011111308854}
   - component: {fileID: 33000010024334536}
   - component: {fileID: 23000010301667504}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plant 2 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2160,7 +2160,7 @@ GameObject:
   - component: {fileID: 4000012071295966}
   - component: {fileID: 33000010366051186}
   - component: {fileID: 23000013289511320}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plant 2 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2239,7 +2239,7 @@ GameObject:
   - component: {fileID: 4000011332656602}
   - component: {fileID: 33000012726255108}
   - component: {fileID: 23000012443965602}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plant 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2318,7 +2318,7 @@ GameObject:
   - component: {fileID: 4000010229118074}
   - component: {fileID: 33000013771593608}
   - component: {fileID: 23000010415805816}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Single Cube 7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2397,7 +2397,7 @@ GameObject:
   - component: {fileID: 4000010798162510}
   - component: {fileID: 33000010401769148}
   - component: {fileID: 23000013420343646}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plant 3 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2476,7 +2476,7 @@ GameObject:
   - component: {fileID: 4000010976058814}
   - component: {fileID: 33000013523858844}
   - component: {fileID: 23000011818024300}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plant 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2555,7 +2555,7 @@ GameObject:
   - component: {fileID: 4000011962001910}
   - component: {fileID: 33000012264567258}
   - component: {fileID: 23000012230911814}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sig Sag 1x4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2633,9 +2633,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4000013596384772}
   - component: {fileID: 6062078675013892474}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Example Prefab 1
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2703,7 +2703,7 @@ GameObject:
   - component: {fileID: 4000013249386986}
   - component: {fileID: 33000010780801384}
   - component: {fileID: 23000012303907452}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Single Cube 14 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2782,7 +2782,7 @@ GameObject:
   - component: {fileID: 4000013377301454}
   - component: {fileID: 33000014087737332}
   - component: {fileID: 23000013266619914}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plant 3 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2861,7 +2861,7 @@ GameObject:
   - component: {fileID: 4000013048188714}
   - component: {fileID: 33000010290010504}
   - component: {fileID: 23000010002645476}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Single Cube 14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2940,7 +2940,7 @@ GameObject:
   - component: {fileID: 4000013191766656}
   - component: {fileID: 33000014133224978}
   - component: {fileID: 23000012377320496}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plant 6 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3019,7 +3019,7 @@ GameObject:
   - component: {fileID: 4000013629828828}
   - component: {fileID: 33000011695997936}
   - component: {fileID: 23000013258627282}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plant 3 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3098,7 +3098,7 @@ GameObject:
   - component: {fileID: 4000014022711740}
   - component: {fileID: 33000010443777904}
   - component: {fileID: 23000012139865736}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plant 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3177,7 +3177,7 @@ GameObject:
   - component: {fileID: 4000012565353138}
   - component: {fileID: 33000011422033472}
   - component: {fileID: 23000014242800906}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plant 3 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 33000012270972656}
   - component: {fileID: 23000011575857878}
   - component: {fileID: -2010660931536512341}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Block Ruin Wall 5
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295

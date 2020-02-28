@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 33000012862724042}
   - component: {fileID: 23000012426667602}
   - component: {fileID: 7045679844382334231}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Idol 2
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295

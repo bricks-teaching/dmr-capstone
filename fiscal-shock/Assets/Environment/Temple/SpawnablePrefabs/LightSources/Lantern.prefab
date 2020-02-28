@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 4000010039783022}
   - component: {fileID: 33000010089818194}
   - component: {fileID: 23000013011644782}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Lantern
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
