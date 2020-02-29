@@ -47,7 +47,7 @@ public class EnemyHealth: MonoBehaviour
                         transform.GetChild(2).gameObject.transform.GetChild(i)
                         .gameObject.transform.GetChild(0).gameObject.transform.rotation = Quaternion.LookRotation(randomDirection);
                     }
-                } 
+                }
                 if(gameObject.tag == "Lobber")
                 {
                     for(int i = 0; i < 2; i++){
@@ -60,7 +60,7 @@ public class EnemyHealth: MonoBehaviour
                         transform.GetChild(4).gameObject.transform.GetChild(2 * i)
                         .gameObject.transform.position += new Vector3(0, 0.1f, 0);
                     }
-                } 
+                }
             }
         }
     }

@@ -10,22 +10,12 @@ public class BulletBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Rigidbody rb = GetComponent<Rigidbody>();
-        rb.velocity = gameObject.transform.forward * bulletSpeed;
+        //Rigidbody rb = GetComponent<Rigidbody>();
+        //rb.velocity = gameObject.transform.forward * bulletSpeed;
     }
 
     void OnCollisionEnter()
     {
         Destroy(gameObject);
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        //If the bullet has not hit anything after one second it is removed from the scene
-        time += Time.fixedDeltaTime;
-        if( time > 1.0f){
-            Destroy(gameObject);
-        }
     }
 }

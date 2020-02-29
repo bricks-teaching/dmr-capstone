@@ -286,9 +286,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1216297095558312378}
   - component: {fileID: 5428472390689474229}
-  - component: {fileID: 1320058811681543503}
-  - component: {fileID: 4810299343328921753}
-  - component: {fileID: 6781878640164311438}
+  - component: {fileID: 3364412930977657927}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -402,63 +400,102 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.0018240921, y: 0.0826686, z: 0.015768763}
     m_Extent: {x: 0.08316791, y: 0.08439128, z: 0.06860785}
   m_DirtyAABB: 0
---- !u!114 &1320058811681543503
-MonoBehaviour:
+--- !u!82 &3364412930977657927
+AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1910473009471739267}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f68e720f3aa4cc14195f091adebae93f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startingHealth: 30
-  explosion: {fileID: 4856741112863513470, guid: c4dccf8958d42ac48a60fefb19d80fb9,
-    type: 3}
-  hitSoundClip: {fileID: 8300000, guid: 861e537fb624418428af6d6d55c73dfb, type: 3}
-  pointValue: 20
-  volume: 1
---- !u!114 &4810299343328921753
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1910473009471739267}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a00e7cb6ea6b0824b8ad343952c40ee3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 3815249681377447051, guid: cacd24e6fa856834b8ae25144e1213d5,
-    type: 3}
-  player: {fileID: 0}
-  fireSoundClip: {fileID: 8300000, guid: c6abf3855d73e4345b8c1df9fbc40e9b, type: 3}
-  botSize: 90
-  botDamage: 10
-  botAccuracy: 10
-  botRange: 1440
-  botStoppingDistance: 1000
-  botRate: 1.7
-  botReaction: 7
-  botSpeed: 20
-  volume: 1
-  gunHeight: 0
---- !u!65 &6781878640164311438
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1910473009471739267}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.05488731, y: 0.045278277, z: 0.055694666}
-  m_Center: {x: 0.00060191186, y: -0.00520336, z: 0.027278883}
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &2033544682297040900
 GameObject:
   m_ObjectHideFlags: 0
@@ -852,9 +889,8 @@ GameObject:
   - component: {fileID: 1785319189056878361}
   - component: {fileID: 1342625752417486047}
   - component: {fileID: 2055187250603981074}
-  - component: {fileID: 9092076683911019700}
-  - component: {fileID: 6543011163009545418}
-  - component: {fileID: 4917716088313872687}
+  - component: {fileID: 3873463448321287685}
+  - component: {fileID: 2549165162104542907}
   m_Layer: 0
   m_Name: lobberA
   m_TagString: Lobber
@@ -1001,7 +1037,8 @@ MonoBehaviour:
   botSpeed: 20
   volume: 1
   gunHeight: 1
---- !u!114 &9092076683911019700
+  visionRadius: 35
+--- !u!114 &3873463448321287685
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1019,24 +1056,8 @@ MonoBehaviour:
   hitSoundClip: {fileID: 8300000, guid: 861e537fb624418428af6d6d55c73dfb, type: 3}
   pointValue: 20
   volume: 1
---- !u!54 &6543011163009545418
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3359091100508390666}
-  serializedVersion: 2
-  m_Mass: 12
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!64 &4917716088313872687
-MeshCollider:
+--- !u!65 &2549165162104542907
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1045,10 +1066,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 2
+  m_Size: {x: 8.8343935, y: 6.233889, z: 7.1126485}
+  m_Center: {x: -0.37889037, y: 3.0959668, z: 0.6335502}
 --- !u!1 &3377342136944527584
 GameObject:
   m_ObjectHideFlags: 0

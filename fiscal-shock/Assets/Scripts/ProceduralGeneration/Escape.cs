@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -28,15 +27,8 @@ namespace FiscalShock.Procedural {
         private void OnTriggerEnter(Collider collider) {
             Debug.Log("Something entered the escape hatch!");
             if (collider.gameObject.tag == "Player") {
-                loadScript.startLoadingScreen("Hub", getScriptsToDisable());
+                loadScript.startLoadingScreen("Hub");
             }
-        }
-
-        private List<MonoBehaviour> getScriptsToDisable() {
-            List<MonoBehaviour> victims = new List<MonoBehaviour>();
-            victims.AddRange(dungeonManager.enemies.SelectMany(e => e.GetComponents<MonoBehaviour>()).ToList());
-            victims.AddRange(dungeonManager.player.GetComponents<MonoBehaviour>());
-            return victims;
         }
     }
 }

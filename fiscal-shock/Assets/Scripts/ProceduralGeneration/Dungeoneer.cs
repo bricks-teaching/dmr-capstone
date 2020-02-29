@@ -42,7 +42,10 @@ namespace FiscalShock.Procedural {
         private DungeonType dungeonType;
 
         public List<GameObject> enemies { get; } = new List<GameObject>();
+        public GameObject enemyOrganizer { get; private set; }
+        public GameObject thingOrganizer { get; private set; }
         public GameObject player { get; private set; }
+        public GameObject organizer { get; private set; }
 
         public void Start() {
             initPRNG();
@@ -86,6 +89,12 @@ namespace FiscalShock.Procedural {
 
         private void setDungeon() {
             dungeonType = GameObject.FindObjectOfType<DungeonType>();
+            organizer = new GameObject();
+            organizer.name = "Dungeon Parts";
+            thingOrganizer = new GameObject();
+            thingOrganizer.name = "Spawned Objects";
+            enemyOrganizer = new GameObject();
+            enemyOrganizer.name = "Enemies";
             setFloor();
             setWalls();
             randomizeCells();
@@ -120,6 +129,7 @@ namespace FiscalShock.Procedural {
             sun.transform.localScale *= 10;
             sun.transform.position = new Vector3(minX - 5, dungeonType.wallTileDimensions.y * 20, minY - 5);
             sun.transform.Rotate(25, 45, -30);
+            sun.name = "Sol";
         }
 
         private void setFloor() {
@@ -142,6 +152,7 @@ namespace FiscalShock.Procedural {
                         (j * dungeonType.groundTileDimensions.z) + minY
                     );
                     GameObject gro = Instantiate(tileToSpawn, where, tileToSpawn.transform.rotation);
+                    gro.transform.parent = organizer.transform;
 
                     // Randomly rotate about the y-axis in increments of 90 deg
                     float rotation = mt.Next(4) * 90f;
@@ -183,6 +194,7 @@ namespace FiscalShock.Procedural {
                     GameObject tileToSpawn = dungeonType.wallTiles[idx].prefab;
 
                     GameObject gro = Instantiate(tileToSpawn, where, tileToSpawn.transform.rotation);
+                    gro.transform.parent = organizer.transform;
 
                     // Move higher walls up
                     gro.transform.position = new Vector3(where.x, where.y + (j * dungeonType.wallTileDimensions.y), where.z);
@@ -208,6 +220,7 @@ namespace FiscalShock.Procedural {
                     GameObject topperToSpawn = dungeonType.wallToppers[idx].prefab;
 
                     GameObject top = Instantiate(topperToSpawn, where, topperToSpawn.transform.rotation);
+                    top.transform.parent = organizer.transform;
                     // Rotate to face interior
                     top.transform.Rotate(0, wallAngle, 0);
                     // Move it to the top of the wall
@@ -237,6 +250,7 @@ namespace FiscalShock.Procedural {
                 float cumulativeRate = dungeonType.lightSourceRate;
                 if (randSpawn < cumulativeRate) {
                     cell.spawnedObject = spawnFromList(dungeonType.lightSources, cell);
+                    cell.spawnedObject.transform.parent = thingOrganizer.transform;
                     continue;
                 }
 
@@ -244,6 +258,7 @@ namespace FiscalShock.Procedural {
                 cumulativeRate += dungeonType.decorationRate;
                 if (randSpawn < cumulativeRate) {
                     cell.spawnedObject = spawnFromList(dungeonType.decorations, cell);
+                    cell.spawnedObject.transform.parent = thingOrganizer.transform;
                     continue;
                 }
 
@@ -251,6 +266,7 @@ namespace FiscalShock.Procedural {
                 cumulativeRate += dungeonType.obstacleRate;
                 if (randSpawn < cumulativeRate) {
                     cell.spawnedObject = spawnFromList(dungeonType.obstacles, cell);
+                    cell.spawnedObject.transform.parent = thingOrganizer.transform;
                 }
             }
         }
@@ -266,6 +282,7 @@ namespace FiscalShock.Procedural {
                 if (enemySpawn < dungeonType.enemyRate) {
                     GameObject enemy = spawnFromList(dungeonType.randomEnemies, cell);
                     enemies.Add(enemy);
+                    enemy.transform.parent = enemyOrganizer.transform;
 
                     // Position enemy on top of the object already here
                     if (cell.spawnedObject != null) {
@@ -277,13 +294,7 @@ namespace FiscalShock.Procedural {
                     float enemySize = ((mt.Next(dungeonType.enemySizeVariation * 2) - dungeonType.enemySizeVariation) / 100f) + 1;
                     enemy.transform.localScale = new Vector3(enemy.transform.localScale.x * enemySize, enemy.transform.localScale.y * enemySize, enemy.transform.localScale.z * enemySize);
 
-                    // Attach AI here
-                    EnemyShoot botShootingScript = enemy.GetComponent(typeof(EnemyShoot)) as EnemyShoot;
-                    EnemyHealth botDamageScript = enemy.GetComponent(typeof(EnemyHealth)) as EnemyHealth;
-
-                    // TODO fix volume to not be hardcoded
-                    botShootingScript.volume = .3f;
-                    botDamageScript.volume = .3f;
+                    // Attach AI here if it's not part of prefab
                 }
             }
         }
@@ -314,9 +325,13 @@ namespace FiscalShock.Procedural {
             player.name = "Player Character";
 
             // Attach any other stuff to player here
+            InGameMenu menu = GameObject.FindObjectOfType<InGameMenu>();
+            menu.player = player;
+            menu.ChangeVolume();
 
             // Disable loading screen camera in this scene
             GameObject.Find("LoadCamera").GetComponent<Camera>().enabled = false;
+            GameObject.Find("HUD").GetComponent<Canvas>().enabled = true;
         }
 
         private bool isPointOnOrNearConvexHull(Vertex point) {

@@ -11,13 +11,11 @@ public class MouseLook : MonoBehaviour
 
     private float xRotation = 0f;
 
-    // Update is called once per frame
+    public void Start() {
+         Cursor.lockState = CursorLockMode.Locked;
+    }
+
     public void Update() {
-        if (lockCursorToGame) {
-            Cursor.lockState = CursorLockMode.Locked;
-        } else {
-            Cursor.lockState = CursorLockMode.None;
-        }
         // Moves the camera with the mouse, uses Time.deltaTime for FPS correction (Independent of current Frame rate)
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;

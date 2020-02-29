@@ -15,7 +15,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &3362346908758389475
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -41,8 +41,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81865cabdf878f74ea25104079552a14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 0}
   damage: 10
+  bulletSpeed: 1800
 --- !u!1001 &6969074340489114623
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -103,6 +103,16 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: a50a237890730d749a67ad0dfb179e7f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -1504981713932161579, guid: a50a237890730d749a67ad0dfb179e7f,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -1504981713932161579, guid: a50a237890730d749a67ad0dfb179e7f,
+        type: 3}
+      propertyPath: m_ReceiveShadows
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: a50a237890730d749a67ad0dfb179e7f,

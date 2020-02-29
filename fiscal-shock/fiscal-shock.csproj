@@ -12,5 +12,5 @@ Usage:
   <PropertyGroup>
     <CodeAnalysisRuleSet>./roslynator.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <Import Project="Assembly-CSharp.csproj" />  <!-- default name for Unity-generated .csproj -->
+  <Import Project="ScriptsAssembly.csproj" />  <!-- default name for Unity-generated .csproj -->
 </Project>

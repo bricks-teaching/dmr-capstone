@@ -6,16 +6,39 @@ public class InGameMenu : MonoBehaviour
     public GameObject pausePanel;
     public GameObject optionsPanel;
     public GameObject quitPanel;
-    public GameObject controller;
     public GameObject player;
     public GameObject crossHair;
+    public static float volume = .3f;
 
     void Start()
     {
-        GameController.pauseMenu = pausePanel;
+        crossHair = GameObject.Find("Crosshair");
         pausePanel.SetActive(false);
         quitPanel.SetActive(false);
         optionsPanel.SetActive(false);
+    }
+
+    void Update() {
+        // Bring up pause menu
+        if (Input.GetKeyDown("p")) {
+            if (!pausePanel.activeSelf) {
+                if (Time.timeScale == 0) {
+                    Time.timeScale = 1;
+                } else {
+                    Time.timeScale = 0;
+                }
+                Cursor.lockState = CursorLockMode.None;
+                pausePanel.SetActive(true);
+                crossHair.SetActive(false);
+            } else {
+                pausePanel.SetActive(false);
+                optionsPanel.SetActive(false);
+                quitPanel.SetActive(false);
+                crossHair.SetActive(true);
+                Cursor.lockState = CursorLockMode.Locked;
+                Time.timeScale = 1;
+            }
+        }
     }
 
     public void PlayClick ()
@@ -57,7 +80,8 @@ public class InGameMenu : MonoBehaviour
     public void AdjustSFX(float value)
     {
         Debug.Log("Volume is - " + value);
-        GameController.ChangeVolume(value);
+        volume = value;
+        ChangeVolume();
     }
 
     public void AdjustMouseSensitivity(float value)
@@ -67,9 +91,22 @@ public class InGameMenu : MonoBehaviour
         cameraScript.mouseSensitivity = value;
     }
 
-    public void BackClick ()
+    public void BackClick()
     {
         optionsPanel.SetActive(false);
         pausePanel.SetActive(true);
+    }
+
+    public void ChangeVolume() {
+        // Go through all the scripts attached to player and the bots in the scene and update the volume
+        player.GetComponentInChildren<PlayerShoot>().volume = volume;
+        // No, this can't be function'd out easily because types :)
+        // Have fun figuring out reflection if you want to play that game.
+        foreach (EnemyShoot script in GameObject.FindObjectsOfType<EnemyShoot>()) {
+            script.volume = volume;
+        }
+        foreach (EnemyHealth script in GameObject.FindObjectsOfType<EnemyHealth>()) {
+            script.volume = volume;
+        }
     }
 }

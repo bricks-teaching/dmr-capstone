@@ -87,5 +87,6 @@ public class EnemyShoot : MonoBehaviour
             rotationVector.y += 5;
         }
         bullet.transform.rotation = Quaternion.Euler(rotationVector);
+        Destroy(bullet, 1f);
     }
 }

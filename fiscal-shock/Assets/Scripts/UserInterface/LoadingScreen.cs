@@ -31,15 +31,13 @@ public class LoadingScreen : MonoBehaviour {
     /// on. Always disable the player scripts and enemy scripts.
     /// </summary>
     /// <param name="sceneToLoad"></param>
-    /// <param name="scriptsToDisable"></param>
-    public void startLoadingScreen(string sceneToLoad, List<MonoBehaviour> scriptsToDisable) {
+    public void startLoadingScreen(string sceneToLoad) {
         currentlyLoading = true;
         nextScene = sceneToLoad;
-        foreach (MonoBehaviour script in scriptsToDisable) {
-            script.enabled = false;
-        }
+        Time.timeScale = 0;
         GameObject.Find("LoadCamera").GetComponent<Camera>().enabled = true;
         StartCoroutine(loadScene());
+        Time.timeScale = 1;
     }
 
     private IEnumerator<WaitForSeconds> loadScene() {
