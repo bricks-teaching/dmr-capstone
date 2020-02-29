@@ -2,7 +2,7 @@
 
 public class EnemyMovement : MonoBehaviour {
     [Tooltip("The speed at which the object moves.")]
-    public float movementSpeed = 5f;
+    public float movementSpeed = 3f;
 
     [Tooltip("The speed at which the object turns.")]
     public float rotationSpeed = 7f;
@@ -12,6 +12,7 @@ public class EnemyMovement : MonoBehaviour {
 
     [Tooltip("Creates safe radius in case object ends up too close to player.")]
     public float safeRadiusMax = 5f;
+    public GameObject player;
 
     private float safeRadiusAvg;
     private float destinationRefreshDistance;
@@ -20,11 +21,9 @@ public class EnemyMovement : MonoBehaviour {
     private Vector2 destination;
     private Vector2 prevPlayerFlatPos;
     private Rigidbody enemyRb;
-    private GameObject player;
 
     // Start is called before the first frame update
     void Start() {
-        player = GameObject.Find("Player");
         enemyRb = GetComponent<Rigidbody>();
         enemyRb.useGravity = false;
         enemyRb.isKinematic = true;

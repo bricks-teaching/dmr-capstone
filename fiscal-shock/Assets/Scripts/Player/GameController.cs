@@ -10,14 +10,29 @@ public static class GameController
     private static ArrayList bots = new ArrayList();
 
     public static void spawnBot(GameObject enemy, bool flys){
-        GameObject bot = Object.Instantiate(enemy, new Vector3(player.transform.position.x + Random.value * 20, player.transform.position.y + (flys ? 1.5f : 0), player.transform.position.z + Random.value * 20), player.transform.rotation);
+        float groundPosition = GameObject.Find("Ground").transform.position.y;
+        float groundHeight = GameObject.Find("Ground").GetComponent<Collider>().bounds.size.y;
+
+        GameObject bot = Object.Instantiate(
+            enemy, new Vector3(
+                player.transform.position.x + Random.Range(0,20),
+                flys ? player.transform.position.y + 1.5f : groundPosition + (groundHeight / 2),
+                player.transform.position.z + Random.Range(0,20)
+            ), player.transform.rotation
+        );
         bots.Add(bot);
+
         //Tell the bot to go after the player
+        EnemyMovement botMovement = bot.GetComponent<EnemyMovement>();
+        botMovement.player = player;
+
         EnemyShoot botShootingScript = bot.GetComponent(typeof(EnemyShoot)) as EnemyShoot;
         botShootingScript.player = player;
         botShootingScript.volume = volume;
+
         EnemyHealth botDamageScript = bot.GetComponent(typeof(EnemyHealth)) as EnemyHealth;
         botDamageScript.volume = volume;
+
         //set controller to this script so bot can remove itself from the bot arraylist when it is destroyed
         Debug.Log("enemy bot added");
     }

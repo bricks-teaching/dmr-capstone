@@ -20,17 +20,17 @@ public class EnemyShoot : MonoBehaviour {
     public float botRate = 1.7f;
     public float volume = 1f;
     public float gunHeight = 0;
-    public EnemyMovement objectMovement;
+    public EnemyMovement enemyMovement;
 
     void Start() {
         fireSound = GetComponent<AudioSource>();
-        objectMovement = GetComponent<EnemyMovement>();
+        enemyMovement = GetComponent<EnemyMovement>();
     }
 
     void Update() {
         if (player == null) { return; }
 
-        float distance = objectMovement.getDistanceFromPlayer();
+        float distance = enemyMovement.getDistanceFromPlayer();
 
         if (distance < botRange) {
             time += Time.deltaTime;
