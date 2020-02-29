@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
 
-// TODO: The script is outputting the player's curret 
-
 public class EnemyMovement : MonoBehaviour {
     [Tooltip("The speed at which the object moves.")]
     public float movementSpeed = 5f;
@@ -16,12 +14,13 @@ public class EnemyMovement : MonoBehaviour {
     public float safeRadiusMax = 5f;
 
     private float safeRadiusAvg;
+    private float destinationRefreshDistance;
     private float distanceFromPlayer;
     private bool destinationReached = true;
-    private Vector3 destination;
+    private Vector2 destination;
+    private Vector2 prevPlayerFlatPos;
     private Rigidbody enemyRb;
     private GameObject player;
-    private readonly float destinationRefreshDistance = 0.25f;
 
     // Start is called before the first frame update
     void Start() {
@@ -30,6 +29,11 @@ public class EnemyMovement : MonoBehaviour {
         enemyRb.useGravity = false;
         enemyRb.isKinematic = true;
         safeRadiusAvg = (safeRadiusMax + safeRadiusMin) / 2;
+        destinationRefreshDistance = safeRadiusAvg - safeRadiusMin;
+
+        if (player != null) {
+            prevPlayerFlatPos = new Vector2(player.transform.position.x, player.transform.position.z);
+        }
     }
 
     void FixedUpdate() {
@@ -37,52 +41,62 @@ public class EnemyMovement : MonoBehaviour {
             return;
         }
 
+        // This is the only variable that really needs to be a R3 vector - to look in the correct direction.
         Vector3 playerDirection = (player.transform.position - transform.position).normalized;
+        Vector2 flatPosition = new Vector2(transform.position.x, transform.position.z);
+        Vector2 playerFlatPosition = new Vector2(player.transform.position.x, player.transform.position.z);
 
         if (gameObject.tag == "Lobber") {
             playerDirection.y = 0;
         }
 
         Quaternion rotationToPlayer = Quaternion.LookRotation(playerDirection);
-        distanceFromPlayer = Vector3.Distance(player.transform.position, transform.position);
 
-        // TODO: This makes the enemy lean back when they start inside of the unsafe radius
+        // Need 2D distance - will only consider how far away enemy is from player on x,z plane.
+        distanceFromPlayer = Vector2.Distance(playerFlatPosition, flatPosition);
+
+        // TODO: Some of this movement might still be a little buggy, but it's less likely the enemy will sink to the ground now =|
         enemyRb.MoveRotation(Quaternion.Slerp(gameObject.transform.rotation, rotationToPlayer, Time.fixedDeltaTime * rotationSpeed));
 
-        if (!destinationReached) {
-            if (distanceFromPlayer > safeRadiusMax) {
-                enemyRb.MovePosition(transform.position + (playerDirection * movementSpeed * Time.fixedDeltaTime));
-            }
+        if (distanceFromPlayer > safeRadiusMax) {
+            enemyRb.MovePosition(transform.position + (playerDirection * movementSpeed * Time.fixedDeltaTime));
+        }
 
-            if (distanceFromPlayer < safeRadiusMin) {
-                enemyRb.MovePosition(transform.position - (playerDirection * movementSpeed * Time.fixedDeltaTime));
-            }
+        if (distanceFromPlayer < safeRadiusMin) {
+            enemyRb.MovePosition(transform.position - (playerDirection * movementSpeed * Time.fixedDeltaTime));
+        }
 
-            if (distanceFromPlayer <= safeRadiusMax  && distanceFromPlayer >= safeRadiusMin) { // The object is within the safe radius.
-                // Calculation to move around the player on the next point to the destination
-                // 1) Calculate the next position
-                Vector3 linearPosition = transform.position + ((destination - transform.position).normalized * movementSpeed * Time.fixedDeltaTime);
-                Vector2 twoDimLinearPos = new Vector2(linearPosition.x, linearPosition.z);
-                Vector2 twoDimPlayerPos = new Vector2(player.transform.position.x, player.transform.position.z);
+        if (distanceFromPlayer <= safeRadiusMax && distanceFromPlayer >= safeRadiusMin) {
+            // If the enemy hasn't reached its destination and the player hasn't moved out of the safe radius destination reach
+            if (!destinationReached && Vector2.Distance(playerFlatPosition, prevPlayerFlatPos) < destinationRefreshDistance) {
+                // The next position the player would move to in a straight line to the destination.
+                Vector2 linearTarget = flatPosition + ((destination - flatPosition).normalized * movementSpeed * Time.fixedDeltaTime);
 
-                // 2) Calculate the difference between safeRadiusAvg and the distance between the player and object
-                float distanceDiff = safeRadiusAvg - Vector2.Distance(twoDimPlayerPos, twoDimLinearPos);
+                // The difference between the distance between the safe radius average distance and the distance
+                // between the player and the next linear target position.
+                float distanceDiff = safeRadiusAvg - Vector2.Distance(playerFlatPosition, linearTarget);
 
-                // 3) Get the vector with the distance applied.
-                Vector3 targetPosition = getOrbitalCoordinate(twoDimLinearPos, distanceDiff);
+                // Get the actual next position
+                Vector2 targetPosition = getOrbitalCoordinate(linearTarget, playerFlatPosition, distanceDiff);
 
-                if (Vector3.Distance(targetPosition, destination) < destinationRefreshDistance) {
+                if (Vector2.Distance(targetPosition, destination) < destinationRefreshDistance) {
                     destinationReached = true;
                 }
 
-                enemyRb.MovePosition(targetPosition);
+                enemyRb.MovePosition(new Vector3(targetPosition.x, transform.position.y, targetPosition.y));
             }
-        }
-        else {
-            Vector2 coordinate = getRandomCircularCoordinate();
-            Vector2 twoDimDestination = (coordinate * (safeRadiusMin + safeRadiusMax) / 2) + new Vector2(player.transform.position.x,player.transform.position.z);
-            destination = new Vector3(twoDimDestination.x, transform.position.y, twoDimDestination.y);
-            destinationReached = false;
+
+            else if (!destinationReached) {
+                Vector2 coordinate = getRandomCircularCoordinate();
+                destination = (coordinate * safeRadiusAvg) + playerFlatPosition;
+                prevPlayerFlatPos = playerFlatPosition;
+            }
+
+            else {
+                Vector2 coordinate = getRandomCircularCoordinate();
+                destination = (coordinate * safeRadiusAvg) + playerFlatPosition;
+                destinationReached = false;
+            }
         }
     }
 
@@ -91,15 +105,13 @@ public class EnemyMovement : MonoBehaviour {
         return new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
     }
 
-    private Vector3 getOrbitalCoordinate(Vector2 linearPosition, float distance) {
-        Vector2 playerPosition = new Vector2(player.transform.position.x, player.transform.position.z);
+    private Vector2 getOrbitalCoordinate(Vector2 linearPosition, Vector2 playerPosition, float distance) {
         Vector2 result = playerPosition - linearPosition;
-        float xValue = result.x/Mathf.Sqrt(Mathf.Pow(result.x, 2) + Mathf.Pow(result.y, 2));
-        float yValue = result.y/Mathf.Sqrt(Mathf.Pow(result.x, 2) + Mathf.Pow(result.y, 2));
+        float xValue = result.x / Mathf.Sqrt(Mathf.Pow(result.x, 2) + Mathf.Pow(result.y, 2));
+        float yValue = result.y / Mathf.Sqrt(Mathf.Pow(result.x, 2) + Mathf.Pow(result.y, 2));
         result.x = xValue;
         result.y = yValue;
-        result = linearPosition - (distance * result);
-        return new Vector3(result.x, transform.position.y, result.y);
+        return linearPosition - (distance * result);
     }
 
     public float getDistanceFromPlayer() {
