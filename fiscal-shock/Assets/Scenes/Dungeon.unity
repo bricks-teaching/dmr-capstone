@@ -1029,7 +1029,7 @@ PrefabInstance:
     - target: {fileID: 965116058272088900, guid: f84aca466460e50539423ad7e6c6f6d0,
         type: 3}
       propertyPath: seed
-      value: 555
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 965116058272088901, guid: f84aca466460e50539423ad7e6c6f6d0,
         type: 3}
@@ -1204,6 +1204,12 @@ PrefabInstance:
       propertyPath: enemySizeVariation
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 8117157573788985409, guid: bf0c8c2b9625c9ba29d85229184ca17f,
+        type: 3}
+      propertyPath: delvePrefab
+      value: 
+      objectReference: {fileID: 6092265165582998533, guid: 96d4837ade87bb486a572d363ccfc8a3,
+        type: 3}
     - target: {fileID: 8117157573788985410, guid: bf0c8c2b9625c9ba29d85229184ca17f,
         type: 3}
       propertyPath: m_LocalPosition.x

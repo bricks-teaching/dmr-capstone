@@ -18,8 +18,10 @@ namespace FiscalShock.Demo {
         [Tooltip("Whether to render the main Delaunay triangulation.")]
         public bool renderDelaunay = true;
 
-        [Tooltip("Render Delaunay vertices. Looks funny when you also render the triangulation, so don't do that.")]
+        [Tooltip("Render Delaunay vertices.")]
         public bool renderDelaunayVertices = true;
+
+        public bool renderDelaunayHull = true;
 
         [Tooltip("Color used to draw the main Delaunay triangulation.")]
         public Color delaunayColor = new Color(1, 0, 1);
@@ -142,6 +144,10 @@ namespace FiscalShock.Demo {
             }
             if (renderDelaunayVertices && dungen.dt != null && !alreadyDrewPoints) {
                 renderPoints(dungen.dt.vertices, delaunayColor, delaunayRenderHeight);
+            }
+            if (renderDelaunayHull && dungen.dt != null) {
+                // TODO not same color as triangulation
+                renderEdges(dungen.dt.convexHullEdges, delaunayColor, delaunayRenderHeight);
             }
             if (renderVoronoi && dungen.vd != null) {
                 renderEdges(dungen.vd.edges, voronoiColor, voronoiRenderHeight);

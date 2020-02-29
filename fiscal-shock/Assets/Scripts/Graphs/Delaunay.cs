@@ -11,6 +11,7 @@ namespace FiscalShock.Graphs {
 
         public Voronoi dual { get; set; }
         public List<Vertex> convexHull { get; } = new List<Vertex>();
+        public List<Edge> convexHullEdges { get; } = new List<Edge>();
 
         // Track min/max values for map bounds for now
         public int minX { get; }
@@ -28,6 +29,15 @@ namespace FiscalShock.Graphs {
             // Set up data structures for use in other scripts
             setTypedGeometry();
             convexHull = findConvexHull();
+            List<Edge> hull = new List<Edge>();
+            for (int i = 0; i < convexHull.Count; ++i) {
+                if (i + 1 == convexHull.Count) {  // wrap around
+                    hull.Add(new Edge(convexHull[i], convexHull[0]));
+                } else {
+                    hull.Add(new Edge(convexHull[i], convexHull[i+1]));
+                }
+            }
+            convexHullEdges = hull;
         }
 
         /// <summary>

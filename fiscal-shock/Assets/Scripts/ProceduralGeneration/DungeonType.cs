@@ -31,7 +31,7 @@ namespace FiscalShock.Procedural {
         public int enemySizeVariation = 15;
 
         [Tooltip("Prefabs for all valid randomly-spawned enemies.")]
-        public List<SpawnableObject> randomEnemies;
+        public List<SpawnableEnemy> randomEnemies;
 
         [Tooltip("Probability of a randomly-generated object being an obstacle.")]
         public float obstacleRate = 50;

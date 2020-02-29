@@ -1,18 +1,15 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace FiscalShock.Procedural {
     public class Escape : MonoBehaviour {
         private Animation anim;
         private GameObject loadingScreen;
         private LoadingScreen loadScript;
-        private Dungeoneer dungeonManager;
 
         private void Start() {
-            dungeonManager = GameObject.Find("DungeonSummoner").GetComponent<Dungeoneer>();
             loadingScreen = GameObject.Find("LoadingScreen");
             loadScript = (LoadingScreen)loadingScreen.GetComponent<LoadingScreen>();
+            // Play the arrow spinning animation
             anim = gameObject.GetComponent<Animation>();
             anim["Spin"].speed = 0.3f;
         }
@@ -28,6 +25,7 @@ namespace FiscalShock.Procedural {
             Debug.Log("Something entered the escape hatch!");
             if (collider.gameObject.tag == "Player") {
                 loadScript.startLoadingScreen("Hub");
+                // Maybe hit the "NewDay" script here?
             }
         }
     }

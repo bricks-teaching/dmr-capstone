@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7085112681631700666}
   - component: {fileID: -5263189336430745864}
   - component: {fileID: 5112556914774625313}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Escape
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,7 +152,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8110947894809459415}
   - component: {fileID: 6270086407559928944}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Spot Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -249,6 +249,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1000012875793374, guid: 9aa6cb674f8bd7e42b9b2e2858c650ee, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4000013995530886, guid: 9aa6cb674f8bd7e42b9b2e2858c650ee, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.95
@@ -312,6 +316,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1000010308630296, guid: d515a93a5b4c1d44f838a8669ec9c8d0, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 1000010785602090, guid: d515a93a5b4c1d44f838a8669ec9c8d0, type: 3}
       propertyPath: m_Name
       value: Plants Hanging 1
@@ -320,17 +328,33 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1000010785602090, guid: d515a93a5b4c1d44f838a8669ec9c8d0, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 1000011245298372, guid: d515a93a5b4c1d44f838a8669ec9c8d0, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000011245298372, guid: d515a93a5b4c1d44f838a8669ec9c8d0, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1000012438915102, guid: d515a93a5b4c1d44f838a8669ec9c8d0, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1000012438915102, guid: d515a93a5b4c1d44f838a8669ec9c8d0, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 1000013665481666, guid: d515a93a5b4c1d44f838a8669ec9c8d0, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013665481666, guid: d515a93a5b4c1d44f838a8669ec9c8d0, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4000012242988272, guid: d515a93a5b4c1d44f838a8669ec9c8d0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -398,6 +422,10 @@ PrefabInstance:
     - target: {fileID: 1000011717122646, guid: b53f6f2fb4ee6ce459481fcf3fe082dd, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000011717122646, guid: b53f6f2fb4ee6ce459481fcf3fe082dd, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4000010969535252, guid: b53f6f2fb4ee6ce459481fcf3fe082dd, type: 3}
       propertyPath: m_LocalPosition.x
