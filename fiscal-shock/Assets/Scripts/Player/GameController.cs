@@ -8,11 +8,10 @@ public static class GameController
     public static GameObject player;
     public static float volume = .3f;
     private static ArrayList bots = new ArrayList();
+    private static readonly float groundPosition = GameObject.Find("Ground").transform.position.y;
+    private static readonly float groundHeight = GameObject.Find("Ground").GetComponent<Collider>().bounds.size.y;
 
     public static void spawnBot(GameObject enemy, bool flys){
-        float groundPosition = GameObject.Find("Ground").transform.position.y;
-        float groundHeight = GameObject.Find("Ground").GetComponent<Collider>().bounds.size.y;
-
         GameObject bot = Object.Instantiate(
             enemy, new Vector3(
                 player.transform.position.x + Random.Range(0,20),
