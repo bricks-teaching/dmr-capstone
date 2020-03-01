@@ -41,5 +41,7 @@
     <Rule Id="RCS1123" Action="Hidden" />  <!-- "Add parentheses according to operator precedence" -->
     <Rule Id="RCS1213" Action="Hidden" />
     <Rule Id="IDE0051" Action="Hidden" />
+    <Rule Id="IDE0017" Action="Hidden" /> <!-- "Object initialization can be simplified." -->
+    <Rule Id="RCS1058" Action="Hidden" /> <!-- "Use compound assignment." -->
   </Rules>
 </RuleSet>
