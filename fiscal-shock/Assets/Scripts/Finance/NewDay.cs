@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 
-public class NewDay : MonoBehaviour
-{
+public class NewDay : MonoBehaviour {
     // to be triggered on arrival from the dungeon, accrues interest and causes hostility if not paid
     public bool startNewDay(bool mobNotPaid, bool bankNotPaid){
         if (mobNotPaid){
