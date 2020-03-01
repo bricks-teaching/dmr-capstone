@@ -596,7 +596,7 @@ GameObject:
   - component: {fileID: 208130074384889256}
   - component: {fileID: 208130074384889239}
   - component: {fileID: 5086685436175638547}
-  - component: {fileID: 7634485191310997025}
+  - component: {fileID: 4429673032618852596}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -705,7 +705,7 @@ MonoBehaviour:
   gun1: {fileID: 8662258556512106578, guid: 8768913d8e716a2408503e75059f31df, type: 3}
   gun2: {fileID: 593542258292847274, guid: 9f1f4e7a95ae91b099fa376e0f54e439, type: 3}
   crossHair: {fileID: 1000013466574904, guid: b38ee9e7d5f46784eafbaadf147c7a33, type: 3}
---- !u!82 &7634485191310997025
+--- !u!82 &4429673032618852596
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -716,7 +716,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

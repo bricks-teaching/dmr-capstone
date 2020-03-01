@@ -22,7 +22,6 @@ public class PlayerShoot : MonoBehaviour {
     private float screenY;
 
     void Start() {
-        GameController.player = gameObject;
         weaponPosition = transform.GetChild(0);
         screenX = Screen.width / 2;
         screenY = Screen.height / 2;

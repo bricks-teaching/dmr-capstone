@@ -26,15 +26,13 @@ public class EnemyShoot : MonoBehaviour {
     public float volume = 1f;
     public float gunHeight = 0;
     public EnemyMovement enemyMovement;
-    private Animation anim;
-    public string animPrefix;
     public bool spottedPlayer;
+    public AnimationManager animationManager;
+    private Animation anim => animationManager.animator;
 
     void Start() {
         fireSound = GetComponent<AudioSource>();
         player = GameObject.FindGameObjectWithTag("Player");
-        enemyMovement = GetComponent<EnemyMovement>();
-        anim = GetComponent<Animation>();
     }
 
     void Update() {
@@ -53,7 +51,7 @@ public class EnemyShoot : MonoBehaviour {
 
     void fireBullet(float accuracy, int damage) {
         fireSound.PlayOneShot(fireSoundClip, volume);
-        anim.Play($"{animPrefix}@attack");
+        anim.CrossFade($"attack0");
 
         // Instantiate the projectile
         // Assumes bot is facing the player, so fire in that direction

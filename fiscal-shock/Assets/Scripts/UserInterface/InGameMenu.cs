@@ -31,9 +31,9 @@ public class InGameMenu : MonoBehaviour
                 pausePanel.SetActive(true);
                 crossHair.SetActive(false);
             } else {
-                pausePanel.SetActive(false);
                 optionsPanel.SetActive(false);
                 quitPanel.SetActive(false);
+                pausePanel.SetActive(false);
                 crossHair.SetActive(true);
                 Cursor.lockState = CursorLockMode.Locked;
                 Time.timeScale = 1;

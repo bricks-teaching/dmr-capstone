@@ -22,9 +22,11 @@ namespace FiscalShock.Procedural {
         }
 
         private void OnTriggerEnter(Collider collider) {
-            Debug.Log("Something entered the escape hatch!");
             if (collider.gameObject.tag == "Player") {
                 loadScript.startLoadingScreen("Hub");
+                // Manually kill the music box, since it isn't destroyed naturally
+                GameObject musicPlayer = GameObject.Find("DungeonMusic");
+                Destroy(musicPlayer);
                 // Maybe hit the "NewDay" script here?
             }
         }

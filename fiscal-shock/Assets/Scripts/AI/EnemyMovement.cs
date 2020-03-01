@@ -12,6 +12,10 @@ public class EnemyMovement : MonoBehaviour {
 
     [Tooltip("Creates safe radius in case object ends up too close to player.")]
     public float safeRadiusMax = 5f;
+
+    [Tooltip("How close the player needs to be before being pursued.")]
+    public float visionRadius = 35f;
+
     public GameObject player;
 
     private float safeRadiusAvg;
@@ -21,23 +25,38 @@ public class EnemyMovement : MonoBehaviour {
     private Vector2 destination;
     private Vector2 prevPlayerFlatPos;
     private Rigidbody enemyRb;
+    private EnemyShoot shootScript;
+    public AnimationManager animationManager;
+    private Animation anim => animationManager.animator;
 
     // Start is called before the first frame update
     void Start() {
         enemyRb = GetComponent<Rigidbody>();
+        shootScript = GetComponent<EnemyShoot>();
         enemyRb.useGravity = false;
         enemyRb.isKinematic = true;
         safeRadiusAvg = (safeRadiusMax + safeRadiusMin) / 2;
         destinationRefreshDistance = safeRadiusAvg - safeRadiusMin;
 
-        if (player != null) {
-            prevPlayerFlatPos = new Vector2(player.transform.position.x, player.transform.position.z);
+        if (player == null) {
+            player = GameObject.FindGameObjectWithTag("Player");
         }
+        prevPlayerFlatPos = new Vector2(player.transform.position.x, player.transform.position.z);
     }
 
     void FixedUpdate() {
-        if (player == null) {
+        if (player == null || (Vector3.Distance(player.transform.position, gameObject.transform.position) > visionRadius)) {
+            // TODO drunkard's walk
+            if (!anim.IsPlaying($"idle0")) {
+                anim.CrossFade($"idle0");
+            }
+            shootScript.spottedPlayer = false;
             return;
+        }
+        shootScript.spottedPlayer = true;
+
+        if (!anim.isPlaying) {
+            anim.CrossFade($"move0");
         }
 
         // This is the only variable that really needs to be a R3 vector - to look in the correct direction.

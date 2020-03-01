@@ -404,8 +404,6 @@ namespace FiscalShock.Procedural {
                     float enemySize = ((mt.Next(dungeonType.enemySizeVariation * 2) - dungeonType.enemySizeVariation) / 100f) + 1;
                     enemy.transform.localScale = new Vector3(enemy.transform.localScale.x * enemySize, enemy.transform.localScale.y * enemySize, enemy.transform.localScale.z * enemySize);
 
-                    // Attach AI here if it's not part of prefab
-
                     // Adjust enemy stats based on SpawnableEnemy setup
 
                 }
@@ -425,6 +423,7 @@ namespace FiscalShock.Procedural {
             Vector3 where = location.site.toVector3AtHeight(dungeonType.groundTileDimensions.y + thingToSpawn.transform.position.y);
 
             GameObject thing = Instantiate(thingToSpawn, where, thingToSpawn.transform.rotation);
+            thing.name = $"{thingToSpawn.name} @ {location.site.id}";
 
             // Randomly rotate about the y-axis
             thing.transform.Rotate(0, mt.Next(360), 0);
@@ -433,7 +432,6 @@ namespace FiscalShock.Procedural {
         }
 
         private void spawnPlayer() {
-            // TODO player needs to be static, do we need to do anything other than check "static" on the prefab?
             Vertex spawnPoint = dt.vertices[mt.Next(numberOfVertices-1)];
             while (isPointOnOrNearConvexHull(spawnPoint)) {
                 spawnPoint = dt.vertices[mt.Next(numberOfVertices-1)];
