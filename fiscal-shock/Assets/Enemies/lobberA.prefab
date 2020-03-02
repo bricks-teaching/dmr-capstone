@@ -440,12 +440,10 @@ MonoBehaviour:
   botDamage: 10
   botAccuracy: 10
   botRange: 1440
-  botStoppingDistance: 1000
   botRate: 1.7
-  botReaction: 7
-  botSpeed: 20
   volume: 1
   gunHeight: 0
+  enemyMovement: {fileID: 0}
 --- !u!65 &6781878640164311438
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -851,10 +849,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1785319189056878361}
   - component: {fileID: 1342625752417486047}
-  - component: {fileID: 2055187250603981074}
-  - component: {fileID: 9092076683911019700}
   - component: {fileID: 3445903391760918348}
   - component: {fileID: 6543011163009545418}
+  - component: {fileID: 2055187250603981074}
+  - component: {fileID: 9092076683911019700}
+  - component: {fileID: 6200657636638081422}
   m_Layer: 0
   m_Name: lobberA
   m_TagString: Lobber
@@ -975,50 +974,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &2055187250603981074
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3359091100508390666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a00e7cb6ea6b0824b8ad343952c40ee3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 3815249681377447051, guid: cacd24e6fa856834b8ae25144e1213d5,
-    type: 3}
-  player: {fileID: 0}
-  fireSoundClip: {fileID: 8300000, guid: c6abf3855d73e4345b8c1df9fbc40e9b, type: 3}
-  botSize: 2
-  botDamage: 4
-  botAccuracy: 10
-  botRange: 12
-  botStoppingDistance: 8
-  botRate: 1.7
-  botReaction: 7
-  botSpeed: 20
-  volume: 1
-  gunHeight: 1
---- !u!114 &9092076683911019700
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3359091100508390666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f68e720f3aa4cc14195f091adebae93f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startingHealth: 30
-  explosion: {fileID: 4856741112863513470, guid: c4dccf8958d42ac48a60fefb19d80fb9,
-    type: 3}
-  hitSoundClip: {fileID: 8300000, guid: 861e537fb624418428af6d6d55c73dfb, type: 3}
-  pointValue: 20
-  volume: 1
 --- !u!135 &3445903391760918348
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1048,6 +1003,65 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2055187250603981074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3359091100508390666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a00e7cb6ea6b0824b8ad343952c40ee3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 3815249681377447051, guid: cacd24e6fa856834b8ae25144e1213d5,
+    type: 3}
+  player: {fileID: 0}
+  fireSoundClip: {fileID: 8300000, guid: c6abf3855d73e4345b8c1df9fbc40e9b, type: 3}
+  botSize: 2
+  botDamage: 4
+  botAccuracy: 10
+  botRange: 12
+  botRate: 1.7
+  volume: 1
+  gunHeight: 1
+  enemyMovement: {fileID: 0}
+--- !u!114 &9092076683911019700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3359091100508390666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f68e720f3aa4cc14195f091adebae93f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingHealth: 30
+  explosion: {fileID: 4856741112863513470, guid: c4dccf8958d42ac48a60fefb19d80fb9,
+    type: 3}
+  hitSoundClip: {fileID: 8300000, guid: 861e537fb624418428af6d6d55c73dfb, type: 3}
+  pointValue: 20
+  volume: 1
+--- !u!114 &6200657636638081422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3359091100508390666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c64bbc05ea943e09aa804bca2778a088, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 5
+  rotationSpeed: 7
+  safeRadiusMin: 4
+  safeRadiusMax: 5
+  player: {fileID: 0}
 --- !u!1 &3377342136944527584
 GameObject:
   m_ObjectHideFlags: 0
