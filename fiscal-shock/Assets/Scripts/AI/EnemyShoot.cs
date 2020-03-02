@@ -10,25 +10,33 @@ public class EnemyShoot : MonoBehaviour {
     public AudioClip fireSoundClip;
     private float time = 0.0f;
     public float botSize = 2.0f;
-    //The ammout of damage the bot does with each shot.
+
+    [Tooltip("Amount of damage done per shot.")]
     public int botDamage = 10;
-    //how accurately the bot will shoot.
+
+    [Tooltip("How accurately the bot fires.")]
     public int botAccuracy = 10;
-    //How close the bot needs to be to fire bullets at the player.
-    public float botRange = 10f;
-    // the number of seconds between shots.
+
+    [Tooltip("How close the bot must be to begin firing.")]
+    public float botRange = 6f;
+
+    [Tooltip("Fire rate of the bot.")]
     public float botRate = 1.7f;
+
     public float volume = 1f;
     public float gunHeight = 0;
     public EnemyMovement enemyMovement;
+    public bool spottedPlayer;
+    public AnimationManager animationManager;
+    private Animation anim => animationManager.animator;
 
     void Start() {
         fireSound = GetComponent<AudioSource>();
-        enemyMovement = GetComponent<EnemyMovement>();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     void Update() {
-        if (player == null) { return; }
+        if (player == null || !spottedPlayer) { return; }
 
         float distance = enemyMovement.getDistanceFromPlayer();
 
@@ -43,9 +51,19 @@ public class EnemyShoot : MonoBehaviour {
 
     void fireBullet(float accuracy, int damage) {
         fireSound.PlayOneShot(fireSoundClip, volume);
-        GameObject bullet = Instantiate(bulletPrefab, gameObject.transform.position + (gameObject.transform.forward * botSize) + (gameObject.transform.up * gunHeight), gameObject.transform.rotation);
+        anim.CrossFade($"attack0");
+
+        // Instantiate the projectile
+        // Assumes bot is facing the player, so fire in that direction
+        GameObject bullet = Instantiate(
+            bulletPrefab,
+            gameObject.transform.position + (gameObject.transform.forward * botSize) + (gameObject.transform.up * gunHeight),
+            gameObject.transform.rotation);
+        bullet.transform.parent = transform;
         BulletBehavior bulletScript = bullet.GetComponent(typeof(BulletBehavior)) as BulletBehavior;
         bulletScript.damage = damage;
+
+        // Fire the bullet and apply accuracy
         Vector3 rotationVector = bullet.transform.rotation.eulerAngles;
         rotationVector.x += ((Random.value * 2) - 1) * accuracy;
         rotationVector.y += ((Random.value * 2) - 1) * accuracy;
@@ -54,5 +72,6 @@ public class EnemyShoot : MonoBehaviour {
             rotationVector.y += 5;
         }
         bullet.transform.rotation = Quaternion.Euler(rotationVector);
+        Destroy(bullet, 1f);
     }
 }

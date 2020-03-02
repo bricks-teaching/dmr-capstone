@@ -18,11 +18,13 @@ namespace FiscalShock.Demo {
         [Tooltip("Whether to render the main Delaunay triangulation.")]
         public bool renderDelaunay = true;
 
-        [Tooltip("Render Delaunay vertices. Looks funny when you also render the triangulation, so don't do that.")]
+        [Tooltip("Render Delaunay vertices.")]
         public bool renderDelaunayVertices = true;
 
+        public bool renderDelaunayHull = true;
+
         [Tooltip("Color used to draw the main Delaunay triangulation.")]
-        public Color delaunayColor;
+        public Color delaunayColor = new Color(1, 0, 1);
 
         [Tooltip("Height at which to render the Delaunay triangulation.")]
         public float delaunayRenderHeight = 1.1f;
@@ -31,7 +33,7 @@ namespace FiscalShock.Demo {
         public bool renderVoronoi = true;
 
         [Tooltip("Color used to draw the Voronoi diagram.")]
-        public Color voronoiColor;
+        public Color voronoiColor = new Color(0, 1, 1);
 
         [Tooltip("Height at which to render the Voronoi diagram.")]
         public float voronoiRenderHeight = 1.6f;
@@ -40,7 +42,7 @@ namespace FiscalShock.Demo {
         public bool renderMasterDelaunay = true;
 
         [Tooltip("Color used to draw the master points' Delaunay triangulation.")]
-        public Color masterDelaunayColor;
+        public Color masterDelaunayColor = new Color(1, 0, 0);
 
         [Tooltip("Height at which to render the master points' Delaunay triangulation.")]
         public float masterDelaunayRenderHeight = 1.3f;
@@ -49,7 +51,7 @@ namespace FiscalShock.Demo {
         public bool renderSpanningTree = true;
 
         [Tooltip("Color used to draw the spanning tree.")]
-        public Color spanningTreeColor;
+        public Color spanningTreeColor = new Color(0, 0, 1);
 
         [Tooltip("Height at which to render the spanning tree.")]
         public float spanningTreeRenderHeight = 1.4f;
@@ -57,7 +59,7 @@ namespace FiscalShock.Demo {
         [Tooltip("Material with a specific shader to color lines properly in game view. Don't change it unless you have a good reason!")]
         public Material edgeMat;
 
-        public TextMesh label;
+        public TextMesh label = new TextMesh();
 
         private bool alreadyDrewPoints = false;
 
@@ -124,6 +126,7 @@ namespace FiscalShock.Demo {
                 tmp.transform.position = v.toVector3AtHeight(renderHeight);
                 tmp.name = $"Delaunay #{v.id}";
 
+                if (label == null)  continue;
                 float offsetPosY = tmp.transform.position.y + 1.5f;
                 Vector3 offsetPos = new Vector3(tmp.transform.position.x, offsetPosY, tmp.transform.position.z);
 
@@ -142,6 +145,10 @@ namespace FiscalShock.Demo {
             if (renderDelaunayVertices && dungen.dt != null && !alreadyDrewPoints) {
                 renderPoints(dungen.dt.vertices, delaunayColor, delaunayRenderHeight);
             }
+            if (renderDelaunayHull && dungen.dt != null) {
+                // TODO not same color as triangulation
+                renderEdges(dungen.dt.convexHullEdges, delaunayColor, delaunayRenderHeight);
+            }
             if (renderVoronoi && dungen.vd != null) {
                 renderEdges(dungen.vd.edges, voronoiColor, voronoiRenderHeight);
                 // Voronoi cells
@@ -152,8 +159,8 @@ namespace FiscalShock.Demo {
         }
 
         private void setGraphColors(Color color) {
-            edgeMat.SetPass(0);
-            edgeMat.SetColor(Shader.PropertyToID("_Color"), color);  // set game view color
+            //edgeMat.SetPass(0);
+            //edgeMat.SetColor(Shader.PropertyToID("_Color"), color);  // set game view color
             GL.Color(color);  // set editor color
         }
 

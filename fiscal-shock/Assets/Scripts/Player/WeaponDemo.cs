@@ -14,7 +14,7 @@ public class WeaponDemo : MonoBehaviour
 
     // Update is called once per frame
     public void Update()
-    { 
+    {
         //Spawn a new bot when time passed reaches spawnRate
         time += Time.deltaTime;
         if(time > spawnRate){
@@ -26,6 +26,4 @@ public class WeaponDemo : MonoBehaviour
             }
         }
     }
-
-    
 }

@@ -92,9 +92,7 @@ namespace FiscalShock.Graphs {
                 } else {
                     c.setVerticesFromSides();
                     c.orderVertices();
-                    double a = c.getArea();
-                    c.signedArea = a;
-                    c.area = Math.Abs(a);
+                    c.area = c.getArea();
                 }
             }
         }

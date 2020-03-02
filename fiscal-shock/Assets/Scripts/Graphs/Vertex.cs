@@ -98,7 +98,7 @@ namespace FiscalShock.Graphs {
         /// <param name="other"></param>
         /// <returns></returns>
         public float getAngleOfRotationTo(Vertex other) {
-            return (float)Mathy.getAngleOfRotation(other.y, y, other.x, x);
+            return (float)Mathy.getAngleOfRotation(x, y, other.x, other.y);
         }
 
         /// <summary>
