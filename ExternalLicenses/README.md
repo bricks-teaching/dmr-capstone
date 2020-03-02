@@ -82,6 +82,8 @@ License: [TurboSquid Royalty Free License](https://blog.turbosquid.com/royalty-f
 Audio assets are spread across the project.
 
 1. [Bullet firing and impact sounds](#bullet-firing-and-impact-sounds)
+1. [Cash payment failure](#cash-payment-failure-sound)
+1. [Cash payment succes](#cash-payment-success-sound)
 1. [Dungeon and hub themes](#dungeon-and-hub-themes)
 1. [Main menu and win themes](#main-menu-and-win-themes)
 1. [Pause and lose themes](#pause-and-lose-themes)
@@ -93,6 +95,23 @@ Audio assets are spread across the project.
 
 ----
 
+## Cash payment failure sound
+[Original](https://freesound.org/people/Jacco18/sounds/419023/)
+
+Author: Jacco18
+
+License: [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)
+
+----
+
+## Cash payment success sound
+[Original](https://freesound.org/people/kiddpark/sounds/201159/)
+
+Author: kiddpark
+
+License: [CC-BY 3.0](https://creativecommons.org/licenses/by/3.0/)
+
+----
 ## Dungeon and hub themes
 [Original](https://www.gamedevmarket.net/asset/ultimate-free-music-bundle-5353/)
 

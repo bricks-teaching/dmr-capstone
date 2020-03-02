@@ -4,36 +4,46 @@ using UnityEngine.UI;
 using TMPro;
 
 public class ATMScript : MonoBehaviour {
+    public AudioClip paymentSound;
+    public AudioClip failureSound;
     public static bool bankDue = true;
     private bool playerIsInTriggerZone = false;
     private TextMeshProUGUI signText;
     private string defaultSignText;
+    private AudioSource audio;
 
-    void OnTriggerEnter() {
-        Debug.Log($"{gameObject.name}: Triggered");
-        playerIsInTriggerZone = true;
+    void OnTriggerEnter(Collider col) {
+        if (col.gameObject.tag == "Player") {
+            Debug.Log($"{gameObject.name}: Triggered");
+            playerIsInTriggerZone = true;
+        }
     }
 
-    void OnTriggerExit() {
-        Debug.Log($"{gameObject.name}: Left ATM");
-        playerIsInTriggerZone = false;
-        signText.text = defaultSignText;
+    void OnTriggerExit(Collider col) {
+        if (col.gameObject.tag == "Player") {
+            Debug.Log($"{gameObject.name}: Left ATM");
+            playerIsInTriggerZone = false;
+            signText.text = defaultSignText;
+        }
     }
 
     void Start() {
         signText = GetComponentInChildren<TextMeshProUGUI>();
         defaultSignText = signText.text;
+        audio = GetComponent<AudioSource>();
     }
 
-    void FixedUpdate() {
+    void Update() {
         if (playerIsInTriggerZone && Input.GetKeyDown("f")) {
             bool paymentSuccessful = payDebt(100);
             if (paymentSuccessful) {
-                signText.text = "$$$";
+                signText.text = "";
+                audio.PlayOneShot(paymentSound);
                 Debug.Log("Paid $100");
             } else {
-                signText.text = "Please tender payments using cash, not wishes and dreams.";
-                Debug.Log("Son u broke");
+                signText.text = "Please tender payments using cash, not respects.";
+                audio.PlayOneShot(failureSound);
+                Debug.Log("Not enough cash to pay denbts");
             }
         }
     }
