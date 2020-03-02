@@ -27,7 +27,6 @@ public class EnemyMovement : MonoBehaviour {
     private Rigidbody enemyRb;
     private EnemyShoot shootScript;
     public AnimationManager animationManager;
-    private Animation anim => animationManager.animator;
 
     // Start is called before the first frame update
     void Start() {
@@ -47,16 +46,15 @@ public class EnemyMovement : MonoBehaviour {
     void FixedUpdate() {
         if (player == null || (Vector3.Distance(player.transform.position, gameObject.transform.position) > visionRadius)) {
             // TODO drunkard's walk
-            if (!anim.IsPlaying($"idle0")) {
-                anim.CrossFade($"idle0");
-            }
+            animationManager.playIdleAnimation();
             shootScript.spottedPlayer = false;
             return;
         }
         shootScript.spottedPlayer = true;
 
-        if (!anim.isPlaying) {
-            anim.CrossFade($"move0");
+        // Don't interrupt other animations to play movement
+        if (!animationManager.animator.isPlaying) {
+            animationManager.playMoveAnimation();
         }
 
         // This is the only variable that really needs to be a R3 vector - to look in the correct direction.

@@ -1,0 +1,166 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6129617709047379583
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6129617709047379577}
+  m_Layer: 0
+  m_Name: DungeonEntrance
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6129617709047379577
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6129617709047379583}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 35.326576, y: 0.44341588, z: -5.701698}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 7190214415898742950}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6129617709850862141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6166444055931609781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 394ecd94a170ebc22993be66d43c1900, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &7884623518620578014
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 6129617709047379577}
+    m_Modifications:
+    - target: {fileID: 1054698534828793976, guid: 96c3da19b905ed13491e6b7854635aeb,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 1054698534828793976, guid: 96c3da19b905ed13491e6b7854635aeb,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.44341588
+      objectReference: {fileID: 0}
+    - target: {fileID: 1054698534828793976, guid: 96c3da19b905ed13491e6b7854635aeb,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 1054698534828793976, guid: 96c3da19b905ed13491e6b7854635aeb,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1054698534828793976, guid: 96c3da19b905ed13491e6b7854635aeb,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1054698534828793976, guid: 96c3da19b905ed13491e6b7854635aeb,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1054698534828793976, guid: 96c3da19b905ed13491e6b7854635aeb,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1054698534828793976, guid: 96c3da19b905ed13491e6b7854635aeb,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1054698534828793976, guid: 96c3da19b905ed13491e6b7854635aeb,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1054698534828793976, guid: 96c3da19b905ed13491e6b7854635aeb,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1054698534828793976, guid: 96c3da19b905ed13491e6b7854635aeb,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3045551422282787029, guid: 96c3da19b905ed13491e6b7854635aeb,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 10.350786
+      objectReference: {fileID: 0}
+    - target: {fileID: 3045551422282787029, guid: 96c3da19b905ed13491e6b7854635aeb,
+        type: 3}
+      propertyPath: m_Center.z
+      value: -0.028000832
+      objectReference: {fileID: 0}
+    - target: {fileID: 3045551422282787029, guid: 96c3da19b905ed13491e6b7854635aeb,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 6.4976273
+      objectReference: {fileID: 0}
+    - target: {fileID: 3045551422282787029, guid: 96c3da19b905ed13491e6b7854635aeb,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 2.842588
+      objectReference: {fileID: 0}
+    - target: {fileID: 3045551422282787029, guid: 96c3da19b905ed13491e6b7854635aeb,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 3.1452255
+      objectReference: {fileID: 0}
+    - target: {fileID: 3045551422282787029, guid: 96c3da19b905ed13491e6b7854635aeb,
+        type: 3}
+      propertyPath: m_Center.x
+      value: -0.32261276
+      objectReference: {fileID: 0}
+    - target: {fileID: 4105122742163903083, guid: 96c3da19b905ed13491e6b7854635aeb,
+        type: 3}
+      propertyPath: m_Name
+      value: DungeonSign
+      objectReference: {fileID: 0}
+    - target: {fileID: 6086934736264486748, guid: 96c3da19b905ed13491e6b7854635aeb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7729480537217374836, guid: 96c3da19b905ed13491e6b7854635aeb,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 96c3da19b905ed13491e6b7854635aeb, type: 3}
+--- !u!1 &6166444055931609781 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4105122742163903083, guid: 96c3da19b905ed13491e6b7854635aeb,
+    type: 3}
+  m_PrefabInstance: {fileID: 7884623518620578014}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7190214415898742950 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1054698534828793976, guid: 96c3da19b905ed13491e6b7854635aeb,
+    type: 3}
+  m_PrefabInstance: {fileID: 7884623518620578014}
+  m_PrefabAsset: {fileID: 0}

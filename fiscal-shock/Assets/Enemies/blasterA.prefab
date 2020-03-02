@@ -110,11 +110,10 @@ MonoBehaviour:
   botAccuracy: 10
   botRange: 40
   botRate: 1.7
-  volume: 1
   gunHeight: 0
   enemyMovement: {fileID: 7639448774427610925}
   spottedPlayer: 0
-  animationManager: {fileID: 0}
+  animationManager: {fileID: 8645812413896970740}
 --- !u!114 &4106496990200208738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,7 +131,6 @@ MonoBehaviour:
     type: 3}
   hitSoundClip: {fileID: 8300000, guid: 861e537fb624418428af6d6d55c73dfb, type: 3}
   pointValue: 30
-  volume: 1
   animationManager: {fileID: 8645812413896970740}
 --- !u!111 &4661802102344205313
 Animation:

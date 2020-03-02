@@ -440,9 +440,11 @@ namespace FiscalShock.Procedural {
             player.name = "Player Character";
 
             // Attach any other stuff to player here
+            Cheats cheater = GameObject.FindObjectOfType<Cheats>();
+            cheater.player = player;
+            cheater.playerController = player.GetComponentInChildren<CharacterController>();
             InGameMenu menu = GameObject.FindObjectOfType<InGameMenu>();
             menu.player = player;
-            menu.ChangeVolume();
 
             // Disable loading screen camera in this scene
             GameObject.Find("LoadCamera").GetComponent<Camera>().enabled = false;

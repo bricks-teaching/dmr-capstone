@@ -24,8 +24,34 @@ public class AnimationManager : MonoBehaviour {
     private List<AnimationClip> attack => animations.Where(a => a.category == AnimationEnum.attack).Select(a => a.clips).First();
     private List<AnimationClip> idle => animations.Where(a => a.category == AnimationEnum.idle).Select(a => a.clips).First();
 
+    public bool isReady { get; private set; }
+
     public float playDeathAnimation() {
+        if (!isReady) {
+            return 0;
+        }
         return getRandomAnimationAndLength("die", die);
+    }
+
+    public float playAttackAnimation() {
+        if (!isReady) {
+            return 0;
+        }
+        return getRandomAnimationAndLength("attack", attack);
+    }
+
+    public float playIdleAnimation() {
+        if (!isReady) {
+            return 0;
+        }
+        return getRandomAnimationAndLength("idle", idle);
+    }
+
+    public float playMoveAnimation() {
+        if (!isReady) {
+            return 0;
+        }
+        return getRandomAnimationAndLength("move", move);
     }
 
     void Start() {
@@ -42,6 +68,7 @@ public class AnimationManager : MonoBehaviour {
         for (int i = 0; i < attack.Count; ++i) {
             animator.AddClip(attack[i], $"attack{i}");
         }
+        isReady = true;
     }
 
     private float getRandomAnimationAndLength(string type, List<AnimationClip> clips) {
@@ -54,7 +81,10 @@ public class AnimationManager : MonoBehaviour {
             idx = UnityEngine.Random.Range(0, clips.Count-1);
         }
         string clipToPlay = $"{type}{idx}";
-        animator.Play(clipToPlay);
-        return animator.GetClip(clipToPlay).length;
+        if (!animator.IsPlaying(clipToPlay)) {
+            animator.Play(clipToPlay);
+            return animator.GetClip(clipToPlay).length;
+        }
+        return 0;
     }
 }

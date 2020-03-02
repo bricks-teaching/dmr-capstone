@@ -11,7 +11,6 @@ public class PlayerShoot : MonoBehaviour {
     private AudioSource fireSound;
     public AudioClip fireSoundClip;
     private GameObject weapon = null;
-    public float volume = 1f;
     private int slot = 1;
     private int currentSlot = 0;
     public GameObject gun1;
@@ -34,6 +33,10 @@ public class PlayerShoot : MonoBehaviour {
     public void Update() {
         if (Input.GetMouseButtonDown(0) && !weaponChanging && Time.timeScale > 0) {
             WeaponStats weaponScript = weapon.GetComponent(typeof(WeaponStats)) as WeaponStats;
+            if (PlayerFinance.cashOnHand < weaponScript.bulletCost) {
+                // TODO play sound fx
+                return;
+            }
             fireBullet(10 - weaponScript.accuracy, weaponScript.strength, weaponScript.bulletPrefab);
             PlayerFinance.cashOnHand -= weaponScript.bulletCost;
         }
@@ -90,7 +93,7 @@ public class PlayerShoot : MonoBehaviour {
     }
 
     private void fireBullet(float accuracy, int damage, GameObject bulletPrefab) {
-        fireSound.PlayOneShot(fireSoundClip, volume);
+        fireSound.PlayOneShot(fireSoundClip, Settings.volume);
         GameObject bullet = Instantiate(bulletPrefab, weaponPosition.position + weaponPosition.forward, weaponPosition.rotation) as GameObject;
         BulletBehavior bulletScript = bullet.GetComponent(typeof(BulletBehavior)) as BulletBehavior;
         bulletScript.damage = damage;

@@ -23,12 +23,10 @@ public class EnemyShoot : MonoBehaviour {
     [Tooltip("Fire rate of the bot.")]
     public float botRate = 1.7f;
 
-    public float volume = 1f;
     public float gunHeight = 0;
     public EnemyMovement enemyMovement;
     public bool spottedPlayer;
     public AnimationManager animationManager;
-    private Animation anim => animationManager.animator;
 
     void Start() {
         fireSound = GetComponent<AudioSource>();
@@ -50,8 +48,8 @@ public class EnemyShoot : MonoBehaviour {
     }
 
     void fireBullet(float accuracy, int damage) {
-        fireSound.PlayOneShot(fireSoundClip, volume);
-        anim.CrossFade($"attack0");
+        fireSound.PlayOneShot(fireSoundClip, Settings.volume);
+        animationManager.playAttackAnimation();
 
         // Instantiate the projectile
         // Assumes bot is facing the player, so fire in that direction

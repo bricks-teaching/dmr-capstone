@@ -4,7 +4,6 @@ using UnityEngine;
 public static class GameController {
     public static GameObject pauseMenu;
     public static GameObject player;
-    public static float volume = .3f;
     private static ArrayList bots = new ArrayList();
     private static readonly float groundPosition = GameObject.Find("Ground").transform.position.y;
     private static readonly float groundHeight = GameObject.Find("Ground").GetComponent<Collider>().bounds.size.y;
@@ -25,10 +24,6 @@ public static class GameController {
 
         EnemyShoot botShootingScript = bot.GetComponent(typeof(EnemyShoot)) as EnemyShoot;
         botShootingScript.player = player;
-        botShootingScript.volume = volume;
-
-        EnemyHealth botDamageScript = bot.GetComponent(typeof(EnemyHealth)) as EnemyHealth;
-        botDamageScript.volume = volume;
 
         //set controller to this script so bot can remove itself from the bot arraylist when it is destroyed
         Debug.Log("enemy bot added");
