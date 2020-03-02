@@ -29,6 +29,12 @@ Modifications:
 1. Added texture created by @zalfenior
 
 ----
+## Icons
+RAM icon is free for non-commercial use from [PNGWave](https://www.pngwave.com/png-clip-art-tpaxv).
+
+Ram icon made by [Vitality Gorbachev](https://www.flaticon.com/authors/vitaly-gorbachev) from [Flaticon](https://www.flaticon.com/).
+
+----
 ## Market stand
 [Original](https://www.turbosquid.com/FullPreview/Index.cfm/ID/978391)
 
