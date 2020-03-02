@@ -55,5 +55,13 @@ namespace FiscalShock.Graphs {
         public double getLength() {
             return p.getDistanceTo(q);
         }
+
+        /// <summary>
+        /// Angle of this edge from p to q
+        /// </summary>
+        /// <returns></returns>
+        public float getAngle() {
+            return p.getAngleOfRotationTo(q);
+        }
     }
 }
