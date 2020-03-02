@@ -27,7 +27,8 @@ namespace FiscalShock.Procedural {
                 // Manually kill the music box, since it isn't destroyed naturally
                 GameObject musicPlayer = GameObject.Find("DungeonMusic");
                 Destroy(musicPlayer);
-                // Maybe hit the "NewDay" script here?
+                // Apply interest
+                PlayerFinance.startNewDay();
             }
         }
     }

@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8457115162114266724}
+  - component: {fileID: 10544553}
   m_Layer: 0
   m_Name: LoadingScreen
   m_TagString: Untagged
@@ -31,6 +32,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &10544553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8457115162114266725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a849474fb2ae744549de793400c335bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8457115162116188159
 GameObject:
   m_ObjectHideFlags: 0
@@ -44,7 +57,7 @@ GameObject:
   - component: {fileID: 8457115162116187904}
   - component: {fileID: 8457115162116187905}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: LoadCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -142,7 +155,7 @@ GameObject:
   - component: {fileID: 8457115162312606270}
   - component: {fileID: 8457115162312606273}
   m_Layer: 0
-  m_Name: Camera
+  m_Name: LoadCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -172,7 +185,7 @@ Camera:
   m_GameObject: {fileID: 8457115162312606268}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -226,7 +239,7 @@ GameObject:
   - component: {fileID: 8457115163449881511}
   - component: {fileID: 8457115163449881508}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: LoadText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

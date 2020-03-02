@@ -419,21 +419,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Arrow
       objectReference: {fileID: 0}
-    - target: {fileID: 1000011717122646, guid: b53f6f2fb4ee6ce459481fcf3fe082dd, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000011717122646, guid: b53f6f2fb4ee6ce459481fcf3fe082dd, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 4000010969535252, guid: b53f6f2fb4ee6ce459481fcf3fe082dd, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4000010969535252, guid: b53f6f2fb4ee6ce459481fcf3fe082dd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.8
+      value: 11.21
       objectReference: {fileID: 0}
     - target: {fileID: 4000010969535252, guid: b53f6f2fb4ee6ce459481fcf3fe082dd, type: 3}
       propertyPath: m_LocalPosition.z
@@ -470,26 +462,6 @@ PrefabInstance:
     - target: {fileID: 4000010969535252, guid: b53f6f2fb4ee6ce459481fcf3fe082dd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -60
-      objectReference: {fileID: 0}
-    - target: {fileID: 23000014100550456, guid: b53f6f2fb4ee6ce459481fcf3fe082dd,
-        type: 3}
-      propertyPath: m_CastShadows
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 23000014100550456, guid: b53f6f2fb4ee6ce459481fcf3fe082dd,
-        type: 3}
-      propertyPath: m_ReceiveShadows
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 23000014100550456, guid: b53f6f2fb4ee6ce459481fcf3fe082dd,
-        type: 3}
-      propertyPath: m_LightProbeUsage
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 23000014100550456, guid: b53f6f2fb4ee6ce459481fcf3fe082dd,
-        type: 3}
-      propertyPath: m_ReflectionProbeUsage
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b53f6f2fb4ee6ce459481fcf3fe082dd, type: 3}

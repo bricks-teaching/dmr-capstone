@@ -7,10 +7,10 @@ public class EnemyHealth: MonoBehaviour
     public GameObject explosion;
     public AudioClip hitSoundClip;
     public float pointValue = 20;
-    public float volume = 1f;
     private int totalHealth;
     private GameObject lastBulletCollision;
     public AnimationManager animationManager;
+    private bool dead;
 
     void Start(){
         totalHealth = startingHealth;
@@ -27,13 +27,14 @@ public class EnemyHealth: MonoBehaviour
             BulletBehavior bullet = col.gameObject.GetComponent(typeof(BulletBehavior)) as BulletBehavior;
             int bulletDamage = bullet.damage;
             totalHealth -= bulletDamage;
-            if (totalHealth <= 0) {
+            if (totalHealth <= 0 && !dead) {
                 PlayerFinance.cashOnHand += pointValue;
                 float deathDuration = animationManager.playDeathAnimation();
                 GetComponent<EnemyMovement>().enabled = false;
                 GetComponent<EnemyShoot>().enabled = false;
                 animationManager.animator.PlayQueued("shrink");
                 Destroy(gameObject, deathDuration + 0.5f);
+                dead = true;
             }
 
             // Debug.Log("Damage: " + bullet.damage + " points. Bot has " + totalHealth + " health points remaining");
@@ -41,7 +42,7 @@ public class EnemyHealth: MonoBehaviour
             GameObject explode = Instantiate(explosion, gameObject.transform.position + transform.up, gameObject.transform.rotation);
             explode.transform.parent = gameObject.transform;
             AudioSource hitSound = explode.GetComponent<AudioSource>();
-            hitSound.PlayOneShot(hitSoundClip, 0.5f * volume);
+            hitSound.PlayOneShot(hitSoundClip, 0.5f * Settings.volume);
             Destroy(explode, 0.9f);
 
             // If bot goes under 50% health, make it look damaged

@@ -1,14 +1,32 @@
 fileFormatVersion: 2
-guid: f11823cc5ec810346b2fe3509b47ab3a
+guid: 2e8bd914b7bc2164b917465ae387500f
 ModelImporter:
   serializedVersion: 19300
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: 1260504559586848900
+    second: Mesh20 Group14 Model|Mesh20 Group14 ModelAction
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Texture
-    second: {fileID: 2100000, guid: 947d90d3d24989b4b8dc350b79696db1, type: 2}
+      name: Corrugated01s
+    second: {fileID: 2100000, guid: eb184954b87356a458f00ef29fa20089, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: THATCH
+    second: {fileID: 2100000, guid: 1d60e5993f082154d909a0281d12d5b0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WOOD #2_
+    second: {fileID: 2100000, guid: eb184954b87356a458f00ef29fa20089, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wood
+    second: {fileID: 2100000, guid: eb184954b87356a458f00ef29fa20089, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -46,8 +64,8 @@ ModelImporter:
     sortHierarchyByName: 1
     importVisibility: 1
     importBlendShapes: 1
-    importCameras: 1
-    importLights: 1
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1

@@ -8,11 +8,12 @@ public class InGameMenu : MonoBehaviour
     public GameObject quitPanel;
     public GameObject player;
     public GameObject crossHair;
-    public static float volume = .3f;
+    private VolumeController[] volumeControllers;
 
     void Start()
     {
         crossHair = GameObject.Find("Crosshair");
+        volumeControllers = GameObject.FindObjectsOfType<VolumeController>();
         pausePanel.SetActive(false);
         quitPanel.SetActive(false);
         optionsPanel.SetActive(false);
@@ -80,33 +81,21 @@ public class InGameMenu : MonoBehaviour
     public void AdjustSFX(float value)
     {
         Debug.Log("Volume is - " + value);
-        volume = value;
-        ChangeVolume();
+        Settings.volume = value;
+        foreach (VolumeController vc in volumeControllers) {
+            vc.audio.volume = Settings.volume;
+        }
     }
 
     public void AdjustMouseSensitivity(float value)
     {
         Debug.Log("Sensitivity is - " + value);
-        MouseLook cameraScript = player.GetComponent(typeof(MouseLook)) as MouseLook;
-        cameraScript.mouseSensitivity = value;
+        Settings.mouseSensitivity = value;
     }
 
     public void BackClick()
     {
         optionsPanel.SetActive(false);
         pausePanel.SetActive(true);
-    }
-
-    public void ChangeVolume() {
-        // Go through all the scripts attached to player and the bots in the scene and update the volume
-        player.GetComponentInChildren<PlayerShoot>().volume = volume;
-        // No, this can't be function'd out easily because types :)
-        // Have fun figuring out reflection if you want to play that game.
-        foreach (EnemyShoot script in GameObject.FindObjectsOfType<EnemyShoot>()) {
-            script.volume = volume;
-        }
-        foreach (EnemyHealth script in GameObject.FindObjectsOfType<EnemyHealth>()) {
-            script.volume = volume;
-        }
     }
 }

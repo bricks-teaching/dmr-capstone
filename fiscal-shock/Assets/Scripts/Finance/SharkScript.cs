@@ -8,7 +8,7 @@ public class SharkScript : MonoBehaviour
 
     public bool addDebt(int amount){
         if (PlayerFinance.sharkThreatLevel < 5 && PlayerFinance.sharkMaxLoan > (PlayerFinance.debtShark + amount)){
-            //mob threat is below 3 and is below max total debt
+            //mob threat is below 5 and is below max total debt
             PlayerFinance.debtShark += amount;
             PlayerFinance.cashOnHand += amount;
             sharkDue = true;
