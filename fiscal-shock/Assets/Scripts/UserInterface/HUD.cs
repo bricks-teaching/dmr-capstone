@@ -5,15 +5,14 @@ public class HUD : MonoBehaviour
 {
     public TextMeshProUGUI pocketChange;
     public TextMeshProUGUI debtTracker;
-    // Start is called before the first frame update
-    void Start()
-    {
-        debtTracker.text = "DEBT: -" + (PlayerFinance.debtBank + PlayerFinance.debtShark).ToString("F2");
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
+    /// <summary>
+    /// Currently updates every frame, could also instead just be asked to
+    /// update by functions that change the HUD if that is a performance
+    /// concern.
+    /// </summary>
+    void Update() {
         pocketChange.text = "" + PlayerFinance.cashOnHand.ToString("F2");
+        debtTracker.text = "DEBT: -" + (PlayerFinance.debtBank + PlayerFinance.debtShark).ToString("F2");
     }
 }
