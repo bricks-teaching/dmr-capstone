@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Hub.unity
     guid: 31d3f6d7f9fc01b4fb14b4d5b017d906
   - enabled: 0
-    path: Assets/Scenes/S<<<<<<< menufixampleScene.unity
+    path: Assets/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 0
     path: Assets/Scenes/LoseGame.unity
