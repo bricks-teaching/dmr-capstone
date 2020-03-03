@@ -38,11 +38,11 @@ public class ATMScript : MonoBehaviour {
             bool paymentSuccessful = payDebt(100);
             if (paymentSuccessful) {
                 signText.text = "";
-                audio.PlayOneShot(paymentSound);
+                audio.PlayOneShot(paymentSound, Settings.volume);
                 Debug.Log("Paid $100");
             } else {
                 signText.text = "Please tender payments using cash, not respects.";
-                audio.PlayOneShot(failureSound);
+                audio.PlayOneShot(failureSound, Settings.volume * 2.5f);
                 Debug.Log("Not enough cash to pay denbts");
             }
         }
