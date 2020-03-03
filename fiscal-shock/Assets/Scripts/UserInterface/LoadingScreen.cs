@@ -15,6 +15,7 @@ public class LoadingScreen : MonoBehaviour {
 
     void Start() {
         loadingText = GameObject.Find("LoadText").GetComponent<TextMeshProUGUI>();
+        GameObject.Find("LoadCamera").GetComponent<Camera>().enabled = false;
     }
 
     void Update() {
