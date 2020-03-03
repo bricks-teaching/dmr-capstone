@@ -1,10 +1,18 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour {
+    private GameObject loadingScreen;
+    private LoadingScreen loadScript;
+
+    public void Start() {
+        Cursor.lockState = CursorLockMode.None;
+        loadingScreen = GameObject.Find("LoadingScreen");
+        loadScript = (LoadingScreen)loadingScreen.GetComponent<LoadingScreen>();
+    }
+
     void PlayClick() {
         Debug.Log("Starting game...");
-        SceneManager.LoadScene("Hub");
+        loadScript.startLoadingScreen("Hub");
     }
 
     void QuitClick() {

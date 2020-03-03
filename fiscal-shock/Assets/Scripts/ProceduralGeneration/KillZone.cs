@@ -13,6 +13,9 @@ namespace FiscalShock.Procedural {
         private void OnTriggerEnter(Collider collider) {
             if (collider.gameObject.tag == "Player") {
                 loadScript.startLoadingScreen("LoseGame");
+                GameObject musicPlayer = GameObject.Find("DungeonMusic");
+                Destroy(musicPlayer);
+                PlayerFinance.startNewDay();
             }
         }
     }
