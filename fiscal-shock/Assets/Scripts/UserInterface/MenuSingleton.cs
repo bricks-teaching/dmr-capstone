@@ -4,15 +4,15 @@
 /// Singleton that prevents things from being destroyed on scene changes.
 /// Must be manually destroyed if it needs to go away.
 /// </summary>
-public class SeamlessMusicPlayer : MonoBehaviour {
-     public static SeamlessMusicPlayer musicInstance { get; private set; }
+public class MenuSingleton : MonoBehaviour {
+     public static MenuSingleton menuInstance { get; private set; }
 
      void Awake() {
-         if (musicInstance != null && musicInstance != this) {
+         if (menuInstance != null && menuInstance != this) {
              Destroy(this.gameObject);
              return;
          } else {
-             musicInstance = this;
+             menuInstance = this;
          }
          DontDestroyOnLoad(this.gameObject);
      }

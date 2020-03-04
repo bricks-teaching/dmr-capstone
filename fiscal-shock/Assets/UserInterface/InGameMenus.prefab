@@ -246,13 +246,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5090732086679441536}
-        m_MethodName: AdjustSFX
+        m_MethodName: set_volume
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0
+          m_FloatArgument: 1
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -494,15 +494,15 @@ MonoBehaviour:
   m_FillRect: {fileID: 5090732085443060687}
   m_HandleRect: {fileID: 5090732085777065238}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 125
+  m_MinValue: 1
+  m_MaxValue: 200
   m_WholeNumbers: 0
-  m_Value: 100
+  m_Value: 125
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5090732086679441536}
-        m_MethodName: AdjustMouseSensitivity
+        m_MethodName: set_mouseSensitivity
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2413,8 +2413,9 @@ GameObject:
   - component: {fileID: 5090732086679441543}
   - component: {fileID: 5090732086679441540}
   - component: {fileID: 5090732086679441536}
+  - component: {fileID: 2019482709883816436}
   m_Layer: 5
-  m_Name: PauseCanvas
+  m_Name: InGameMenus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2519,6 +2520,20 @@ MonoBehaviour:
   quitPanel: {fileID: 6539732262870066677}
   player: {fileID: 0}
   crossHair: {fileID: 0}
+  volumeSlider: {fileID: 5090732084942513594}
+  mouseSlider: {fileID: 5090732085224528036}
+--- !u!114 &2019482709883816436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5090732086679441541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a46c4d2148a635f528b7320c82aeea8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5090732086680956833
 GameObject:
   m_ObjectHideFlags: 0

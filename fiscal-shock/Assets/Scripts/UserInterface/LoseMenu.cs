@@ -1,23 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
-public class LoseMenu : MonoBehaviour
-{
+public class LoseMenu : MonoBehaviour {
+    private GameObject loadingScreen;
+    private LoadingScreen loadScript;
 
-    public void Start(){
-        Debug.Log(SceneManager.GetActiveScene().buildIndex);
-        Debug.Log(SceneManager.GetActiveScene().name);
+    public void Start() {
+        Cursor.lockState = CursorLockMode.None;
+        loadingScreen = GameObject.Find("LoadingScreen");
+        loadScript = (LoadingScreen)loadingScreen.GetComponent<LoadingScreen>();
     }
 
-    public void RetryClick (){
-        SceneManager.LoadScene("Hub");
+    public void RetryClick() {
+        // Currently lets you "start over" where you left off, is this desirable?
+        loadScript.startLoadingScreen("Hub");
     }
 
-    public void BankruptClick (){
+    public void BankruptClick() {
         Debug.Log("Quit");
         Application.Quit();
     }
-
 }

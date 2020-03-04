@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class InGameMenu : MonoBehaviour
@@ -9,11 +10,36 @@ public class InGameMenu : MonoBehaviour
     public GameObject player;
     public GameObject crossHair;
     private VolumeController[] volumeControllers;
+    public Slider volumeSlider;
+    public Slider mouseSlider;
 
-    void Start()
-    {
+    public float volume {
+        get => Settings.volume;
+        set => Settings.volume = value;
+    }
+
+    public float mouseSensitivity {
+        get => Settings.mouseSensitivity;
+        set => Settings.mouseSensitivity = value;
+    }
+
+    void OnEnable() {
+        SceneManager.sceneLoaded += onSceneLoad;
+    }
+
+    void OnDisable() {
+        SceneManager.sceneLoaded -= onSceneLoad;
+    }
+
+    void onSceneLoad(Scene scene, LoadSceneMode mode) {
+        volumeSlider.onValueChanged.RemoveAllListeners();
         crossHair = GameObject.Find("Crosshair");
         volumeControllers = GameObject.FindObjectsOfType<VolumeController>();
+        foreach (VolumeController vc in volumeControllers) {
+            volumeSlider.onValueChanged.AddListener((value) => vc.audio.volume = value);
+        }
+        volumeSlider.onValueChanged.AddListener((value) => Settings.volume = value);
+        mouseSlider.onValueChanged.AddListener((value) => Settings.mouseSensitivity = value);
         pausePanel.SetActive(false);
         quitPanel.SetActive(false);
         optionsPanel.SetActive(false);
@@ -30,12 +56,12 @@ public class InGameMenu : MonoBehaviour
                 }
                 Cursor.lockState = CursorLockMode.None;
                 pausePanel.SetActive(true);
-                crossHair.SetActive(false);
+                crossHair?.SetActive(false);
             } else {
                 optionsPanel.SetActive(false);
                 quitPanel.SetActive(false);
                 pausePanel.SetActive(false);
-                crossHair.SetActive(true);
+                crossHair?.SetActive(true);
                 Cursor.lockState = CursorLockMode.Locked;
                 Time.timeScale = 1;
             }
@@ -46,7 +72,7 @@ public class InGameMenu : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         pausePanel.SetActive(false);
-        crossHair.SetActive(true);
+        crossHair?.SetActive(true);
         Time.timeScale = 1;
     }
 
@@ -76,21 +102,6 @@ public class InGameMenu : MonoBehaviour
     {
         quitPanel.SetActive(false);
         pausePanel.SetActive(true);
-    }
-
-    public void AdjustSFX(float value)
-    {
-        Debug.Log("Volume is - " + value);
-        Settings.volume = value;
-        foreach (VolumeController vc in volumeControllers) {
-            vc.audio.volume = Settings.volume;
-        }
-    }
-
-    public void AdjustMouseSensitivity(float value)
-    {
-        Debug.Log("Sensitivity is - " + value);
-        Settings.mouseSensitivity = value;
     }
 
     public void BackClick()
