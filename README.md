@@ -1,24 +1,25 @@
 # Team 12 - DMR Capstone
 
-## Information
-This is the capstone repository of Team 12, Spring 2020. Please use Unity 2019.3 for editing.
+## Fiscal Shock
+*Fiscal Shock* is an edutainment first-person shooter (FPS) game intended to teach teenagers the effects of debt. The game is sponsored by our client Dr. Brian Ricks, a Computer Science professor at UNO.
 
-## Cloning
-Please make sure to have your login information available when you clone the repository. It will ask you to login.
+### How to Play
+1. Download an appropriate release from the "Assets" section on the [releases](https://github.com/yhbautista/dmr-capstone/releases) page.
+2. Extract the archive and run the executable file inside the extracted folder.
 
-If you use the git CLI, please set up an SSH key following the instructions at the following link:
-https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent. If you use Windows, you'll need git bash to do this.
+### Controls
+- Move forward: W
+- Move backward: S
+- Move left: A
+- Move right: D
+- Jump: Spacebar
+- Fire weapon: Left Mouse Button
+- 1: Switch to weapon 1
+- 2: Switch to weapon 2
 
-## GitHub Large File Storage
-GitHub's LFS is a way to store image files, 3D models, and other large files without placing them inside the repository. Please install GitHub LFS from https://git-lfs.github.com/ and follow Step 1 of the Getting Started section. This will prepare the repository for use with the LFS API.
+In the hub, the key to press to interact with NPCs or objects will be shown on the screen when near the NPC or object.
 
-If something seems to be missing or working strangely, attempt pulling the actual object from the GitHub LFS server using `git lfs pull`.
-
-## Opening the Project for the First Time
-Tiff has commented instructions for correctly setting up the project in fiscal-shock/fiscal-shock.csproj. Please read those instructions closely and follow them the next time you set up your project.
-
-## WARNINGS
-- Meta files get added for assets, scripts, *and* directories (folders). Please do not name two files or directories the same. If we end up with fragmented directories, we can always consolidate them later.
-
-## Contributing
-Please read the information in CONTRIBUTING.md before putting in a pull request. If you do not follow the rules, your build may fail and your pull request will be delayed until your contribution follows the rules.
+"Cheats" are temporarily available in dungeons during development.
+- Increase cash on hand by 100: F1
+- Teleport to hub portal: F2
+- Teleport to next dungeon floor portal: F3
