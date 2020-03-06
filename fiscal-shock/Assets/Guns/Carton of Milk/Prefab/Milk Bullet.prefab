@@ -43,6 +43,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 10
   bulletSpeed: 60
+  target: {fileID: 0}
+  rb: {fileID: 0}
+  player: {fileID: 0}
 --- !u!114 &5517404640620311513
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,6 +61,9 @@ MonoBehaviour:
   strength: 10
   bulletCost: 1
   accuracy: 6
+  rotation: 70
+  continuous: 0
+  missile: 0
   bulletPrefab: {fileID: 0}
 --- !u!1001 &5175639041829475714
 PrefabInstance:

@@ -18,7 +18,7 @@ public class EnemyHealth: MonoBehaviour
     }
 
     void OnCollisionEnter(Collision col) {
-        if (col.gameObject.tag == "Bullet" || col.gameObject.tag == "Missle") {
+        if (col.gameObject.tag == "Bullet" || col.gameObject.tag == "Missile") {
             if (col.gameObject == lastBulletCollision){
                 return;
             }
@@ -45,7 +45,7 @@ public class EnemyHealth: MonoBehaviour
                 explode = Instantiate(explosion, gameObject.transform.position + transform.up, gameObject.transform.rotation);
                 AudioSource hitSound = explode.GetComponent<AudioSource>();
                 hitSound.PlayOneShot(hitSoundClip, 0.4f * Settings.volume);
-            } else if(col.gameObject.tag == "Missle"){
+            } else if(col.gameObject.tag == "Missile"){
                 explode = Instantiate(bigExplosion, gameObject.transform.position + transform.up, gameObject.transform.rotation);
                 AudioSource hitSound = explode.GetComponent<AudioSource>();
                 hitSound.PlayOneShot(hitSoundClip, 0.65f * Settings.volume);

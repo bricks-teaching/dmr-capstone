@@ -703,8 +703,6 @@ MonoBehaviour:
   gun1: {fileID: 6393630796384626831, guid: 0d6fe316390b5d84e81412caded02813, type: 3}
   gun2: {fileID: 7624205853972234779, guid: 3a096803ec33e4f418a5d5d3d88b1aed, type: 3}
   crossHair: {fileID: 1000013466574904, guid: b38ee9e7d5f46784eafbaadf147c7a33, type: 3}
-  debugger: {fileID: 3024218742173863289, guid: 6661f652006d0b97190e1a60269e5c2f,
-    type: 3}
 --- !u!82 &4429673032618852596
 AudioSource:
   m_ObjectHideFlags: 0

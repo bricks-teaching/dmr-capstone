@@ -50,6 +50,9 @@ MonoBehaviour:
   strength: 10
   bulletCost: 3
   accuracy: 6
+  rotation: -200
+  continuous: 0
+  missile: 0
   bulletPrefab: {fileID: 3815249681377447051, guid: cacd24e6fa856834b8ae25144e1213d5,
     type: 3}
 --- !u!1 &4145652567811039918
@@ -226,6 +229,9 @@ MonoBehaviour:
   strength: 10
   bulletCost: 1
   accuracy: 6
+  rotation: 0
+  continuous: 0
+  missile: 0
   bulletPrefab: {fileID: 3815249681377447051, guid: cacd24e6fa856834b8ae25144e1213d5,
     type: 3}
 --- !u!1 &4658682082987931434

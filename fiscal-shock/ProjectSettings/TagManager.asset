@@ -10,6 +10,9 @@ TagManager:
   - Wall
   - Obstacle
   - Decoration
+  - Ground
+  - Missile
+  - Missle
   layers:
   - Default
   - TransparentFX

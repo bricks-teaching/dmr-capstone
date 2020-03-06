@@ -19,8 +19,8 @@ public class PlayerShoot : MonoBehaviour {
     private Transform weaponPosition;
     private bool rest = false;
     public RaycastHit hit;
-    private ArrayList missles = new ArrayList();
-    public GameObject debugger;
+    private ArrayList missiles = new ArrayList();
+    //public GameObject debugger;
     private float screenX;
     private float screenY;
 
@@ -37,9 +37,9 @@ public class PlayerShoot : MonoBehaviour {
     public void Update() {
         if(weapon == null){return;}
         WeaponStats weaponScript = weapon.GetComponent(typeof(WeaponStats)) as WeaponStats;
-        foreach( GameObject missle in missles){
-            BulletBehavior bulletScript = missle.GetComponent(typeof(BulletBehavior)) as BulletBehavior;
-            bulletScript.rb.velocity = (bulletScript.target.position - missle.transform.position).normalized * bulletScript.bulletSpeed;
+        foreach( GameObject missile in missiles){
+            BulletBehavior bulletScript = missile.GetComponent(typeof(BulletBehavior)) as BulletBehavior;
+            bulletScript.rb.velocity = (bulletScript.target.position - missile.transform.position).normalized * bulletScript.bulletSpeed;
         }
         if(weaponScript.continuous){
             if (Input.GetMouseButtonDown(0) && !weaponChanging && Time.timeScale > 0)
@@ -68,9 +68,9 @@ public class PlayerShoot : MonoBehaviour {
 					return;
 				}
                 Transform target = null;
-                if(weaponScript.missle && Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity)){
+                if(weaponScript.missile && Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity)){
                     Debug.Log(hit.collider);
-                    Instantiate(debugger, transform.position + (transform.TransformDirection(Vector3.forward) * hit.distance), transform.rotation);
+                    //Instantiate(debugger, transform.position + (transform.TransformDirection(Vector3.forward) * hit.distance), transform.rotation);
                     target = hit.collider.transform;
                 }
                 fireBullet(10 - weaponScript.accuracy, weaponScript.strength, weaponScript.bulletPrefab, 1, target);
@@ -135,7 +135,7 @@ public class PlayerShoot : MonoBehaviour {
         if(target != null){
             bulletScript.target = target;
             bulletScript.player = this;
-            missles.Add(bullet);
+            missiles.Add(bullet);
         } else if(accuracy > 0.1f) {
         Vector3 rotationVector = bullet.transform.rotation.eulerAngles;
         rotationVector.x += ((Random.value * 2) - 1) * accuracy;
@@ -176,8 +176,8 @@ public class PlayerShoot : MonoBehaviour {
         crossHair.SetActive(false);
     }
 
-    public void removeMissle(GameObject missle){
-        Debug.Log("removing missle");
-        missles.Remove(missle);
+    public void removeMissile(GameObject missile){
+        Debug.Log("removing missile");
+        missiles.Remove(missile);
     }
 }

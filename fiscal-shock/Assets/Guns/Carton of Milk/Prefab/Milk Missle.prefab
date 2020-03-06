@@ -136,7 +136,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 6d7b1b7dbbae8b04999632ec36943117,
         type: 3}
       propertyPath: m_TagString
-      value: Missle
+      value: Missile
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d7b1b7dbbae8b04999632ec36943117, type: 3}

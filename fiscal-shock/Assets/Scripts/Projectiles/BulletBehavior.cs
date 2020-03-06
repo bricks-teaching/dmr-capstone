@@ -20,7 +20,7 @@ public class BulletBehavior : MonoBehaviour
 
     void OnDestroy(){
         if(player != null){
-            player.removeMissle(gameObject);
+            player.removeMissile(gameObject);
         }
     }
 

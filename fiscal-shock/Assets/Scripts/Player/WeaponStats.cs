@@ -10,6 +10,6 @@ public class WeaponStats : MonoBehaviour
     public float accuracy = 6;
     public float rotation = 0;
     public bool continuous = false;
-    public bool missle = false;
+    public bool missile = false;
     public GameObject bulletPrefab;
 }

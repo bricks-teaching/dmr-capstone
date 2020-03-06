@@ -334,7 +334,7 @@ MonoBehaviour:
   accuracy: 6
   rotation: 0
   continuous: 0
-  missle: 0
+  missile: 0
   bulletPrefab: {fileID: 3815249681377447051, guid: cacd24e6fa856834b8ae25144e1213d5,
     type: 3}
 --- !u!1 &7624205853972234779
@@ -387,8 +387,8 @@ MonoBehaviour:
   strength: 100
   bulletCost: 22
   accuracy: 6
-  rotation: 18
+  rotation: 7
   continuous: 0
-  missle: 1
+  missile: 1
   bulletPrefab: {fileID: 6968642178780635194, guid: 72eecee5768406a40b01125b8161bff6,
     type: 3}
