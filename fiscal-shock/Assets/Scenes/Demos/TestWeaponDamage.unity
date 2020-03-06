@@ -1980,6 +1980,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: First Person Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5086685436175638547, guid: bc7ef44de2f694932a9d0fc4d3a3d809,
+        type: 3}
+      propertyPath: gun1
+      value: 
+      objectReference: {fileID: 6393630796384626831, guid: 0d6fe316390b5d84e81412caded02813,
+        type: 3}
+    - target: {fileID: 5086685436175638547, guid: bc7ef44de2f694932a9d0fc4d3a3d809,
+        type: 3}
+      propertyPath: gun2
+      value: 
+      objectReference: {fileID: 7624205853972234779, guid: 3a096803ec33e4f418a5d5d3d88b1aed,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc7ef44de2f694932a9d0fc4d3a3d809, type: 3}
 --- !u!1 &623775048 stripped
@@ -3564,8 +3576,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireSoundClip: {fileID: 8300000, guid: c6abf3855d73e4345b8c1df9fbc40e9b, type: 3}
-  controller: {fileID: 1260899333}
-  volume: 1
   gun1: {fileID: 593542258292847274, guid: 9f1f4e7a95ae91b099fa376e0f54e439, type: 3}
   gun2: {fileID: 8662258556512106578, guid: 8768913d8e716a2408503e75059f31df, type: 3}
   crossHair: {fileID: 738995602}
@@ -4868,9 +4878,10 @@ MonoBehaviour:
   pausePanel: {fileID: 1527165287}
   optionsPanel: {fileID: 536073312}
   quitPanel: {fileID: 2016211399}
-  controller: {fileID: 1260899333}
   player: {fileID: 0}
   crossHair: {fileID: 738995602}
+  volumeSlider: {fileID: 0}
+  mouseSlider: {fileID: 0}
 --- !u!1 &1932408370
 GameObject:
   m_ObjectHideFlags: 0
