@@ -27,12 +27,17 @@ case $1 in
     ;;
 esac
 
-AUTHOR_NAME=`git log -1 "$TRAVIS_COMMIT" --pretty="%aN"`
-COMMIT_SUBJECT=`git log -1 "$TRAVIS_COMMIT" --pretty="%s"`
-if [[ ! -z "$TRAVIS_PULL_REQUEST_BRANCH" ]]; then COMMIT_SUBJECT="(#${TRAVIS_PULL_REQUEST}) ${TRAVIS_PULL_REQUEST_BRANCH}"; fi
-COMMIT_MESSAGE=`git log -1 "$TRAVIS_COMMIT" --pretty="%b" | sed -E ':a;N;$!ba;s/\r{0,1}\n/\\n/g'`
+AUTHOR_NAME=`git log -1 $TRAVIS_COMMIT --pretty="%aN"`
+COMMIT_SUBJECT=`git log -1 $TRAVIS_COMMIT --pretty="%s"`
+if [[ ! -z "$TRAVIS_PULL_REQUEST_BRANCH" ]]; then COMMIT_SUBJECT="(#${TRAVIS_PULL_REQUEST}) ${TRAVIS_PULL_REQUEST_BRANCH} -> ${TRAVIS_BRANCH}"; fi
+COMMIT_MESSAGE=`git log -1 $TRAVIS_COMMIT --pretty="%B"`
 
-CREDITS="$AUTHOR_NAME authored"
+CREDITS="${AUTHOR_NAME} authored"
+echo `git log -1`
+echo `git log -1 $TRAVIS_COMMIT `
+echo "author: ${AUTHOR_NAME}"
+echo "subject: ${COMMIT_SUBJECT}"
+echo "message: ${COMMIT_MESSAGE}"
 
 if [[ "$TRAVIS_PULL_REQUEST" != "false" ]]; then
   URL="https://github.com/$TRAVIS_REPO_SLUG/pull/$TRAVIS_PULL_REQUEST"

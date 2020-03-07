@@ -41,9 +41,9 @@ jobs:
     - echo -e "machine github.com\n  login $GITHUB_TOKEN" > ~/.netrc
     - git lfs pull
     - export TEST_PLATFORM=editmode
-    - chmod +x ./ci/docker_test.sh && ./ci/docker_test.sh
+    - bash ./ci/docker_test.sh
     - export TEST_PLATFORM=playmode
-    - chmod +x ./ci/docker_test.sh && ./ci/docker_test.sh
+    - bash ./ci/docker_test.sh
 
   - stage: docs
     name: "Doxygen"
@@ -73,9 +73,9 @@ jobs:
     - docker pull $IMAGE_NAME
     - echo -e "machine github.com\n  login $GITHUB_TOKEN" > ~/.netrc
     - git lfs pull
-    - chmod +x ./ci/docker_build.sh && ./ci/docker_build.sh
-    - cd Builds; tar -czf ../FiscalShock-linux64.tar.gz FiscalShock-linux64/*
-    env: IMAGE_NAME=gableroux/unity3d:2019.3.0f6 BUILD_TARGET=FiscalShock-linux64 OPTS=-force-glcore
+    - bash ./ci/docker_build.sh
+    - cd Builds; tar -czf ../FiscalShock-linux64.tar.gz FiscalShock_linux64/*
+    env: IMAGE_NAME=gableroux/unity3d:2019.3.0f6 BUILD_TARGET=FiscalShock_linux64 OPTS=-force-glcore
     deploy:
       provider: releases
       api_key: $GITHUB_TOKEN
@@ -97,11 +97,10 @@ jobs:
     - docker pull $IMAGE_NAME
     - echo -e "machine github.com\n  login $GITHUB_TOKEN" > ~/.netrc
     - git lfs pull
-    - chmod +x ./ci/docker_build.sh &&./ci/docker_build.sh
-    - cd Builds; zip -r -9 ../FiscalShock-win64.zip FiscalShock-win64
-
+    - bash ./ci/docker_build.sh
+    - cd Builds; zip -r -9 ../FiscalShock-win64.zip FiscalShock_win64
     name: "Build and draft Windows64 (OpenGL)"
-    env: IMAGE_NAME=gableroux/unity3d:2019.3.0f6-windows BUILD_TARGET=FiscalShock-win64 OPTS=-force-glcore
+    env: IMAGE_NAME=gableroux/unity3d:2019.3.0f6-windows BUILD_TARGET=FiscalShock_win64 OPTS=-force-glcore
     if: type != pull_request
     deploy:
       provider: releases
@@ -121,10 +120,10 @@ jobs:
     - docker pull $IMAGE_NAME
     - echo -e "machine github.com\n  login $GITHUB_TOKEN" > ~/.netrc
     - git lfs pull
-    - chmod +x ./ci/docker_build.sh && ./ci/docker_build.sh
-    - cd Builds; tar -czf ../FiscalShock-mac.tar.gz FiscalShock-mac/*
+    - bash ./ci/docker_build.sh
+    - cd Builds; tar -czf ../FiscalShock-mac.tar.gz FiscalShock_mac/*
     name: "Build and draft macOS (Metal)"
-    env: BUILD_TARGET=FiscalShock-mac IMAGE_NAME=gableroux/unity3d:2019.3.0f6-mac
+    env: BUILD_TARGET=FiscalShock_mac IMAGE_NAME=gableroux/unity3d:2019.3.0f6-mac
     if: type != pull_request
     deploy:
       provider: releases
