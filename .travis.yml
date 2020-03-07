@@ -1,0 +1,140 @@
+os: linux
+
+env:
+  global:
+  - BUILD_NAME=FiscalShock
+  - IMAGE_NAME=gableroux/unity3d:2019.3.0f6
+
+before_deploy:
+- git config --local user.name "Deploy Moar RAM"
+- git config --local user.email "52723879+travis-pantry-raid@users.noreply.github.com"
+- export RLS_TAG="auto-${TRAVIS_BUILD_NUMBER}-$(git log --format=%h -1)"
+- if [[ $(git tag -l ${RLS_TAG}) != "${RLS_TAG}" ]]; then git tag $RLS_TAG; git push origin refs/tags/${RLS_TAG}; fi
+
+after_failure:
+- bash ./ci/discord_hook.sh failure ${WEBHOOK_URL}
+
+addons:
+  apt:
+    packages:
+    - doxygen
+
+services:
+- docker
+
+stages:
+- test
+- build
+- docs
+
+################################################################################
+
+jobs:
+  include:
+  - stage: test
+    name: "Tests"
+    script:
+    - openssl aes-256-cbc -K $encrypted_66087b1c9a02_key -iv $encrypted_66087b1c9a02_iv -in ./Unity_v2019.x.ulf.enc -out ./Unity_v2019.x.ulf -d
+    - export UNITY_LICENSE_CONTENT=`cat Unity_v2019.x.ulf`
+    - rm Unity_v2019.x.ulf
+    - docker pull $IMAGE_NAME
+    - echo -e "machine github.com\n  login $GITHUB_TOKEN" > ~/.netrc
+    - git lfs pull
+    - export TEST_PLATFORM=editmode
+    - chmod +x ./ci/docker_test.sh && ./ci/docker_test.sh
+    - export TEST_PLATFORM=playmode
+    - chmod +x ./ci/docker_test.sh && ./ci/docker_test.sh
+
+  - stage: docs
+    name: "Doxygen"
+    script: doxygen Doxyfile
+    if: type != pull_request
+    deploy:
+      provider: pages:git
+      token: $GITHUB_TOKEN
+      edge: true
+      commit_message: Update Doxygen %{git_sha}
+      verbose: true
+      project_name: Fiscal Shock
+      local_dir: docs
+      skip_cleanup: true
+      on:
+        branch: master
+
+################################################################################
+
+  - stage: build
+    name: "Build and draft Linux64 (OpenGL)"
+    env: IMAGE_NAME=gableroux/unity3d:2019.3.0f6 BUILD_TARGET=StandaloneLinux64 OPTS=-force-glcore
+    #if: type != pull_request  # uncomment to disable building on PRs
+    script:
+    - openssl aes-256-cbc -K $encrypted_66087b1c9a02_key -iv $encrypted_66087b1c9a02_iv -in ./Unity_v2019.x.ulf.enc -out ./Unity_v2019.x.ulf -d
+    - export UNITY_LICENSE_CONTENT=`cat Unity_v2019.x.ulf`
+    - rm Unity_v2019.x.ulf
+    - docker pull $IMAGE_NAME
+    - echo -e "machine github.com\n  login $GITHUB_TOKEN" > ~/.netrc
+    - git lfs pull
+    - chmod +x ./ci/docker_build.sh && ./ci/docker_build.sh
+    - tar -czf FiscalShock-linux64.tar.gz Builds/StandaloneLinux64/*
+    deploy:
+      provider: releases
+      api_key: $GITHUB_TOKEN
+      skip_cleanup: true
+      file: FiscalShock-linux64.tar.gz
+      draft: true
+      overwrite: true
+      prerelease: true
+      # First part of release only
+      name: "Fiscal Shock ${RLS_TAG}"
+      body: "This release was built automatically."
+      on:
+        branch: master
+
+  - script:
+    - openssl aes-256-cbc -K $encrypted_66087b1c9a02_key -iv $encrypted_66087b1c9a02_iv -in ./Unity_v2019.x.ulf.enc -out ./Unity_v2019.x.ulf -d
+    - export UNITY_LICENSE_CONTENT=`cat Unity_v2019.x.ulf`
+    - rm Unity_v2019.x.ulf
+    - docker pull $IMAGE_NAME
+    - echo -e "machine github.com\n  login $GITHUB_TOKEN" > ~/.netrc
+    - git lfs pull
+    - export BUILD_TARGET=StandaloneWindows64; export OPTS=-force-glcore
+    - chmod +x ./ci/docker_build.sh &&./ci/docker_build.sh
+    - zip -r -9 FiscalShock-win64.zip Builds/StandaloneWindows64/*
+
+    name: "Build and draft Windows64 (OpenGL)"
+    env: IMAGE_NAME=gableroux/unity3d:2019.3.0f6-windows
+    if: type != pull_request
+    deploy:
+      provider: releases
+      api_key: $GITHUB_TOKEN
+      skip_cleanup: true
+      file:
+      - FiscalShock-win64.zip
+      draft: true
+      overwrite: true
+      on:
+        branch: master
+
+  - script:
+    - openssl aes-256-cbc -K $encrypted_66087b1c9a02_key -iv $encrypted_66087b1c9a02_iv -in ./Unity_v2019.x.ulf.enc -out ./Unity_v2019.x.ulf -d
+    - export UNITY_LICENSE_CONTENT=`cat Unity_v2019.x.ulf`
+    - rm Unity_v2019.x.ulf
+    - docker pull $IMAGE_NAME
+    - echo -e "machine github.com\n  login $GITHUB_TOKEN" > ~/.netrc
+    - git lfs pull
+    - chmod +x ./ci/docker_build.sh && ./ci/docker_build.sh
+    - tar -czf FiscalShock-mac.tar.gz Builds/StandaloneOSX/*
+    name: "Build and draft macOS (Metal)"
+    env: BUILD_TARGET=StandaloneOSX IMAGE_NAME=gableroux/unity3d:2019.3.0f6-mac
+    if: type != pull_request
+    deploy:
+      provider: releases
+      api_key: $GITHUB_TOKEN
+      skip_cleanup: true
+      file: FiscalShock-mac.tar.gz
+      draft: true
+      overwrite: true
+      on:
+        branch: master
+
+################################################################################
