@@ -65,7 +65,6 @@ jobs:
 
   - stage: build
     name: "Build and draft Linux64 (OpenGL)"
-    env: IMAGE_NAME=gableroux/unity3d:2019.3.0f6 BUILD_TARGET=StandaloneLinux64 OPTS=-force-glcore
     #if: type != pull_request  # uncomment to disable building on PRs
     script:
     - openssl aes-256-cbc -K $encrypted_66087b1c9a02_key -iv $encrypted_66087b1c9a02_iv -in ./Unity_v2019.x.ulf.enc -out ./Unity_v2019.x.ulf -d
@@ -75,7 +74,8 @@ jobs:
     - echo -e "machine github.com\n  login $GITHUB_TOKEN" > ~/.netrc
     - git lfs pull
     - chmod +x ./ci/docker_build.sh && ./ci/docker_build.sh
-    - tar -czf FiscalShock-linux64.tar.gz Builds/StandaloneLinux64/*
+    - cd Builds; tar -czf ../FiscalShock-linux64.tar.gz FiscalShock-linux64/*
+    env: IMAGE_NAME=gableroux/unity3d:2019.3.0f6 BUILD_TARGET=FiscalShock-linux64 OPTS=-force-glcore
     deploy:
       provider: releases
       api_key: $GITHUB_TOKEN
@@ -97,12 +97,11 @@ jobs:
     - docker pull $IMAGE_NAME
     - echo -e "machine github.com\n  login $GITHUB_TOKEN" > ~/.netrc
     - git lfs pull
-    - export BUILD_TARGET=StandaloneWindows64; export OPTS=-force-glcore
     - chmod +x ./ci/docker_build.sh &&./ci/docker_build.sh
-    - zip -r -9 FiscalShock-win64.zip Builds/StandaloneWindows64/*
+    - cd Builds; zip -r -9 ../FiscalShock-win64.zip FiscalShock-win64
 
     name: "Build and draft Windows64 (OpenGL)"
-    env: IMAGE_NAME=gableroux/unity3d:2019.3.0f6-windows
+    env: IMAGE_NAME=gableroux/unity3d:2019.3.0f6-windows BUILD_TARGET=FiscalShock-win64 OPTS=-force-glcore
     if: type != pull_request
     deploy:
       provider: releases
@@ -123,9 +122,9 @@ jobs:
     - echo -e "machine github.com\n  login $GITHUB_TOKEN" > ~/.netrc
     - git lfs pull
     - chmod +x ./ci/docker_build.sh && ./ci/docker_build.sh
-    - tar -czf FiscalShock-mac.tar.gz Builds/StandaloneOSX/*
+    - cd Builds; tar -czf ../FiscalShock-mac.tar.gz FiscalShock-mac/*
     name: "Build and draft macOS (Metal)"
-    env: BUILD_TARGET=StandaloneOSX IMAGE_NAME=gableroux/unity3d:2019.3.0f6-mac
+    env: BUILD_TARGET=FiscalShock-mac IMAGE_NAME=gableroux/unity3d:2019.3.0f6-mac
     if: type != pull_request
     deploy:
       provider: releases
