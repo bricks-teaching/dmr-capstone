@@ -1,5 +1,10 @@
 os: linux
 
+# prevent branch builds that aren't PRs
+branches:
+  only:
+  - master
+
 env:
   global:
   - BUILD_NAME=FiscalShock
