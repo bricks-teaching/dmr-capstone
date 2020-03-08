@@ -49,6 +49,7 @@ namespace FiscalShock.Procedural {
         private GameObject wallOrganizer;
         private GameObject enemyOrganizer;
         private GameObject thingOrganizer;
+        public List<BakedNav> bakedNavMeshes { get; } = new List<BakedNav>();
 
         public void Start() {
             initPRNG();
@@ -119,6 +120,17 @@ namespace FiscalShock.Procedural {
             NavMeshSurface[] navs = groundOrganizer.GetComponents<NavMeshSurface>();
             foreach (NavMeshSurface nav in navs) {
                 nav.BuildNavMesh();
+                nav.enabled = false;
+            }
+            // Get triangulation of each, requires turning off all other navmeshes, because the triangulation functions check ALL active navmeshes
+            foreach (NavMeshSurface nav in navs) {
+                nav.enabled = true;
+                bakedNavMeshes.Add(new BakedNav(nav.agentTypeID, NavMesh.CalculateTriangulation()));
+                nav.enabled = false;
+            }
+            // Finally, enable all of them
+            foreach (NavMeshSurface nav in navs) {
+                nav.enabled = true;
             }
         }
 
