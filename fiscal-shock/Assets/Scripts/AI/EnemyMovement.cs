@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyMovement : MonoBehaviour {
     [Tooltip("The speed at which the object moves.")]
@@ -27,13 +28,24 @@ public class EnemyMovement : MonoBehaviour {
     private Rigidbody enemyRb;
     private EnemyShoot shootScript;
     public AnimationManager animationManager;
+    public NavMeshAgent nma;
 
     // Start is called before the first frame update
     void Start() {
+        nma = GetComponent<NavMeshAgent>();
+        // Snap enemy to the ground (navmesh)
+        NavMeshHit closestHit;
+        if (NavMesh.SamplePosition(transform.position, out closestHit, 100f, NavMesh.AllAreas)) {
+            transform.position = closestHit.position;
+            nma.enabled = true;
+        } else {
+            Debug.Log("Couldn't hit navmesh!!");
+        }
+
         enemyRb = GetComponent<Rigidbody>();
         shootScript = GetComponent<EnemyShoot>();
-        enemyRb.useGravity = false;
-        enemyRb.isKinematic = true;
+        //enemyRb.useGravity = false;
+        //enemyRb.isKinematic = true;
         safeRadiusAvg = (safeRadiusMax + safeRadiusMin) / 2;
         destinationRefreshDistance = safeRadiusAvg - safeRadiusMin;
 
@@ -41,6 +53,8 @@ public class EnemyMovement : MonoBehaviour {
             player = GameObject.FindGameObjectWithTag("Player");
         }
         prevPlayerFlatPos = new Vector2(player.transform.position.x, player.transform.position.z);
+
+        nma.SetDestination(player.transform.position);
     }
 
     void FixedUpdate() {
@@ -48,6 +62,7 @@ public class EnemyMovement : MonoBehaviour {
             // TODO drunkard's walk
             animationManager.playIdleAnimation();
             shootScript.spottedPlayer = false;
+            nma.ResetPath();
             return;
         }
         shootScript.spottedPlayer = true;
@@ -72,17 +87,19 @@ public class EnemyMovement : MonoBehaviour {
         distanceFromPlayer = Vector2.Distance(playerFlatPosition, flatPosition);
 
         // TODO: Some of this movement might still be a little buggy, but it's less likely the enemy will sink to the ground now =|
-        enemyRb.MoveRotation(Quaternion.Slerp(gameObject.transform.rotation, rotationToPlayer, Time.fixedDeltaTime * rotationSpeed));
+        //enemyRb.MoveRotation(Quaternion.Slerp(gameObject.transform.rotation, rotationToPlayer, Time.fixedDeltaTime * rotationSpeed));
 
-        if (distanceFromPlayer > safeRadiusMax) {
-            enemyRb.MovePosition(transform.position + (playerDirection * movementSpeed * Time.fixedDeltaTime));
+        if (distanceFromPlayer > safeRadiusMax && !nma.pathPending) {
+            //enemyRb.MovePosition(transform.position + (playerDirection * movementSpeed * Time.fixedDeltaTime));
+            nma.SetDestination(player.transform.position);
         }
 
-        if (distanceFromPlayer < safeRadiusMin) {
-            enemyRb.MovePosition(transform.position - (playerDirection * movementSpeed * Time.fixedDeltaTime));
+        if (distanceFromPlayer < safeRadiusMin && !nma.pathPending) {
+            //enemyRb.MovePosition(transform.position - (playerDirection * movementSpeed * Time.fixedDeltaTime));
+            nma.SetDestination(player.transform.position);
         }
 
-        if (distanceFromPlayer <= safeRadiusMax && distanceFromPlayer >= safeRadiusMin) {
+       if (distanceFromPlayer <= safeRadiusMax && distanceFromPlayer >= safeRadiusMin) {
             // If the enemy hasn't reached its destination and the player hasn't moved out of the safe radius destination reach
             if (!destinationReached && Vector2.Distance(playerFlatPosition, prevPlayerFlatPos) < destinationRefreshDistance) {
                 // The next position the player would move to in a straight line to the destination.
@@ -99,7 +116,11 @@ public class EnemyMovement : MonoBehaviour {
                     destinationReached = true;
                 }
 
-                enemyRb.MovePosition(new Vector3(targetPosition.x, transform.position.y, targetPosition.y));
+                Vector3 target3d = new Vector3(targetPosition.x, player.transform.position.y, targetPosition.y);
+                //enemyRb.MovePosition(new Vector3(targetPosition.x, transform.position.y, targetPosition.y));
+                if (!nma.pathPending) {
+                    nma.SetDestination(target3d);
+                }
             }
 
             else if (!destinationReached) {
