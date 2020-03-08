@@ -27,13 +27,15 @@ case $1 in
     ;;
 esac
 
-AUTHOR_NAME=`git log -1 $TRAVIS_COMMIT --pretty="%aN"`
-COMMIT_SUBJECT=`git log -1 $TRAVIS_COMMIT --pretty="%s"`
+AUTHOR_NAME=`git log -1 @ --pretty="%aN"`
+COMMIT_SUBJECT=`git log -1 @ --pretty="%s"`
 if [[ ! -z "$TRAVIS_PULL_REQUEST_BRANCH" ]]; then COMMIT_SUBJECT="(#${TRAVIS_PULL_REQUEST}) ${TRAVIS_PULL_REQUEST_BRANCH} -> ${TRAVIS_BRANCH}"; fi
-COMMIT_MESSAGE=`git log -1 $TRAVIS_COMMIT --pretty="%B"`
+COMMIT_MESSAGE=`git log -1 @ --pretty="%B"`
 
 CREDITS="${AUTHOR_NAME} authored"
 echo `git log -1`
+echo `git log @ -1`
+echo `git log @~ -1`
 echo `git log -1 $TRAVIS_COMMIT `
 echo "author: ${AUTHOR_NAME}"
 echo "subject: ${COMMIT_SUBJECT}"
