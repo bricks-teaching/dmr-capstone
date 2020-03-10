@@ -66,9 +66,6 @@ public class EnemyShoot : MonoBehaviour {
         rotationVector.x += ((Random.value * 2) - 1) * accuracy;
         rotationVector.y += ((Random.value * 2) - 1) * accuracy;
         rotationVector.z += ((Random.value * 2) - 1) * accuracy;
-        if (gameObject.tag == "Lobber") {
-            rotationVector.y += 5;
-        }
         bullet.transform.rotation = Quaternion.Euler(rotationVector);
         Destroy(bullet, 1f);
     }

@@ -12,7 +12,6 @@ TagManager:
   - Decoration
   - Ground
   - Missile
-  - Missle
   layers:
   - Default
   - TransparentFX
