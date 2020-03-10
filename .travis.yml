@@ -139,7 +139,7 @@ jobs:
     - pushd .; cd Builds; tar -czf ../FiscalShock-mac.tar.gz FiscalShock-mac
     - popd
     name: "Build and draft macOS (OpenGL)"
-    env: BUILD_TARGET=StandaloneOSX IMAGE_NAME=gableroux/unity3d:2019.3.0f6-mac BUILD_DIR=FiscalShock-mac
+    env: BUILD_TARGET=StandaloneOSX IMAGE_NAME=gableroux/unity3d:2019.3.0f6-mac OPTS=-force-glcore BUILD_DIR=FiscalShock-mac
     if: type != pull_request
     deploy:
       provider: releases
