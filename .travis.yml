@@ -48,6 +48,11 @@ jobs:
     script:
     - source ./ci/travis_prepare_workspace.sh
     - bash ./ci/travis_run_tests.sh
+    - echo Testing Linux build
+    - bash ./ci/docker_build.sh
+    env: IMAGE_NAME=gableroux/unity3d:2019.3.0f6 BUILD_TARGET=StandaloneLinux64 OPTS=-force-glcore BUILD_DIR=FiscalShock-linux64
+
+################################################################################
 
   - stage: docs
     name: "Doxygen"
@@ -82,11 +87,12 @@ jobs:
   ############
   - script:
     - source ./ci/travis_prepare_workspace.sh
+    - bash ./ci/lfs_pull.sh
     - bash ./ci/docker_build.sh
     - pushd .; cd Builds; tar -czf ../FiscalShock-linux64.tar.gz FiscalShock-linux64
     - popd
     name: "Build and draft Linux64 (OpenGL)"
-    #if: type != pull_request  # uncomment to disable building on PRs
+    if: type != pull_request
     env: IMAGE_NAME=gableroux/unity3d:2019.3.0f6 BUILD_TARGET=StandaloneLinux64 OPTS=-force-glcore BUILD_DIR=FiscalShock-linux64
     deploy:
       provider: releases
@@ -102,6 +108,7 @@ jobs:
   # ############
   - script:
     - source ./ci/travis_prepare_workspace.sh
+    - bash ./ci/lfs_pull.sh
     - bash ./ci/docker_build.sh
     - pushd .; cd Builds; zip -r -9 ../FiscalShock-win64.zip FiscalShock-win64
     - popd
@@ -123,10 +130,10 @@ jobs:
   ############
   - script:
     - source ./ci/travis_prepare_workspace.sh
+    - bash ./ci/lfs_pull.sh
     - bash ./ci/docker_build.sh
     - pushd .; cd Builds; tar -czf ../FiscalShock-mac.tar.gz FiscalShock-mac
     - popd
-    # Only apply tag on last build
     name: "Build and draft macOS (OpenGL)"
     env: BUILD_TARGET=StandaloneOSX IMAGE_NAME=gableroux/unity3d:2019.3.0f6-mac OPTS=-force-glcore BUILD_DIR=FiscalShock-mac
     if: type != pull_request
