@@ -4,9 +4,12 @@ public class BulletBehavior : MonoBehaviour
 {
     public int damage = 10;
     public int bulletSpeed = 80;
+    public Transform target;
+    public Rigidbody rb;
+    public PlayerShoot player;
 
     void Start() {
-        Rigidbody rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
         rb.velocity = gameObject.transform.forward * bulletSpeed;
     }
 
@@ -14,4 +17,12 @@ public class BulletBehavior : MonoBehaviour
     {
         Destroy(gameObject);
     }
+
+    void OnDestroy(){
+        if(player != null){
+            player.removeMissile(gameObject);
+        }
+    }
+
+    
 }

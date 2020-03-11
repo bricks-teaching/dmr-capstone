@@ -5,6 +5,7 @@ public class EnemyHealth: MonoBehaviour
 {
     public int startingHealth = 30;
     public GameObject explosion;
+    public GameObject bigExplosion;
     public AudioClip hitSoundClip;
     public float pointValue = 20;
     private int totalHealth;
@@ -17,7 +18,7 @@ public class EnemyHealth: MonoBehaviour
     }
 
     void OnCollisionEnter(Collision col) {
-        if (col.gameObject.tag == "Bullet") {
+        if (col.gameObject.tag == "Bullet" || col.gameObject.tag == "Missile") {
             if (col.gameObject == lastBulletCollision){
                 return;
             }
@@ -39,10 +40,17 @@ public class EnemyHealth: MonoBehaviour
 
             // Debug.Log("Damage: " + bullet.damage + " points. Bot has " + totalHealth + " health points remaining");
             // Play sound effect and explosion particle system
-            GameObject explode = Instantiate(explosion, gameObject.transform.position + transform.up, gameObject.transform.rotation);
+            GameObject explode = null;
+            if(col.gameObject.tag == "Bullet"){
+                explode = Instantiate(explosion, gameObject.transform.position + transform.up, gameObject.transform.rotation);
+                AudioSource hitSound = explode.GetComponent<AudioSource>();
+                hitSound.PlayOneShot(hitSoundClip, 0.4f * Settings.volume);
+            } else if(col.gameObject.tag == "Missile"){
+                explode = Instantiate(bigExplosion, gameObject.transform.position + transform.up, gameObject.transform.rotation);
+                AudioSource hitSound = explode.GetComponent<AudioSource>();
+                hitSound.PlayOneShot(hitSoundClip, 0.65f * Settings.volume);
+            }
             explode.transform.parent = gameObject.transform;
-            AudioSource hitSound = explode.GetComponent<AudioSource>();
-            hitSound.PlayOneShot(hitSoundClip, 0.5f * Settings.volume);
             Destroy(explode, 0.9f);
 
             // If bot goes under 50% health, make it look damaged
