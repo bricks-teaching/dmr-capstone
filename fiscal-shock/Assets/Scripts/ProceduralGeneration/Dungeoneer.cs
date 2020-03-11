@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine;
 using FiscalShock.Graphs;
 using ThirdParty;
+using UnityEngine.AI;
 
 /// <summary>
 /// Generates a dungeon floor
@@ -48,6 +49,7 @@ namespace FiscalShock.Procedural {
         private GameObject wallOrganizer;
         private GameObject enemyOrganizer;
         private GameObject thingOrganizer;
+        public List<BakedNav> bakedNavMeshes { get; } = new List<BakedNav>();
 
         public void Start() {
             initPRNG();
@@ -94,8 +96,7 @@ namespace FiscalShock.Procedural {
             dungeonType = GameObject.FindObjectOfType<DungeonType>();
             organizer = new GameObject();
             organizer.name = "Dungeon Parts";
-            groundOrganizer = new GameObject();
-            groundOrganizer.name = "Ground Tiles";
+            groundOrganizer = GameObject.Find("Ground Tiles");
             groundOrganizer.transform.parent = organizer.transform;
             wallOrganizer = new GameObject();
             wallOrganizer.name = "Wall Tiles";
@@ -107,10 +108,30 @@ namespace FiscalShock.Procedural {
             setFloor();
             setWalls();
             randomizeCells();
-            spawnEnemies();
             makeSun();  // just for fun
             makeDelvePoint();
             makeEscapePoint();
+            bakeNavMeshes();
+            // Enemies can only be spawned after baking
+            spawnEnemies();
+        }
+
+        private void bakeNavMeshes() {
+            NavMeshSurface[] navs = groundOrganizer.GetComponents<NavMeshSurface>();
+            foreach (NavMeshSurface nav in navs) {
+                nav.BuildNavMesh();
+                nav.enabled = false;
+            }
+            // Get triangulation of each, requires turning off all other navmeshes, because the triangulation functions check ALL active navmeshes
+            foreach (NavMeshSurface nav in navs) {
+                nav.enabled = true;
+                bakedNavMeshes.Add(new BakedNav(nav.agentTypeID, NavMesh.CalculateTriangulation()));
+                nav.enabled = false;
+            }
+            // Finally, enable all of them
+            foreach (NavMeshSurface nav in navs) {
+                nav.enabled = true;
+            }
         }
 
         private void makeDelvePoint() {
@@ -398,6 +419,7 @@ namespace FiscalShock.Procedural {
                     if (cell.spawnedObject != null) {
                         enemy.transform.position += new Vector3(0, cell.spawnedObject.transform.position.y, 0);
                     }
+                    enemy.transform.position += new Vector3(0, 10, 0);
 
                     // Randomly resize enemy +/- the variation
                     // Example: +/- 15% => [0.85, 1.15] return values

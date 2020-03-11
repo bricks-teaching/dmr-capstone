@@ -17,7 +17,8 @@ GameObject:
   - component: {fileID: 4661802102344205313}
   - component: {fileID: 1787231721965500831}
   - component: {fileID: 8645812413896970740}
-  m_Layer: 0
+  - component: {fileID: 6130288473819772421}
+  m_Layer: 10
   m_Name: blasterA
   m_TagString: Blaster
   m_Icon: {fileID: 0}
@@ -32,7 +33,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 358738656169530444}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.7964315, y: 0.5, z: -21.817991}
+  m_LocalPosition: {x: 4.7964315, y: 0, z: -21.817991}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children:
   - {fileID: 5179390179959176605}
@@ -65,7 +66,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
@@ -89,6 +90,7 @@ MonoBehaviour:
   visionRadius: 35
   player: {fileID: 0}
   animationManager: {fileID: 8645812413896970740}
+  nma: {fileID: 0}
 --- !u!114 &3393988917688406179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,7 +110,7 @@ MonoBehaviour:
   botSize: 2
   botDamage: 3
   botAccuracy: 10
-  botRange: 40
+  botRange: 6
   botRate: 1.7
   gunHeight: 0
   enemyMovement: {fileID: 7639448774427610925}
@@ -274,6 +276,28 @@ MonoBehaviour:
     - {fileID: 7400000, guid: 27446eda311e117db967810bb3842a16, type: 2}
     - {fileID: 7400000, guid: 0a34d5ed3630b67149538f36b6ba5a44, type: 2}
     - {fileID: 7400000, guid: 18cc9da00bf85f4bd867427f0028e40d, type: 2}
+--- !u!195 &6130288473819772421
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 358738656169530444}
+  m_Enabled: 0
+  m_AgentTypeID: -1372625422
+  m_Radius: 0.53
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 180
+  m_StoppingDistance: 1
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 16
+  m_BaseOffset: 2
+  m_WalkableMask: 1
+  m_ObstacleAvoidanceType: 1
 --- !u!1 &697954628164564041
 GameObject:
   m_ObjectHideFlags: 0
@@ -283,7 +307,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6947588385874378466}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -314,7 +338,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5179390179959176605}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Armature.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -345,7 +369,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8133069088117056767}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Antennae_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -375,7 +399,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5130084805531788338}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Arm_R.002_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -405,7 +429,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 573824668798353789}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ArmIK_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -436,7 +460,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1460513896011905797}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Arm_R.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -467,7 +491,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7310625864140947130}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ArmIK_L_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -499,7 +523,7 @@ GameObject:
   - component: {fileID: 4217263317296783612}
   - component: {fileID: 7003752213924993011}
   - component: {fileID: 7305616340843342285}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -688,7 +712,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6296301831012039329}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Body 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -721,7 +745,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1098070810003860956}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Antennae
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -752,7 +776,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5630493725459396438}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Arm_L.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -783,7 +807,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 396985090846978869}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ArmIK_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -814,7 +838,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7584233490792214250}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ArmIK_R_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -844,7 +868,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 674430697595970091}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Hemi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -874,7 +898,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6299103732289006949}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Arm_L.002_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -904,7 +928,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6390042157382065482}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Arm_L.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -935,7 +959,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8061785936856111566}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Arm_R.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -966,7 +990,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1976330824503845695}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
