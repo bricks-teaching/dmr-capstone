@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6271837897650870561}
   - component: {fileID: 2804880813208448851}
   - component: {fileID: 626417483399604449}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Mesh20 Group14 Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7502971455215876291}
-  m_Layer: 0
+  - component: {fileID: 885516592}
+  m_Layer: 8
   m_Name: market-stand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,6 +130,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!65 &885516592
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6792748828104542928}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.1562254, y: 0.09326202, z: 2.1206663}
+  m_Center: {x: -1.0019438, y: 2.1335702, z: -1.0720192}
 --- !u!1 &8857028312023442165
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,7 +153,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6203681047733455429}
   - component: {fileID: 8419520478064741024}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Spot Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
