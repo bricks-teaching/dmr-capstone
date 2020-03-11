@@ -17,6 +17,10 @@ public class PlayerShoot : MonoBehaviour {
     public GameObject gun2;
     public GameObject crossHair;
     private Transform weaponPosition;
+    private bool rest = false;
+    public RaycastHit hit;
+    private ArrayList missiles = new ArrayList();
+    //public GameObject debugger;
     private float screenX;
     private float screenY;
 
@@ -31,14 +35,47 @@ public class PlayerShoot : MonoBehaviour {
     }
 
     public void Update() {
-        if (Input.GetMouseButtonDown(0) && !weaponChanging && Time.timeScale > 0) {
-            WeaponStats weaponScript = weapon.GetComponent(typeof(WeaponStats)) as WeaponStats;
-            if (PlayerFinance.cashOnHand < weaponScript.bulletCost) {
-                // TODO play sound fx
-                return;
+        if(weapon == null){return;}
+        WeaponStats weaponScript = weapon.GetComponent(typeof(WeaponStats)) as WeaponStats;
+        foreach( GameObject missile in missiles){
+            BulletBehavior bulletScript = missile.GetComponent(typeof(BulletBehavior)) as BulletBehavior;
+            bulletScript.rb.velocity = (bulletScript.target.position - missile.transform.position).normalized * bulletScript.bulletSpeed;
+        }
+        if(weaponScript.continuous){
+            if (Input.GetMouseButtonDown(0) && !weaponChanging && Time.timeScale > 0)
+            {
+                fireSound.PlayOneShot(fireSoundClip, 0.5f);
             }
-            fireBullet(10 - weaponScript.accuracy, weaponScript.strength, weaponScript.bulletPrefab);
-            PlayerFinance.cashOnHand -= weaponScript.bulletCost;
+            if (Input.GetMouseButton(0) && !weaponChanging && Time.timeScale > 0)
+            {
+				if (PlayerFinance.cashOnHand < weaponScript.bulletCost) {
+					// TODO play sound fx
+					return;
+				}
+                if(rest){
+                    fireBullet(10 - weaponScript.accuracy, weaponScript.strength, weaponScript.bulletPrefab, 0f, null);
+                } else {
+                    fireBullet(10 - weaponScript.accuracy, weaponScript.strength, weaponScript.bulletPrefab, 0.09f, null);
+                    PlayerFinance.cashOnHand -= weaponScript.bulletCost;
+                }
+                rest = !rest;
+            }
+        } else{ 
+            if (Input.GetMouseButtonDown(0) && !weaponChanging && Time.timeScale > 0)
+            {
+				if (PlayerFinance.cashOnHand < weaponScript.bulletCost) {
+					// TODO play sound fx
+					return;
+				}
+                Transform target = null;
+                if(weaponScript.missile && Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity)){
+                    Debug.Log(hit.collider);
+                    //Instantiate(debugger, transform.position + (transform.TransformDirection(Vector3.forward) * hit.distance), transform.rotation);
+                    target = hit.collider.transform;
+                }
+                fireBullet(10 - weaponScript.accuracy, weaponScript.strength, weaponScript.bulletPrefab, 1, target);
+                PlayerFinance.cashOnHand -= weaponScript.bulletCost;
+            }
         }
         // Change weapon
         if (Input.GetKeyDown("1")) {
@@ -63,18 +100,16 @@ public class PlayerShoot : MonoBehaviour {
                 weapon.transform.position = (weapon.transform.position + weaponPosition.position) / 2;
             }
             Vector3 rotationVector = transform.rotation.eulerAngles;
-            if (currentSlot == 1) {
-                rotationVector.x += 70;
-            } else {
-                rotationVector.x -= 200;
-            }
+            rotationVector.x += weaponScript.rotation;
             weapon.transform.rotation = Quaternion.Slerp(weapon.transform.rotation, Quaternion.Euler(rotationVector), Time.fixedDeltaTime * 6);
             // After animation has run set weapon changing to false
             if (animatedTime > 0.9f) {
                 animatedTime = 0f;
                 drawingWeapon = false;
                 weaponChanging = false;
-                crossHair.SetActive(true);
+                if(!weaponScript.continuous){
+                    crossHair.SetActive(true);
+                }
             }
             animatedTime += Time.deltaTime;
         // ---------------------------------------------------------------------
@@ -92,11 +127,16 @@ public class PlayerShoot : MonoBehaviour {
         }
     }
 
-    private void fireBullet(float accuracy, int damage, GameObject bulletPrefab) {
-        fireSound.PlayOneShot(fireSoundClip, Settings.volume);
+    private void fireBullet(float accuracy, int damage, GameObject bulletPrefab, float noise, Transform target) {
+        fireSound.PlayOneShot(fireSoundClip, Settings.volume * noise);
         GameObject bullet = Instantiate(bulletPrefab, weaponPosition.position + weaponPosition.forward, weaponPosition.rotation) as GameObject;
         BulletBehavior bulletScript = bullet.GetComponent(typeof(BulletBehavior)) as BulletBehavior;
         bulletScript.damage = damage;
+        if(target != null){
+            bulletScript.target = target;
+            bulletScript.player = this;
+            missiles.Add(bullet);
+        } else if(accuracy > 0.1f) {
         Vector3 rotationVector = bullet.transform.rotation.eulerAngles;
         rotationVector.x += ((Random.value * 2) - 1) * accuracy;
         rotationVector.y += ((Random.value * 2) - 1) * accuracy;
@@ -106,7 +146,8 @@ public class PlayerShoot : MonoBehaviour {
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(scatterX, scatterY, 0));
         bullet.GetComponent<Rigidbody>().velocity = ray.direction * bulletScript.bulletSpeed;
         bullet.transform.rotation = Quaternion.Euler(rotationVector);
-        Destroy(bullet, 1f);
+        }
+        Destroy(bullet, 2f);
     }
 
     private void LoadWeapon() {
@@ -133,5 +174,10 @@ public class PlayerShoot : MonoBehaviour {
         holsteringWeapon = true;
         // Hide crossHair while weapon is changing
         crossHair.SetActive(false);
+    }
+
+    public void removeMissile(GameObject missile){
+        Debug.Log("removing missile");
+        missiles.Remove(missile);
     }
 }

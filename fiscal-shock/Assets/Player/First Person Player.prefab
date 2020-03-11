@@ -700,8 +700,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireSoundClip: {fileID: 8300000, guid: c6abf3855d73e4345b8c1df9fbc40e9b, type: 3}
-  gun1: {fileID: 8662258556512106578, guid: 8768913d8e716a2408503e75059f31df, type: 3}
-  gun2: {fileID: 593542258292847274, guid: 9f1f4e7a95ae91b099fa376e0f54e439, type: 3}
+  gun1: {fileID: 6393630796384626831, guid: 0d6fe316390b5d84e81412caded02813, type: 3}
+  gun2: {fileID: 7624205853972234779, guid: 3a096803ec33e4f418a5d5d3d88b1aed, type: 3}
   crossHair: {fileID: 1000013466574904, guid: b38ee9e7d5f46784eafbaadf147c7a33, type: 3}
 --- !u!82 &4429673032618852596
 AudioSource:
