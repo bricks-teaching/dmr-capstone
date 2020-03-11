@@ -1,4 +1,8 @@
 os: linux
+dist: bionic
+language: python
+python:
+- "3.8"
 
 # prevent branch builds that aren't PRs
 branches:
@@ -9,12 +13,6 @@ env:
   global:
   - BUILD_NAME=FiscalShock
   - IMAGE_NAME=gableroux/unity3d:2019.3.0f6
-
-before_deploy:
-- git config --local user.name "Deploy Moar RAM"
-- git config --local user.email "52723879+travis-pantry-raid@users.noreply.github.com"
-- export RLS_TAG="auto-${TRAVIS_BUILD_NUMBER}-$(git log --format=%h -1)"
-- if [[ $(git tag -l ${RLS_TAG}) != "${RLS_TAG}" ]]; then git tag $RLS_TAG; git push origin refs/tags/${RLS_TAG}; fi
 
 after_failure:
 - bash ./ci/discord_hook.sh failure ${WEBHOOK_URL}
@@ -27,13 +25,10 @@ addons:
 cache:
   directories:
   - .git/lfs
-  lfs_skip_smudge: true
 
 git:
-  depth: 3
-
-install:
-- git lfs pull
+  depth: 25  # warning: tags more than this many commits ago will be lost!
+  lfs_skip_smudge: true
 
 services:
 - docker
@@ -51,19 +46,12 @@ jobs:
     name: "Tests"
     if: type == pull_request
     script:
-    - openssl aes-256-cbc -K $encrypted_66087b1c9a02_key -iv $encrypted_66087b1c9a02_iv -in ./Unity_v2019.x.ulf.enc -out ./Unity_v2019.x.ulf -d
-    - export UNITY_LICENSE_CONTENT=`cat Unity_v2019.x.ulf`
-    - rm Unity_v2019.x.ulf
-    - docker pull $IMAGE_NAME
-    - echo -e "machine github.com\n  login $GITHUB_TOKEN" > ~/.netrc
-    - export TEST_PLATFORM=editmode
-    - bash ./ci/docker_test.sh
-    - export TEST_PLATFORM=playmode
-    - bash ./ci/docker_test.sh
+    - source ./ci/travis_prepare_workspace.sh
+    - bash ./ci/travis_run_tests.sh
 
   - stage: docs
     name: "Doxygen"
-    script: doxygen Doxyfile
+    script: bash ./ci/generate_docs.sh
     if: type != pull_request
     deploy:
       provider: pages:git
@@ -72,25 +60,33 @@ jobs:
       commit_message: Update Doxygen %{git_sha}
       verbose: true
       project_name: Fiscal Shock
-      local_dir: docs
+      local_dir: docs/html
       skip_cleanup: true
+      name: "Deploy Moar RAM"
+      email: "52723879+travis-pantry-raid@users.noreply.github.com"
       on:
         branch: master
 
 ################################################################################
 
   - stage: build
-    name: "Build and draft Linux64 (OpenGL)"
-    #if: type != pull_request  # uncomment to disable building on PRs
+    name: "Create new version tag"
     script:
-    - openssl aes-256-cbc -K $encrypted_66087b1c9a02_key -iv $encrypted_66087b1c9a02_iv -in ./Unity_v2019.x.ulf.enc -out ./Unity_v2019.x.ulf -d
-    - export UNITY_LICENSE_CONTENT=`cat Unity_v2019.x.ulf`
-    - rm Unity_v2019.x.ulf
-    - docker pull $IMAGE_NAME
-    - echo -e "machine github.com\n  login $GITHUB_TOKEN" > ~/.netrc
+    - bash ./ci/travis_set_tag.sh
+    if: type != pull_request
+    on:
+      branch: master
+
+  ############
+  # Linux 64
+  ############
+  - script:
+    - source ./ci/travis_prepare_workspace.sh
     - bash ./ci/docker_build.sh
     - pushd .; cd Builds; tar -czf ../FiscalShock-linux64.tar.gz FiscalShock-linux64
     - popd
+    name: "Build and draft Linux64 (OpenGL)"
+    #if: type != pull_request  # uncomment to disable building on PRs
     env: IMAGE_NAME=gableroux/unity3d:2019.3.0f6 BUILD_TARGET=StandaloneLinux64 OPTS=-force-glcore BUILD_DIR=FiscalShock-linux64
     deploy:
       provider: releases
@@ -98,20 +94,14 @@ jobs:
       skip_cleanup: true
       file: FiscalShock-linux64.tar.gz
       draft: true
-      overwrite: true
       prerelease: true
-      # First part of release only
-      name: "Fiscal Shock ${RLS_TAG}"
-      body: "This release was built automatically, targeting OpenGL."
-      on:
-        branch: master
+      overwrite: true
 
+  # ############
+  # # Windows 64
+  # ############
   - script:
-    - openssl aes-256-cbc -K $encrypted_66087b1c9a02_key -iv $encrypted_66087b1c9a02_iv -in ./Unity_v2019.x.ulf.enc -out ./Unity_v2019.x.ulf -d
-    - export UNITY_LICENSE_CONTENT=`cat Unity_v2019.x.ulf`
-    - rm Unity_v2019.x.ulf
-    - docker pull $IMAGE_NAME
-    - echo -e "machine github.com\n  login $GITHUB_TOKEN" > ~/.netrc
+    - source ./ci/travis_prepare_workspace.sh
     - bash ./ci/docker_build.sh
     - pushd .; cd Builds; zip -r -9 ../FiscalShock-win64.zip FiscalShock-win64
     - popd
@@ -125,19 +115,18 @@ jobs:
       file:
       - FiscalShock-win64.zip
       draft: true
+      prerelease: true
       overwrite: true
-      on:
-        branch: master
 
+  ############
+  # mac
+  ############
   - script:
-    - openssl aes-256-cbc -K $encrypted_66087b1c9a02_key -iv $encrypted_66087b1c9a02_iv -in ./Unity_v2019.x.ulf.enc -out ./Unity_v2019.x.ulf -d
-    - export UNITY_LICENSE_CONTENT=`cat Unity_v2019.x.ulf`
-    - rm Unity_v2019.x.ulf
-    - docker pull $IMAGE_NAME
-    - echo -e "machine github.com\n  login $GITHUB_TOKEN" > ~/.netrc
+    - source ./ci/travis_prepare_workspace.sh
     - bash ./ci/docker_build.sh
     - pushd .; cd Builds; tar -czf ../FiscalShock-mac.tar.gz FiscalShock-mac
     - popd
+    # Only apply tag on last build
     name: "Build and draft macOS (OpenGL)"
     env: BUILD_TARGET=StandaloneOSX IMAGE_NAME=gableroux/unity3d:2019.3.0f6-mac OPTS=-force-glcore BUILD_DIR=FiscalShock-mac
     if: type != pull_request
@@ -146,10 +135,10 @@ jobs:
       api_key: $GITHUB_TOKEN
       skip_cleanup: true
       file: FiscalShock-mac.tar.gz
+      name: "Fiscal Shock auto release ${git_sha}"
+      body: "These releases were built automatically for OpenGL from commit %{git_sha}."
       #draft: true  # uncomment to avoid publishing draft
       overwrite: true
-      on:
-        branch: master
-        tags: true
+      prerelease: true
 
 ################################################################################
