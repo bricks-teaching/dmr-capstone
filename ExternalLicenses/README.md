@@ -10,23 +10,12 @@ All licenses for third-party assets or source code are stored here to respect th
 # Graphics
 Graphics assets are spread across the project.
 
-1. [ATM model](#atm)
 1. [Market stand model](#market-stand)
 1. [Raygun model](#raygun)
 1. [Robot enemy models](#robot-enemies)
 1. [Shopkeeper NPC model](#shopkeeper-npc)
 1. [Wooden sign model](#wooden-sign)
 
-----
-## ATM
-[Original](https://www.thingiverse.com/thing:3809950)
-
-Author: Page1208
-
-License: [CC-BY 3.0](https://creativecommons.org/licenses/by/3.0/)
-
-Modifications:
-1. Added texture created by @zalfenior
 
 ----
 ## Icons
