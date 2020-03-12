@@ -116,11 +116,11 @@ jobs:
 
   - stage: deploy
     script:
-    - bash ./ci/travis_set_tag.sh
     - ls -la rls
     - bash ./ci/verify_package.sh linux64
     - bash ./ci/verify_package.sh win64
     - bash ./ci/verify_package.sh mac
+    - bash ./ci/travis_set_tag.sh
     name: Publish release to GitHub
     if: type != pull_request
     deploy:
