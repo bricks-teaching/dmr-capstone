@@ -1,0 +1,29 @@
+
+.. _file_fiscal-shock_Assets_Scripts_UserInterface_VolumeController.cs:
+
+File VolumeController.cs
+========================
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``fiscal-shock/Assets/Scripts/UserInterface/VolumeController.cs``)
+------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+Classes
+-------
+
+
+- :ref:`exhale_class_classVolumeController`
+

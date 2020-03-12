@@ -1,0 +1,29 @@
+
+.. _file_fiscal-shock_Assets_Scripts_UserInterface_InGameMenu.cs:
+
+File InGameMenu.cs
+==================
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``fiscal-shock/Assets/Scripts/UserInterface/InGameMenu.cs``)
+------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+Classes
+-------
+
+
+- :ref:`exhale_class_classInGameMenu`
+

@@ -1,0 +1,40 @@
+
+.. _file_fiscal-shock_Assets_Scripts_Graphs_Polygon.cs:
+
+File Polygon.cs
+===============
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``fiscal-shock/Assets/Scripts/Graphs/Polygon.cs``)
+--------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+Namespaces
+----------
+
+
+- :ref:`namespace_FiscalShock__Graphs`
+
+
+Classes
+-------
+
+
+- :ref:`exhale_class_classFiscalShock_1_1Graphs_1_1Cell`
+
+- :ref:`exhale_class_classFiscalShock_1_1Graphs_1_1Polygon`
+
+- :ref:`exhale_class_classFiscalShock_1_1Graphs_1_1Triangle`
+

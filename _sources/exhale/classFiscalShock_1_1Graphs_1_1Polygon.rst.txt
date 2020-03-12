@@ -1,0 +1,27 @@
+.. _exhale_class_classFiscalShock_1_1Graphs_1_1Polygon:
+
+Class Polygon
+=============
+
+- Defined in :ref:`file_fiscal-shock_Assets_Scripts_Graphs_Polygon.cs`
+
+
+Inheritance Relationships
+-------------------------
+
+Derived Types
+*************
+
+- ``public FiscalShock.Graphs.Cell`` (:ref:`exhale_class_classFiscalShock_1_1Graphs_1_1Cell`)
+- ``public FiscalShock.Graphs.Triangle`` (:ref:`exhale_class_classFiscalShock_1_1Graphs_1_1Triangle`)
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: FiscalShock::Graphs::Polygon
+   :members:
+   :protected-members:
+   :private-members:
+   :undoc-members:

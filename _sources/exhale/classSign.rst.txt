@@ -1,0 +1,26 @@
+.. _exhale_class_classSign:
+
+Class Sign
+==========
+
+- Defined in :ref:`file_fiscal-shock_Assets_Scripts_Instructional_Sign.cs`
+
+
+Inheritance Relationships
+-------------------------
+
+Base Type
+*********
+
+- ``public MonoBehaviour``
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: Sign
+   :members:
+   :protected-members:
+   :private-members:
+   :undoc-members:

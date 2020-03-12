@@ -1,0 +1,29 @@
+
+.. _file_fiscal-shock_Assets_Scripts_UserInterface_Settings.cs:
+
+File Settings.cs
+================
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``fiscal-shock/Assets/Scripts/UserInterface/Settings.cs``)
+----------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+Classes
+-------
+
+
+- :ref:`exhale_class_classSettings`
+

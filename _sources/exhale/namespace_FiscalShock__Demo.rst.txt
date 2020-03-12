@@ -1,0 +1,24 @@
+
+.. _namespace_FiscalShock__Demo:
+
+Namespace FiscalShock::Demo
+===========================
+
+
+This script must be attached to a camera to work! 
+ 
+
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+
+
+
+
+Classes
+-------
+
+
+- :ref:`exhale_class_classFiscalShock_1_1Demo_1_1ProceduralMeshRenderer`

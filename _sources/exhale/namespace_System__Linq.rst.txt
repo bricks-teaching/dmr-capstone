@@ -1,0 +1,13 @@
+
+.. _namespace_System__Linq:
+
+Namespace System::Linq
+======================
+
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+
+

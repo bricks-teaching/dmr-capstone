@@ -1,0 +1,17 @@
+.. _exhale_class_classThirdParty_1_1MersenneTwister:
+
+Class MersenneTwister
+=====================
+
+- Defined in :ref:`file_fiscal-shock_Assets_Scripts_ThirdParty_MersenneTwister.cs`
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: ThirdParty::MersenneTwister
+   :members:
+   :protected-members:
+   :private-members:
+   :undoc-members:

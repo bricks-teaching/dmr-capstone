@@ -1,0 +1,29 @@
+
+.. _file_fiscal-shock_Assets_Scripts_Player_DungeonEntry.cs:
+
+File DungeonEntry.cs
+====================
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``fiscal-shock/Assets/Scripts/Player/DungeonEntry.cs``)
+-------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+Classes
+-------
+
+
+- :ref:`exhale_class_classDungeonEntry`
+

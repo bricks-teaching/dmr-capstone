@@ -1,0 +1,29 @@
+
+.. _file_fiscal-shock_Assets_Scripts_Instructional_Sign.cs:
+
+File Sign.cs
+============
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``fiscal-shock/Assets/Scripts/Instructional/Sign.cs``)
+------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+Classes
+-------
+
+
+- :ref:`exhale_class_classSign`
+

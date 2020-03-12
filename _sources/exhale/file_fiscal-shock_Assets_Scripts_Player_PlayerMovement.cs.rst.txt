@@ -1,0 +1,29 @@
+
+.. _file_fiscal-shock_Assets_Scripts_Player_PlayerMovement.cs:
+
+File PlayerMovement.cs
+======================
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``fiscal-shock/Assets/Scripts/Player/PlayerMovement.cs``)
+---------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+Classes
+-------
+
+
+- :ref:`exhale_class_classPlayerMovement`
+

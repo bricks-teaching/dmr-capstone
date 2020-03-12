@@ -1,0 +1,38 @@
+
+.. _file_fiscal-shock_Assets_Scripts_ThirdParty_Delaunator.cs:
+
+File Delaunator.cs
+==================
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``fiscal-shock/Assets/Scripts/ThirdParty/Delaunator.cs``)
+---------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+Namespaces
+----------
+
+
+- :ref:`namespace_System__Runtime__CompilerServices`
+
+- :ref:`namespace_ThirdParty__Delaunator`
+
+
+Classes
+-------
+
+
+- :ref:`exhale_class_classThirdParty_1_1Delaunator_1_1Triangulation`
+

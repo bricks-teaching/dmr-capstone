@@ -1,0 +1,17 @@
+.. _exhale_class_classGameController:
+
+Class GameController
+====================
+
+- Defined in :ref:`file_fiscal-shock_Assets_Scripts_Player_GameController.cs`
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: GameController
+   :members:
+   :protected-members:
+   :private-members:
+   :undoc-members:

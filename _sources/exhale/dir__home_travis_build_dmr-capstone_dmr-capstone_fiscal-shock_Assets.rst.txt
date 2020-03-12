@@ -1,0 +1,20 @@
+.. _dir__home_travis_build_dmr-capstone_dmr-capstone_fiscal-shock_Assets:
+
+
+Directory Assets
+================
+
+
+|exhale_lsh| :ref:`Parent directory <dir_fiscal-shock>` (``fiscal-shock``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+*Directory path:* ``/home/travis/build/dmr-capstone/dmr-capstone/fiscal-shock/Assets``
+
+Subdirectories
+--------------
+
+- :ref:`dir__home_travis_build_dmr-capstone_dmr-capstone_fiscal-shock_Assets_Scripts`
+
+
+

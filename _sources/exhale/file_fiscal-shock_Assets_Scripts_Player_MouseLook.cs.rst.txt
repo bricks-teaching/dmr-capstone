@@ -1,0 +1,29 @@
+
+.. _file_fiscal-shock_Assets_Scripts_Player_MouseLook.cs:
+
+File MouseLook.cs
+=================
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``fiscal-shock/Assets/Scripts/Player/MouseLook.cs``)
+----------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+Classes
+-------
+
+
+- :ref:`exhale_class_classMouseLook`
+

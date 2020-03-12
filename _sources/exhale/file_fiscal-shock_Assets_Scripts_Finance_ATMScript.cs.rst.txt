@@ -1,0 +1,40 @@
+
+.. _file_fiscal-shock_Assets_Scripts_Finance_ATMScript.cs:
+
+File ATMScript.cs
+=================
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``fiscal-shock/Assets/Scripts/Finance/ATMScript.cs``)
+-----------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+Namespaces
+----------
+
+
+- :ref:`namespace_TMPro`
+
+- :ref:`namespace_UnityEngine__SceneManagement`
+
+- :ref:`namespace_UnityEngine__UI`
+
+
+Classes
+-------
+
+
+- :ref:`exhale_class_classATMScript`
+

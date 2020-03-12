@@ -1,0 +1,20 @@
+
+.. _namespace_System__Collections:
+
+Namespace System::Collections
+=============================
+
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+
+
+
+
+Namespaces
+----------
+
+
+- :ref:`namespace_System__Collections__Generic`

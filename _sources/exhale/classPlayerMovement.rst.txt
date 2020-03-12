@@ -1,0 +1,26 @@
+.. _exhale_class_classPlayerMovement:
+
+Class PlayerMovement
+====================
+
+- Defined in :ref:`file_fiscal-shock_Assets_Scripts_Player_PlayerMovement.cs`
+
+
+Inheritance Relationships
+-------------------------
+
+Base Type
+*********
+
+- ``public MonoBehaviour``
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: PlayerMovement
+   :members:
+   :protected-members:
+   :private-members:
+   :undoc-members:

@@ -1,0 +1,29 @@
+
+.. _file_fiscal-shock_Assets_Scripts_UserInterface_SeamlessMusicPlayer.cs:
+
+File SeamlessMusicPlayer.cs
+===========================
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``fiscal-shock/Assets/Scripts/UserInterface/SeamlessMusicPlayer.cs``)
+---------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+Classes
+-------
+
+
+- :ref:`exhale_class_classSeamlessMusicPlayer`
+

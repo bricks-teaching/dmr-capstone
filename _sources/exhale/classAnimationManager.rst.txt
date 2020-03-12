@@ -1,0 +1,26 @@
+.. _exhale_class_classAnimationManager:
+
+Class AnimationManager
+======================
+
+- Defined in :ref:`file_fiscal-shock_Assets_Scripts_AI_AnimationManager.cs`
+
+
+Inheritance Relationships
+-------------------------
+
+Base Type
+*********
+
+- ``public MonoBehaviour``
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: AnimationManager
+   :members:
+   :protected-members:
+   :private-members:
+   :undoc-members:

@@ -1,0 +1,26 @@
+.. _exhale_class_classCheats:
+
+Class Cheats
+============
+
+- Defined in :ref:`file_fiscal-shock_Assets_Scripts_Player_Cheats.cs`
+
+
+Inheritance Relationships
+-------------------------
+
+Base Type
+*********
+
+- ``public MonoBehaviour``
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: Cheats
+   :members:
+   :protected-members:
+   :private-members:
+   :undoc-members:

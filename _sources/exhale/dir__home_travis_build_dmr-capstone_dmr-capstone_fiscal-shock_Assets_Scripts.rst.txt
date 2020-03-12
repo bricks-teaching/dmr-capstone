@@ -1,0 +1,28 @@
+.. _dir__home_travis_build_dmr-capstone_dmr-capstone_fiscal-shock_Assets_Scripts:
+
+
+Directory Scripts
+=================
+
+
+|exhale_lsh| :ref:`Parent directory <dir__home_travis_build_dmr-capstone_dmr-capstone_fiscal-shock_Assets>` (``/home/travis/build/dmr-capstone/dmr-capstone/fiscal-shock/Assets``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+*Directory path:* ``/home/travis/build/dmr-capstone/dmr-capstone/fiscal-shock/Assets/Scripts``
+
+Subdirectories
+--------------
+
+- :ref:`dir__home_travis_build_dmr-capstone_dmr-capstone_fiscal-shock_Assets_Scripts_AI`
+- :ref:`dir__home_travis_build_dmr-capstone_dmr-capstone_fiscal-shock_Assets_Scripts_Finance`
+- :ref:`dir__home_travis_build_dmr-capstone_dmr-capstone_fiscal-shock_Assets_Scripts_Graphs`
+- :ref:`dir__home_travis_build_dmr-capstone_dmr-capstone_fiscal-shock_Assets_Scripts_Instructional`
+- :ref:`dir__home_travis_build_dmr-capstone_dmr-capstone_fiscal-shock_Assets_Scripts_Player`
+- :ref:`dir__home_travis_build_dmr-capstone_dmr-capstone_fiscal-shock_Assets_Scripts_ProceduralGeneration`
+- :ref:`dir__home_travis_build_dmr-capstone_dmr-capstone_fiscal-shock_Assets_Scripts_Projectiles`
+- :ref:`dir__home_travis_build_dmr-capstone_dmr-capstone_fiscal-shock_Assets_Scripts_ThirdParty`
+- :ref:`dir__home_travis_build_dmr-capstone_dmr-capstone_fiscal-shock_Assets_Scripts_UserInterface`
+
+
+

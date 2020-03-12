@@ -1,0 +1,17 @@
+.. _exhale_class_classFiscalShock_1_1Graphs_1_1Edge:
+
+Class Edge
+==========
+
+- Defined in :ref:`file_fiscal-shock_Assets_Scripts_Graphs_Edge.cs`
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: FiscalShock::Graphs::Edge
+   :members:
+   :protected-members:
+   :private-members:
+   :undoc-members:

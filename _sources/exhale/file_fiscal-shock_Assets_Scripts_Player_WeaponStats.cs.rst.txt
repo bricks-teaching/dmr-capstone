@@ -1,0 +1,29 @@
+
+.. _file_fiscal-shock_Assets_Scripts_Player_WeaponStats.cs:
+
+File WeaponStats.cs
+===================
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``fiscal-shock/Assets/Scripts/Player/WeaponStats.cs``)
+------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+Classes
+-------
+
+
+- :ref:`exhale_class_classWeaponStats`
+

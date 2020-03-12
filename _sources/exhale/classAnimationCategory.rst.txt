@@ -1,0 +1,17 @@
+.. _exhale_class_classAnimationCategory:
+
+Class AnimationCategory
+=======================
+
+- Defined in :ref:`file_fiscal-shock_Assets_Scripts_AI_AnimationManager.cs`
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: AnimationCategory
+   :members:
+   :protected-members:
+   :private-members:
+   :undoc-members:

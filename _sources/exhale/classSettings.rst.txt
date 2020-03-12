@@ -1,0 +1,17 @@
+.. _exhale_class_classSettings:
+
+Class Settings
+==============
+
+- Defined in :ref:`file_fiscal-shock_Assets_Scripts_UserInterface_Settings.cs`
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: Settings
+   :members:
+   :protected-members:
+   :private-members:
+   :undoc-members:

@@ -1,0 +1,36 @@
+
+.. _file_fiscal-shock_Assets_Scripts_AI_EnemyMovement.cs:
+
+File EnemyMovement.cs
+=====================
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``fiscal-shock/Assets/Scripts/AI/EnemyMovement.cs``)
+----------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+Namespaces
+----------
+
+
+- :ref:`namespace_UnityEngine__AI`
+
+
+Classes
+-------
+
+
+- :ref:`exhale_class_classEnemyMovement`
+

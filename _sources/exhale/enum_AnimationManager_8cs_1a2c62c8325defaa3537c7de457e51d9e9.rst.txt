@@ -1,0 +1,14 @@
+.. _exhale_enum_AnimationManager_8cs_1a2c62c8325defaa3537c7de457e51d9e9:
+
+Enum AnimationEnum
+==================
+
+- Defined in :ref:`file_fiscal-shock_Assets_Scripts_AI_AnimationManager.cs`
+
+
+Enum Documentation
+------------------
+
+
+.. doxygenenum:: AnimationEnum
+   :no-link:

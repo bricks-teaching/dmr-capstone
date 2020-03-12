@@ -1,0 +1,15 @@
+.. _dir__home_travis_build_dmr-capstone_dmr-capstone_fiscal-shock_Assets_Scripts_Projectiles:
+
+
+Directory Projectiles
+=====================
+
+
+|exhale_lsh| :ref:`Parent directory <dir__home_travis_build_dmr-capstone_dmr-capstone_fiscal-shock_Assets_Scripts>` (``/home/travis/build/dmr-capstone/dmr-capstone/fiscal-shock/Assets/Scripts``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+*Directory path:* ``/home/travis/build/dmr-capstone/dmr-capstone/fiscal-shock/Assets/Scripts/Projectiles``
+
+
+

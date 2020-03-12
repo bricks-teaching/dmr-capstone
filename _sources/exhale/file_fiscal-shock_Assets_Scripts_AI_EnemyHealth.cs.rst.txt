@@ -1,0 +1,29 @@
+
+.. _file_fiscal-shock_Assets_Scripts_AI_EnemyHealth.cs:
+
+File EnemyHealth.cs
+===================
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``fiscal-shock/Assets/Scripts/AI/EnemyHealth.cs``)
+--------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+Classes
+-------
+
+
+- :ref:`exhale_class_classEnemyHealth`
+

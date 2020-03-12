@@ -1,0 +1,36 @@
+
+.. _file_fiscal-shock_Assets_Scripts_Graphs_Mathy.cs:
+
+File Mathy.cs
+=============
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``fiscal-shock/Assets/Scripts/Graphs/Mathy.cs``)
+------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+Namespaces
+----------
+
+
+- :ref:`namespace_FiscalShock__Graphs`
+
+
+Classes
+-------
+
+
+- :ref:`exhale_class_classFiscalShock_1_1Graphs_1_1Mathy`
+

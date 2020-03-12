@@ -1,0 +1,17 @@
+.. _exhale_class_classThirdParty_1_1Delaunator_1_1Triangulation:
+
+Class Triangulation
+===================
+
+- Defined in :ref:`file_fiscal-shock_Assets_Scripts_ThirdParty_Delaunator.cs`
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: ThirdParty::Delaunator::Triangulation
+   :members:
+   :protected-members:
+   :private-members:
+   :undoc-members:

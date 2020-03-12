@@ -1,0 +1,27 @@
+.. _exhale_class_classFiscalShock_1_1Graphs_1_1Graph:
+
+Class Graph
+===========
+
+- Defined in :ref:`file_fiscal-shock_Assets_Scripts_Graphs_Graph.cs`
+
+
+Inheritance Relationships
+-------------------------
+
+Derived Types
+*************
+
+- ``public FiscalShock.Graphs.Delaunay`` (:ref:`exhale_class_classFiscalShock_1_1Graphs_1_1Delaunay`)
+- ``public FiscalShock.Graphs.Voronoi`` (:ref:`exhale_class_classFiscalShock_1_1Graphs_1_1Voronoi`)
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: FiscalShock::Graphs::Graph
+   :members:
+   :protected-members:
+   :private-members:
+   :undoc-members:

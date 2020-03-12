@@ -1,0 +1,26 @@
+.. _exhale_class_classFiscalShock_1_1Procedural_1_1DungeonType:
+
+Class DungeonType
+=================
+
+- Defined in :ref:`file_fiscal-shock_Assets_Scripts_ProceduralGeneration_DungeonType.cs`
+
+
+Inheritance Relationships
+-------------------------
+
+Base Type
+*********
+
+- ``public MonoBehaviour``
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: FiscalShock::Procedural::DungeonType
+   :members:
+   :protected-members:
+   :private-members:
+   :undoc-members:

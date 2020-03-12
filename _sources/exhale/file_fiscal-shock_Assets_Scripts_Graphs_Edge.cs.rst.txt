@@ -1,0 +1,36 @@
+
+.. _file_fiscal-shock_Assets_Scripts_Graphs_Edge.cs:
+
+File Edge.cs
+============
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``fiscal-shock/Assets/Scripts/Graphs/Edge.cs``)
+-----------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+Namespaces
+----------
+
+
+- :ref:`namespace_FiscalShock__Graphs`
+
+
+Classes
+-------
+
+
+- :ref:`exhale_class_classFiscalShock_1_1Graphs_1_1Edge`
+

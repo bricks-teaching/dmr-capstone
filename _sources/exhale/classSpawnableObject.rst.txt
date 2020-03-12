@@ -1,0 +1,26 @@
+.. _exhale_class_classSpawnableObject:
+
+Class SpawnableObject
+=====================
+
+- Defined in :ref:`file_fiscal-shock_Assets_Scripts_ProceduralGeneration_SpawnableObject.cs`
+
+
+Inheritance Relationships
+-------------------------
+
+Derived Type
+************
+
+- ``public SpawnableEnemy`` (:ref:`exhale_class_classSpawnableEnemy`)
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: SpawnableObject
+   :members:
+   :protected-members:
+   :private-members:
+   :undoc-members:

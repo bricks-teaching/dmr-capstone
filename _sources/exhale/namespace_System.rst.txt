@@ -1,0 +1,22 @@
+
+.. _namespace_System:
+
+Namespace System
+================
+
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+
+
+
+
+Namespaces
+----------
+
+
+- :ref:`namespace_System__Collections`
+
+- :ref:`namespace_System__Linq`
