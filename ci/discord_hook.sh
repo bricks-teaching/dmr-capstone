@@ -33,13 +33,6 @@ if [[ ! -z "$TRAVIS_PULL_REQUEST_BRANCH" ]]; then COMMIT_SUBJECT="(#${TRAVIS_PUL
 COMMIT_MESSAGE=`git log -1 @ --pretty="%B"`
 
 CREDITS="${AUTHOR_NAME} authored"
-echo `git log -1`
-echo `git log @ -1`
-echo `git log @~ -1`
-echo `git log -1 $TRAVIS_COMMIT `
-echo "author: ${AUTHOR_NAME}"
-echo "subject: ${COMMIT_SUBJECT}"
-echo "message: ${COMMIT_MESSAGE}"
 
 if [[ "$TRAVIS_PULL_REQUEST" != "false" ]]; then
   URL="https://github.com/$TRAVIS_REPO_SLUG/pull/$TRAVIS_PULL_REQUEST"

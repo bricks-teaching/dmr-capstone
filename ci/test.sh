@@ -2,6 +2,8 @@
 
 set -x
 
+echo ""
+echo -en "travis_fold:start:run_tests\r"
 echo "Testing for $TEST_PLATFORM"
 
 ${UNITY_EXECUTABLE:-xvfb-run --auto-servernum --server-args='-screen 0 640x480x24' /opt/Unity/Editor/Unity} \
@@ -13,6 +15,8 @@ ${UNITY_EXECUTABLE:-xvfb-run --auto-servernum --server-args='-screen 0 640x480x2
   -batchmode
 
 UNITY_EXIT_CODE=$?
+
+echo -en "\ntravis_fold:end:run_tests\r"
 
 if [ $UNITY_EXIT_CODE -eq 0 ]; then
   echo "Run succeeded, no failures occurred";
