@@ -8,11 +8,17 @@ public class Sign : MonoBehaviour {
         canvas.enabled = false;
     }
 
-    void OnTriggerEnter() {
-        canvas.enabled = true;
+    void OnTriggerEnter(Collider col) {
+        if(col.gameObject.tag == "Player")
+        {
+            canvas.enabled = true;
+        }
     }
 
-    void OnTriggerExit() {
-        canvas.enabled = false;
+    void OnTriggerExit(Collider col) {
+        if(col.gameObject.tag == "Player")
+        {
+            canvas.enabled = false;
+        }
     }
 }
