@@ -1,8 +1,6 @@
 os: linux
 dist: bionic
-language: python
-python:
-- "3.8"
+language: minimal
 
 # prevent branch builds that aren't PRs
 branches:
@@ -16,22 +14,13 @@ env:
 after_failure:
 - bash ./ci/discord_hook.sh failure ${WEBHOOK_URL}
 
-addons:
-  apt:
-    packages:
-    - doxygen
-
 cache:
   directories:
   - .git/lfs
-  - rls
 
 git:
   depth: 25  # warning: tags more than this many commits ago will be lost!
   lfs_skip_smudge: true
-
-services:
-- docker
 
 stages:
 - test
@@ -46,6 +35,8 @@ jobs:
   - stage: test
     name: "Tests"
     if: type == pull_request
+    services:
+    - docker
     script:
     - source ./ci/travis_prepare_workspace.sh
     - bash ./ci/travis_run_tests.sh
@@ -59,6 +50,13 @@ jobs:
     name: "Doxygen"
     script: bash ./ci/generate_docs.sh
     if: type != pull_request
+    language: python
+    python:
+    - "3.8"
+    addons:
+      apt:
+        packages:
+        - doxygen
     deploy:
       provider: pages:git
       token: $GITHUB_TOKEN
@@ -87,6 +85,13 @@ jobs:
     - bash ./ci/package_build.sh linux64
     name: "Build and cache Linux64 (OpenGL)"
     if: type != pull_request
+    services:
+    - docker
+    workspaces:
+      create:
+        name: linux64
+        paths:
+        - rls_linux64
 
   ############
   # Windows 64
@@ -99,6 +104,13 @@ jobs:
     - bash ./ci/package_build.sh win64
     name: "Build and cache Windows64 (OpenGL)"
     if: type != pull_request
+    services:
+    - docker
+    workspaces:
+      create:
+        name: win64
+        paths:
+        - rls_win64
 
   ############
   # mac
@@ -111,18 +123,30 @@ jobs:
     - bash ./ci/package_build.sh mac
     name: "Build and cache macOS (OpenGL)"
     if: type != pull_request
+    services:
+    - docker
+    workspaces:
+      create:
+        name: mac
+        paths:
+        - rls_mac
 
 ################################################################################
 
   - stage: deploy
     script:
-    - ls -la rls
-    - bash ./ci/verify_package.sh linux64
-    - bash ./ci/verify_package.sh win64
-    - bash ./ci/verify_package.sh mac
-    - bash ./ci/travis_set_tag.sh
+    - ls -la *
+    - source ./ci/verify_package.sh linux64 || travis_terminate 1
+    - source ./ci/verify_package.sh win64 || travis_terminate 1
+    - source ./ci/verify_package.sh mac || travis_terminate 1
+    - bash ./ci/travis_set_tag.sh || travis_terminate 1
     name: Publish release to GitHub
     if: type != pull_request
+    workspaces:
+      use:
+      - linux64
+      - win64
+      - mac
     deploy:
       provider: releases
       api_key: $GITHUB_TOKEN
@@ -132,6 +156,6 @@ jobs:
       overwrite: true
       prerelease: true
       file:
-      - rls/FiscalShock-linux64.tar.gz
-      - rls/FiscalShock-win64.zip
-      - rls/FiscalShock-mac.tar.gz
+      - rls_linux64/FiscalShock-linux64.tar.gz
+      - rls_win64/FiscalShock-win64.zip
+      - rls_mac/FiscalShock-mac.tar.gz
