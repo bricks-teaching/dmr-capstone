@@ -24,7 +24,9 @@ addons:
 cache:
   directories:
   - .git/lfs
-  - rls
+  - rls_win64
+  - rls_linux64
+  - rls_mac
 
 git:
   depth: 25  # warning: tags more than this many commits ago will be lost!
@@ -116,10 +118,10 @@ jobs:
 
   - stage: deploy
     script:
-    - ls -la rls
-    - bash ./ci/verify_package.sh linux64
-    - bash ./ci/verify_package.sh win64
-    - bash ./ci/verify_package.sh mac
+    - ls -la rls*
+    - source ./ci/verify_package.sh linux64
+    - source ./ci/verify_package.sh win64
+    - source ./ci/verify_package.sh mac
     - bash ./ci/travis_set_tag.sh
     name: Publish release to GitHub
     if: type != pull_request
@@ -132,6 +134,6 @@ jobs:
       overwrite: true
       prerelease: true
       file:
-      - rls/FiscalShock-linux64.tar.gz
-      - rls/FiscalShock-win64.zip
-      - rls/FiscalShock-mac.tar.gz
+      - rls_linux64/FiscalShock-linux64.tar.gz
+      - rls_win64/FiscalShock-win64.zip
+      - rls_mac/FiscalShock-mac.tar.gz

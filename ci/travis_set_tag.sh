@@ -1,15 +1,20 @@
 #!/usr/bin/env bash
 
+if [[ "$BAD_PACKAGE" == 1 ]]; then
+    echo At least one package could not be verified to match this commit. Aborting release tag operation.
+    exit 1
+fi
+
 echo -e "machine github.com\n  login $GITHUB_TOKEN" > ~/.netrc
 
 echo Listing all tags.
 git tag
 export COMMIT_HASH="$(git log --format=%h -1)"
-echo Latest tagged version: `git tag -l v* | tail -n 1`
+echo Latest tagged version: `git tag -l v* --sort=taggerdate | tail -n 1`
 export MAJOR_VER=0  # this is 0 until maybe milestone 3
-export MINOR_VER=`git tag -l v* | tail -n 1 | perl -p0e 's/v\d+\.(\d+)\.(\d+)/\1/'`
+export MINOR_VER=`git tag -l v* --sort=taggerdate | tail -n 1 | perl -p0e 's/v\d+\.(\d+)\.(\d+)/\1/'`
 echo Minor version number: ${MINOR_VER}
-export PATCH_VER=`git tag -l v* | tail -n 1 | perl -p0e 's/v\d+\.(\d+)\.(\d+)/\2/'`
+export PATCH_VER=`git tag -l v* --sort=taggerdate | tail -n 1 | perl -p0e 's/v\d+\.(\d+)\.(\d+)/\2/'`
 echo Patch version number: ${PATCH_VER}
 export PSEM_VER=`echo v${MAJOR_VER}.${MINOR_VER}.$(( PATCH_VER + 1 ))`
 echo Next version tag is ${PSEM_VER}
