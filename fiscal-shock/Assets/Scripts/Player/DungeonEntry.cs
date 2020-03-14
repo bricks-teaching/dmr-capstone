@@ -26,7 +26,7 @@ public class DungeonEntry : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        if (isPlayerInTriggerZone && Input.GetKeyDown("x")) {
+        if (isPlayerInTriggerZone && Input.GetKeyDown(Settings.interactKey)) {
             canvas.enabled = false;
             loadScript.startLoadingScreen("Dungeon");
         }

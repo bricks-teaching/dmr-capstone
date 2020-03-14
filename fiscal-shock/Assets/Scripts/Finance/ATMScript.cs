@@ -2,6 +2,7 @@
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+//using System;
 
 public class ATMScript : MonoBehaviour {
     public AudioClip paymentSound;
@@ -14,14 +15,12 @@ public class ATMScript : MonoBehaviour {
 
     void OnTriggerEnter(Collider col) {
         if (col.gameObject.tag == "Player") {
-            Debug.Log($"{gameObject.name}: Triggered");
             playerIsInTriggerZone = true;
         }
     }
 
     void OnTriggerExit(Collider col) {
         if (col.gameObject.tag == "Player") {
-            Debug.Log($"{gameObject.name}: Left ATM");
             playerIsInTriggerZone = false;
             signText.text = defaultSignText;
         }
@@ -29,12 +28,13 @@ public class ATMScript : MonoBehaviour {
 
     void Start() {
         signText = GetComponentInChildren<TextMeshProUGUI>();
-        defaultSignText = signText.text;
+        defaultSignText = signText.text.Replace("INTERACTKEY", Settings.interactKey.ToUpper());
+        signText.text = defaultSignText;
         audio = GetComponent<AudioSource>();
     }
 
     void Update() {
-        if (playerIsInTriggerZone && Input.GetKeyDown("f")) {
+        if (playerIsInTriggerZone && Input.GetKeyDown(Settings.interactKey)) {
             bool paymentSuccessful = payDebt(100);
             if (paymentSuccessful) {
                 signText.text = "";
@@ -49,7 +49,7 @@ public class ATMScript : MonoBehaviour {
     }
 
     public bool addDebt(float amount) {
-        if (PlayerFinance.bankThreatLevel < 3 && PlayerFinance.bankMaxLoan > (PlayerFinance.debtBank + amount)){
+        if (PlayerFinance.bankThreatLevel < 3 && PlayerFinance.bankMaxLoan > (PlayerFinance.debtBank + amount)) {
             // bank threat is below 3 and is below max total debt
             PlayerFinance.debtBank += amount;
             PlayerFinance.cashOnHand += amount;
