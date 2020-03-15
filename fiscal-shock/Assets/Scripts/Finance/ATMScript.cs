@@ -11,7 +11,7 @@ public class ATMScript : MonoBehaviour {
     private bool playerIsInTriggerZone = false;
     private TextMeshProUGUI signText;
     private string defaultSignText;
-    private AudioSource audio;
+    private AudioSource audioS;
 
     void OnTriggerEnter(Collider col) {
         if (col.gameObject.tag == "Player") {
@@ -30,7 +30,7 @@ public class ATMScript : MonoBehaviour {
         signText = GetComponentInChildren<TextMeshProUGUI>();
         defaultSignText = signText.text.Replace("INTERACTKEY", Settings.interactKey.ToUpper());
         signText.text = defaultSignText;
-        audio = GetComponent<AudioSource>();
+        audioS = GetComponent<AudioSource>();
     }
 
     void Update() {
@@ -38,11 +38,11 @@ public class ATMScript : MonoBehaviour {
             bool paymentSuccessful = payDebt(100);
             if (paymentSuccessful) {
                 signText.text = "";
-                audio.PlayOneShot(paymentSound, Settings.volume);
+                audioS.PlayOneShot(paymentSound, Settings.volume);
                 Debug.Log("Paid $100");
             } else {
                 signText.text = "Please tender payments using cash, not respects.";
-                audio.PlayOneShot(failureSound, Settings.volume * 2.5f);
+                audioS.PlayOneShot(failureSound, Settings.volume * 2.5f);
                 Debug.Log("Not enough cash to pay denbts");
             }
         }

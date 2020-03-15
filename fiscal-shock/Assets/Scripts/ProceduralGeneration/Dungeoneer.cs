@@ -19,8 +19,10 @@ namespace FiscalShock.Procedural {
         [Tooltip("Number of vertices to generate. A higher number will generate a finer-grained mesh.")]
         public int numberOfVertices = 100;
 
+        /*
         [Tooltip("Unit scale. All vertex coordinates are multiplied by this number.")]
         public float unitScale = 1;
+        */
 
         [Tooltip("Minimum x-value of a vertex.")]
         public int minX = -100;
@@ -34,10 +36,26 @@ namespace FiscalShock.Procedural {
         [Tooltip("Maximum y-value of a vertex.")]
         public int maxY = 100;
 
+        [Tooltip("Minimum number of rooms to try to generate.")]
+        public int minRooms = 10;
+
+        [Tooltip("Maximum number of rooms to try to generate.")]
+        public int maxRooms = 16;
+
+        [Tooltip("Minimum distance between any two points chosen as 'master points' (used as room centers).")]
+        public double minimumDistanceBetweenMasterPoints = 32;
+
+        [Tooltip("Percentage of edges of the master point Delaunay triangulation to add back to the spanning tree as a decimal. Adding more edges back makes more routes to rooms available.")]
+        public float percentageOfEdgesToAddBack = 0.3f;
+
+        [Tooltip("Indicates general size of rooms expanding outward from the master site.")]
+        public int roomGrowthRadius = 3;
+
         public Delaunay dt { get; private set; }
         public Voronoi vd { get; private set; }
-        // private Delaunay masterDt;
-        // private Something spanningTree;
+        public Delaunay masterDt { get; private set; }
+        public List<Edge> spanningTree { get; private set; }
+        public List<VoronoiRoom> roomVoronoi { get; private set; }
 
         private MersenneTwister mt;
         private DungeonType dungeonType;
@@ -57,11 +75,16 @@ namespace FiscalShock.Procedural {
             sw.Start();
             generateDelaunay();
             generateVoronoi();
+            generateRoomGraphs();
             sw.Stop();
             Debug.Log($"Finished generating graphs in {sw.ElapsedMilliseconds} ms");
 
+            sw.Reset();
+            sw.Start();
             setDungeon();
             spawnPlayer();
+            sw.Stop();
+            Debug.Log($"Finished spawning stuff in {sw.ElapsedMilliseconds} ms");
         }
 
         public void initPRNG() {
@@ -85,11 +108,80 @@ namespace FiscalShock.Procedural {
         }
 
         public void generateDelaunay() {
-            dt = new Delaunay(makeRandomPoints(), minX, maxX, minY, maxY);
+            dt = new Delaunay(makeRandomPoints());
         }
 
         public void generateVoronoi() {
             vd = dt.makeVoronoi();
+        }
+
+        public void generateRoomGraphs() {
+            // pick how many rooms to make
+            int rooms = mt.Next(minRooms, maxRooms);
+            List<Vertex> masterDelaunayPoints = new List<Vertex>();
+            List<double> masterDelaunayPointsFlat = new List<double>();
+
+            // warning: potential infinite loops!
+            int infinityGuard = 0;
+            for (int i = 0; i < rooms; ++i) {
+                int selection = mt.Next(0, dt.vertices.Count-1);
+                bool tooClose = false;
+
+                // don't pick points on convex hull, they are naughty
+                if (isPointOnOrNearConvexHull(dt.vertices[selection]) || dt.vertices[selection].cell.getArea() > VoronoiRoom.MAX_CELL_AREA) {
+                    infinityGuard++;
+                    i--;
+                    continue;
+                }
+
+                // don't pick something too close to another point already chosen
+                foreach (Vertex v in masterDelaunayPoints) {
+                    double d = dt.vertices[selection].getDistanceTo(v);
+                    if (d < minimumDistanceBetweenMasterPoints) {
+                        tooClose = true;
+                        break;
+                    }
+                }
+
+                if (tooClose && infinityGuard < dt.vertices.Count) {
+                    i--;
+                    infinityGuard++;
+                    continue;
+                }
+
+                // if we get this far, it's okay to add
+                masterDelaunayPointsFlat.Add(dt.vertices[selection].x);
+                masterDelaunayPointsFlat.Add(dt.vertices[selection].y);
+                masterDelaunayPoints.Add(dt.vertices[selection]);
+                infinityGuard = 0;
+            }
+
+            // get triangulation of those points
+            masterDt = new Delaunay(masterDelaunayPointsFlat);
+
+            // get spanning tree
+            //spanningTree = masterDt.edges.Distinct().ToList();
+            spanningTree = masterDt.findSpanningTreeBFS();
+
+            // add back some edges from triangulation to provide multiple routes
+            int edgesToAddBack = Mathf.CeilToInt(masterDt.edges.Count * percentageOfEdgesToAddBack);
+            for (int i = 0; i < edgesToAddBack; ++i) {
+                // randomly pick an edge
+                int t;
+                Edge e;
+                do {
+                    t = mt.Next(0, masterDt.edges.Count-1);
+                    e = masterDt.edges[t];
+                } while (spanningTree.Contains(e));
+            }
+
+            // do voronoi blending around points using the original voronoi cells
+            roomVoronoi = masterDelaunayPoints.Select(v => new VoronoiRoom(v)).Where(r => r.site != null).ToList();
+            for (int i = 0; i < roomGrowthRadius; ++i) {
+                foreach (VoronoiRoom r in roomVoronoi) {
+                    r.grow();
+                }
+            }
         }
 
         private void setDungeon() {
@@ -107,13 +199,13 @@ namespace FiscalShock.Procedural {
             enemyOrganizer.name = "Enemies";
             setFloor();
             setWalls();
-            randomizeCells();
+            //randomizeCells();
             makeSun();  // just for fun
-            makeDelvePoint();
-            makeEscapePoint();
-            bakeNavMeshes();
+            //makeDelvePoint();
+            //makeEscapePoint();
+            //bakeNavMeshes();
             // Enemies can only be spawned after baking
-            spawnEnemies();
+            //spawnEnemies();
         }
 
         private void bakeNavMeshes() {
@@ -178,8 +270,34 @@ namespace FiscalShock.Procedural {
         }
 
         private void setFloor() {
-            float floorGridWidth = maxX - minX;
-            float floorGridHeight = maxY - minY;
+            IEnumerable<Vertex> vs = roomVoronoi.SelectMany(r => r.vertices);
+            float mix = vs.Min(v => v.x);
+            float max = vs.Max(v => v.x);
+            float miy = vs.Min(v => v.y);
+            float may = vs.Max(v => v.y);
+            Polygon floorever = new Polygon(
+                new List<Vertex> {
+                    new Vertex(mix, miy),
+                    new Vertex(mix, may),
+                    new Vertex(max, may),
+                    new Vertex(max, miy)
+                }
+            );
+
+            // already a bounding box because we just made a bounding box
+            constructFloorUnderPolygon(floorever);
+
+            /*
+            List<Polygon> roomBbs = roomVoronoi.Select(r => r.boundingBox).ToList();
+            foreach (Polygon p in roomBbs) {
+                constructFloorUnderPolygon(p);
+            }
+            */
+        }
+
+        private void constructFloorUnderPolygon(Polygon p) {
+            float floorGridWidth = p.maxX - p.minX;
+            float floorGridHeight = p.maxY - p.minY;
 
             // "Skin" the floor randomly using valid ground tiles
             int tilesPerRow = Mathf.CeilToInt(floorGridWidth / dungeonType.groundTileDimensions.x);
@@ -192,11 +310,12 @@ namespace FiscalShock.Procedural {
                     GameObject tileToSpawn = dungeonType.groundTiles[idx].prefab;
 
                     Vector3 where = new Vector3(
-                        (i * dungeonType.groundTileDimensions.x) + minX,
+                        (i * dungeonType.groundTileDimensions.x) + p.minX,
                         0 + tileToSpawn.transform.position.y,  // ground level is 0, some tiles don't have the right origin
-                        (j * dungeonType.groundTileDimensions.z) + minY
+                        (j * dungeonType.groundTileDimensions.z) + p.minY
                     );
                     GameObject gro = Instantiate(tileToSpawn, where, tileToSpawn.transform.rotation);
+
                     gro.transform.parent = groundOrganizer.transform;
 
                     // Randomly rotate about the y-axis in increments of 90 deg
@@ -204,6 +323,7 @@ namespace FiscalShock.Procedural {
                     gro.transform.Rotate(0, rotation, 0);
 
                     // Name it for debugging in the editor
+                    // does not name uniquely!
                     gro.name = $"{tileToSpawn.name} ({i}, {j})";
                 }
             }
@@ -225,7 +345,27 @@ namespace FiscalShock.Procedural {
             constructWall(left, 90, 0, dungeonType.wallTileDimensions.x);
             */
 
-            constructWallOnConvexHull();
+            //constructWallOnConvexHull();
+            //constructWallsOnVoronoi();  // warning: laggy!
+            constructWallsOnRooms();
+        }
+
+        private void constructWallsOnVoronoi() {
+            foreach (Edge e in vd.edges) {
+                constructWallOnEdge(e);
+            }
+        }
+
+        private void constructWallsOnPolygon(Polygon p) {
+            foreach (Edge e in p.sides) {
+                constructWallOnEdge(e);
+            }
+        }
+
+        private void constructWallsOnRooms() {
+            foreach (VoronoiRoom r in roomVoronoi) {
+                constructWallsOnPolygon(r.exterior);
+            }
         }
 
         private void constructWallOnConvexHull() {
@@ -454,10 +594,12 @@ namespace FiscalShock.Procedural {
         }
 
         private void spawnPlayer() {
+            /*
             Vertex spawnPoint = dt.vertices[mt.Next(numberOfVertices-1)];
             while (isPointOnOrNearConvexHull(spawnPoint)) {
                 spawnPoint = dt.vertices[mt.Next(numberOfVertices-1)];
-            }
+            }*/
+            Vertex spawnPoint = masterDt.vertices[mt.Next(masterDt.vertices.Count-1)];
             player = Instantiate(playerPrefab, spawnPoint.toVector3AtHeight(25), playerPrefab.transform.rotation);
             player.name = "Player Character";
 
@@ -471,25 +613,12 @@ namespace FiscalShock.Procedural {
             // Disable loading screen camera in this scene
             GameObject.Find("LoadCamera").GetComponent<Camera>().enabled = false;
             GameObject.Find("HUD").GetComponent<Canvas>().enabled = true;
-
-            // DEBUG adding the graph display
-            /*
-            GameObject mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-            FiscalShock.Demo.ProceduralMeshRenderer meshScript = mainCamera.AddComponent<FiscalShock.Demo.ProceduralMeshRenderer>();
-            meshScript.dungen = this;
-            meshScript.renderDelaunayHull = true;
-            meshScript.renderDelaunay = false;
-            meshScript.renderDelaunayVertices = false;
-            meshScript.renderVoronoi = false;
-            meshScript.delaunayColor = new Color(1, 0, 1);
-            meshScript.delaunayRenderHeight = 5f;
-            */
         }
 
         private bool isPointOnOrNearConvexHull(Vertex point) {
-            return (
+            return
                 dt.convexHull.Contains(point) || point.neighborhood.Intersect(dt.convexHull).ToList().Count > 0
-            );
+            ;
         }
     }
 }

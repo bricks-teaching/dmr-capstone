@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
 public class VolumeController : MonoBehaviour {
-    public AudioSource audio { get; private set; }
+    public AudioSource audioS { get; private set; }
 
     void Start() {
-        audio = GetComponent<AudioSource>();
-        audio.volume = Settings.volume;
+        audioS = GetComponent<AudioSource>();
+        audioS.volume = Settings.volume;
     }
 }

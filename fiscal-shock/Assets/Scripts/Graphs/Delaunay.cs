@@ -13,17 +13,7 @@ namespace FiscalShock.Graphs {
         public List<Vertex> convexHull { get; } = new List<Vertex>();
         public List<Edge> convexHullEdges { get; } = new List<Edge>();
 
-        // Track min/max values for map bounds for now
-        public int minX { get; }
-        public int maxX { get; }
-        public int minY { get; }
-        public int maxY { get; }
-
-        public Delaunay(List<double> input, int minX, int maxX, int minY, int maxY) {
-            this.minX = minX;
-            this.maxX = maxX;
-            this.minY = minY;
-            this.maxY = maxY;
+        public Delaunay(List<double> input) {
             delaunator = new Triangulation(input);
 
             // Set up data structures for use in other scripts

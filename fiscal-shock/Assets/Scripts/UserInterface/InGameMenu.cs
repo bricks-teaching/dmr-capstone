@@ -38,7 +38,7 @@ public class InGameMenu : MonoBehaviour
         crossHair = GameObject.Find("Crosshair");
         volumeControllers = GameObject.FindObjectsOfType<VolumeController>();
         foreach (VolumeController vc in volumeControllers) {
-            volumeSlider.onValueChanged.AddListener((value) => vc.audio.volume = value);
+            volumeSlider.onValueChanged.AddListener((value) => vc.GetComponent<AudioSource>().volume = value);
         }
         volumeSlider.onValueChanged.AddListener((value) => Settings.volume = value);
         mouseSlider.onValueChanged.AddListener((value) => Settings.mouseSensitivity = value);

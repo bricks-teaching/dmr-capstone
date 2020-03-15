@@ -1,11 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using FiscalShock.Demo;
 
 public class Cheats : MonoBehaviour {
     public string teleportToEscapeKey = "f2";
     public string teleportToDelveKey = "f3";
     public string robinHood = "f1";
+    public string showMesh = "f4";
     public GameObject player;
     public CharacterController playerController;
 
@@ -29,6 +29,10 @@ public class Cheats : MonoBehaviour {
         }
         if (Input.GetKeyDown(robinHood)) {
             PlayerFinance.cashOnHand += 100;
+        }
+        if (Input.GetKeyDown(showMesh)) {
+            ProceduralMeshRenderer pmr = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<ProceduralMeshRenderer>();
+            pmr.enabled = !pmr.enabled;
         }
     }
 }

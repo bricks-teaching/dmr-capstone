@@ -10,8 +10,24 @@ namespace FiscalShock.Graphs {
         public List<Edge> sides { get; private set; } = new List<Edge>();
         public List<Vertex> vertices { get; set; } = new List<Vertex>();
         public double area { get; set; }
+        public bool isClosed => getIsClosed();
+        public float minX => vertices.Min(v => v.x);
+        public float maxX => vertices.Max(v => v.x);
+        public float minY => vertices.Min(v => v.y);
+        public float maxY => vertices.Max(v => v.y);
 
         public Polygon() {}
+
+        /// <summary>
+        /// WARNING: Do not use vertex-constructed polygons if you need edges!
+        /// Only useful for operations like finding bounding points of points.
+        /// Without edges, it is impossible to know the correct area, as the
+        /// polygon could be self-intersecting.
+        /// </summary>
+        /// <param name="vs"></param>
+        public Polygon(List<Vertex> vs) {
+            vertices = vs;
+        }
 
         public Polygon(List<Edge> boundary) {
             setSides(boundary);
@@ -27,10 +43,34 @@ namespace FiscalShock.Graphs {
         }
 
         /// <summary>
-        /// Requires vertices to be ordered counter-clockwise
+        /// Vertices can come from many places, so just checking that each
+        /// vertex has >=2 neighbors doesn't guarantee those neighbors are
+        /// part of this polygon.
+        /// </summary>
+        public bool getIsClosed() {
+            if (vertices.Count < 3 || sides.Count < 3) {  // I don't consider a line a polygon
+                return false;
+            }
+            foreach (Vertex v in vertices) {
+                // it should have two neighbors in this polygon
+                if (v.neighborhood.Intersect(vertices).Count() < 2) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Finds area of a polygon that is not self-intersecting.
+        /// Requires vertices to be ordered counter-clockwise. Calling this
+        /// function on self-intersecting polygons will result in unexpected
+        /// answers.
         /// </summary>
         /// <returns></returns>
         public double getArea() {
+            if (sides.Count < 3) {
+                return 0;
+            }
             double area = 0;
             for (int i = 0; i < vertices.Count; ++i) {
                 if (i == vertices.Count - 1) {  // Last one "wraps around"
@@ -58,6 +98,33 @@ namespace FiscalShock.Graphs {
                     )).ToList();
             ordered = centroidAngles.OrderByDescending(t => t.Item2).Select(t => t.Item1).ToList();
             this.vertices = ordered;
+        }
+
+        /// <summary>
+        /// Gets the bounding box coordinates of this polygon from the minimum and maximum vertex coordinates
+        /// </summary>
+        /// <returns></returns>
+        public Polygon getBoundingBox() {
+            if (vertices.Count < 3) {
+                return null;
+            }
+            List<Vertex> corners = new List<Vertex> {
+                new Vertex(minX, minY),  // 0,0
+                new Vertex(minX, maxY),  // 0,1
+                new Vertex(maxX, maxY),  // 1,1
+                new Vertex(maxX, minY)   // 1,0
+            };
+
+            List<Edge> boundary = new List<Edge>();
+            for (int i = 0; i < corners.Count; ++i) {
+                if (i != corners.Count-1) {
+                    boundary.Add(new Edge(corners[i], corners[i+1]));
+                } else {
+                    boundary.Add(new Edge(corners[0], corners[i]));
+                }
+            }
+
+            return new Polygon(boundary);
         }
     }
 
@@ -154,5 +221,27 @@ namespace FiscalShock.Graphs {
         public void orderVertices() {
             orderVerticesCounterClockwise(site);
         }
+
+        /* Comparator functions - needed for LINQ */
+        // Only based on site for now, should really take into account sides
+        public override bool Equals(object obj) {
+            if (obj is Cell other) {
+                return site == other.site;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Taken from https://stackoverflow.com/a/2280213
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode() {
+            int hash = 23;
+            hash = (hash * 31) + site.x.GetHashCode();
+            hash = (hash * 31) + site.y.GetHashCode();
+            return hash;
+        }
+        /* End comparator functions */
+
     }
 }

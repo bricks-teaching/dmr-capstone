@@ -1,4 +1,4 @@
-using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace FiscalShock.Graphs {
@@ -25,7 +25,7 @@ namespace FiscalShock.Graphs {
         /// Generates a Voronoi diagram using Delaunator output
         /// </summary>
         /// <param name="del"></param>
-        public Voronoi(Delaunay del)  {
+        public Voronoi(Delaunay del) {
             dual = del;
             sites = dual.vertices;
             cells = new List<Cell>();
@@ -52,6 +52,7 @@ namespace FiscalShock.Graphs {
                     vertices.Add(p);
                     vertices.Add(q);
                     edges.Add(pq);
+                    pq.connect(p, q);
 
                     List<Vertex> triPVertices = triP.vertices;
                     List<Vertex> triQVertices = triQ.vertices;
@@ -95,6 +96,78 @@ namespace FiscalShock.Graphs {
                     c.area = c.getArea();
                 }
             }
+        }
+    }
+
+    public class VoronoiRoom : Graph {
+        public List<Cell> cells { get; private set; } = new List<Cell>();
+        public Vertex site { get; }
+        public List<Edge> allEdges => cells.SelectMany(c => c.sides).Distinct().ToList();
+        public Polygon exterior { get; private set; }
+        public Polygon boundingBox { get; private set; }
+        //new public List<Vertex> vertices => cells.SelectMany(c => c.vertices).Distinct().ToList();
+
+        /// <summary>
+        /// sentinel value to prevent adding rude cells near convex hull
+        /// </summary>
+        public static readonly double MAX_CELL_AREA = 2048;
+
+        public VoronoiRoom(Vertex newSite) {
+            if (newSite.cell.getArea() < MAX_CELL_AREA) {
+                site = newSite;
+                cells.Add(site.cell);
+                setExterior();
+                setVertices();
+                setEdges();
+            } else {
+                UnityEngine.Debug.Log($"This site's cell was too large: {newSite.cell.getArea()}");
+            }
+        }
+
+        /// <summary>
+        /// Any edge not included in another cell is part of the exterior
+        /// </summary>
+        public void setExterior() {
+            List<Edge> ext = cells
+            .SelectMany(c => c.sides)
+            .GroupBy(e => e)
+            .Where(g => g.Count() == 1)
+            .Select(g => g.First())
+            .ToList();
+
+            exterior = new Polygon(ext);
+            setBoundingBox();
+        }
+
+        /// <summary>
+        /// Expands the room by adding all neighbors of current cells
+        /// </summary>
+        public void grow() {
+            int originalCellCount = cells.Count;
+            for (int i = 0; i < originalCellCount; ++i) {
+                foreach (Cell c in cells[i].neighbors) {
+                    if (c.isClosed && c.getArea() < MAX_CELL_AREA) {
+                        cells.Add(c);
+                    }
+                }
+            }
+            // clear out duplicates
+            cells = cells.Distinct().ToList();
+            setExterior();
+            setVertices();
+            setEdges();
+        }
+
+        public void setBoundingBox() {
+            boundingBox = exterior.getBoundingBox();
+        }
+
+        public void setVertices() {
+            vertices = cells.SelectMany(c => c.vertices).Distinct().ToList();
+        }
+
+        public void setEdges() {
+            edges = cells.SelectMany(c => c.sides).Distinct().ToList();
         }
     }
 }

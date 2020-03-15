@@ -69,7 +69,7 @@ public class PlayerShoot : MonoBehaviour {
 				}
                 Transform target = null;
                 if(weaponScript.missile && Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity)){
-                    Debug.Log(hit.collider);
+                    //Debug.Log(hit.collider);
                     //Instantiate(debugger, transform.position + (transform.TransformDirection(Vector3.forward) * hit.distance), transform.rotation);
                     target = hit.collider.transform;
                 }
@@ -177,7 +177,6 @@ public class PlayerShoot : MonoBehaviour {
     }
 
     public void removeMissile(GameObject missile){
-        Debug.Log("removing missile");
         missiles.Remove(missile);
     }
 }
