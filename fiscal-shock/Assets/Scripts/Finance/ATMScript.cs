@@ -11,6 +11,10 @@ public class ATMScript : MonoBehaviour {
     private TextMeshProUGUI signText;
     private string defaultSignText;
     private AudioSource audio;
+    public static float bankMaxLoan { get; set; } = 10000.0f;
+    public static float bankInterestRate { get; set; } = 0.035f;
+    public static int bankThreatLevel { get; set; } = 0;
+    public static float bankTotal { get; set; }
 
     void OnTriggerEnter(Collider col) {
         if (col.gameObject.tag == "Player") {
@@ -49,9 +53,9 @@ public class ATMScript : MonoBehaviour {
     }
 
     public bool addDebt(float amount) {
-        if (PlayerFinance.bankThreatLevel < 3 && PlayerFinance.bankMaxLoan > (PlayerFinance.debtBank + amount)){
+        if (bankThreatLevel < 3 && bankMaxLoan > (StateManager.totalBankDebt + amount)){
             // bank threat is below 3 and is below max total debt
-            PlayerFinance.debtBank += amount;
+            StateManager.totalBankDebt += amount;
             PlayerFinance.cashOnHand += amount;
             return true;
         } else {
@@ -63,19 +67,29 @@ public class ATMScript : MonoBehaviour {
         if (PlayerFinance.cashOnHand < amount) { // amount is more than money on hand
             //display a message stating error
             return false;
-        } else if (PlayerFinance.debtBank < amount) { // amount is more than the debt
-            PlayerFinance.debtBank = 0.0f; // reduce debt to 0 and money on hand by the debt's value
-            PlayerFinance.cashOnHand -= PlayerFinance.debtBank;
+        } else if (StateManager.totalBankDebt < amount) { // amount is more than the debt
+            StateManager.totalBankDebt = 0.0f; // reduce debt to 0 and money on hand by the debt's value
+            PlayerFinance.cashOnHand -= StateManager.totalBankDebt;
             bankDue = false;
             temporaryWinGame();
             return true;
         } else { // none of the above
             // reduce debt and money by amount
-            PlayerFinance.debtBank -= amount;
+            StateManager.totalBankDebt -= amount;
             PlayerFinance.cashOnHand -= amount;
             bankDue = false;
             return true;
         }
+    }
+
+    public static void bankUnpaid()
+    {
+
+    }
+
+    public static void bankInterest()
+    {
+        
     }
 
     public void temporaryWinGame() {

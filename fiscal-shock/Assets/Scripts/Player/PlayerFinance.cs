@@ -1,23 +1,22 @@
 ﻿public static class PlayerFinance {
     public static float cashOnHand { get; set; } = 1000.0f;
-    public static float debtBank {get; set; } = 2500.0f;
-    public static float bankMaxLoan { get; set; } = 10000.0f;
-    public static float bankInterestRate { get; set; } = 0.035f;
-    public static int bankThreatLevel { get; set; } = 0;
-    public static float debtShark { get; set; } = 0.0f;
-    public static float sharkMaxLoan { get; set; } = 4000.0f;
-    public static float sharkInterestRate { get; set; } = 0.155f;
-    public static int sharkThreatLevel { get; set; } = 3;
+    public static float totalDebt {get; set;}
+    public static float totalDebtBank {get; set; } = 2500.0f;
+    public static float totalDebtShark { get; set; } = 0.0f;
 
     public static bool startNewDay() {
-        if (debtShark > 0) {
-            sharkThreatLevel++;
-            debtShark += debtShark * sharkInterestRate;
+        if (totalDebtShark > 0) {
+            //If unpaid debts present up threat level
+            SharkScript.sharkUnpaid();
+            //activates interest method in sharkscript
+            SharkScript.sharkInterest();
             SharkScript.sharkDue = true;
         }
-        if (debtBank > 0) {
-            bankThreatLevel++;
-            debtBank += debtBank * bankInterestRate;
+        if (totalDebtBank > 0) {
+            //If unpaid debts present up threat level
+            ATMScript.bankUnpaid();
+            //activates interest method in atmscript
+            ATMScript.bankInterest();
             ATMScript.bankDue = true;
         }
         return true;
