@@ -1,0 +1,26 @@
+.. _exhale_class_classDungeonTutorial:
+
+Class DungeonTutorial
+=====================
+
+- Defined in :ref:`file_fiscal-shock_Assets_Scripts_Instructional_DungeonTutorial.cs`
+
+
+Inheritance Relationships
+-------------------------
+
+Base Type
+*********
+
+- ``public MonoBehaviour``
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: DungeonTutorial
+   :members:
+   :protected-members:
+   :private-members:
+   :undoc-members:

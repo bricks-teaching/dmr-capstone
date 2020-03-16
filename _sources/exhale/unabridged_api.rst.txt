@@ -123,6 +123,11 @@ Classes and Structs
 .. toctree::
    :maxdepth: 5
 
+   classDungeonTutorial.rst
+
+.. toctree::
+   :maxdepth: 5
+
    classEnemyHealth.rst
 
 .. toctree::

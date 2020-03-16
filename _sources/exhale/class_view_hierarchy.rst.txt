@@ -33,6 +33,7 @@ Class Hierarchy
 - :ref:`exhale_class_classBulletBehavior`
 - :ref:`exhale_class_classCheats`
 - :ref:`exhale_class_classDungeonEntry`
+- :ref:`exhale_class_classDungeonTutorial`
 - :ref:`exhale_class_classEnemyHealth`
 - :ref:`exhale_class_classEnemyMovement`
 - :ref:`exhale_class_classEnemyShoot`

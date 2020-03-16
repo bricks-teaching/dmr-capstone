@@ -12,6 +12,7 @@ File Hierarchy
 - :ref:`file_fiscal-shock_Assets_Scripts_ProceduralGeneration_Delve.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_ProceduralGeneration_Dungeoneer.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_Player_DungeonEntry.cs`
+- :ref:`file_fiscal-shock_Assets_Scripts_Instructional_DungeonTutorial.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_ProceduralGeneration_DungeonType.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_Graphs_Edge.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_AI_EnemyHealth.cs`

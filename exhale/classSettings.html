@@ -165,6 +165,93 @@
 <span id="_CPPv38Settings"></span><span id="_CPPv28Settings"></span><span id="Settings"></span><span class="target" id="classSettings"></span><em class="property">class </em><code class="sig-name descname">Settings</code><a class="headerlink" href="#_CPPv48Settings" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Global settings used across many files </p>
 <div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Property</p>
+<dl class="member">
+<dt>
+<span class="target" id="classSettings_1a934bc41114be25be16a01119bc78741d"></span><em class="property">property </em><code class="sig-name descname">Settings::cursorStateMutexOwner</code></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Static Functions</p>
+<dl class="function">
+<dt>
+<span class="target" id="classSettings_1a50f5324935039b75d82047d9945fadf0"></span><code class="sig-name descname">static bool Settings.mutexLockCursorState(MonoBehaviour caller)</code></dt>
+<dd><p>Get the mutex on the cursor state while locking the cursor </p>
+<p>Remember to free it with unlockCursorState so the mutex is released!</p>
+<p><dl>
+<dt><strong>Return</strong></dt><dd><p></p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist">
+<li><code class="docutils literal notranslate"><span class="pre">caller</span></code></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classSettings_1a2d8dd3280097d2d01596fa76b0f9ae00"></span><code class="sig-name descname">static bool Settings.mutexUnlockCursorState(MonoBehaviour caller)</code></dt>
+<dd><p>Get the mutex on the cursor state while freeing the cursor </p>
+<p>Remember to free it with lockCursorState so the mutex is released!</p>
+<p><dl>
+<dt><strong>Return</strong></dt><dd><p></p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist">
+<li><code class="docutils literal notranslate"><span class="pre">caller</span></code></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classSettings_1a59a70e177e6637e986bef309e1a0e18e"></span><code class="sig-name descname">static bool Settings.lockCursorState(MonoBehaviour caller)</code></dt>
+<dd><p>Attempts to lock the cursor state and disowns the mutex if the caller already owned it </p>
+<p><dl>
+<dt><strong>Return</strong></dt><dd><p></p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist">
+<li><code class="docutils literal notranslate"><span class="pre">caller</span></code></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classSettings_1aad6c94fa03b346de096c763395a75795"></span><code class="sig-name descname">static bool Settings.unlockCursorState(MonoBehaviour caller)</code></dt>
+<dd><p>Attempts to unlock the cursor state and disowns the mutex if the caller already owned it </p>
+<p><dl>
+<dt><strong>Return</strong></dt><dd><p></p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist">
+<li><code class="docutils literal notranslate"><span class="pre">caller</span></code></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classSettings_1a295296e3c9b091ba16fb5620bca1e4c2"></span><code class="sig-name descname">static void Settings.forceUnlockCursorState()</code></dt>
+<dd><p>Violently unlocks the cursor state and evicts the existing mutex owner, if it was owned. </p>
+<p>Do not use except when you NEED to impolitely alter controls, i.e., changing scenes.</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classSettings_1ae66e6b1b3a7f1cb9b2667e08ee2ae102"></span><code class="sig-name descname">static void Settings.forceLockCursorState()</code></dt>
+<dd><p>Violently locks the cursor state and evicts the existing mutex owner, if it was owned. </p>
+<p>Do not use except when you NEED to impolitely alter controls, i.e., changing scenes.</p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Static Attributes</p>
 <dl class="member">
 <dt>
@@ -174,6 +261,36 @@
 <dl class="member">
 <dt>
 <span class="target" id="classSettings_1a75f3cbddc84e190a806b380a60f6eeea"></span><code class="sig-name descname">float Settings.mouseSensitivity = 100f</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classSettings_1a9b96c5726df5919a9d9cee06d05171f6"></span><code class="sig-name descname">bool Settings.sawTutorial = false</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classSettings_1a716639cb79fc5f7de2817ea4c1dad7ba"></span><code class="sig-name descname">string Settings.pauseKey = &quot;escape&quot;</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classSettings_1a922a27f2386420996b028824a23adb19"></span><code class="sig-name descname">string Settings.interactKey = &quot;f&quot;</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classSettings_1a3f0449d6dee2673dff8e728cec2a3c35"></span><code class="sig-name descname">string Settings.weaponOneKey = &quot;1&quot;</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classSettings_1a3e077e3253b0d7c9dc97f65919bf3100"></span><code class="sig-name descname">string Settings.weaponTwoKey = &quot;2&quot;</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classSettings_1affe80cd8de76b77b30a10b6504d4d9d9"></span><code class="sig-name descname">string Settings.hidePauseMenuKey = &quot;backspace&quot;</code></dt>
 <dd></dd></dl>
 
 </div>
