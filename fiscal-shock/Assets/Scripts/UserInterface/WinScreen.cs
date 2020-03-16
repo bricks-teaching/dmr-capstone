@@ -2,7 +2,7 @@
 
 public class WinScreen : MonoBehaviour {
     public void Start() {
-        Cursor.lockState = CursorLockMode.None;
+        Settings.forceUnlockCursorState();
     }
 
     public void QuitClick() {

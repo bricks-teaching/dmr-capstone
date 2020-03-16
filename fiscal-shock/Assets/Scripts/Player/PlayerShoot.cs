@@ -60,7 +60,7 @@ public class PlayerShoot : MonoBehaviour {
                 }
                 rest = !rest;
             }
-        } else{ 
+        } else {
             if (Input.GetMouseButtonDown(0) && !weaponChanging && Time.timeScale > 0)
             {
 				if (PlayerFinance.cashOnHand < weaponScript.bulletCost) {
@@ -78,7 +78,7 @@ public class PlayerShoot : MonoBehaviour {
             }
         }
         // Change weapon
-        if (Input.GetKeyDown("1")) {
+        if (Input.GetKeyDown(Settings.weaponOneKey)) {
             slot = 1;
             if (weapon != null) {
                 HolsterWeapon();
@@ -86,7 +86,7 @@ public class PlayerShoot : MonoBehaviour {
                 LoadWeapon();
             }
         }
-        if (Input.GetKeyDown("2")) {
+        if (Input.GetKeyDown(Settings.weaponTwoKey)) {
             slot = 2;
             if (weapon != null) {
                 HolsterWeapon();

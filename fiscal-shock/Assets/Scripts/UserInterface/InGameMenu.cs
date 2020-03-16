@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class InGameMenu : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class InGameMenu : MonoBehaviour
     public GameObject quitPanel;
     public GameObject player;
     public GameObject crossHair;
+    public TextMeshProUGUI pauseText;
     private VolumeController[] volumeControllers;
     public Slider volumeSlider;
     public Slider mouseSlider;
@@ -47,14 +49,11 @@ public class InGameMenu : MonoBehaviour
 
     void Update() {
         // Bring up pause menu
-        if (Input.GetKeyDown("p")) {
+        if (Input.GetKeyDown(Settings.pauseKey)) {
             if (!pausePanel.activeSelf) {
-                if (Time.timeScale == 0) {
-                    Time.timeScale = 1;
-                } else {
-                    Time.timeScale = 0;
-                }
-                Cursor.lockState = CursorLockMode.None;
+                Time.timeScale = 0;
+                pauseText.text = "PAUSED";
+                Settings.mutexUnlockCursorState(this);
                 pausePanel.SetActive(true);
                 crossHair?.SetActive(false);
             } else {
@@ -62,18 +61,25 @@ public class InGameMenu : MonoBehaviour
                 quitPanel.SetActive(false);
                 pausePanel.SetActive(false);
                 crossHair?.SetActive(true);
-                Cursor.lockState = CursorLockMode.Locked;
+                Settings.lockCursorState(this);
                 Time.timeScale = 1;
+                pauseText.text = "";
+            }
+        }
+        if (Input.GetKeyDown(Settings.hidePauseMenuKey)) {
+            if (Time.timeScale == 0) {
+                pausePanel.SetActive(!pausePanel.activeSelf);
             }
         }
     }
 
     public void PlayClick ()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        Settings.lockCursorState(this);
         pausePanel.SetActive(false);
         crossHair?.SetActive(true);
         Time.timeScale = 1;
+        pauseText.text = "";
     }
 
     public void OptionsClick ()
