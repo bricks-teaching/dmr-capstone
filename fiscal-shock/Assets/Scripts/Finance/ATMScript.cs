@@ -53,24 +53,27 @@ public class ATMScript : MonoBehaviour {
     }
 
     public bool addDebt(float amount) {
-        if (bankThreatLevel < 3 && bankMaxLoan > (StateManager.totalBankDebt + amount)){
+        if (bankThreatLevel < 3 && bankMaxLoan > (bankTotal + amount)){
             // bank threat is below 3 and is below max total debt
-            StateManager.totalBankDebt += amount;
+            Loan newLoan = new Loan(StateManager.nextID + 1, amount, bankInterestRate, false);
+            StateManager.loanList.AddLast(newLoan);
             PlayerFinance.cashOnHand += amount;
+            StateManager.nextID++;
             return true;
         } else {
             return false;
         }
     }
 
-    public bool payDebt(float amount) {
+    public bool payDebt(float amount, int loanNum) {
         if (PlayerFinance.cashOnHand < amount) { // amount is more than money on hand
             //display a message stating error
             return false;
-        } else if (StateManager.totalBankDebt < amount) { // amount is more than the debt
+        } else if (StateManager.totalBankDebt <= amount) { // amount is more than the debt
             StateManager.totalBankDebt = 0.0f; // reduce debt to 0 and money on hand by the debt's value
             PlayerFinance.cashOnHand -= StateManager.totalBankDebt;
             bankDue = false;
+            StateManager.totalLoans--;
             temporaryWinGame();
             return true;
         } else { // none of the above
@@ -84,12 +87,29 @@ public class ATMScript : MonoBehaviour {
 
     public static void bankUnpaid()
     {
-
+        foreach (Loan item in StateManager.loanList)
+        {
+            if(!item.paid && !item.source)
+            {
+                bankThreatLevel++;
+            }
+        }
     }
 
     public static void bankInterest()
     {
-        
+        float tempTot = 0.0f, tempAdd;
+        foreach (Loan item in StateManager.loanList)
+        {
+            if(!item.source)
+            {
+                item.paid = false;
+                tempAdd = item.total * item.rate;
+                item.total += tempAdd;
+                tempTot += item.total;
+            }
+        }
+        bankTotal = tempTot;
     }
 
     public void temporaryWinGame() {

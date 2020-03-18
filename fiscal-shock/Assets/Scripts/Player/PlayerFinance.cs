@@ -8,17 +8,17 @@
         if (totalDebtShark > 0) {
             //If unpaid debts present up threat level
             SharkScript.sharkUnpaid();
-            //activates interest method in sharkscript
+            //activates interest method in sharkscript also sets paid to false
             SharkScript.sharkInterest();
-            SharkScript.sharkDue = true;
         }
         if (totalDebtBank > 0) {
             //If unpaid debts present up threat level
             ATMScript.bankUnpaid();
-            //activates interest method in atmscript
+            //activates interest method in atmscript also sets paid to false
             ATMScript.bankInterest();
             ATMScript.bankDue = true;
         }
+        StateManager.calcDebtTotals();
         return true;
     }
 }
