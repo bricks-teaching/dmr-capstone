@@ -14,6 +14,12 @@ namespace FiscalShock.Graphs {
             vertices = new List<Vertex> { a, b };
         }
 
+        public Edge(UnityEngine.Vector3 a, UnityEngine.Vector3 b) {
+            Vertex va = new Vertex(a.x, a.z);
+            Vertex vb = new Vertex(b.x, b.z);
+            vertices = new List<Vertex> { va, vb };
+        }
+
         public void connect(Vertex a, Vertex b) {
             a.neighborhood.Add(b);
             b.neighborhood.Add(a);
@@ -52,8 +58,8 @@ namespace FiscalShock.Graphs {
         /// between the endpoints
         /// </summary>
         /// <returns>length of this edge</returns>
-        public double getLength() {
-            return p.getDistanceTo(q);
+        public float getLength() {
+            return (float)p.getDistanceTo(q);
         }
 
         /// <summary>

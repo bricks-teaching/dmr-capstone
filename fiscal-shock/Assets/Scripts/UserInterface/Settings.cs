@@ -16,6 +16,14 @@ public static class Settings {
     public static string weaponTwoKey = "2";
     public static string hidePauseMenuKey = "backspace";
 
+    // occlusion culling
+    public static int occlusionSampleDelay = 128;
+    public static int occlusionSamples = 128;
+    public static int occlusionHideDelay = 32;
+    public static int viewDistance = 128;
+    public static int minOcclusionDistance = 32;
+
+
     /// <summary>
     /// Get the mutex on the cursor state while locking the cursor
     ///

@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using FiscalShock.Demo;
+using ThirdParty;
 
 public class Cheats : MonoBehaviour {
     public string teleportToEscapeKey = "f2";
     public string teleportToDelveKey = "f3";
     public string robinHood = "f1";
-    public string showMesh = "f4";
+    public string toggleGraphMesh = "f4";
+    public string toggleOcclusionCulling = "f9";
     public GameObject player;
     public CharacterController playerController;
 
@@ -29,10 +31,17 @@ public class Cheats : MonoBehaviour {
         }
         if (Input.GetKeyDown(robinHood)) {
             PlayerFinance.cashOnHand += 100;
+            Debug.Log("Added 100 monies");
         }
-        if (Input.GetKeyDown(showMesh)) {
+        if (Input.GetKeyDown(toggleGraphMesh)) {
             ProceduralMeshRenderer pmr = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<ProceduralMeshRenderer>();
             pmr.enabled = !pmr.enabled;
+            Debug.Log($"Toggled mesh view to {pmr.enabled}");
+        }
+        if (Input.GetKeyDown(toggleOcclusionCulling)) {
+            OcclusionCamera oc = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<OcclusionCamera>();
+            oc.enabled = !oc.enabled;
+            Debug.Log($"Toggled occlusion culling to {oc.enabled}");
         }
     }
 }

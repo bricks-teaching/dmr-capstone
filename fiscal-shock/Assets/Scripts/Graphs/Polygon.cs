@@ -208,6 +208,7 @@ namespace FiscalShock.Graphs {
         public List<Cell> neighbors { get; set; } = new List<Cell>();
         public int id { get; }
         public UnityEngine.GameObject spawnedObject { get; set; }
+        public VoronoiRoom room { get; set; }
 
         public Cell(Vertex delaunayVertex) {
             site = delaunayVertex;

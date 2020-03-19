@@ -51,6 +51,7 @@ public class InGameMenu : MonoBehaviour
         // Bring up pause menu
         if (Input.GetKeyDown(Settings.pauseKey)) {
             if (!pausePanel.activeSelf) {
+                System.GC.Collect();
                 Time.timeScale = 0;
                 pauseText.text = "PAUSED";
                 Settings.mutexUnlockCursorState(this);

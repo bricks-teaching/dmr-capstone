@@ -116,6 +116,7 @@ namespace FiscalShock.Graphs {
             if (newSite.cell.getArea() < MAX_CELL_AREA) {
                 site = newSite;
                 cells.Add(site.cell);
+                site.cell.room = this;
                 setExterior();
                 setVertices();
                 setEdges();
@@ -146,8 +147,9 @@ namespace FiscalShock.Graphs {
             int originalCellCount = cells.Count;
             for (int i = 0; i < originalCellCount; ++i) {
                 foreach (Cell c in cells[i].neighbors) {
-                    if (c.isClosed && c.getArea() < MAX_CELL_AREA) {
+                    if (c.isClosed && c.getArea() < MAX_CELL_AREA && c.room == null) {
                         cells.Add(c);
+                        c.room = this;
                     }
                 }
             }

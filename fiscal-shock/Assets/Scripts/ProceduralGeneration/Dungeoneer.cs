@@ -56,20 +56,22 @@ namespace FiscalShock.Procedural {
         public Delaunay masterDt { get; private set; }
         public List<Edge> spanningTree { get; private set; }
         public List<VoronoiRoom> roomVoronoi { get; private set; }
+        public List<Cell> validCells { get; private set; }
 
-        private MersenneTwister mt;
-        private DungeonType dungeonType;
+        public MersenneTwister mt { get; private set; }
+        public DungeonType dungeonType { get; set; }
 
         public List<GameObject> enemies { get; } = new List<GameObject>();
         public GameObject player { get; private set; }
-        private GameObject organizer;
-        private GameObject groundOrganizer;
-        private GameObject wallOrganizer;
-        private GameObject enemyOrganizer;
-        private GameObject thingOrganizer;
+        public GameObject organizer { get; private set; }
+        public GameObject groundOrganizer { get; private set; }
+        public GameObject wallOrganizer { get; private set; }
+        public GameObject enemyOrganizer { get; private set; }
+        public GameObject thingOrganizer { get; private set; }
         public List<BakedNav> bakedNavMeshes { get; } = new List<BakedNav>();
 
         public void Start() {
+            Debug.Log($"Starting to load");
             initPRNG();
             System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
             sw.Start();
@@ -81,6 +83,7 @@ namespace FiscalShock.Procedural {
 
             sw.Reset();
             sw.Start();
+            Debug.Log("Starting object generation");
             setDungeon();
             spawnPlayer();
             sw.Stop();
@@ -108,14 +111,17 @@ namespace FiscalShock.Procedural {
         }
 
         public void generateDelaunay() {
+            Debug.Log("Generating Delaunay");
             dt = new Delaunay(makeRandomPoints());
         }
 
         public void generateVoronoi() {
+            Debug.Log("Generating Voronoi");
             vd = dt.makeVoronoi();
         }
 
         public void generateRoomGraphs() {
+            Debug.Log("Generating room graphs");
             // pick how many rooms to make
             int rooms = mt.Next(minRooms, maxRooms);
             List<Vertex> masterDelaunayPoints = new List<Vertex>();
@@ -176,12 +182,15 @@ namespace FiscalShock.Procedural {
             }
 
             // do voronoi blending around points using the original voronoi cells
+            // does not merge separate rooms!
             roomVoronoi = masterDelaunayPoints.Select(v => new VoronoiRoom(v)).Where(r => r.site != null).ToList();
             for (int i = 0; i < roomGrowthRadius; ++i) {
                 foreach (VoronoiRoom r in roomVoronoi) {
                     r.grow();
                 }
             }
+
+            validCells = getValidCells();
         }
 
         private void setDungeon() {
@@ -197,15 +206,24 @@ namespace FiscalShock.Procedural {
             thingOrganizer.name = "Spawned Objects";
             enemyOrganizer = new GameObject();
             enemyOrganizer.name = "Enemies";
-            setFloor();
-            setWalls();
-            //randomizeCells();
+
+            Floor.setFloor(this);
+            Walls.setWalls(this);
+            randomizeCells();
             makeSun();  // just for fun
-            //makeDelvePoint();
-            //makeEscapePoint();
-            //bakeNavMeshes();
+            Portals.makeDelvePoint(this);
+            Portals.makeEscapePoint(this);
+            bakeNavMeshes();
             // Enemies can only be spawned after baking
-            //spawnEnemies();
+            spawnEnemies();
+        }
+
+        /// <summary>
+        /// Don't spawn things that weren't in rooms
+        /// </summary>
+        /// <returns></returns>
+        private List<Cell> getValidCells() {
+            return vd.cells.Where(c => c.room != null).ToList();
         }
 
         private void bakeNavMeshes() {
@@ -226,282 +244,17 @@ namespace FiscalShock.Procedural {
             }
         }
 
-        private void makeDelvePoint() {
-            int delveSite = makePortal(dungeonType.delvePrefab);
-            vd.cells[delveSite].spawnedObject.name = "Delve Point";
-        }
-
-        private void makeEscapePoint() {
-            int escapeSite = makePortal(dungeonType.returnPrefab);
-            vd.cells[escapeSite].spawnedObject.name = "Escape Point";
-        }
-
-        private int makePortal(GameObject portal) {
-            int portalSite;
-            do {
-                portalSite = mt.Next(numberOfVertices-1);
-            } while (isPointOnOrNearConvexHull(vd.cells[portalSite].site));
-            // Remove any currently spawned objects here
-            if (vd.cells[portalSite].spawnedObject != null) {
-                Destroy(vd.cells[portalSite].spawnedObject);
-            }
-            // Also remove neighbors because of clipping issues
-            foreach (Cell c in vd.cells[portalSite].neighbors) {
-                if (c.spawnedObject != null) {
-                    Destroy(c.spawnedObject);
-                }
-            }
-
-            Vector3 where = new Vector3(vd.cells[portalSite].site.x, dungeonType.groundTileDimensions.y, vd.cells[portalSite].site.y);
-            vd.cells[portalSite].spawnedObject = Instantiate(portal, where, portal.transform.rotation);
-            // Randomly rotate about the y-axis
-            float rotation = mt.Next(360);
-            vd.cells[portalSite].spawnedObject.transform.Rotate(0, rotation, 0);
-
-            return portalSite;
-        }
-
         private void makeSun() {
             GameObject sun = Instantiate(dungeonType.sun.prefab, dungeonType.sun.prefab.transform.position, dungeonType.sun.prefab.transform.rotation);
             sun.transform.localScale *= 10;
-            sun.transform.position = new Vector3(minX - 5, dungeonType.wallTileDimensions.y * 20, minY - 5);
+            sun.transform.position = new Vector3(minX - 5, dungeonType.wallHeight * 4, minY - 5);
             sun.transform.Rotate(25, 45, -30);
             sun.name = "Sol";
         }
 
-        private void setFloor() {
-            IEnumerable<Vertex> vs = roomVoronoi.SelectMany(r => r.vertices);
-            float mix = vs.Min(v => v.x);
-            float max = vs.Max(v => v.x);
-            float miy = vs.Min(v => v.y);
-            float may = vs.Max(v => v.y);
-            Polygon floorever = new Polygon(
-                new List<Vertex> {
-                    new Vertex(mix, miy),
-                    new Vertex(mix, may),
-                    new Vertex(max, may),
-                    new Vertex(max, miy)
-                }
-            );
-
-            // already a bounding box because we just made a bounding box
-            constructFloorUnderPolygon(floorever);
-
-            /*
-            List<Polygon> roomBbs = roomVoronoi.Select(r => r.boundingBox).ToList();
-            foreach (Polygon p in roomBbs) {
-                constructFloorUnderPolygon(p);
-            }
-            */
-        }
-
-        private void constructFloorUnderPolygon(Polygon p) {
-            float floorGridWidth = p.maxX - p.minX;
-            float floorGridHeight = p.maxY - p.minY;
-
-            // "Skin" the floor randomly using valid ground tiles
-            int tilesPerRow = Mathf.CeilToInt(floorGridWidth / dungeonType.groundTileDimensions.x);
-            int tilesPerColumn = Mathf.CeilToInt(floorGridHeight / dungeonType.groundTileDimensions.z);
-
-            for (int i = -1; i <= tilesPerRow; ++i) {
-                for (int j = -1; j <= tilesPerColumn; ++j) {
-                    // Randomly select a ground tile to spawn
-                    int idx = mt.Next(dungeonType.groundTiles.Count-1);
-                    GameObject tileToSpawn = dungeonType.groundTiles[idx].prefab;
-
-                    Vector3 where = new Vector3(
-                        (i * dungeonType.groundTileDimensions.x) + p.minX,
-                        0 + tileToSpawn.transform.position.y,  // ground level is 0, some tiles don't have the right origin
-                        (j * dungeonType.groundTileDimensions.z) + p.minY
-                    );
-                    GameObject gro = Instantiate(tileToSpawn, where, tileToSpawn.transform.rotation);
-
-                    gro.transform.parent = groundOrganizer.transform;
-
-                    // Randomly rotate about the y-axis in increments of 90 deg
-                    float rotation = mt.Next(4) * 90f;
-                    gro.transform.Rotate(0, rotation, 0);
-
-                    // Name it for debugging in the editor
-                    // does not name uniquely!
-                    gro.name = $"{tileToSpawn.name} ({i}, {j})";
-                }
-            }
-        }
-
-        private void setWalls() {
-            /* Walls on min/max
-            Vertex topLeft = new Vertex(minX * 0.9f, maxY * 0.9f);
-            Vertex topRight = new Vertex(maxX * 0.9f, maxY * 0.9f);
-            Vertex bottomLeft = new Vertex(minX * 0.9f, minY * 0.9f);
-            Vertex bottomRight = new Vertex(maxX * 0.9f, minY * 0.9f);
-            Edge top = new Edge(topLeft, topRight);
-            Edge right = new Edge(topRight, bottomRight);
-            Edge bottom = new Edge(bottomRight, bottomLeft);
-            Edge left = new Edge(bottomLeft, topLeft);
-            constructWall(top, 180, dungeonType.wallTileDimensions.x, 0);
-            constructWall(right, -90, 0, -dungeonType.wallTileDimensions.x);
-            constructWall(bottom, 0, -dungeonType.wallTileDimensions.x, 0);
-            constructWall(left, 90, 0, dungeonType.wallTileDimensions.x);
-            */
-
-            //constructWallOnConvexHull();
-            //constructWallsOnVoronoi();  // warning: laggy!
-            constructWallsOnRooms();
-        }
-
-        private void constructWallsOnVoronoi() {
-            foreach (Edge e in vd.edges) {
-                constructWallOnEdge(e);
-            }
-        }
-
-        private void constructWallsOnPolygon(Polygon p) {
-            foreach (Edge e in p.sides) {
-                constructWallOnEdge(e);
-            }
-        }
-
-        private void constructWallsOnRooms() {
-            foreach (VoronoiRoom r in roomVoronoi) {
-                constructWallsOnPolygon(r.exterior);
-            }
-        }
-
-        private void constructWallOnConvexHull() {
-            foreach (Edge e in dt.convexHullEdges) {
-               constructWallOnEdge(e);
-            }
-        }
-
-        /// <summary>
-        /// Make walls along an arbitrary edge
-        /// </summary>
-        /// <param name="wall"></param>
-        private void constructWallOnEdge(Edge wall) {
-            int wallLengthInTiles = Mathf.CeilToInt((float)wall.getLength() / dungeonType.wallTileDimensions.x);
-            float lerpDistance = 1 / (float)wallLengthInTiles;
-            float lerp = 0;
-            Vector3 p = wall.p.toVector3AtHeight(dungeonType.groundTileDimensions.y);
-            Vector3 q = wall.q.toVector3AtHeight(dungeonType.groundTileDimensions.y);
-            Vector3 perpV = Vector3.zero;
-
-            for (int i = 0; i < wallLengthInTiles; ++i) {
-                lerp += lerpDistance;
-                Vector3 where = Vector3.Lerp(p, q, lerp);
-                int idx = mt.Next(dungeonType.wallTiles.Count-1);
-                GameObject tileToSpawn = dungeonType.wallTiles[idx].prefab;
-
-                GameObject gro = Instantiate(tileToSpawn, where, tileToSpawn.transform.rotation);
-
-                // The last segment is placed too close to "q," so it ends up
-                // not getting rotated. Face the center (0,0,0) instead.
-                if (Vector3.Distance(q, where) > 1e-1) {
-                    perpV = Vector3.Cross(q - where, Vector3.up).normalized;
-                }
-                gro.transform.LookAt(where + perpV);
-
-                // It still might not get rotated if the wall segment is 1 tile long
-                if (wallLengthInTiles == 1) {
-                    gro.transform.LookAt(Vector3.zero);
-                }
-                gro.transform.parent = wallOrganizer.transform;
-
-                // Name it for debugging in the editor
-                gro.name = $"Wall {tileToSpawn.name} #{i} {wall.p.vector} - {wall.q.vector}";
-
-                // Increase wall height
-                for (int j = 1; j < dungeonType.maxWallHeight; ++j) {
-                    constructWallVertically(gro, where, gro.transform.rotation, j);
-                }
-
-                // Add decorative topper
-                constructWallTopper(gro, where, gro.transform.rotation);
-            }
-        }
-
-        private void constructWallTopper(GameObject parent, Vector3 where, Quaternion rotation) {
-            if (dungeonType.wallToppers.Count > 0) {
-                int idx = mt.Next(dungeonType.wallToppers.Count-1);
-                GameObject topperToSpawn = dungeonType.wallToppers[idx].prefab;
-
-                GameObject top = Instantiate(topperToSpawn, where, rotation);
-                top.transform.position = new Vector3(where.x, where.y + (dungeonType.maxWallHeight * dungeonType.wallTileDimensions.y), where.z);
-
-                top.transform.parent = parent.transform;
-            }
-        }
-
-        private void constructWallVertically(GameObject parent, Vector3 where, Quaternion rotation, float height) {
-            int idx = mt.Next(dungeonType.wallTiles.Count-1);
-            GameObject tileToSpawn = dungeonType.wallTiles[idx].prefab;
-
-            GameObject gro = Instantiate(tileToSpawn, where, rotation);
-            gro.transform.parent = parent.transform;
-
-            // Move higher walls up
-            gro.transform.position = new Vector3(where.x, where.y + (height * dungeonType.wallTileDimensions.y), where.z);
-
-            // TODO Sometimes add a light source to the wall
-            /*
-            if (mt.Next(100) < 15) {
-                //int lightIdx = mt.Next(dungeonType.wallLights.Count-1);
-                GameObject lag = dungeonType.wallLights[0].prefab;
-                GameObject wallLight = Instantiate(lag, where, lag.transform.rotation);
-                // Attach to the wall
-                wallLight.transform.parent = gro.transform;
-            }
-            */
-        }
-
-        /// <summary>
-        /// Makes square walls around the arena
-        /// </summary>
-        /// <param name="wall"></param>
-        /// <param name="wallAngle"></param>
-        /// <param name="xDir"></param>
-        /// <param name="yDir"></param>
-        private void constructWall(Edge wall, float wallAngle, float xDir, float yDir) {
-            int wallLength = Mathf.CeilToInt((float)wall.getLength() / dungeonType.wallTileDimensions.x);
-
-            for (int i = -1; i <= wallLength; ++i) {
-                Vector3 where = new Vector3(
-                    wall.p.x + (i * xDir),
-                    dungeonType.groundTileDimensions.y * 0.9f,  // on top of ground tiles
-                    wall.p.y + (i * yDir)
-                );
-                for (int j = 0; j < dungeonType.maxWallHeight; ++j) {
-                    int idx = mt.Next(dungeonType.wallTiles.Count-1);
-                    GameObject tileToSpawn = dungeonType.wallTiles[idx].prefab;
-
-                    GameObject gro = Instantiate(tileToSpawn, where, tileToSpawn.transform.rotation);
-                    gro.transform.parent = organizer.transform;
-
-                    // Move higher walls up
-                    gro.transform.position = new Vector3(where.x, where.y + (j * dungeonType.wallTileDimensions.y), where.z);
-
-                    // Name it for debugging in the editor
-                    gro.name = $"Wall {tileToSpawn.name} ({wallAngle}: {i}, {j})";
-
-                    // Rotate wall and children to face interior
-                    gro.transform.Rotate(0, wallAngle, 0);
-                }
-                if (dungeonType.wallToppers.Count > 0) {
-                    int idx = mt.Next(dungeonType.wallToppers.Count-1);
-                    GameObject topperToSpawn = dungeonType.wallToppers[idx].prefab;
-
-                    GameObject top = Instantiate(topperToSpawn, where, topperToSpawn.transform.rotation);
-                    top.transform.parent = organizer.transform;
-                    // Rotate to face interior
-                    top.transform.Rotate(0, wallAngle, 0);
-                    // Move it to the top of the wall
-                    top.transform.position = new Vector3(where.x, where.y + (dungeonType.maxWallHeight * dungeonType.wallTileDimensions.y), where.z);
-                }
-            }
-        }
-
         private void randomizeCells() {
-            foreach (Cell cell in vd.cells) {
+            Debug.Log("Randomizing and spawning environmental objects");
+            foreach (Cell cell in validCells) {
                 // Don't spawn things on the convex hull for now
                 if (isPointOnOrNearConvexHull(cell.site)) {
                     continue;
@@ -543,7 +296,8 @@ namespace FiscalShock.Procedural {
         }
 
         private void spawnEnemies() {
-            foreach (Cell cell in vd.cells) {
+            Debug.Log("Spawning enemies");
+            foreach (Cell cell in validCells) {
                 // Don't spawn things on the convex hull for now
                 if (isPointOnOrNearConvexHull(cell.site)) {
                     continue;
@@ -559,7 +313,6 @@ namespace FiscalShock.Procedural {
                     if (cell.spawnedObject != null) {
                         enemy.transform.position += new Vector3(0, cell.spawnedObject.transform.position.y, 0);
                     }
-                    enemy.transform.position += new Vector3(0, 10, 0);
 
                     // Randomly resize enemy +/- the variation
                     // Example: +/- 15% => [0.85, 1.15] return values
@@ -594,14 +347,21 @@ namespace FiscalShock.Procedural {
         }
 
         private void spawnPlayer() {
+            Debug.Log("Spawning player");
             /*
             Vertex spawnPoint = dt.vertices[mt.Next(numberOfVertices-1)];
             while (isPointOnOrNearConvexHull(spawnPoint)) {
                 spawnPoint = dt.vertices[mt.Next(numberOfVertices-1)];
             }*/
             Vertex spawnPoint = masterDt.vertices[mt.Next(masterDt.vertices.Count-1)];
-            player = Instantiate(playerPrefab, spawnPoint.toVector3AtHeight(25), playerPrefab.transform.rotation);
-            player.name = "Player Character";
+            player = GameObject.FindGameObjectWithTag("Player");
+            if (player == null) {
+                player = Instantiate(playerPrefab, playerPrefab.transform.position, playerPrefab.transform.rotation);
+            }
+            CharacterController playerController = player.GetComponentInChildren<CharacterController>();
+            playerController.enabled = false;
+            player.transform.position = spawnPoint.toVector3AtHeight(dungeonType.wallHeight * 0.8f);
+            playerController.enabled = true;
 
             // Attach any other stuff to player here
             Cheats cheater = GameObject.FindObjectOfType<Cheats>();
@@ -613,6 +373,9 @@ namespace FiscalShock.Procedural {
             // Disable loading screen camera in this scene
             GameObject.Find("LoadCamera").GetComponent<Camera>().enabled = false;
             GameObject.Find("HUD").GetComponent<Canvas>().enabled = true;
+
+            // Enable firing script (disabled in hub)
+            player.GetComponentInChildren<PlayerShoot>().enabled = true;
         }
 
         private bool isPointOnOrNearConvexHull(Vertex point) {

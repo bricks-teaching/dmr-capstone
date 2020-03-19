@@ -23,6 +23,16 @@ namespace FiscalShock.Procedural {
 
         private void OnTriggerEnter(Collider collider) {
             if (collider.gameObject.tag == "Player") {
+                GameObject player = collider.gameObject;
+                CharacterController playerController = player.GetComponentInChildren<CharacterController>();
+                // Disable shoot script, since player is entering town
+                player.GetComponentInChildren<PlayerShoot>().enabled = false;
+                // Set player at the dungeon door
+                playerController.enabled = false;
+                player.transform.position = new Vector3(28, 1, -9);
+                // Face player away from the door
+                player.transform.LookAt(new Vector3(6, 1, -9));
+                playerController.enabled = true;
                 loadScript.startLoadingScreen("Hub");
                 // Manually kill the music box, since it isn't destroyed naturally
                 GameObject musicPlayer = GameObject.Find("DungeonMusic");

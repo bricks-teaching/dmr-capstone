@@ -159,6 +159,9 @@ namespace FiscalShock.Demo {
         }
 
         private void renderAllSelected() {
+            if (dungen == null) {
+                return;
+            }
             if (renderDelaunay && dungen.dt != null) {
                 renderDelaunayTriangulation(dungen.dt, delaunayColor, delaunayRenderHeight);
             }

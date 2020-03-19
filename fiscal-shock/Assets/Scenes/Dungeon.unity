@@ -16,15 +16,15 @@ RenderSettings:
   serializedVersion: 9
   m_Fog: 0
   m_FogColor: {r: 0.7924528, g: 0.7672706, b: 0.6728373, a: 1}
-  m_FogMode: 3
+  m_FogMode: 1
   m_FogDensity: 0.03
-  m_LinearFogStart: 0
-  m_LinearFogEnd: 300
+  m_LinearFogStart: 128
+  m_LinearFogEnd: 256
   m_AmbientSkyColor: {r: 1, g: 0.9931444, b: 0.7122642, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 1
+  m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: 6b5c1d297af4902908fcf82c4b56ddc7, type: 2}
   m_HaloStrength: 0.5
@@ -443,6 +443,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ProceduralMeshLabel
+      objectReference: {fileID: 0}
+    - target: {fileID: 7060852141376112697, guid: 6570be8129c20a228a4470917ea229c6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7060852141376112698, guid: 6570be8129c20a228a4470917ea229c6,
         type: 3}
@@ -1598,7 +1603,8 @@ MonoBehaviour:
   teleportToEscapeKey: f2
   teleportToDelveKey: f3
   robinHood: f1
-  showMesh: f4
+  toggleGraphMesh: f4
+  toggleOcclusionCulling: f9
   player: {fileID: 0}
   playerController: {fileID: 0}
 --- !u!4 &1448306906
@@ -2372,22 +2378,22 @@ PrefabInstance:
     - target: {fileID: 965116058272088900, guid: f84aca466460e50539423ad7e6c6f6d0,
         type: 3}
       propertyPath: minX
-      value: -300
+      value: -150
       objectReference: {fileID: 0}
     - target: {fileID: 965116058272088900, guid: f84aca466460e50539423ad7e6c6f6d0,
         type: 3}
       propertyPath: maxX
-      value: 300
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 965116058272088900, guid: f84aca466460e50539423ad7e6c6f6d0,
         type: 3}
       propertyPath: minY
-      value: -300
+      value: -150
       objectReference: {fileID: 0}
     - target: {fileID: 965116058272088900, guid: f84aca466460e50539423ad7e6c6f6d0,
         type: 3}
       propertyPath: maxY
-      value: 300
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 965116058272088900, guid: f84aca466460e50539423ad7e6c6f6d0,
         type: 3}
@@ -2397,22 +2403,22 @@ PrefabInstance:
     - target: {fileID: 965116058272088900, guid: f84aca466460e50539423ad7e6c6f6d0,
         type: 3}
       propertyPath: minRooms
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 965116058272088900, guid: f84aca466460e50539423ad7e6c6f6d0,
         type: 3}
       propertyPath: maxRooms
-      value: 16
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 965116058272088900, guid: f84aca466460e50539423ad7e6c6f6d0,
         type: 3}
       propertyPath: numberOfVertices
-      value: 300
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 965116058272088900, guid: f84aca466460e50539423ad7e6c6f6d0,
         type: 3}
       propertyPath: minimumDistanceBetweenMasterPoints
-      value: 96
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 965116058272088900, guid: f84aca466460e50539423ad7e6c6f6d0,
         type: 3}
@@ -2423,6 +2429,11 @@ PrefabInstance:
         type: 3}
       propertyPath: percentageOfEdgesToAddBack
       value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 965116058272088900, guid: f84aca466460e50539423ad7e6c6f6d0,
+        type: 3}
+      propertyPath: seed
+      value: 1584410049
       objectReference: {fileID: 0}
     - target: {fileID: 965116058272088901, guid: f84aca466460e50539423ad7e6c6f6d0,
         type: 3}
@@ -2702,12 +2713,12 @@ PrefabInstance:
     - target: {fileID: 8117157573788985409, guid: bf0c8c2b9625c9ba29d85229184ca17f,
         type: 3}
       propertyPath: obstacleRate
-      value: 40
+      value: 65
       objectReference: {fileID: 0}
     - target: {fileID: 8117157573788985409, guid: bf0c8c2b9625c9ba29d85229184ca17f,
         type: 3}
       propertyPath: decorationRate
-      value: 55
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 8117157573788985409, guid: bf0c8c2b9625c9ba29d85229184ca17f,
         type: 3}
@@ -2734,7 +2745,7 @@ PrefabInstance:
     - target: {fileID: 8117157573788985409, guid: bf0c8c2b9625c9ba29d85229184ca17f,
         type: 3}
       propertyPath: enemyRate
-      value: 0
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 8117157573788985409, guid: bf0c8c2b9625c9ba29d85229184ca17f,
         type: 3}
@@ -2752,6 +2763,34 @@ PrefabInstance:
       propertyPath: delvePrefab
       value: 
       objectReference: {fileID: 6092265165582998533, guid: 96d4837ade87bb486a572d363ccfc8a3,
+        type: 3}
+    - target: {fileID: 8117157573788985409, guid: bf0c8c2b9625c9ba29d85229184ca17f,
+        type: 3}
+      propertyPath: gate.prefab
+      value: 
+      objectReference: {fileID: 1000013296790728, guid: 03b0ed4871f8e8d46aab17cd9b867655,
+        type: 3}
+    - target: {fileID: 8117157573788985409, guid: bf0c8c2b9625c9ba29d85229184ca17f,
+        type: 3}
+      propertyPath: wall.prefab
+      value: 
+      objectReference: {fileID: 6355984479201925684, guid: e2e67c799bca7ecbb8e2f7dbff722cf6,
+        type: 3}
+    - target: {fileID: 8117157573788985409, guid: bf0c8c2b9625c9ba29d85229184ca17f,
+        type: 3}
+      propertyPath: maxWallHeight
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 8117157573788985409, guid: bf0c8c2b9625c9ba29d85229184ca17f,
+        type: 3}
+      propertyPath: wallHeight
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 8117157573788985409, guid: bf0c8c2b9625c9ba29d85229184ca17f,
+        type: 3}
+      propertyPath: ceiling.prefab
+      value: 
+      objectReference: {fileID: 1313260826081911653, guid: 71b5822c074e7e9a9bb4798ddc782b83,
         type: 3}
     - target: {fileID: 8117157573788985410, guid: bf0c8c2b9625c9ba29d85229184ca17f,
         type: 3}
