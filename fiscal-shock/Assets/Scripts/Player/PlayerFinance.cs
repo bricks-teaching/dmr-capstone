@@ -19,6 +19,7 @@
             ATMScript.bankDue = true;
         }
         StateManager.calcDebtTotals();
+        StateManager.calcCreditScore();
         return true;
     }
 }

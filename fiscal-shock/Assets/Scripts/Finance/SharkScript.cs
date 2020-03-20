@@ -11,31 +11,42 @@ public class SharkScript : MonoBehaviour
     public static int sharkThreatLevel { get; set; } = 3;
     public static float sharkTotal { get; set; }
 
-    public bool addDebt(int amount){
-        if (sharkThreatLevel < 5 && sharkMaxLoan > (StateManager.totalSharkDebt + amount)){
+    public bool addDebt(float amount){
+        if (sharkThreatLevel < 5 && sharkMaxLoan > (sharkTotal + amount)){
             //shark threat is below 5 and is below max total debt
-            Loan newLoan = new Loan(StateManager.nextID + 1, amount, sharkInterestRate, true);
+            Loan newLoan = new Loan(StateManager.nextID, amount, sharkInterestRate, true);
             StateManager.loanList.AddLast(newLoan);
             PlayerFinance.cashOnHand += amount;
             StateManager.nextID++;
+            StateManager.totalLoans++;
             return true;
         } else {
             return false;
         }
     }
 
-    public bool payDebt(int amount, int loanNum){
+    public bool payDebt(float amount, int loanNum){
         if (PlayerFinance.cashOnHand < amount){//amount is more than money on hand
             return false;
-        } else if (StateManager.totalSharkDebt <= amount){ //amount is more than the debt
-            StateManager.totalSharkDebt = 0.0f;//reduce debt to 0 and money on hand by the debt's value
-            PlayerFinance.cashOnHand -= StateManager.totalSharkDebt;
+        } else if (sharkTotal <= amount){ //amount is more than the debt
+            foreach (Loan item in StateManager.loanList)
+            {
+                if(item.ID == loanNum){
+                    StateManager.loanList.Remove(item); //reduce debt to 0 and money on hand by the debt's value
+                }
+            }
+            PlayerFinance.cashOnHand -= sharkTotal;
             sharkDue = false;
             StateManager.totalLoans--;
             return true;
         } else { //none of the above
             //reduce debt and money by amount
-            StateManager.totalSharkDebt -= amount;
+            foreach (Loan item in StateManager.loanList)
+            {
+                if(item.ID == loanNum){
+                    item.total -= amount;
+                }
+            }
             PlayerFinance.cashOnHand -= amount;
             sharkDue = false;
             return true;
@@ -44,12 +55,18 @@ public class SharkScript : MonoBehaviour
 
     public static void sharkUnpaid()
     {
+        bool paid = true;
         foreach (Loan item in StateManager.loanList)
         {
             if(!item.paid && item.source)
             {
                 sharkThreatLevel++;
+                StateManager.paymentStreak = 0;
+                paid = false;
             }
+        }
+        if(paid){
+            StateManager.paymentStreak++;
         }
     }
 

@@ -52,13 +52,20 @@ public class ATMScript : MonoBehaviour {
         }
     }
 
-    public bool addDebt(float amount) {
+    public bool addDebt(float amount, int loanType) {
+        //loanType is one for default loan and two for the secured loan
         if (bankThreatLevel < 3 && bankMaxLoan > (bankTotal + amount)){
             // bank threat is below 3 and is below max total debt
-            Loan newLoan = new Loan(StateManager.nextID + 1, amount, bankInterestRate, false);
+            Loan newLoan = null;
+            if(loanType == 1){ //basic loan
+                newLoan = new Loan(StateManager.nextID, amount, bankInterestRate, false);
+            } else if (loanType == 2){ //secured loan
+                newLoan = new Loan(StateManager.nextID, amount * 1.15f, bankInterestRate * 0.85f, false);
+            } else {return false;} //this shouldnt activate, false return is a failsafe measure
             StateManager.loanList.AddLast(newLoan);
             PlayerFinance.cashOnHand += amount;
             StateManager.nextID++;
+            StateManager.totalLoans++;
             return true;
         } else {
             return false;
@@ -69,16 +76,26 @@ public class ATMScript : MonoBehaviour {
         if (PlayerFinance.cashOnHand < amount) { // amount is more than money on hand
             //display a message stating error
             return false;
-        } else if (StateManager.totalBankDebt <= amount) { // amount is more than the debt
-            StateManager.totalBankDebt = 0.0f; // reduce debt to 0 and money on hand by the debt's value
-            PlayerFinance.cashOnHand -= StateManager.totalBankDebt;
+        } else if (bankTotal <= amount) { // amount is more than the debt
+            foreach (Loan item in StateManager.loanList)
+            {
+                if(item.ID == loanNum){
+                    StateManager.loanList.Remove(item); //reduce debt to 0 and money on hand by the debt's value
+                }
+            }
+            PlayerFinance.cashOnHand -= bankTotal;
             bankDue = false;
             StateManager.totalLoans--;
             temporaryWinGame();
             return true;
         } else { // none of the above
             // reduce debt and money by amount
-            StateManager.totalBankDebt -= amount;
+            foreach (Loan item in StateManager.loanList)
+            {
+                if(item.ID == loanNum){
+                    item.total -= amount;
+                }
+            }
             PlayerFinance.cashOnHand -= amount;
             bankDue = false;
             return true;
@@ -87,12 +104,18 @@ public class ATMScript : MonoBehaviour {
 
     public static void bankUnpaid()
     {
+        bool paid = true;
         foreach (Loan item in StateManager.loanList)
         {
             if(!item.paid && !item.source)
             {
                 bankThreatLevel++;
+                StateManager.paymentStreak = 0;
+                paid = false;
             }
+        }
+        if(paid){
+            StateManager.paymentStreak++;
         }
     }
 
