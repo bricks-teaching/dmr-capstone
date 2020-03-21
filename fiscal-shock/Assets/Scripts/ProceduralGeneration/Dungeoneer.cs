@@ -14,7 +14,7 @@ namespace FiscalShock.Procedural {
         public GameObject playerPrefab;
 
         [Tooltip("Seed for random number generator. Uses current Unix epoch time (ms) if left at 0.")]
-        public long seed;
+        public long seed; //1584410049
 
         [Tooltip("Number of vertices to generate. A higher number will generate a finer-grained mesh.")]
         public int numberOfVertices = 100;
@@ -372,10 +372,15 @@ namespace FiscalShock.Procedural {
 
             // Disable loading screen camera in this scene
             GameObject.Find("LoadCamera").GetComponent<Camera>().enabled = false;
-            GameObject.Find("HUD").GetComponent<Canvas>().enabled = true;
+            GameObject hud = GameObject.Find("HUD");
+            hud.GetComponent<Canvas>().enabled = true;
+            HUD hudScript = hud.GetComponentInChildren<HUD>();
+            hudScript.escapeHatch = GameObject.Find("Escape Point").transform;
+            hudScript.playerTransform = player.transform;
 
-            // Enable firing script (disabled in hub)
+            // Enable firing script and spotlight (disabled in hub)
             player.GetComponentInChildren<PlayerShoot>().enabled = true;
+            player.GetComponentInChildren<Light>().enabled = true;
         }
 
         private bool isPointOnOrNearConvexHull(Vertex point) {

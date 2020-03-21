@@ -12,6 +12,7 @@ TagManager:
   - Decoration
   - Ground
   - Missile
+  - Compass
   layers:
   - Default
   - TransparentFX

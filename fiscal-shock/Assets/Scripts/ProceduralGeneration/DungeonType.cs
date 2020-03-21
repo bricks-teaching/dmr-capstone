@@ -18,8 +18,8 @@ namespace FiscalShock.Procedural {
         [Tooltip("Prefab cube with a seamless repeating texture to use for the ceiling. Will be stretched on x and y to match the dimensions of the entire ground.")]
         public SpawnableObject ceiling;
 
-        [Tooltip("Corridor gate.")]
-        public SpawnableObject gate;
+        [Tooltip("Width of corridors.")]
+        public float hallWidth = 5f;
 
         [Tooltip("Probability of a given point being allowed to spawn any type of object.")]
         public float objectRate = 75;

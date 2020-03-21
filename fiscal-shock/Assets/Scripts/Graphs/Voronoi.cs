@@ -59,6 +59,7 @@ namespace FiscalShock.Graphs {
                     foreach (Vertex vertex in triPVertices) {
                         if (triQVertices.Contains(vertex)) {
                             vertex.cell.sides.Add(pq);
+                            pq.cells.Add(vertex.cell);
                         }
                     }
                 }
@@ -104,6 +105,7 @@ namespace FiscalShock.Graphs {
         public Vertex site { get; }
         public List<Edge> allEdges => cells.SelectMany(c => c.sides).Distinct().ToList();
         public Polygon exterior { get; private set; }
+        public List<Edge> interiorEdges { get; private set; }
         public Polygon boundingBox { get; private set; }
         //new public List<Vertex> vertices => cells.SelectMany(c => c.vertices).Distinct().ToList();
 
@@ -138,6 +140,14 @@ namespace FiscalShock.Graphs {
 
             exterior = new Polygon(ext);
             setBoundingBox();
+            setInteriorEdges();
+        }
+
+        public void setInteriorEdges() {
+            interiorEdges = cells
+            .SelectMany(c => c.sides)
+            .Except(exterior.sides)
+            .ToList();
         }
 
         /// <summary>

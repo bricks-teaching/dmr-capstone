@@ -135,6 +135,8 @@ namespace FiscalShock.Demo {
         /// <param name="color"></param>
         /// <param name="renderHeight"></param>
         private void renderPoints(List<Vertex> points, Color color, float renderHeight) {
+            GameObject holder = new GameObject();
+            holder.name = "Vertices Display";
             foreach (Vertex v in points) {
                 GameObject tmp = Instantiate(pointPrefab);
                 // TODO set scale here in case it should be fatter
@@ -142,6 +144,7 @@ namespace FiscalShock.Demo {
                 pointMat.SetColor(Shader.PropertyToID("_Color"), color);
                 tmp.transform.position = v.toVector3AtHeight(renderHeight);
                 tmp.name = $"Delaunay #{v.id}";
+                tmp.transform.parent = holder.transform;
 
                 if (label == null) {
                     continue;
@@ -154,6 +157,7 @@ namespace FiscalShock.Demo {
                 texto.transform.position = offsetPos;
                 texto.text = v.id.ToString();
                 texto.name = $"Label for #{v.id}";
+                texto.transform.parent = holder.transform;
             }
             alreadyDrewPoints = true; // TODO one for each points to render I guess
         }

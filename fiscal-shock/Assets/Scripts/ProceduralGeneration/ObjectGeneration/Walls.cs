@@ -1,5 +1,7 @@
 using UnityEngine;
 using FiscalShock.Graphs;
+using System.Collections.Generic;
+using System;
 using System.Linq;
 
 namespace FiscalShock.Procedural {
@@ -9,8 +11,19 @@ namespace FiscalShock.Procedural {
         /// </summary>
         /// <param name="d"></param>
         public static void setWalls(Dungeoneer d) {
+            constructWallsOnVoronoi(d);
             constructWallsOnRooms(d);
-            destroyWallsForCorridors(d);
+            List<Tuple<Vector3, Vector3>> corridorAnchors = destroyWallsForCorridors(d);
+            //constructCorridors(d, corridorAnchors);
+        }
+
+        public static void constructWallsOnVoronoi(Dungeoneer d) {
+            List<Cell> roomCells = d.roomVoronoi.SelectMany(r => r.cells).ToList();
+            foreach (Cell c in d.vd.cells) {
+                if (!roomCells.Contains(c)) {
+                    constructWallsOnPolygon(d, c);
+                }
+            }
         }
 
         /// <summary>
@@ -59,9 +72,11 @@ namespace FiscalShock.Procedural {
             Vector3 lookatme = Vector3.Cross(q - wallCenter, Vector3.up).normalized;
             wallObject.transform.LookAt(wallCenter + lookatme);
 
-            float actualLength = (float)wall.getLength();
+            // Attach info to game object for later use
+            wallObject.GetComponent<WallInfo>().associatedEdge = wall;
+
             #if UNITY_EDITOR
-            Debug.DrawRay(p, direction * actualLength, Color.white, 512);
+            Debug.DrawRay(p, direction * wall.getLength(), Color.white, 512);
             #endif
         }
 
@@ -69,47 +84,79 @@ namespace FiscalShock.Procedural {
         /// Remakes walls with a gate and corridor extending outward
         /// </summary>
         /// <param name="d"></param>
-        public static void destroyWallsForCorridors(Dungeoneer d) {
-            float destructionRadius = d.dungeonType.gate.prefab.transform.GetComponent<Renderer>().bounds.extents.x;
+        public static List<Tuple<Vector3, Vector3>> destroyWallsForCorridors(Dungeoneer d) {
             LayerMask wallMask = 1 << 12;
+            List<Tuple<Vector3, Vector3>> corridorAnchors = new List<Tuple<Vector3, Vector3>>();
+
             foreach (Edge e in d.spanningTree) {
                 float len = (float)(e.getLength());
 
-                // Clear the center
-                Vector3 p = e.p.toVector3AtHeight(1f);
-                Vector3 q = e.q.toVector3AtHeight(1f);
+                Vector3 p = e.p.toVector3AtHeight(d.dungeonType.wallHeight/2);
+                Vector3 q = e.q.toVector3AtHeight(d.dungeonType.wallHeight/2);
                 Vector3 direction = (q-p).normalized;
                 #if UNITY_EDITOR
                 Debug.DrawRay(p, direction * len, Color.blue, 512);
                 #endif
 
-                RaycastHit[] hits = Physics.SphereCastAll(p, destructionRadius, direction, len, wallMask);
-                foreach (RaycastHit hit in hits) {
-                    // destroy all related walls; they are kept underneath an empty gameobject for this purpose
-                    UnityEngine.Object.Destroy(hit.collider.gameObject.transform.parent.gameObject);
+                // Cast a ray to find where to cleave the wall
+                RaycastHit[] hits = Physics.SphereCastAll(p, d.dungeonType.hallWidth, direction, len, wallMask);
+                List<RaycastHit> hit2 = new List<RaycastHit>(hits);
+                hit2 = hit2.OrderByDescending(h => h.distance).ToList();
+                for (int i = 0; i < hit2.Count; ++i) {
+                    RaycastHit hit = hit2[i];
+                    Vector3 gateCenter = new Vector3(hit.point.x, 0, hit.point.z);
+                    Transform wallStart = hit.collider.transform;
+
+                    // Make two new walls
+                    Edge oldEdge = hit.collider.gameObject.GetComponent<WallInfo>().associatedEdge;
+                    // if (oldEdge.getLength() > d.dungeonType.hallWidth) {
+                    //     /* Need to use linear interpolation to find a point: (b-a)*t
+                    //     b: raycast hit point
+                    //     a: an original edge endpoint
+                    //     t: in [0,1], fraction of edge length when half the width of the gate prefab is subtracted
+                    //     */
+                    //     Vector3 b = gateCenter;
+                    //     Vector3 a = oldEdge.p.toVector3AtHeight(b.y);
+                    //     float t = 1 - (d.dungeonType.hallWidth/oldEdge.getLength());
+                    //     Vector3 leftEndpoint = Vector3.Lerp(a, b, t);
+                    //     constructWallOnEdge(d, new Edge(a, leftEndpoint));
+
+                    //     // Right wall is the same, but using q and not p and moving in the opposite direction
+                    //     a = oldEdge.q.toVector3AtHeight(b.y);
+                    //     t = 1 - (d.dungeonType.hallWidth/oldEdge.getLength());
+                    //     Vector3 rightEndpoint = Vector3.Lerp(b, a, t);
+                    //     constructWallOnEdge(d, new Edge(a, rightEndpoint));
+
+                    //     corridorAnchors.Add(new Tuple<Vector3, Vector3>(leftEndpoint, rightEndpoint));
+                    // }
+
+                    // Destroy the old wall
+                    UnityEngine.Object.Destroy(hit.collider.gameObject);
                 }
-                if (hits.Length >= 2) { // should always be 2 but just in case
-                    Transform wallStart = hits[0].collider.transform;
-                    Vector3 startPos = new Vector3(hits[0].point.x, 0, hits[0].point.z);
-                    GameObject startGate = UnityEngine.Object.Instantiate(d.dungeonType.gate.prefab, startPos, wallStart.rotation);
+            }
 
-                    Vector3 endPos = new Vector3(hits.Last().point.x, 0, hits.Last().point.z);
-                    Transform wallEnd = hits.Last().collider.transform;
-                    GameObject endGate = UnityEngine.Object.Instantiate(d.dungeonType.gate.prefab, endPos, wallEnd.rotation);
+            return corridorAnchors;
+        }
 
-                    Bounds startGateBounds = startGate.transform.GetComponent<Renderer>().bounds;
-                    Bounds endGateBounds = endGate.transform.GetComponent<Renderer>().bounds;
-/*
-                    GameObject firstWall = constructWallOnEdge(new Edge(startGateBounds.center - startGateBounds.extents, endGateBounds.center - endGateBounds.extents));
-                    GameObject lastWall = constructWallOnEdge(new Edge( endGateBounds.center + endGateBounds.extents, startGateBounds.center + startGateBounds.extents));
+        private static void constructCorridors(Dungeoneer d, List<Tuple<Vector3, Vector3>> corridorEndpointPairs) {
+            // TODO fix this
+            if (corridorEndpointPairs.Count > 2) {
+                UnityEngine.Debug.LogWarning("More than two raycast hits, halls are going to cut through a room");
+            }
+            for (int i = 0; i < (corridorEndpointPairs.Count-1); i += 2) {
+                Edge leftSide = new Edge(corridorEndpointPairs[i].Item1, corridorEndpointPairs[i+1].Item1);
+                Edge rightSide = new Edge(corridorEndpointPairs[i].Item2, corridorEndpointPairs[i+1].Item2);
 
-                    // Rotate gate to match hall
-                    startGate.transform.LookAt(firstWall.transform);
-                    startGate.transform.Rotate(startGate.transform.up, 180);
-                    endGate.transform.LookAt(lastWall.transform);
-                    endGate.transform.Rotate(endGate.transform.up, 180);
-                    */
+                /*
+                if (leftSide.findIntersection(rightSide) == null) {
+                    // Swap endpoints if the walls would cross
+                    leftSide = new Edge(corridorEndpointPairs[i].Item1, corridorEndpointPairs[i+1].Item2);
+                    rightSide = new Edge(corridorEndpointPairs[i].Item2, corridorEndpointPairs[i+1].Item1);
                 }
+                */
+
+                constructWallOnEdge(d, leftSide);
+                constructWallOnEdge(d, rightSide);
             }
         }
     }

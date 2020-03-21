@@ -37,6 +37,7 @@ namespace FiscalShock.Procedural {
                 // Manually kill the music box, since it isn't destroyed naturally
                 GameObject musicPlayer = GameObject.Find("DungeonMusic");
                 Destroy(musicPlayer);
+                GameObject.Find("HUD").GetComponentInChildren<HUD>().escapeHatch = null;
                 // Apply interest
                 PlayerFinance.startNewDay();
             }

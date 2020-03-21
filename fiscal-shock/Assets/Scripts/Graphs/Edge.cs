@@ -9,6 +9,7 @@ namespace FiscalShock.Graphs {
         public List<Vertex> vertices { get; }
         public Vertex p => vertices[0];
         public Vertex q => vertices[1];
+        public List<Cell> cells { get; } = new List<Cell>();
 
         public Edge(Vertex a, Vertex b) {
             vertices = new List<Vertex> { a, b };
@@ -68,6 +69,20 @@ namespace FiscalShock.Graphs {
         /// <returns></returns>
         public float getAngle() {
             return p.getAngleOfRotationTo(q);
+        }
+
+        public Vertex findIntersection(Edge other) {
+            double[] vertices = Mathy.findIntersection(
+                p.vector.x, p.vector.y,
+                q.vector.x, q.vector.y,
+                other.p.vector.x, other.p.vector.y,
+                other.q.vector.x, other.q.vector.y
+            );
+
+            if (vertices != null) {
+                return new Vertex(vertices[0], vertices[1]);
+            }
+            return null;
         }
     }
 }

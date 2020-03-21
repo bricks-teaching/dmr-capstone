@@ -17,17 +17,17 @@ public class Cheats : MonoBehaviour {
             Vector3 warpPoint = escape.transform.position;
             // Disable controller before teleportation
             playerController.enabled = false;
-            player.transform.position = new Vector3(warpPoint.x, warpPoint.y + 25, warpPoint.z);
+            player.transform.position = new Vector3(warpPoint.x, warpPoint.y + 12, warpPoint.z);
             playerController.enabled = true;
-            Debug.Log($"Teleported to {warpPoint}, 25 units above");
+            Debug.Log($"Teleported to {warpPoint}");
         }
         if (Input.GetKeyDown(teleportToDelveKey)) {
             GameObject delve = GameObject.Find("Delve Point");
             Vector3 warpPoint = delve.transform.position;
             playerController.enabled = false;
-            player.transform.position = new Vector3(warpPoint.x, warpPoint.y + 25, warpPoint.z);
+            player.transform.position = new Vector3(warpPoint.x, warpPoint.y + 12, warpPoint.z);
             playerController.enabled = true;
-            Debug.Log($"Teleported to {warpPoint}, 25 units above");
+            Debug.Log($"Teleported to {warpPoint}");
         }
         if (Input.GetKeyDown(robinHood)) {
             PlayerFinance.cashOnHand += 100;
