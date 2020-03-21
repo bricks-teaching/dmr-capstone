@@ -3,7 +3,6 @@
 public class LoseMenu : MonoBehaviour {
     private GameObject loadingScreen;
     private LoadingScreen loadScript;
-
     public void Start() {
         Settings.forceUnlockCursorState();
         loadingScreen = GameObject.Find("LoadingScreen");

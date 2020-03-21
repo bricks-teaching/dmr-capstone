@@ -46,13 +46,13 @@ MonoBehaviour:
   playerPrefab: {fileID: 208130074868200894, guid: bc7ef44de2f694932a9d0fc4d3a3d809,
     type: 3}
   seed: 0
-  numberOfVertices: 300
-  unitScale: 0.1
-  minX: -100
-  maxX: 100
-  minY: -100
-  maxY: 100
-  minRooms: 16
-  maxRooms: 32
+  numberOfVertices: 500
+  minX: -150
+  maxX: 150
+  minY: -150
+  maxY: 150
+  minRooms: 6
+  maxRooms: 10
   minimumDistanceBetweenMasterPoints: 32
-  percentageOfEdgesToAddBack: 0.25
+  percentageOfEdgesToAddBack: 0.35
+  roomGrowthRadius: 2

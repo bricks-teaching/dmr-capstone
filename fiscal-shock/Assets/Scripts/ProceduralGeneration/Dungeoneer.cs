@@ -348,11 +348,6 @@ namespace FiscalShock.Procedural {
 
         private void spawnPlayer() {
             Debug.Log("Spawning player");
-            /*
-            Vertex spawnPoint = dt.vertices[mt.Next(numberOfVertices-1)];
-            while (isPointOnOrNearConvexHull(spawnPoint)) {
-                spawnPoint = dt.vertices[mt.Next(numberOfVertices-1)];
-            }*/
             Vertex spawnPoint = masterDt.vertices[mt.Next(masterDt.vertices.Count-1)];
             player = GameObject.FindGameObjectWithTag("Player");
             if (player == null) {

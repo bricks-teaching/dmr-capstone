@@ -10,6 +10,7 @@ namespace FiscalShock.Graphs {
         public Vertex p => vertices[0];
         public Vertex q => vertices[1];
         public List<Cell> cells { get; } = new List<Cell>();
+        public List<UnityEngine.GameObject> wallObjects = new List<UnityEngine.GameObject>();
 
         public Edge(Vertex a, Vertex b) {
             vertices = new List<Vertex> { a, b };

@@ -27,6 +27,7 @@ namespace FiscalShock.Procedural {
                 CharacterController playerController = player.GetComponentInChildren<CharacterController>();
                 // Disable shoot script, since player is entering town
                 player.GetComponentInChildren<PlayerShoot>().enabled = false;
+                player.GetComponentInChildren<Light>().enabled = false;
                 // Set player at the dungeon door
                 playerController.enabled = false;
                 player.transform.position = new Vector3(28, 1, -9);

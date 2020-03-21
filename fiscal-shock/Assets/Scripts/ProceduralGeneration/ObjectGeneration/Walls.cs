@@ -13,8 +13,8 @@ namespace FiscalShock.Procedural {
         public static void setWalls(Dungeoneer d) {
             constructWallsOnVoronoi(d);
             constructWallsOnRooms(d);
-            List<Tuple<Vector3, Vector3>> corridorAnchors = destroyWallsForCorridors(d);
-            //constructCorridors(d, corridorAnchors);
+            List<GameObject> wallsToKeep = destroyWallsForCorridors(d);
+            destroyLagWalls(d, wallsToKeep);
         }
 
         public static void constructWallsOnVoronoi(Dungeoneer d) {
@@ -60,6 +60,7 @@ namespace FiscalShock.Procedural {
 
             GameObject wallObject = UnityEngine.Object.Instantiate(d.dungeonType.wall.prefab, wallCenter, d.dungeonType.wall.prefab.transform.rotation);
             wallObject.transform.parent = d.wallOrganizer.transform;
+            wall.wallObjects.Add(wallObject);
 
             // Stretch wall
             wallObject.transform.localScale = new Vector3(
@@ -84,9 +85,9 @@ namespace FiscalShock.Procedural {
         /// Remakes walls with a gate and corridor extending outward
         /// </summary>
         /// <param name="d"></param>
-        public static List<Tuple<Vector3, Vector3>> destroyWallsForCorridors(Dungeoneer d) {
+        public static List<GameObject> destroyWallsForCorridors(Dungeoneer d) {
             LayerMask wallMask = 1 << 12;
-            List<Tuple<Vector3, Vector3>> corridorAnchors = new List<Tuple<Vector3, Vector3>>();
+            List<GameObject> wallsToKeep = new List<GameObject>();
 
             foreach (Edge e in d.spanningTree) {
                 float len = (float)(e.getLength());
@@ -98,65 +99,40 @@ namespace FiscalShock.Procedural {
                 Debug.DrawRay(p, direction * len, Color.blue, 512);
                 #endif
 
-                // Cast a ray to find where to cleave the wall
+                // Cast a sphere to find what walls to destroy
                 RaycastHit[] hits = Physics.SphereCastAll(p, d.dungeonType.hallWidth, direction, len, wallMask);
                 List<RaycastHit> hit2 = new List<RaycastHit>(hits);
                 hit2 = hit2.OrderByDescending(h => h.distance).ToList();
-                for (int i = 0; i < hit2.Count; ++i) {
-                    RaycastHit hit = hit2[i];
-                    Vector3 gateCenter = new Vector3(hit.point.x, 0, hit.point.z);
-                    Transform wallStart = hit.collider.transform;
-
-                    // Make two new walls
-                    Edge oldEdge = hit.collider.gameObject.GetComponent<WallInfo>().associatedEdge;
-                    // if (oldEdge.getLength() > d.dungeonType.hallWidth) {
-                    //     /* Need to use linear interpolation to find a point: (b-a)*t
-                    //     b: raycast hit point
-                    //     a: an original edge endpoint
-                    //     t: in [0,1], fraction of edge length when half the width of the gate prefab is subtracted
-                    //     */
-                    //     Vector3 b = gateCenter;
-                    //     Vector3 a = oldEdge.p.toVector3AtHeight(b.y);
-                    //     float t = 1 - (d.dungeonType.hallWidth/oldEdge.getLength());
-                    //     Vector3 leftEndpoint = Vector3.Lerp(a, b, t);
-                    //     constructWallOnEdge(d, new Edge(a, leftEndpoint));
-
-                    //     // Right wall is the same, but using q and not p and moving in the opposite direction
-                    //     a = oldEdge.q.toVector3AtHeight(b.y);
-                    //     t = 1 - (d.dungeonType.hallWidth/oldEdge.getLength());
-                    //     Vector3 rightEndpoint = Vector3.Lerp(b, a, t);
-                    //     constructWallOnEdge(d, new Edge(a, rightEndpoint));
-
-                    //     corridorAnchors.Add(new Tuple<Vector3, Vector3>(leftEndpoint, rightEndpoint));
-                    // }
-
-                    // Destroy the old wall
+                foreach (RaycastHit hit in hit2) {
                     UnityEngine.Object.Destroy(hit.collider.gameObject);
                 }
+
+                // Cast a wider sphere to determine what walls to keep during cleanup
+                foreach (RaycastHit hit in Physics.SphereCastAll(p, d.dungeonType.hallWidth * 4, direction, len, wallMask)) {
+                    wallsToKeep.Add(hit.collider.gameObject);
+                }
             }
 
-            return corridorAnchors;
+            return wallsToKeep;
         }
 
-        private static void constructCorridors(Dungeoneer d, List<Tuple<Vector3, Vector3>> corridorEndpointPairs) {
-            // TODO fix this
-            if (corridorEndpointPairs.Count > 2) {
-                UnityEngine.Debug.LogWarning("More than two raycast hits, halls are going to cut through a room");
-            }
-            for (int i = 0; i < (corridorEndpointPairs.Count-1); i += 2) {
-                Edge leftSide = new Edge(corridorEndpointPairs[i].Item1, corridorEndpointPairs[i+1].Item1);
-                Edge rightSide = new Edge(corridorEndpointPairs[i].Item2, corridorEndpointPairs[i+1].Item2);
-
-                /*
-                if (leftSide.findIntersection(rightSide) == null) {
-                    // Swap endpoints if the walls would cross
-                    leftSide = new Edge(corridorEndpointPairs[i].Item1, corridorEndpointPairs[i+1].Item2);
-                    rightSide = new Edge(corridorEndpointPairs[i].Item2, corridorEndpointPairs[i+1].Item1);
+        /// <summary>
+        /// Remove walls that don't need to exist, since occlusion culling
+        /// does not seem to work with procgen.
+        /// </summary>
+        /// <param name="d"></param>
+        /// <param name="wallsToKeep"></param>
+        private static void destroyLagWalls(Dungeoneer d, List<GameObject> wallsToKeep) {
+            foreach (VoronoiRoom r in d.roomVoronoi) {
+                foreach (Edge e in r.exterior.sides) {
+                    wallsToKeep.AddRange(e.wallObjects);
                 }
-                */
+            }
 
-                constructWallOnEdge(d, leftSide);
-                constructWallOnEdge(d, rightSide);
+            foreach (GameObject w in GameObject.FindGameObjectsWithTag("Wall")) {
+                if (!wallsToKeep.Contains(w)) {
+                    UnityEngine.Object.Destroy(w);
+                }
             }
         }
     }

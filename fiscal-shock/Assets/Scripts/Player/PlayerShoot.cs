@@ -108,7 +108,7 @@ public class PlayerShoot : MonoBehaviour {
                 drawingWeapon = false;
                 weaponChanging = false;
                 if(!weaponScript.continuous){
-                    crossHair.SetActive(true);
+                    crossHair?.SetActive(true);
                 }
             }
             animatedTime += Time.deltaTime;

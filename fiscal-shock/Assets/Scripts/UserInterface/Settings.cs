@@ -23,6 +23,8 @@ public static class Settings {
     public static int viewDistance = 128;
     public static int minOcclusionDistance = 32;
 
+    // max at 60 fps when starting from menu scene only
+    public static int targetFramerate = 60;
 
     /// <summary>
     /// Get the mutex on the cursor state while locking the cursor
