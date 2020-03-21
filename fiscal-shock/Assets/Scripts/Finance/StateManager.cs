@@ -28,6 +28,10 @@ public class StateManager : MonoBehaviour
     //list of loans that the player posesses
     public static LinkedList<Loan> loanList = new LinkedList<Loan>();
     //Total debt of the player updated whenever a loan is drawn out, paid or interest is applied
+    //used to calculate average income
+    public static LinkedList<float> income = new LinkedList<float>();
+    public static Loan testLoan = new Loan(1, 2500.0f, ATMScript.bankInterestRate, false);
+    loanList.AddLast(testLoan);
     public static float totalDebt {get; set;}
     public static int nextID {get; set;} = 0;
     public static int totalLoans {get; set;}
@@ -35,6 +39,8 @@ public class StateManager : MonoBehaviour
     public static int currentFloor {get; set;} = 0;
     public static int creditScore {get; set;}
     public static int paymentStreak {get; set;}
+    public static float cashOnEntrance {get; set;}
+    public static float averageIncome {get; set;}
 
     public static void calcCreditScore()
     {
@@ -50,7 +56,7 @@ public class StateManager : MonoBehaviour
             }
         }
         if(oldestLoan > 10){
-            baseScore -= 7 * (oldestLoan - 18);
+            baseScore -= 7 * (oldestLoan - 10);
         }
         baseScore -= sharkPen * 5;
         if(totalLoans > 5){
@@ -62,11 +68,27 @@ public class StateManager : MonoBehaviour
             baseScore += 40;
         }
         baseScore += (paymentStreak * 5);
+        if(averageIncome < 0){
+            baseScore -= 50;
+        } else if(averageIncome > totalDebt * 0.03) {
+            baseScore += 75;
+        } else {
+            baseScore += 25;
+        }
     }
 
     //calculates debt total
     public static void calcDebtTotals()
     {
         totalDebt = SharkScript.sharkTotal + ATMScript.bankTotal;
+    }
+    public static void calcAverageIncome()
+    {
+        float tem = 0.0f;
+        foreach (float item in StateManager.income)
+        {
+            tem += item;
+        }
+        averageIncome = tem / timesEntered;
     }
 }

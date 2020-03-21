@@ -19,6 +19,8 @@
             ATMScript.bankDue = true;
         }
         StateManager.calcDebtTotals();
+        StateManager.income.AddLast(PlayerFinance.cashOnHand - StateManager.cashOnEntrance);
+        StateManager.calcAverageIncome();
         StateManager.calcCreditScore();
         return true;
     }

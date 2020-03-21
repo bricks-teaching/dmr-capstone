@@ -39,7 +39,7 @@ public class ATMScript : MonoBehaviour {
 
     void Update() {
         if (playerIsInTriggerZone && Input.GetKeyDown("f")) {
-            bool paymentSuccessful = payDebt(100);
+            bool paymentSuccessful = payDebt(100, 1);
             if (paymentSuccessful) {
                 signText.text = "";
                 audio.PlayOneShot(paymentSound, Settings.volume);
@@ -66,10 +66,12 @@ public class ATMScript : MonoBehaviour {
             PlayerFinance.cashOnHand += amount;
             StateManager.nextID++;
             StateManager.totalLoans++;
+            StateManager.calcDebtTotals();
             return true;
         } else {
             return false;
         }
+
     }
 
     public bool payDebt(float amount, int loanNum) {
@@ -86,6 +88,7 @@ public class ATMScript : MonoBehaviour {
             PlayerFinance.cashOnHand -= bankTotal;
             bankDue = false;
             StateManager.totalLoans--;
+            StateManager.calcDebtTotals();
             temporaryWinGame();
             return true;
         } else { // none of the above
@@ -98,6 +101,7 @@ public class ATMScript : MonoBehaviour {
             }
             PlayerFinance.cashOnHand -= amount;
             bankDue = false;
+            StateManager.calcDebtTotals();
             return true;
         }
     }
