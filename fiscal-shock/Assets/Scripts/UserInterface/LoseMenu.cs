@@ -5,7 +5,7 @@ public class LoseMenu : MonoBehaviour {
     private LoadingScreen loadScript;
 
     public void Start() {
-        Cursor.lockState = CursorLockMode.None;
+        Settings.forceUnlockCursorState();
         loadingScreen = GameObject.Find("LoadingScreen");
         loadScript = (LoadingScreen)loadingScreen.GetComponent<LoadingScreen>();
     }
