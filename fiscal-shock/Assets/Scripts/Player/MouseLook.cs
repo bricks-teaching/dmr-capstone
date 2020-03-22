@@ -11,10 +11,10 @@ public class MouseLook : MonoBehaviour
     private float xRotation = 0f;
 
     public void Start() {
-        Cursor.lockState = CursorLockMode.Locked;
         //This is debug code until I get the GUIs in - ZM
         Loan testLoan = new Loan(1, 2500.0f, ATMScript.bankInterestRate, false);
         StateManager.loanList.AddLast(testLoan);
+        Settings.lockCursorState(this);
     }
 
     public void Update() {

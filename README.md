@@ -17,8 +17,9 @@
 - Fire weapon: Left Mouse Button
 - 1: Switch to weapon 1
 - 2: Switch to weapon 2
-
-In the hub, the key to press to interact with NPCs or objects will be shown on the screen when near the NPC or object.
+- Escape: Pause and in game settings
+  - You can press Backspace while in the pause menu to toggle the menu's visibility while remaining paused.
+- F: Interact with passive NPCs and doors.
 
 "Cheats" are temporarily available in dungeons during development.
 - Increase cash on hand by 100: F1

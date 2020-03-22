@@ -21,14 +21,12 @@ public class ATMScript : MonoBehaviour {
 
     void OnTriggerEnter(Collider col) {
         if (col.gameObject.tag == "Player") {
-            Debug.Log($"{gameObject.name}: Triggered");
             playerIsInTriggerZone = true;
         }
     }
 
     void OnTriggerExit(Collider col) {
         if (col.gameObject.tag == "Player") {
-            Debug.Log($"{gameObject.name}: Left ATM");
             playerIsInTriggerZone = false;
             signText.text = defaultSignText;
         }
@@ -36,7 +34,8 @@ public class ATMScript : MonoBehaviour {
 
     void Start() {
         signText = GetComponentInChildren<TextMeshProUGUI>();
-        defaultSignText = signText.text;
+        defaultSignText = signText.text.Replace("INTERACTKEY", Settings.interactKey.ToUpper());
+        signText.text = defaultSignText;
         audio = GetComponent<AudioSource>();
     }
 
