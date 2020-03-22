@@ -23,7 +23,7 @@ public class Loan
     }
 }
 
-public class StateManager : MonoBehaviour
+public static class StateManager
 {
     //list of loans that the player posesses
     public static LinkedList<Loan> loanList = new LinkedList<Loan>();
@@ -41,10 +41,6 @@ public class StateManager : MonoBehaviour
     public static float cashOnEntrance {get; set;}
     public static float averageIncome {get; set;}
 
-    void Start(){
-        Loan testLoan = new Loan(1, 2500.0f, ATMScript.bankInterestRate, false);
-        loanList.AddLast(testLoan);
-    }
     public static void calcCreditScore()
     {
         int baseScore = 500, sharkPen = 0;
