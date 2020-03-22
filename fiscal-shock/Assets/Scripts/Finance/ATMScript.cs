@@ -2,6 +2,7 @@
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using System.Linq;
 
 public class ATMScript : MonoBehaviour {
     public AudioClip paymentSound;
@@ -15,6 +16,8 @@ public class ATMScript : MonoBehaviour {
     public static float bankInterestRate { get; set; } = 0.035f;
     public static int bankThreatLevel { get; set; } = 0;
     public static float bankTotal { get; set; }
+    public static float securedAmount { get; set; } = 1.15f;
+    public static float rateReducer { get; set; } = 0.85f;
 
     void OnTriggerEnter(Collider col) {
         if (col.gameObject.tag == "Player") {
@@ -51,17 +54,26 @@ public class ATMScript : MonoBehaviour {
             }
         }
     }
+    public enum LoanType {
+    Unsecured,
+    Secured
+    }
 
-    public bool addDebt(float amount, int loanType) {
+    public bool addDebt(float amount, LoanType loanType) {
         //loanType is one for default loan and two for the secured loan
         if (bankThreatLevel < 3 && bankMaxLoan > (bankTotal + amount)){
             // bank threat is below 3 and is below max total debt
             Loan newLoan = null;
-            if(loanType == 1){ //basic loan
-                newLoan = new Loan(StateManager.nextID, amount, bankInterestRate, false);
-            } else if (loanType == 2){ //secured loan
-                newLoan = new Loan(StateManager.nextID, amount * 1.15f, bankInterestRate * 0.85f, false);
-            } else {return false;} //this shouldnt activate, false return is a failsafe measure
+            switch (loanType) {
+                case LoanType.Unsecured:
+                    newLoan = new Loan(StateManager.nextID, amount, bankInterestRate, false);
+                    break;
+                case LoanType.Secured:
+                    newLoan = new Loan(StateManager.nextID, amount * securedAmount, bankInterestRate * rateReducer, false);
+                    break;
+                default:
+                    return false; //this shouldnt activate, false return is a failsafe measure
+            }
             StateManager.loanList.AddLast(newLoan);
             PlayerFinance.cashOnHand += amount;
             StateManager.nextID++;
@@ -79,12 +91,8 @@ public class ATMScript : MonoBehaviour {
             //display a message stating error
             return false;
         } else if (bankTotal <= amount) { // amount is more than the debt
-            foreach (Loan item in StateManager.loanList)
-            {
-                if(item.ID == loanNum){
-                    StateManager.loanList.Remove(item); //reduce debt to 0 and money on hand by the debt's value
-                }
-            }
+            Loan selectedLoan = StateManager.loanList.Where(l => l.ID == loanNum).First();
+            StateManager.loanList.Remove(selectedLoan);
             PlayerFinance.cashOnHand -= bankTotal;
             bankDue = false;
             StateManager.totalLoans--;
@@ -93,12 +101,8 @@ public class ATMScript : MonoBehaviour {
             return true;
         } else { // none of the above
             // reduce debt and money by amount
-            foreach (Loan item in StateManager.loanList)
-            {
-                if(item.ID == loanNum){
-                    item.total -= amount;
-                }
-            }
+            Loan selectedLoan = StateManager.loanList.Where(l => l.ID == loanNum).First();
+            selectedLoan.total -= amount;
             PlayerFinance.cashOnHand -= amount;
             bankDue = false;
             StateManager.calcDebtTotals();
@@ -120,12 +124,14 @@ public class ATMScript : MonoBehaviour {
         }
         if(paid){
             StateManager.paymentStreak++;
+            bankThreatLevel--;
         }
     }
 
     public static void bankInterest()
     {
-        float tempTot = 0.0f, tempAdd;
+        float tempTot = 0.0f;
+        float tempAdd;
         foreach (Loan item in StateManager.loanList)
         {
             if(!item.source)

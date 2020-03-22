@@ -30,25 +30,29 @@ public class StateManager : MonoBehaviour
     //Total debt of the player updated whenever a loan is drawn out, paid or interest is applied
     //used to calculate average income
     public static LinkedList<float> income = new LinkedList<float>();
-    public static Loan testLoan = new Loan(1, 2500.0f, ATMScript.bankInterestRate, false);
-    loanList.AddLast(testLoan);
     public static float totalDebt {get; set;}
     public static int nextID {get; set;} = 0;
     public static int totalLoans {get; set;}
     public static int timesEntered {get; set;} = 0;
     public static int currentFloor {get; set;} = 0;
+    public static int change {get; set;} = 5;
     public static int creditScore {get; set;}
     public static int paymentStreak {get; set;}
     public static float cashOnEntrance {get; set;}
     public static float averageIncome {get; set;}
 
+    void Start(){
+        Loan testLoan = new Loan(1, 2500.0f, ATMScript.bankInterestRate, false);
+        loanList.AddLast(testLoan);
+    }
     public static void calcCreditScore()
     {
         int baseScore = 500, sharkPen = 0;
         int oldestLoan = 0;
         foreach (Loan item in loanList)
         {
-            if(item.age++ > oldestLoan){
+            item.age++;
+            if(item.age > oldestLoan){
                 oldestLoan = item.age;
             }
             if(item.source){
@@ -56,24 +60,24 @@ public class StateManager : MonoBehaviour
             }
         }
         if(oldestLoan > 10){
-            baseScore -= 7 * (oldestLoan - 10);
+            baseScore -= change * (oldestLoan - 10);
         }
-        baseScore -= sharkPen * 5;
+        baseScore -= sharkPen * change;
         if(totalLoans > 5){
-            baseScore -= 10;
+            baseScore -= change * 2;
         }
         if(totalDebt > 10000){
-            baseScore -= 40;
+            baseScore -= change * 8;
         } else if (totalDebt > 5000){
-            baseScore += 40;
+            baseScore += change * 8;
         }
         baseScore += (paymentStreak * 5);
         if(averageIncome < 0){
-            baseScore -= 50;
+            baseScore -= change * 10;
         } else if(averageIncome > totalDebt * 0.03) {
-            baseScore += 75;
+            baseScore += change * 15;
         } else {
-            baseScore += 25;
+            baseScore += change * 5;
         }
     }
 

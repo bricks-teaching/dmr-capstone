@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Linq;
 
 public class SharkScript : MonoBehaviour
 {
@@ -30,12 +31,8 @@ public class SharkScript : MonoBehaviour
         if (PlayerFinance.cashOnHand < amount){//amount is more than money on hand
             return false;
         } else if (sharkTotal <= amount){ //amount is more than the debt
-            foreach (Loan item in StateManager.loanList)
-            {
-                if(item.ID == loanNum){
-                    StateManager.loanList.Remove(item); //reduce debt to 0 and money on hand by the debt's value
-                }
-            }
+            Loan selectedLoan = StateManager.loanList.Where(l => l.ID == loanNum).First();
+            StateManager.loanList.Remove(selectedLoan);
             PlayerFinance.cashOnHand -= sharkTotal;
             sharkDue = false;
             StateManager.totalLoans--;
@@ -43,12 +40,8 @@ public class SharkScript : MonoBehaviour
             return true;
         } else { //none of the above
             //reduce debt and money by amount
-            foreach (Loan item in StateManager.loanList)
-            {
-                if(item.ID == loanNum){
-                    item.total -= amount;
-                }
-            }
+            Loan selectedLoan = StateManager.loanList.Where(l => l.ID == loanNum).First();
+            selectedLoan.total -= amount;
             PlayerFinance.cashOnHand -= amount;
             sharkDue = false;
             StateManager.calcDebtTotals();
@@ -70,12 +63,14 @@ public class SharkScript : MonoBehaviour
         }
         if(paid){
             StateManager.paymentStreak++;
+            sharkThreatLevel--;
         }
     }
 
     public static void sharkInterest()
     {
-        float tempTot = 0.0f, tempAdd;
+        float tempTot = 0.0f;
+        float tempAdd;
         foreach (Loan item in StateManager.loanList)
         {
             if(item.source)
