@@ -735,6 +735,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5914870944443119772, guid: c5fcf0c2e8177009da4b226f700524cb,
+        type: 3}
+      propertyPath: m_TagString
+      value: Crosshair
+      objectReference: {fileID: 0}
     - target: {fileID: 5914870944805142171, guid: c5fcf0c2e8177009da4b226f700524cb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -862,24 +867,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5fcf0c2e8177009da4b226f700524cb, type: 3}
---- !u!1 &1692686830 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5914870944805142175, guid: c5fcf0c2e8177009da4b226f700524cb,
-    type: 3}
-  m_PrefabInstance: {fileID: 1692686829}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1692686831
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1692686830}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5295c0a0c63da8f0a530f247d55f465, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1735780064
 GameObject:
   m_ObjectHideFlags: 0
@@ -924,7 +911,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 1
-  m_VoxelSize: 0.128
+  m_VoxelSize: 0.25
   m_BuildHeightMesh: 0
   m_NavMeshData: {fileID: 0}
 --- !u!114 &1735780066
@@ -953,7 +940,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 1
-  m_VoxelSize: 0.128
+  m_VoxelSize: 0.25
   m_BuildHeightMesh: 0
   m_NavMeshData: {fileID: 0}
 --- !u!4 &1735780067

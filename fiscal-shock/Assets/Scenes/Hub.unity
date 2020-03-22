@@ -308,13 +308,28 @@ PrefabInstance:
     - target: {fileID: 5914870944443119772, guid: c5fcf0c2e8177009da4b226f700524cb,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5914870944443119772, guid: c5fcf0c2e8177009da4b226f700524cb,
+        type: 3}
+      propertyPath: m_TagString
+      value: Crosshair
       objectReference: {fileID: 0}
     - target: {fileID: 5914870944443119773, guid: c5fcf0c2e8177009da4b226f700524cb,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5914870944805142168, guid: c5fcf0c2e8177009da4b226f700524cb,
+        type: 3}
+      propertyPath: compassImage
+      value: 
+      objectReference: {fileID: 457048678}
+    - target: {fileID: 5914870944805142168, guid: c5fcf0c2e8177009da4b226f700524cb,
+        type: 3}
+      propertyPath: escapeCompass
+      value: 
+      objectReference: {fileID: 457048677}
     - target: {fileID: 5914870944805142170, guid: c5fcf0c2e8177009da4b226f700524cb,
         type: 3}
       propertyPath: m_SortingOrder
@@ -447,6 +462,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5fcf0c2e8177009da4b226f700524cb, type: 3}
+--- !u!224 &457048677 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 208671649331615882, guid: c5fcf0c2e8177009da4b226f700524cb,
+    type: 3}
+  m_PrefabInstance: {fileID: 457048676}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &457048678 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7322518015199761746, guid: c5fcf0c2e8177009da4b226f700524cb,
+    type: 3}
+  m_PrefabInstance: {fileID: 457048676}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &465096386
 GameObject:
   m_ObjectHideFlags: 0

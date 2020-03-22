@@ -33,6 +33,11 @@ public class InGameMenu : MonoBehaviour
     }
 
     void onSceneLoad(Scene scene, LoadSceneMode mode) {
+        // Match up sliders to actual values
+        volumeSlider.value = Settings.volume;
+        mouseSlider.value = Settings.mouseSensitivity;
+
+        // Attach listeners for slider adjustments
         volumeSlider.onValueChanged.RemoveAllListeners();
         volumeControllers = GameObject.FindObjectsOfType<VolumeController>();
         foreach (VolumeController vc in volumeControllers) {
@@ -40,6 +45,8 @@ public class InGameMenu : MonoBehaviour
         }
         volumeSlider.onValueChanged.AddListener((value) => Settings.volume = value);
         mouseSlider.onValueChanged.AddListener((value) => Settings.mouseSensitivity = value);
+
+        // Disable the panels
         pausePanel.SetActive(false);
         quitPanel.SetActive(false);
         optionsPanel.SetActive(false);
@@ -97,6 +104,7 @@ public class InGameMenu : MonoBehaviour
 
     public void QuitAppClick ()
     {
+        Settings.saveSettings();
         Application.Quit();
     }
 

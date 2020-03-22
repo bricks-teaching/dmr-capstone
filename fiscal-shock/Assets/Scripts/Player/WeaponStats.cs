@@ -12,4 +12,5 @@ public class WeaponStats : MonoBehaviour
     public bool continuous = false;
     public bool missile = false;
     public GameObject bulletPrefab;
+    public bool showCrosshair = true;
 }

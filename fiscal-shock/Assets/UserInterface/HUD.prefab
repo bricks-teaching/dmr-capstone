@@ -309,6 +309,7 @@ GameObject:
   - component: {fileID: 5914870944805142173}
   - component: {fileID: 5914870944805142172}
   - component: {fileID: 5914870944805142168}
+  - component: {fileID: 7297962887932037244}
   m_Layer: 5
   m_Name: HUD
   m_TagString: Untagged
@@ -414,6 +415,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pocketChange: {fileID: 5914870944003464224}
   debtTracker: {fileID: 5914870945150929777}
+  compassImage: {fileID: 7322518015199761746}
+  escapeCompass: {fileID: 208671649331615882}
+  playerTransform: {fileID: 0}
+  escapeHatch: {fileID: 0}
+--- !u!114 &7297962887932037244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5914870944805142175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5295c0a0c63da8f0a530f247d55f465, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5914870945150929779
 GameObject:
   m_ObjectHideFlags: 0

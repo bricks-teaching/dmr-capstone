@@ -207,15 +207,51 @@ namespace FiscalShock.Procedural {
             enemyOrganizer = new GameObject();
             enemyOrganizer.name = "Enemies";
 
+            System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+            Debug.Log("Starting floor generation");
+            sw.Start();
             Floor.setFloor(this);
+            sw.Stop();
+            Debug.Log($"Generating floors took {sw.ElapsedMilliseconds} ms");
+            sw.Reset();
+
+            Debug.Log("Starting wall generation");
+            sw.Start();
             Walls.setWalls(this);
+            sw.Stop();
+            Debug.Log($"Generating walls took {sw.ElapsedMilliseconds} ms");
+            sw.Reset();
+
+            Debug.Log("Starting object placement");
+            sw.Start();
             randomizeCells();
+            sw.Stop();
+            Debug.Log($"Generating objects took {sw.ElapsedMilliseconds} ms");
+            sw.Reset();
+
             makeSun();  // just for fun
+            Debug.Log("Starting portal placement");
+            sw.Start();
             Portals.makeDelvePoint(this);
             Portals.makeEscapePoint(this);
+            sw.Stop();
+            Debug.Log($"Placing portals took {sw.ElapsedMilliseconds} ms");
+            sw.Reset();
+
+            Debug.Log("Starting navmesh baking");
+            sw.Start();
             bakeNavMeshes();
+            sw.Stop();
+            Debug.Log($"Baking navmeshes took {sw.ElapsedMilliseconds} ms");
+            sw.Reset();
+
             // Enemies can only be spawned after baking
+            Debug.Log("Starting enemy placement");
+            sw.Start();
             spawnEnemies();
+            sw.Stop();
+            Debug.Log($"Placing enemies took {sw.ElapsedMilliseconds} ms");
+            sw.Reset();
         }
 
         /// <summary>
@@ -374,7 +410,9 @@ namespace FiscalShock.Procedural {
             hudScript.playerTransform = player.transform;
 
             // Enable firing script and spotlight (disabled in hub)
-            player.GetComponentInChildren<PlayerShoot>().enabled = true;
+            PlayerShoot shootScript = player.GetComponentInChildren<PlayerShoot>();
+            shootScript.enabled = true;
+            shootScript.Start();
             player.GetComponentInChildren<Light>().enabled = true;
         }
 

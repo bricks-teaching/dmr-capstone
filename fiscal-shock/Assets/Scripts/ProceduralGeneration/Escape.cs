@@ -26,7 +26,10 @@ namespace FiscalShock.Procedural {
                 GameObject player = collider.gameObject;
                 CharacterController playerController = player.GetComponentInChildren<CharacterController>();
                 // Disable shoot script, since player is entering town
-                player.GetComponentInChildren<PlayerShoot>().enabled = false;
+                PlayerShoot shootScript = player.GetComponentInChildren<PlayerShoot>();
+                Destroy(shootScript.weapon);
+                shootScript.crossHair.enabled = false;
+                shootScript.enabled = false;
                 player.GetComponentInChildren<Light>().enabled = false;
                 // Set player at the dungeon door
                 playerController.enabled = false;

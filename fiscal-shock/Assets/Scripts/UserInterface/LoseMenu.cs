@@ -16,6 +16,7 @@ public class LoseMenu : MonoBehaviour {
 
     public void BankruptClick() {
         Debug.Log("Quit");
+        Settings.saveSettings();
         Application.Quit();
     }
 }

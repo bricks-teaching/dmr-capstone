@@ -4,27 +4,49 @@ using UnityEngine;
 /// Global settings used across many files
 /// </summary>
 public static class Settings {
-    public static float volume = 1f;
-    public static float mouseSensitivity = 100f;
     public static MonoBehaviour cursorStateMutexOwner { get; private set; }
-    public static bool sawTutorial = false;  // TODO move to state manager when implemented
+    public static SettingsValues values = new SettingsValues();
+    private static bool alreadyLoadedSettings = false;
+    public static float volume {
+        get => values.volume;
+        set => values.volume = value;
+    }
+    public static float mouseSensitivity {
+        get => values.mouseSensitivity;
+        set => values.mouseSensitivity = value;
+    }
+    public static bool sawTutorial {
+        get => values.sawTutorial;
+        set => values.sawTutorial = value;
+    }
 
     // ------------- keybinds ---------------
-    public static string pauseKey = "escape";
-    public static string interactKey = "f";
-    public static string weaponOneKey = "1";
-    public static string weaponTwoKey = "2";
-    public static string hidePauseMenuKey = "backspace";
+    public static string pauseKey => values.pauseKey;
+    public static string interactKey => values.interactKey;
+    public static string weaponOneKey => values.weaponOneKey;
+    public static string weaponTwoKey => values.weaponTwoKey;
+    public static string hidePauseMenuKey => values.hidePauseMenuKey;
 
     // occlusion culling
-    public static int occlusionSampleDelay = 128;
-    public static int occlusionSamples = 128;
-    public static int occlusionHideDelay = 32;
-    public static int viewDistance = 128;
-    public static int minOcclusionDistance = 32;
+    public static int occlusionSampleDelay => values.occlusionSampleDelay;
+    public static int occlusionSamples => values.occlusionSamples;
+    public static int occlusionHideDelay => values.occlusionHideDelay;
+    public static int viewDistance => values.viewDistance;
+    public static int minOcclusionDistance => values.minOcclusionDistance;
 
     // max at 60 fps when starting from menu scene only
-    public static int targetFramerate = 60;
+    public static int targetFramerate => values.targetFramerate;
+    public static int vsync => values.vsyncEnabled;
+
+    private static readonly string settingsFilename = Application.persistentDataPath + "/settings.json";
+
+    public static void saveSettings() {
+        Utils.saveToJson(values, settingsFilename);
+    }
+
+    public static void loadSettings() {
+        alreadyLoadedSettings = Utils.loadFromJson(values, settingsFilename, alreadyLoadedSettings);
+    }
 
     /// <summary>
     /// Get the mutex on the cursor state while locking the cursor
@@ -108,4 +130,30 @@ public static class Settings {
         cursorStateMutexOwner = null;
         Cursor.lockState = CursorLockMode.Locked;
     }
+}
+
+
+[System.Serializable]
+public class SettingsValues {
+    public float volume = 1f;
+    public float mouseSensitivity = 100f;
+    public bool sawTutorial = false;  // TODO move to state manager when implemented
+
+    // ------------- keybinds ---------------
+    public string pauseKey = "escape";
+    public string interactKey = "f";
+    public string weaponOneKey = "1";
+    public string weaponTwoKey = "2";
+    public string hidePauseMenuKey = "backspace";
+
+    // occlusion culling
+    public int occlusionSampleDelay = 128;
+    public int occlusionSamples = 128;
+    public int occlusionHideDelay = 32;
+    public int viewDistance = 128;
+    public int minOcclusionDistance = 32;
+
+    // max at 60 fps when starting from menu scene only
+    public int targetFramerate = 60;
+    public int vsyncEnabled = 0;
 }
