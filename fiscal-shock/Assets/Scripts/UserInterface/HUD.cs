@@ -24,7 +24,6 @@ public class HUD : MonoBehaviour
         pocketChange.text = "" + PlayerFinance.cashOnHand.ToString("F2");
         debtTracker.text = "DEBT: -" + (PlayerFinance.debtBank + PlayerFinance.debtShark).ToString("F2");
 
-        // update compass left offset of 10 deg
         if (escapeHatch != null && playerTransform != null) {
             compassImage.SetActive(true);
             Vector3 dir = playerTransform.position - escapeHatch.position;
