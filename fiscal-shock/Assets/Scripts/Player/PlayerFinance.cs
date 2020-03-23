@@ -1,25 +1,28 @@
-﻿public static class PlayerFinance {
+﻿using UnityEngine;
+public static class PlayerFinance {
     public static float cashOnHand { get; set; } = 1000.0f;
-    public static float debtBank {get; set; } = 2500.0f;
-    public static float bankMaxLoan { get; set; } = 10000.0f;
-    public static float bankInterestRate { get; set; } = 0.035f;
-    public static int bankThreatLevel { get; set; } = 0;
-    public static float debtShark { get; set; } = 0.0f;
-    public static float sharkMaxLoan { get; set; } = 4000.0f;
-    public static float sharkInterestRate { get; set; } = 0.155f;
-    public static int sharkThreatLevel { get; set; } = 3;
+    public static float totalDebt {get; set;}
+    public static float totalDebtBank {get; set;}
+    public static float totalDebtShark { get; set;}
 
     public static bool startNewDay() {
-        if (debtShark > 0) {
-            sharkThreatLevel++;
-            debtShark += debtShark * sharkInterestRate;
-            SharkScript.sharkDue = true;
+        if (totalDebtShark > 0) {
+            //If unpaid debts present up threat level
+            SharkScript.sharkUnpaid();
+            //activates interest method in sharkscript also sets paid to false
+            SharkScript.sharkInterest();
         }
-        if (debtBank > 0) {
-            bankThreatLevel++;
-            debtBank += debtBank * bankInterestRate;
+        if (totalDebtBank > 0) {
+            //If unpaid debts present up threat level
+            ATMScript.bankUnpaid();
+            //activates interest method in atmscript also sets paid to false
+            ATMScript.bankInterest();
             ATMScript.bankDue = true;
         }
+        StateManager.calcDebtTotals();
+        StateManager.income.AddLast(PlayerFinance.cashOnHand - StateManager.cashOnEntrance);
+        StateManager.calcAverageIncome();
+        StateManager.calcCreditScore();
         return true;
     }
 }
