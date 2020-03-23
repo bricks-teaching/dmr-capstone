@@ -21,13 +21,6 @@ Definition (``fiscal-shock/Assets/Scripts/Player/Cheats.cs``)
 
 
 
-Namespaces
-----------
-
-
-- :ref:`namespace_System__Collections`
-
-
 Classes
 -------
 

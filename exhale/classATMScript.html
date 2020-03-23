@@ -177,15 +177,34 @@
 <dt id="_CPPv49ATMScript">
 <span id="_CPPv39ATMScript"></span><span id="_CPPv29ATMScript"></span><span id="ATMScript"></span><span class="target" id="classATMScript"></span><em class="property">class </em><code class="sig-name descname">ATMScript</code> : <em class="property">public</em> MonoBehaviour<a class="headerlink" href="#_CPPv49ATMScript" title="Permalink to this definition">¶</a><br /></dt>
 <dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Types</p>
+<dl class="enum">
+<dt id="_CPPv4N9ATMScript8LoanTypeE">
+<span id="_CPPv3N9ATMScript8LoanTypeE"></span><span id="_CPPv2N9ATMScript8LoanTypeE"></span><span class="target" id="classATMScript_1aa4be531921900d0b565a3e3878489704"></span><em class="property">enum </em><code class="sig-name descname">LoanType</code><a class="headerlink" href="#_CPPv4N9ATMScript8LoanTypeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><em>Values:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv4N9ATMScript9UnsecuredE">
+<span id="_CPPv3N9ATMScript9UnsecuredE"></span><span id="_CPPv2N9ATMScript9UnsecuredE"></span><span class="target" id="classATMScript_1aa4be531921900d0b565a3e3878489704aada9b22e6fe65ea74dad0d126e664a74"></span><code class="sig-name descname">Unsecured</code><a class="headerlink" href="#_CPPv4N9ATMScript9UnsecuredE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="enumerator">
+<dt id="_CPPv4N9ATMScript7SecuredE">
+<span id="_CPPv3N9ATMScript7SecuredE"></span><span id="_CPPv2N9ATMScript7SecuredE"></span><span class="target" id="classATMScript_1aa4be531921900d0b565a3e3878489704aa462327fd6b86eab4280e999c1c20108"></span><code class="sig-name descname">Secured</code><a class="headerlink" href="#_CPPv4N9ATMScript7SecuredE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Functions</p>
 <dl class="function">
 <dt>
-<span class="target" id="classATMScript_1a3b6113078d5a44cbb109d92a76205adb"></span><code class="sig-name descname">bool ATMScript.addDebt(float amount)</code></dt>
+<span class="target" id="classATMScript_1a5e96cda5701fed9fc236d8ace5beb210"></span><code class="sig-name descname">bool ATMScript.addDebt(float amount, LoanType loanType)</code></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt>
-<span class="target" id="classATMScript_1a8bb0c8d9a6cf6af27ba6bab71c98453a"></span><code class="sig-name descname">bool ATMScript.payDebt(float amount)</code></dt>
+<span class="target" id="classATMScript_1ad88809db012e39f3334cc92cf7c2f729"></span><code class="sig-name descname">bool ATMScript.payDebt(float amount, int loanNum)</code></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -204,6 +223,52 @@
 <dl class="member">
 <dt>
 <span class="target" id="classATMScript_1aff4f1d9ff428bfa92a6032a3553321cd"></span><code class="sig-name descname">AudioClip ATMScript.failureSound</code></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Property</p>
+<dl class="member">
+<dt>
+<span class="target" id="classATMScript_1a01d8a2b329917b5244576a3d9319dbc5"></span><em class="property">property </em><code class="sig-name descname">ATMScript::bankMaxLoan</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classATMScript_1a2781ed9c5f37f7baa3a9b47305c40f38"></span><em class="property">property </em><code class="sig-name descname">ATMScript::bankInterestRate</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classATMScript_1af57b8b231242dee7d81893a0c545a99d"></span><em class="property">property </em><code class="sig-name descname">ATMScript::bankThreatLevel</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classATMScript_1abc55f633fa6dde3bd7ecb928aece4dee"></span><em class="property">property </em><code class="sig-name descname">ATMScript::bankTotal</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classATMScript_1ae183d22264ff0d0a07d429c70698b038"></span><em class="property">property </em><code class="sig-name descname">ATMScript::securedAmount</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classATMScript_1a804dfd979773e15264ae7522351515cb"></span><em class="property">property </em><code class="sig-name descname">ATMScript::rateReducer</code></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Static Functions</p>
+<dl class="function">
+<dt>
+<span class="target" id="classATMScript_1a77840ab04e05204aef41b421d7ef88a2"></span><code class="sig-name descname">static void ATMScript.bankUnpaid()</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classATMScript_1af0966cd03787f8ce5791fe989d825614"></span><code class="sig-name descname">static void ATMScript.bankInterest()</code></dt>
 <dd></dd></dl>
 
 </div>

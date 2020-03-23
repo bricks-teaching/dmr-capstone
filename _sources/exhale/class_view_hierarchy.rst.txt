@@ -41,6 +41,7 @@ Class Hierarchy
 - :ref:`exhale_class_classHUD`
 - :ref:`exhale_class_classInGameMenu`
 - :ref:`exhale_class_classLoadingScreen`
+- :ref:`exhale_class_classLoan`
 - :ref:`exhale_class_classLoseMenu`
 - :ref:`exhale_class_classMainMenu`
 - :ref:`exhale_class_classMenuSingleton`
@@ -55,6 +56,7 @@ Class Hierarchy
 - :ref:`exhale_class_classSign`
 - :ref:`exhale_class_classSpawnableEnemy`
 - :ref:`exhale_class_classSpawnableObject`
+- :ref:`exhale_class_classStateManager`
 - :ref:`exhale_class_classVolumeController`
 - :ref:`exhale_class_classWeaponDemo`
 - :ref:`exhale_class_classWeaponStats`

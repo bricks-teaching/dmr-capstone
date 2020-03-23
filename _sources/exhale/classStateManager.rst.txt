@@ -1,0 +1,17 @@
+.. _exhale_class_classStateManager:
+
+Class StateManager
+==================
+
+- Defined in :ref:`file_fiscal-shock_Assets_Scripts_Finance_StateManager.cs`
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: StateManager
+   :members:
+   :protected-members:
+   :private-members:
+   :undoc-members:

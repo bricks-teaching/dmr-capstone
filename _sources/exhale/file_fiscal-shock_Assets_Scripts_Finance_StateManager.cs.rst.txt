@@ -1,0 +1,38 @@
+
+.. _file_fiscal-shock_Assets_Scripts_Finance_StateManager.cs:
+
+File StateManager.cs
+====================
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``fiscal-shock/Assets/Scripts/Finance/StateManager.cs``)
+--------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+Namespaces
+----------
+
+
+- :ref:`namespace_System__Collections`
+
+
+Classes
+-------
+
+
+- :ref:`exhale_class_classLoan`
+
+- :ref:`exhale_class_classStateManager`
+

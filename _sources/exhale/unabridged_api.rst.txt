@@ -243,6 +243,11 @@ Classes and Structs
 .. toctree::
    :maxdepth: 5
 
+   classLoan.rst
+
+.. toctree::
+   :maxdepth: 5
+
    classLoseMenu.rst
 
 .. toctree::
@@ -309,6 +314,11 @@ Classes and Structs
    :maxdepth: 5
 
    classSpawnableObject.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   classStateManager.rst
 
 .. toctree::
    :maxdepth: 5

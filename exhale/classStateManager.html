@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Class SharkScript &mdash; Fiscal Shock  documentation</title>
+  <title>Class StateManager &mdash; Fiscal Shock  documentation</title>
   
 
   
@@ -85,11 +85,7 @@
             
               <!-- Local TOC -->
               <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">Class SharkScript</a><ul>
-<li><a class="reference internal" href="#inheritance-relationships">Inheritance Relationships</a><ul>
-<li><a class="reference internal" href="#base-type">Base Type</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#">Class StateManager</a><ul>
 <li><a class="reference internal" href="#class-documentation">Class Documentation</a></li>
 </ul>
 </li>
@@ -138,13 +134,13 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Class SharkScript</li>
+      <li>Class StateManager</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/exhale/classSharkScript.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/exhale/classStateManager.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -157,63 +153,66 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="class-sharkscript">
-<span id="exhale-class-classsharkscript"></span><h1>Class SharkScript<a class="headerlink" href="#class-sharkscript" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="class-statemanager">
+<span id="exhale-class-classstatemanager"></span><h1>Class StateManager<a class="headerlink" href="#class-statemanager" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><p>Defined in <a class="reference internal" href="file_fiscal-shock_Assets_Scripts_Finance_SharkScript.cs.html#file-fiscal-shock-assets-scripts-finance-sharkscript-cs"><span class="std std-ref">File SharkScript.cs</span></a></p></li>
+<li><p>Defined in <a class="reference internal" href="file_fiscal-shock_Assets_Scripts_Finance_StateManager.cs.html#file-fiscal-shock-assets-scripts-finance-statemanager-cs"><span class="std std-ref">File StateManager.cs</span></a></p></li>
 </ul>
-<div class="section" id="inheritance-relationships">
-<h2>Inheritance Relationships<a class="headerlink" href="#inheritance-relationships" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="base-type">
-<h3>Base Type<a class="headerlink" href="#base-type" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">MonoBehaviour</span></code></p></li>
-</ul>
-</div>
-</div>
 <div class="section" id="class-documentation">
 <h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="_CPPv411SharkScript">
-<span id="_CPPv311SharkScript"></span><span id="_CPPv211SharkScript"></span><span id="SharkScript"></span><span class="target" id="classSharkScript"></span><em class="property">class </em><code class="sig-name descname">SharkScript</code> : <em class="property">public</em> MonoBehaviour<a class="headerlink" href="#_CPPv411SharkScript" title="Permalink to this definition">¶</a><br /></dt>
+<dt id="_CPPv412StateManager">
+<span id="_CPPv312StateManager"></span><span id="_CPPv212StateManager"></span><span id="StateManager"></span><span class="target" id="classStateManager"></span><em class="property">class </em><code class="sig-name descname">StateManager</code><a class="headerlink" href="#_CPPv412StateManager" title="Permalink to this definition">¶</a><br /></dt>
 <dd><div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Functions</p>
-<dl class="function">
-<dt>
-<span class="target" id="classSharkScript_1a2a3f50cfcd27ae2570a7b4b8ee74cbbf"></span><code class="sig-name descname">bool SharkScript.addDebt(float amount)</code></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt>
-<span class="target" id="classSharkScript_1a2248f6f15799db238837e2c84a275004"></span><code class="sig-name descname">bool SharkScript.payDebt(float amount, int loanNum)</code></dt>
-<dd></dd></dl>
-
-</div>
-<div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Property</p>
 <dl class="member">
 <dt>
-<span class="target" id="classSharkScript_1a3b6258fa907f51b6a7aab76db2f02cbf"></span><em class="property">property </em><code class="sig-name descname">SharkScript::sharkDue</code></dt>
+<span class="target" id="classStateManager_1a6880da16b5bc311e2539dac432dd95bf"></span><em class="property">property </em><code class="sig-name descname">StateManager::totalDebt</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classSharkScript_1a99d04168d5395351cf52e9cb9fc2a5e3"></span><em class="property">property </em><code class="sig-name descname">SharkScript::sharkInterestRate</code></dt>
+<span class="target" id="classStateManager_1a79b5ed731e2ece1866d17ce45a4a645d"></span><em class="property">property </em><code class="sig-name descname">StateManager::nextID</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classSharkScript_1a828ff38814c5e4cbf4424bbde3907921"></span><em class="property">property </em><code class="sig-name descname">SharkScript::sharkMaxLoan</code></dt>
+<span class="target" id="classStateManager_1a60f287578006881001e3f170243e073c"></span><em class="property">property </em><code class="sig-name descname">StateManager::totalLoans</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classSharkScript_1a2263e2a0b2505800284c7c7a964f309f"></span><em class="property">property </em><code class="sig-name descname">SharkScript::sharkThreatLevel</code></dt>
+<span class="target" id="classStateManager_1a7563889eb8e55b675662fa9e0e89f945"></span><em class="property">property </em><code class="sig-name descname">StateManager::timesEntered</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classSharkScript_1ab1fc8f08c7d677da252c63018f0e8182"></span><em class="property">property </em><code class="sig-name descname">SharkScript::sharkTotal</code></dt>
+<span class="target" id="classStateManager_1a8d8f3b4a1dc8e278041a5c677043cd89"></span><em class="property">property </em><code class="sig-name descname">StateManager::currentFloor</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classStateManager_1a4c02fbbc0b19dcbcbe2eeec35ed73b39"></span><em class="property">property </em><code class="sig-name descname">StateManager::change</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classStateManager_1a90caab5ee263953bf9a49d87e20961ff"></span><em class="property">property </em><code class="sig-name descname">StateManager::creditScore</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classStateManager_1a29948d1ff03e6e84e7c28ed3f254c702"></span><em class="property">property </em><code class="sig-name descname">StateManager::paymentStreak</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classStateManager_1a766f4b5e8e9e67ae4e2054817d903067"></span><em class="property">property </em><code class="sig-name descname">StateManager::cashOnEntrance</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classStateManager_1ad4c2ed0f11c18d792a958948a674b72c"></span><em class="property">property </em><code class="sig-name descname">StateManager::averageIncome</code></dt>
 <dd></dd></dl>
 
 </div>
@@ -221,12 +220,30 @@
 <p class="breathe-sectiondef-title rubric">Public Static Functions</p>
 <dl class="function">
 <dt>
-<span class="target" id="classSharkScript_1afcdd519247ebe51619afe55a30f152a0"></span><code class="sig-name descname">static void SharkScript.sharkUnpaid()</code></dt>
+<span class="target" id="classStateManager_1aa40c6b75570312220b8402ec436aef57"></span><code class="sig-name descname">static void StateManager.calcCreditScore()</code></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt>
-<span class="target" id="classSharkScript_1a48eeb5837c04d4920eadaa7b25b8aac3"></span><code class="sig-name descname">static void SharkScript.sharkInterest()</code></dt>
+<span class="target" id="classStateManager_1a395bd8d1951303807692a50ac8ea0cc5"></span><code class="sig-name descname">static void StateManager.calcDebtTotals()</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classStateManager_1a4ca5620a1af1dcf0cfb92cedb9643139"></span><code class="sig-name descname">static void StateManager.calcAverageIncome()</code></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Static Attributes</p>
+<dl class="member">
+<dt>
+<span class="target" id="classStateManager_1a843559a08b28173f33ec25738d5112b1"></span><code class="sig-name descname">LinkedList&lt;Loan&gt; StateManager.loanList = new LinkedList&lt;Loan&gt;()</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classStateManager_1a4e71aefd6d74173f947ff8ceca1e2118"></span><code class="sig-name descname">LinkedList&lt;float&gt; StateManager.income = new LinkedList&lt;float&gt;()</code></dt>
 <dd></dd></dl>
 
 </div>

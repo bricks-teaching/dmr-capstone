@@ -1,0 +1,17 @@
+.. _exhale_class_classLoan:
+
+Class Loan
+==========
+
+- Defined in :ref:`file_fiscal-shock_Assets_Scripts_Finance_StateManager.cs`
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: Loan
+   :members:
+   :protected-members:
+   :private-members:
+   :undoc-members:
