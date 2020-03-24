@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 5086685436175638547}
   - component: {fileID: 4429673032618852596}
   - component: {fileID: 1280419835}
-  - component: {fileID: 6703730977899463876}
+  - component: {fileID: 7352360148000753307}
   m_Layer: 11
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -284,7 +284,7 @@ MonoBehaviour:
   roomRenderHeight: 3
   edgeMat: {fileID: 2100000, guid: 4c59fd6ae625a9500b147fcf863adeb3, type: 2}
   label: {fileID: 0}
---- !u!114 &6703730977899463876
+--- !u!114 &7352360148000753307
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

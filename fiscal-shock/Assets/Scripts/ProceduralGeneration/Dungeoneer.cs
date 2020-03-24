@@ -68,7 +68,6 @@ namespace FiscalShock.Procedural {
         public GameObject wallOrganizer { get; private set; }
         public GameObject enemyOrganizer { get; private set; }
         public GameObject thingOrganizer { get; private set; }
-        public List<BakedNav> bakedNavMeshes { get; } = new List<BakedNav>();
 
         public void Start() {
             Debug.Log($"Starting to load");
@@ -238,14 +237,6 @@ namespace FiscalShock.Procedural {
             Debug.Log($"Placing portals took {sw.ElapsedMilliseconds} ms");
             sw.Reset();
 
-            Debug.Log("Starting navmesh baking");
-            sw.Start();
-            bakeNavMeshes();
-            sw.Stop();
-            Debug.Log($"Baking navmeshes took {sw.ElapsedMilliseconds} ms");
-            sw.Reset();
-
-            // Enemies can only be spawned after baking
             Debug.Log("Starting enemy placement");
             sw.Start();
             spawnEnemies();
@@ -260,24 +251,6 @@ namespace FiscalShock.Procedural {
         /// <returns></returns>
         private List<Cell> getValidCells() {
             return vd.cells.Where(c => c.room != null).ToList();
-        }
-
-        private void bakeNavMeshes() {
-            NavMeshSurface[] navs = groundOrganizer.GetComponents<NavMeshSurface>();
-            foreach (NavMeshSurface nav in navs) {
-                nav.BuildNavMesh();
-                nav.enabled = false;
-            }
-            // Get triangulation of each, requires turning off all other navmeshes, because the triangulation functions check ALL active navmeshes
-            foreach (NavMeshSurface nav in navs) {
-                nav.enabled = true;
-                bakedNavMeshes.Add(new BakedNav(nav.agentTypeID, NavMesh.CalculateTriangulation()));
-                nav.enabled = false;
-            }
-            // Finally, enable all of them
-            foreach (NavMeshSurface nav in navs) {
-                nav.enabled = true;
-            }
         }
 
         private void makeSun() {
