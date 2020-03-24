@@ -28,7 +28,7 @@ TagManager:
   - Enemy
   - Player
   - Wall
-  - 
+  - EnemyAvoidanceTrigger
   - 
   - 
   - 

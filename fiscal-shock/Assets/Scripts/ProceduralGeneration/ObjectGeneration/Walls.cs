@@ -15,9 +15,52 @@ namespace FiscalShock.Procedural {
             constructWallsOnRooms(d);
             List<GameObject> wallsToKeep = destroyWallsForCorridors(d);
             destroyLagWalls(d, wallsToKeep);
+            constructEnemyAvoidanceBoundingBox(d);
         }
 
-        public static void constructWallsOnVoronoi(Dungeoneer d) {
+        /// <summary>
+        /// Stand up trigger zones on the bounding box of the world for
+        /// enemy movement AI to detect using raycasts.
+        /// </summary>
+        private static void constructEnemyAvoidanceBoundingBox(Dungeoneer d) {
+            GameObject trigger = GameObject.Find("EnemyAvoidanceTrigger");
+            GameObject floor = GameObject.FindGameObjectWithTag("Ground");
+            Bounds floorBounds = floor.GetComponent<Renderer>().bounds;
+
+            Vector3 topLeft = new Vector3(floorBounds.min.x, 0, floorBounds.max.z);
+            Vector3 topRight = new Vector3(floorBounds.max.x, 0, floorBounds.max.z);
+            Vector3 bottomLeft = new Vector3(floorBounds.min.x, 0, floorBounds.min.z);
+
+            float xlen = Vector3.Distance(topLeft, topRight);
+            float zlen = Vector3.Distance(topLeft, bottomLeft);
+
+            Vector3 west = new Vector3(floorBounds.min.x, d.dungeonType.wallHeight/2, 0);
+            Vector3 north = new Vector3(0, d.dungeonType.wallHeight/2, floorBounds.max.z);
+            Vector3 east = new Vector3(floorBounds.max.x, d.dungeonType.wallHeight/2, 0);
+            Vector3 south = new Vector3(0, d.dungeonType.wallHeight/2, floorBounds.min.z);
+
+            trigger.transform.position = west;
+            trigger.transform.localScale = new Vector3(0, d.dungeonType.wallHeight, zlen);
+
+            GameObject no = UnityEngine.Object.Instantiate(trigger, north, trigger.transform.rotation);
+            no.transform.localScale = new Vector3(xlen, d.dungeonType.wallHeight, 1);
+            no.transform.parent = trigger.transform.parent;
+
+            GameObject ea = UnityEngine.Object.Instantiate(trigger, east, trigger.transform.rotation);
+            ea.transform.localScale = new Vector3(1, d.dungeonType.wallHeight, zlen);
+            ea.transform.parent = trigger.transform.parent;
+
+            GameObject so = UnityEngine.Object.Instantiate(trigger, south, trigger.transform.rotation);
+            so.transform.localScale = new Vector3(xlen, d.dungeonType.wallHeight, 1);
+            so.transform.parent = trigger.transform.parent;
+        }
+
+        /// <summary>
+        /// Generate walls all over the Voronoi, except for room interiors. Used
+        /// to do subtractive corridor generation.
+        /// </summary>
+        /// <param name="d"></param>
+        private static void constructWallsOnVoronoi(Dungeoneer d) {
             List<Cell> roomCells = d.roomVoronoi.SelectMany(r => r.cells).ToList();
             foreach (Cell c in d.vd.cells) {
                 if (!roomCells.Contains(c)) {
@@ -30,7 +73,7 @@ namespace FiscalShock.Procedural {
         /// Make walls only on Voronoi rooms
         /// </summary>
         /// <param name="d"></param>
-        public static void constructWallsOnRooms(Dungeoneer d) {
+        private static void constructWallsOnRooms(Dungeoneer d) {
             foreach (VoronoiRoom r in d.roomVoronoi) {
                 constructWallsOnPolygon(d, r.exterior);
             }
@@ -41,7 +84,7 @@ namespace FiscalShock.Procedural {
         /// </summary>
         /// <param name="d"></param>
         /// <param name="p"></param>
-        public static void constructWallsOnPolygon(Dungeoneer d, Polygon p) {
+        private static void constructWallsOnPolygon(Dungeoneer d, Polygon p) {
             foreach (Edge e in p.sides) {
                 constructWallOnEdge(d, e);
             }
@@ -51,12 +94,11 @@ namespace FiscalShock.Procedural {
         /// Make walls along an arbitrary edge
         /// </summary>
         /// <param name="wall"></param>
-        public static void constructWallOnEdge(Dungeoneer d, Edge wall) {
+        private static void constructWallOnEdge(Dungeoneer d, Edge wall) {
             // Since the prefab is stretched equally along x and y, it must be placed at the center for both x and y
             Vector3 p = wall.p.toVector3AtHeight(d.dungeonType.wallHeight/2);
             Vector3 q = wall.q.toVector3AtHeight(d.dungeonType.wallHeight/2);
             Vector3 wallCenter = (p+q)/2;
-            Vector3 direction = (q-p).normalized;
 
             GameObject wallObject = UnityEngine.Object.Instantiate(d.dungeonType.wall.prefab, wallCenter, d.dungeonType.wall.prefab.transform.rotation);
             wallObject.transform.parent = d.wallOrganizer.transform;
@@ -76,16 +118,19 @@ namespace FiscalShock.Procedural {
             // Attach info to game object for later use
             wallObject.GetComponent<WallInfo>().associatedEdge = wall;
 
+            /*
+            Vector3 direction = (q-p).normalized;
             #if UNITY_EDITOR
             Debug.DrawRay(p, direction * wall.getLength(), Color.white, 512);
             #endif
+            */
         }
 
         /// <summary>
         /// Remakes walls with a gate and corridor extending outward
         /// </summary>
         /// <param name="d"></param>
-        public static List<GameObject> destroyWallsForCorridors(Dungeoneer d) {
+        private static List<GameObject> destroyWallsForCorridors(Dungeoneer d) {
             LayerMask wallMask = 1 << 12;
             List<GameObject> wallsToKeep = new List<GameObject>();
 
@@ -95,9 +140,11 @@ namespace FiscalShock.Procedural {
                 Vector3 p = e.p.toVector3AtHeight(d.dungeonType.wallHeight/2);
                 Vector3 q = e.q.toVector3AtHeight(d.dungeonType.wallHeight/2);
                 Vector3 direction = (q-p).normalized;
+                /*
                 #if UNITY_EDITOR
                 Debug.DrawRay(p, direction * len, Color.blue, 512);
                 #endif
+                */
 
                 // Cast a sphere to find what walls to destroy
                 RaycastHit[] hits = Physics.SphereCastAll(p, d.dungeonType.hallWidth, direction, len, wallMask);
@@ -108,7 +155,7 @@ namespace FiscalShock.Procedural {
                 }
 
                 // Cast a wider sphere to determine what walls to keep during cleanup
-                foreach (RaycastHit hit in Physics.SphereCastAll(p, d.dungeonType.hallWidth * 4, direction, len, wallMask)) {
+                foreach (RaycastHit hit in Physics.SphereCastAll(p, d.dungeonType.hallWidth * 7, direction, len, wallMask)) {
                     wallsToKeep.Add(hit.collider.gameObject);
                 }
             }
@@ -117,8 +164,7 @@ namespace FiscalShock.Procedural {
         }
 
         /// <summary>
-        /// Remove walls that don't need to exist, since occlusion culling
-        /// does not seem to work with procgen.
+        /// Remove walls that don't need to exist for performance reasons
         /// </summary>
         /// <param name="d"></param>
         /// <param name="wallsToKeep"></param>
