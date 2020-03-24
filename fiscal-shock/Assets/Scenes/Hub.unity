@@ -366,21 +366,6 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2752714859477427732, guid: bc7ef44de2f694932a9d0fc4d3a3d809,
-        type: 3}
-      propertyPath: m_Lightmapping
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2752714859477427732, guid: bc7ef44de2f694932a9d0fc4d3a3d809,
-        type: 3}
-      propertyPath: m_Intensity
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2752714859477427732, guid: bc7ef44de2f694932a9d0fc4d3a3d809,
-        type: 3}
-      propertyPath: m_Shadows.m_Type
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6489339580941380666, guid: bc7ef44de2f694932a9d0fc4d3a3d809,
         type: 3}
       propertyPath: m_IsActive
