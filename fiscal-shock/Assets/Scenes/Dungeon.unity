@@ -1191,11 +1191,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyAvoidanceTrigger
       objectReference: {fileID: 0}
-    - target: {fileID: 1078835757159354610, guid: 786af2c50f0aca4ff89b38814fb5c8ef,
-        type: 3}
-      propertyPath: m_Layer
-      value: 13
-      objectReference: {fileID: 0}
     - target: {fileID: 5515966686509671713, guid: 786af2c50f0aca4ff89b38814fb5c8ef,
         type: 3}
       propertyPath: m_LocalPosition.x
