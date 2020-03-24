@@ -169,6 +169,7 @@
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">FiscalShock.Graphs.Delaunay</span></code> (<a class="reference internal" href="classFiscalShock_1_1Graphs_1_1Delaunay.html#exhale-class-classfiscalshock-1-1graphs-1-1delaunay"><span class="std std-ref">Class Delaunay</span></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">FiscalShock.Graphs.Voronoi</span></code> (<a class="reference internal" href="classFiscalShock_1_1Graphs_1_1Voronoi.html#exhale-class-classfiscalshock-1-1graphs-1-1voronoi"><span class="std std-ref">Class Voronoi</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">FiscalShock.Graphs.VoronoiRoom</span></code> (<a class="reference internal" href="classFiscalShock_1_1Graphs_1_1VoronoiRoom.html#exhale-class-classfiscalshock-1-1graphs-1-1voronoiroom"><span class="std std-ref">Class VoronoiRoom</span></a>)</p></li>
 </ul>
 </div>
 </div>
@@ -178,7 +179,7 @@
 <dt id="_CPPv4N11FiscalShock6Graphs5GraphE">
 <span id="_CPPv3N11FiscalShock6Graphs5GraphE"></span><span id="_CPPv2N11FiscalShock6Graphs5GraphE"></span><span id="FiscalShock::Graphs::Graph"></span><span class="target" id="classFiscalShock_1_1Graphs_1_1Graph"></span><em class="property">class </em><code class="sig-name descname">Graph</code><a class="headerlink" href="#_CPPv4N11FiscalShock6Graphs5GraphE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Base class for all graphs </p>
-<p>Subclassed by <a class="reference internal" href="classFiscalShock_1_1Graphs_1_1Delaunay.html#classFiscalShock_1_1Graphs_1_1Delaunay"><span class="std std-ref">FiscalShock.Graphs.Delaunay</span></a>, <a class="reference internal" href="classFiscalShock_1_1Graphs_1_1Voronoi.html#classFiscalShock_1_1Graphs_1_1Voronoi"><span class="std std-ref">FiscalShock.Graphs.Voronoi</span></a></p>
+<p>Subclassed by <a class="reference internal" href="classFiscalShock_1_1Graphs_1_1Delaunay.html#classFiscalShock_1_1Graphs_1_1Delaunay"><span class="std std-ref">FiscalShock.Graphs.Delaunay</span></a>, <a class="reference internal" href="classFiscalShock_1_1Graphs_1_1Voronoi.html#classFiscalShock_1_1Graphs_1_1Voronoi"><span class="std std-ref">FiscalShock.Graphs.Voronoi</span></a>, <a class="reference internal" href="classFiscalShock_1_1Graphs_1_1VoronoiRoom.html#classFiscalShock_1_1Graphs_1_1VoronoiRoom"><span class="std std-ref">FiscalShock.Graphs.VoronoiRoom</span></a></p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Functions</p>
 <dl class="function">
@@ -186,6 +187,18 @@
 <span class="target" id="classFiscalShock_1_1Graphs_1_1Graph_1a1f3fae723a86c2e3852f54d9f0259c0f"></span><code class="sig-name descname">List&lt;Vertex&gt; FiscalShock.Graphs.Graph.findConvexHull()</code></dt>
 <dd><p>Find the points comprising the convex hull of this graph. Useful for error checking some things in the Delaunay/Voronoi. </p>
 <p><a class="reference external" href="https://en.wikibooks.org/wiki/Algorithm_Implementation/Geometry/Convex_hull/Monotone_chain">https://en.wikibooks.org/wiki/Algorithm_Implementation/Geometry/Convex_hull/Monotone_chain</a></p>
+<p><p>This totally is broken and finds spurious edges </p>
+<dl class="simple">
+<dt><strong>Return</strong></dt><dd><p></p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classFiscalShock_1_1Graphs_1_1Graph_1aa14166a4326011b14b7491e64d8a94e0"></span><code class="sig-name descname">List&lt;Edge&gt; FiscalShock.Graphs.Graph.findSpanningTreeBFS()</code></dt>
+<dd><p>Find spanning tree using breadth-first search. Results in spanning trees with a “central” vertex that connects to many others, and then dead-ends as you get farther away from it. </p>
 <p><dl class="simple">
 <dt><strong>Return</strong></dt><dd><p></p>
 </dd>

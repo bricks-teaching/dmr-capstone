@@ -1,0 +1,36 @@
+
+.. _file_fiscal-shock_Assets_Scripts_Utility_Utils.cs:
+
+File Utils.cs
+=============
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``fiscal-shock/Assets/Scripts/Utility/Utils.cs``)
+-------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+Namespaces
+----------
+
+
+- :ref:`namespace_System__IO`
+
+
+Classes
+-------
+
+
+- :ref:`exhale_class_classUtils`
+

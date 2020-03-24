@@ -23,6 +23,7 @@ Subdirectories
 - :ref:`dir__home_travis_build_dmr-capstone_dmr-capstone_fiscal-shock_Assets_Scripts_Projectiles`
 - :ref:`dir__home_travis_build_dmr-capstone_dmr-capstone_fiscal-shock_Assets_Scripts_ThirdParty`
 - :ref:`dir__home_travis_build_dmr-capstone_dmr-capstone_fiscal-shock_Assets_Scripts_UserInterface`
+- :ref:`dir__home_travis_build_dmr-capstone_dmr-capstone_fiscal-shock_Assets_Scripts_Utility`
 
 
 

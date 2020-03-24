@@ -44,6 +44,11 @@ Namespaces
 .. toctree::
    :maxdepth: 5
 
+   namespace_System__IO.rst
+
+.. toctree::
+   :maxdepth: 5
+
    namespace_System__Linq.rst
 
 .. toctree::
@@ -193,6 +198,11 @@ Classes and Structs
 .. toctree::
    :maxdepth: 5
 
+   classFiscalShock_1_1Graphs_1_1VoronoiRoom.rst
+
+.. toctree::
+   :maxdepth: 5
+
    classFiscalShock_1_1Procedural_1_1BakedNav.rst
 
 .. toctree::
@@ -218,7 +228,27 @@ Classes and Structs
 .. toctree::
    :maxdepth: 5
 
+   classFiscalShock_1_1Procedural_1_1Floor.rst
+
+.. toctree::
+   :maxdepth: 5
+
    classFiscalShock_1_1Procedural_1_1KillZone.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   classFiscalShock_1_1Procedural_1_1Portals.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   classFiscalShock_1_1Procedural_1_1WallInfo.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   classFiscalShock_1_1Procedural_1_1Walls.rst
 
 .. toctree::
    :maxdepth: 5
@@ -229,6 +259,11 @@ Classes and Structs
    :maxdepth: 5
 
    classHUD.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   classHUDSingleton.rst
 
 .. toctree::
    :maxdepth: 5
@@ -288,12 +323,22 @@ Classes and Structs
 .. toctree::
    :maxdepth: 5
 
+   classPlayerSingleton.rst
+
+.. toctree::
+   :maxdepth: 5
+
    classSeamlessMusicPlayer.rst
 
 .. toctree::
    :maxdepth: 5
 
    classSettings.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   classSettingsValues.rst
 
 .. toctree::
    :maxdepth: 5
@@ -334,6 +379,26 @@ Classes and Structs
    :maxdepth: 5
 
    classThirdParty_1_1MersenneTwister.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   classThirdParty_1_1OcclusionBase.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   classThirdParty_1_1OcclusionCamera.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   classThirdParty_1_1OcclusionObject.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   classUtils.rst
 
 .. toctree::
    :maxdepth: 5

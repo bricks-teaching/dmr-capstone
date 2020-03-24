@@ -25,3 +25,9 @@ Classes
 
 
 - :ref:`exhale_class_classThirdParty_1_1MersenneTwister`
+
+- :ref:`exhale_class_classThirdParty_1_1OcclusionBase`
+
+- :ref:`exhale_class_classThirdParty_1_1OcclusionCamera`
+
+- :ref:`exhale_class_classThirdParty_1_1OcclusionObject`

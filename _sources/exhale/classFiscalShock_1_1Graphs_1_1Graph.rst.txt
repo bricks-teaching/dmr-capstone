@@ -14,6 +14,7 @@ Derived Types
 
 - ``public FiscalShock.Graphs.Delaunay`` (:ref:`exhale_class_classFiscalShock_1_1Graphs_1_1Delaunay`)
 - ``public FiscalShock.Graphs.Voronoi`` (:ref:`exhale_class_classFiscalShock_1_1Graphs_1_1Voronoi`)
+- ``public FiscalShock.Graphs.VoronoiRoom`` (:ref:`exhale_class_classFiscalShock_1_1Graphs_1_1VoronoiRoom`)
 
 
 Class Documentation

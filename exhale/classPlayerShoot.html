@@ -180,7 +180,22 @@
 <p class="breathe-sectiondef-title rubric">Public Functions</p>
 <dl class="function">
 <dt>
+<span class="target" id="classPlayerShoot_1ae22662e778e4b4c02940f2607b6c5799"></span><code class="sig-name descname">void PlayerShoot.Start()</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
 <span class="target" id="classPlayerShoot_1aa8c6f8945af97498c0ddd10a7fb2bb45"></span><code class="sig-name descname">void PlayerShoot.Update()</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classPlayerShoot_1a62501c0bdab8c6b695d9acd5460e3859"></span><code class="sig-name descname">void PlayerShoot.LoadWeapon()</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classPlayerShoot_1a85c4bef4446a5a83aa7e9ace8e225a12"></span><code class="sig-name descname">void PlayerShoot.HolsterWeapon()</code></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -198,17 +213,12 @@
 
 <dl class="member">
 <dt>
-<span class="target" id="classPlayerShoot_1a85e08bf8ec944f4a470b11742c8418ed"></span><code class="sig-name descname">GameObject PlayerShoot.gun1</code></dt>
+<span class="target" id="classPlayerShoot_1aa5909cbe343f8e2809b19f461e44ec30"></span><code class="sig-name descname">List&lt;GameObject&gt; PlayerShoot.guns</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classPlayerShoot_1adc2a644102f73c8993bc540d07b30c22"></span><code class="sig-name descname">GameObject PlayerShoot.gun2</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
-<span class="target" id="classPlayerShoot_1add513131b968a64d6e0958ae178a8ab4"></span><code class="sig-name descname">GameObject PlayerShoot.crossHair</code></dt>
+<span class="target" id="classPlayerShoot_1aceb0797878830119be90045086219334"></span><code class="sig-name descname">RawImage PlayerShoot.crossHair</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
@@ -218,25 +228,18 @@
 
 </div>
 <div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Property</p>
+<dl class="member">
+<dt>
+<span class="target" id="classPlayerShoot_1a58243d518db77a95db998946b931f308"></span><em class="property">property </em><code class="sig-name descname">PlayerShoot::weapon</code></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Private Functions</p>
 <dl class="function">
 <dt>
-<span class="target" id="classPlayerShoot_1ae22662e778e4b4c02940f2607b6c5799"></span><code class="sig-name descname">void PlayerShoot.Start()</code></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt>
 <span class="target" id="classPlayerShoot_1ad0ec3145366a25f2bf369a86b5434c7e"></span><code class="sig-name descname">void PlayerShoot.fireBullet(float accuracy, int damage, GameObject bulletPrefab, float noise, Transform target)</code></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt>
-<span class="target" id="classPlayerShoot_1a62501c0bdab8c6b695d9acd5460e3859"></span><code class="sig-name descname">void PlayerShoot.LoadWeapon()</code></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt>
-<span class="target" id="classPlayerShoot_1a85c4bef4446a5a83aa7e9ace8e225a12"></span><code class="sig-name descname">void PlayerShoot.HolsterWeapon()</code></dt>
 <dd></dd></dl>
 
 </div>
@@ -269,17 +272,7 @@
 
 <dl class="member">
 <dt>
-<span class="target" id="classPlayerShoot_1a58243d518db77a95db998946b931f308"></span><code class="sig-name descname">GameObject PlayerShoot.weapon = null</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
-<span class="target" id="classPlayerShoot_1a5df1ba93ac0a6cc3af65ed2a6121b5cc"></span><code class="sig-name descname">int PlayerShoot.slot = 1</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
-<span class="target" id="classPlayerShoot_1ab78d05abd5b697b1b4d7afc00c78459c"></span><code class="sig-name descname">int PlayerShoot.currentSlot = 0</code></dt>
+<span class="target" id="classPlayerShoot_1a5df1ba93ac0a6cc3af65ed2a6121b5cc"></span><code class="sig-name descname">int PlayerShoot.slot = 0</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
@@ -305,6 +298,11 @@
 <dl class="member">
 <dt>
 <span class="target" id="classPlayerShoot_1a235ef6be360c29b17e396e8d18a9facc"></span><code class="sig-name descname">float PlayerShoot.screenY</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classPlayerShoot_1a765cdb6d79bc0eb7117539c77eb45dfe"></span><code class="sig-name descname">WeaponStats PlayerShoot.currentWeaponStats</code></dt>
 <dd></dd></dl>
 
 </div>

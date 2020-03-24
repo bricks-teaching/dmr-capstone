@@ -1,0 +1,26 @@
+.. _exhale_class_classPlayerSingleton:
+
+Class PlayerSingleton
+=====================
+
+- Defined in :ref:`file_fiscal-shock_Assets_Scripts_Player_PlayerSingleton.cs`
+
+
+Inheritance Relationships
+-------------------------
+
+Base Type
+*********
+
+- ``public MonoBehaviour``
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: PlayerSingleton
+   :members:
+   :protected-members:
+   :private-members:
+   :undoc-members:

@@ -171,9 +171,34 @@
 <span class="target" id="classSettings_1a934bc41114be25be16a01119bc78741d"></span><em class="property">property </em><code class="sig-name descname">Settings::cursorStateMutexOwner</code></dt>
 <dd></dd></dl>
 
+<dl class="member">
+<dt>
+<span class="target" id="classSettings_1a7e268fc8c66316d42070a8417c92d45b"></span><em class="property">property </em><code class="sig-name descname">Settings::volume</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classSettings_1a75f3cbddc84e190a806b380a60f6eeea"></span><em class="property">property </em><code class="sig-name descname">Settings::mouseSensitivity</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classSettings_1a9b96c5726df5919a9d9cee06d05171f6"></span><em class="property">property </em><code class="sig-name descname">Settings::sawTutorial</code></dt>
+<dd></dd></dl>
+
 </div>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Static Functions</p>
+<dl class="function">
+<dt>
+<span class="target" id="classSettings_1a4ae083c60ae6c526d1c149c50dd190fc"></span><code class="sig-name descname">static void Settings.saveSettings()</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classSettings_1a8df5918b3d6114861f82d7b559c7f828"></span><code class="sig-name descname">static void Settings.loadSettings()</code></dt>
+<dd></dd></dl>
+
 <dl class="function">
 <dt>
 <span class="target" id="classSettings_1a50f5324935039b75d82047d9945fadf0"></span><code class="sig-name descname">static bool Settings.mutexLockCursorState(MonoBehaviour caller)</code></dt>
@@ -255,42 +280,80 @@
 <p class="breathe-sectiondef-title rubric">Public Static Attributes</p>
 <dl class="member">
 <dt>
-<span class="target" id="classSettings_1a7e268fc8c66316d42070a8417c92d45b"></span><code class="sig-name descname">float Settings.volume = 1f</code></dt>
+<span class="target" id="classSettings_1a908c53717b7a4e4147e974c0cdf0a20d"></span><code class="sig-name descname">SettingsValues Settings.values = new SettingsValues()</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classSettings_1a75f3cbddc84e190a806b380a60f6eeea"></span><code class="sig-name descname">float Settings.mouseSensitivity = 100f</code></dt>
+<span class="target" id="classSettings_1a716639cb79fc5f7de2817ea4c1dad7ba"></span><code class="sig-name descname">string Settings.pauseKey =&gt; values.pauseKey</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classSettings_1a9b96c5726df5919a9d9cee06d05171f6"></span><code class="sig-name descname">bool Settings.sawTutorial = false</code></dt>
+<span class="target" id="classSettings_1a922a27f2386420996b028824a23adb19"></span><code class="sig-name descname">string Settings.interactKey =&gt; values.interactKey</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classSettings_1a716639cb79fc5f7de2817ea4c1dad7ba"></span><code class="sig-name descname">string Settings.pauseKey = &quot;escape&quot;</code></dt>
+<span class="target" id="classSettings_1a3f0449d6dee2673dff8e728cec2a3c35"></span><code class="sig-name descname">string Settings.weaponOneKey =&gt; values.weaponOneKey</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classSettings_1a922a27f2386420996b028824a23adb19"></span><code class="sig-name descname">string Settings.interactKey = &quot;f&quot;</code></dt>
+<span class="target" id="classSettings_1a3e077e3253b0d7c9dc97f65919bf3100"></span><code class="sig-name descname">string Settings.weaponTwoKey =&gt; values.weaponTwoKey</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classSettings_1a3f0449d6dee2673dff8e728cec2a3c35"></span><code class="sig-name descname">string Settings.weaponOneKey = &quot;1&quot;</code></dt>
+<span class="target" id="classSettings_1affe80cd8de76b77b30a10b6504d4d9d9"></span><code class="sig-name descname">string Settings.hidePauseMenuKey =&gt; values.hidePauseMenuKey</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classSettings_1a3e077e3253b0d7c9dc97f65919bf3100"></span><code class="sig-name descname">string Settings.weaponTwoKey = &quot;2&quot;</code></dt>
+<span class="target" id="classSettings_1aab0b125eaae159397742a8e7bd8a0e1c"></span><code class="sig-name descname">int Settings.occlusionSampleDelay =&gt; values.occlusionSampleDelay</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classSettings_1affe80cd8de76b77b30a10b6504d4d9d9"></span><code class="sig-name descname">string Settings.hidePauseMenuKey = &quot;backspace&quot;</code></dt>
+<span class="target" id="classSettings_1a17f93581f7bf9cb5c3e01b9466d70c9f"></span><code class="sig-name descname">int Settings.occlusionSamples =&gt; values.occlusionSamples</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classSettings_1a5e022b7b1ad1ce7c0c2b9e04faf1d02d"></span><code class="sig-name descname">int Settings.occlusionHideDelay =&gt; values.occlusionHideDelay</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classSettings_1a8c368bc8bcacbdb9449cb1865f1607c3"></span><code class="sig-name descname">int Settings.viewDistance =&gt; values.viewDistance</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classSettings_1a37c916f88f109b48a5256d5fc69d6866"></span><code class="sig-name descname">int Settings.minOcclusionDistance =&gt; values.minOcclusionDistance</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classSettings_1a12949e5a2ed37b8a7e899fe60b61b986"></span><code class="sig-name descname">int Settings.targetFramerate =&gt; values.targetFramerate</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classSettings_1af6f938c0e892696c650a4fd13c6cbfde"></span><code class="sig-name descname">int Settings.vsync =&gt; values.vsyncEnabled</code></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Private Static Attributes</p>
+<dl class="member">
+<dt>
+<span class="target" id="classSettings_1a707caf962e09606bf6e5c8be71af4534"></span><code class="sig-name descname">bool Settings.alreadyLoadedSettings = false</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classSettings_1a9d80293a60c24069a58cc0537fd86730"></span><code class="sig-name descname">readonly string Settings.settingsFilename = Application.persistentDataPath + &quot;/settings.json&quot;</code></dt>
 <dd></dd></dl>
 
 </div>

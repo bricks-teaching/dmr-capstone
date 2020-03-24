@@ -188,6 +188,19 @@
 
 <dl class="function">
 <dt>
+<span class="target" id="classFiscalShock_1_1Graphs_1_1Polygon_1ae4aefe2a4df1eb05e1157fdb448cbe40"></span><code class="sig-name descname">FiscalShock.Graphs.Polygon.Polygon(List&lt;  Vertex  &gt; vs)</code></dt>
+<dd><p>WARNING: Do not use vertex-constructed polygons if you need edges! Only useful for operations like finding bounding points of points. Without edges, it is impossible to know the correct area, as the polygon could be self-intersecting. </p>
+<p><dl>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist">
+<li><code class="docutils literal notranslate"><span class="pre">vs</span></code></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
 <span class="target" id="classFiscalShock_1_1Graphs_1_1Polygon_1ad7abf88c36887ac894a71ef731b20130"></span><code class="sig-name descname">FiscalShock.Graphs.Polygon.Polygon(List&lt;  Edge  &gt; boundary)</code></dt>
 <dd></dd></dl>
 
@@ -203,8 +216,14 @@
 
 <dl class="function">
 <dt>
+<span class="target" id="classFiscalShock_1_1Graphs_1_1Polygon_1aab771f839c36aef10b744f9690c3f824"></span><code class="sig-name descname">bool FiscalShock.Graphs.Polygon.getIsClosed()</code></dt>
+<dd><p>Vertices can come from many places, so just checking that each vertex has &gt;=2 neighbors doesn’t guarantee those neighbors are part of this polygon. </p>
+</dd></dl>
+
+<dl class="function">
+<dt>
 <span class="target" id="classFiscalShock_1_1Graphs_1_1Polygon_1a5781a2f26565c5ab78eed936505b080b"></span><code class="sig-name descname">double FiscalShock.Graphs.Polygon.getArea()</code></dt>
-<dd><p>Requires vertices to be ordered counter-clockwise </p>
+<dd><p>Finds area of a polygon that is not self-intersecting. Requires vertices to be ordered counter-clockwise. Calling this function on self-intersecting polygons will result in unexpected answers. </p>
 <p><dl class="simple">
 <dt><strong>Return</strong></dt><dd><p></p>
 </dd>
@@ -224,6 +243,45 @@
 </dl>
 </p>
 </dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classFiscalShock_1_1Graphs_1_1Polygon_1ade1d386e985e91a029b11eb05a4549ca"></span><code class="sig-name descname">Polygon FiscalShock.Graphs.Polygon.getBoundingBox()</code></dt>
+<dd><p>Gets the bounding box coordinates of this polygon from the minimum and maximum vertex coordinates </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p></p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Members</p>
+<dl class="member">
+<dt>
+<span class="target" id="classFiscalShock_1_1Graphs_1_1Polygon_1aae2a78955823681c8ef16b70de12d18b"></span><code class="sig-name descname">bool FiscalShock.Graphs.Polygon.isClosed =&gt; getIsClosed()</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classFiscalShock_1_1Graphs_1_1Polygon_1a26466008c08e85e2322eb75ce5354679"></span><code class="sig-name descname">float FiscalShock.Graphs.Polygon.minX =&gt; vertices.Min(v =&gt; v.x)</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classFiscalShock_1_1Graphs_1_1Polygon_1a64ffb2240698e80dc10941575e2737e4"></span><code class="sig-name descname">float FiscalShock.Graphs.Polygon.maxX =&gt; vertices.Max(v =&gt; v.x)</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classFiscalShock_1_1Graphs_1_1Polygon_1ab9e290823d06dd4863e318884f95c786"></span><code class="sig-name descname">float FiscalShock.Graphs.Polygon.minY =&gt; vertices.Min(v =&gt; v.y)</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classFiscalShock_1_1Graphs_1_1Polygon_1a0f983d616ac5da9ec63a235ec1d02485"></span><code class="sig-name descname">float FiscalShock.Graphs.Polygon.maxY =&gt; vertices.Max(v =&gt; v.y)</code></dt>
+<dd></dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">

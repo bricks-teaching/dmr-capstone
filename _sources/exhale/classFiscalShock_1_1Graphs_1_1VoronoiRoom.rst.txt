@@ -1,0 +1,26 @@
+.. _exhale_class_classFiscalShock_1_1Graphs_1_1VoronoiRoom:
+
+Class VoronoiRoom
+=================
+
+- Defined in :ref:`file_fiscal-shock_Assets_Scripts_Graphs_Voronoi.cs`
+
+
+Inheritance Relationships
+-------------------------
+
+Base Type
+*********
+
+- ``public FiscalShock.Graphs.Graph`` (:ref:`exhale_class_classFiscalShock_1_1Graphs_1_1Graph`)
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: FiscalShock::Graphs::VoronoiRoom
+   :members:
+   :protected-members:
+   :private-members:
+   :undoc-members:

@@ -1,0 +1,17 @@
+.. _exhale_class_classUtils:
+
+Class Utils
+===========
+
+- Defined in :ref:`file_fiscal-shock_Assets_Scripts_Utility_Utils.cs`
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: Utils
+   :members:
+   :protected-members:
+   :private-members:
+   :undoc-members:

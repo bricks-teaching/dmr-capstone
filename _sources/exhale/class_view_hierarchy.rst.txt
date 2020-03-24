@@ -15,18 +15,26 @@ Class Hierarchy
         - :ref:`exhale_class_classFiscalShock_1_1Graphs_1_1Triangle`
         - :ref:`exhale_class_classFiscalShock_1_1Graphs_1_1Vertex`
         - :ref:`exhale_class_classFiscalShock_1_1Graphs_1_1Voronoi`
+        - :ref:`exhale_class_classFiscalShock_1_1Graphs_1_1VoronoiRoom`
     - :ref:`namespace_FiscalShock__Procedural`
         - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1BakedNav`
         - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1Delve`
         - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1Dungeoneer`
         - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1DungeonType`
         - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1Escape`
+        - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1Floor`
         - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1KillZone`
+        - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1Portals`
+        - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1WallInfo`
+        - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1Walls`
 - :ref:`namespace_ThirdParty`
     - :ref:`namespace_ThirdParty__Delaunator`
         - :ref:`exhale_class_classThirdParty_1_1Delaunator_1_1ListExtensions`
         - :ref:`exhale_class_classThirdParty_1_1Delaunator_1_1Triangulation`
     - :ref:`exhale_class_classThirdParty_1_1MersenneTwister`
+    - :ref:`exhale_class_classThirdParty_1_1OcclusionBase`
+    - :ref:`exhale_class_classThirdParty_1_1OcclusionCamera`
+    - :ref:`exhale_class_classThirdParty_1_1OcclusionObject`
 - :ref:`exhale_class_classAnimationCategory`
 - :ref:`exhale_class_classAnimationManager`
 - :ref:`exhale_class_classATMScript`
@@ -39,6 +47,7 @@ Class Hierarchy
 - :ref:`exhale_class_classEnemyShoot`
 - :ref:`exhale_class_classGameController`
 - :ref:`exhale_class_classHUD`
+- :ref:`exhale_class_classHUDSingleton`
 - :ref:`exhale_class_classInGameMenu`
 - :ref:`exhale_class_classLoadingScreen`
 - :ref:`exhale_class_classLoan`
@@ -50,13 +59,16 @@ Class Hierarchy
 - :ref:`exhale_class_classPlayerHealth`
 - :ref:`exhale_class_classPlayerMovement`
 - :ref:`exhale_class_classPlayerShoot`
+- :ref:`exhale_class_classPlayerSingleton`
 - :ref:`exhale_class_classSeamlessMusicPlayer`
 - :ref:`exhale_class_classSettings`
+- :ref:`exhale_class_classSettingsValues`
 - :ref:`exhale_class_classSharkScript`
 - :ref:`exhale_class_classSign`
 - :ref:`exhale_class_classSpawnableEnemy`
 - :ref:`exhale_class_classSpawnableObject`
 - :ref:`exhale_class_classStateManager`
+- :ref:`exhale_class_classUtils`
 - :ref:`exhale_class_classVolumeController`
 - :ref:`exhale_class_classWeaponDemo`
 - :ref:`exhale_class_classWeaponStats`
