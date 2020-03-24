@@ -22,7 +22,7 @@ public class HUD : MonoBehaviour
     /// </summary>
     void Update() {
         pocketChange.text = "" + PlayerFinance.cashOnHand.ToString("F2");
-        debtTracker.text = "DEBT: -" + (PlayerFinance.debtBank + PlayerFinance.debtShark).ToString("F2");
+        debtTracker.text = "DEBT: -" + StateManager.totalDebt.ToString("F2");
 
         if (escapeHatch != null && playerTransform != null) {
             compassImage.SetActive(true);
