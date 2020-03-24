@@ -47,6 +47,9 @@ namespace FiscalShock.Demo {
         [Tooltip("Height at which to render the master points' Delaunay triangulation.")]
         public float masterDelaunayRenderHeight = 1.3f;
 
+        [Tooltip("Render master vertices.")]
+        public bool renderMasterVertices = true;
+
         [Tooltip("Whether to render the spanning tree of the master cells. The spanning tree is used to create corridors along any Voronoi cell it intersects.")]
         public bool renderSpanningTree = true;
 
@@ -56,12 +59,26 @@ namespace FiscalShock.Demo {
         [Tooltip("Height at which to render the spanning tree.")]
         public float spanningTreeRenderHeight = 1.4f;
 
+        [Tooltip("Whether to render the Voronoi cells representing rooms.")]
+        public bool renderRooms = true;
+
+        [Tooltip("Color used to draw the room Voronoi.")]
+        public Color roomColor = new Color(0, 0, 1);
+
+        [Tooltip("Height at which to render the room Voronoi.")]
+        public float roomRenderHeight = 3f;
+
         [Tooltip("Material with a specific shader to color lines properly in game view. Don't change it unless you have a good reason!")]
         public Material edgeMat;
 
         public TextMesh label = new TextMesh();
 
         private bool alreadyDrewPoints = false;
+
+        private void Start() {
+            label = GameObject.Find("ProceduralMeshLabel").GetComponent<TextMesh>();
+            dungen = GameObject.Find("DungeonSummoner").GetComponent<Dungeoneer>();
+        }
 
         private void renderDelaunayTriangulation(Delaunay del, Color color, float renderHeight) {
             // Start immediate mode drawing for lines
@@ -118,6 +135,8 @@ namespace FiscalShock.Demo {
         /// <param name="color"></param>
         /// <param name="renderHeight"></param>
         private void renderPoints(List<Vertex> points, Color color, float renderHeight) {
+            GameObject holder = new GameObject();
+            holder.name = "Vertices Display";
             foreach (Vertex v in points) {
                 GameObject tmp = Instantiate(pointPrefab);
                 // TODO set scale here in case it should be fatter
@@ -125,8 +144,12 @@ namespace FiscalShock.Demo {
                 pointMat.SetColor(Shader.PropertyToID("_Color"), color);
                 tmp.transform.position = v.toVector3AtHeight(renderHeight);
                 tmp.name = $"Delaunay #{v.id}";
+                tmp.transform.parent = holder.transform;
 
-                if (label == null)  continue;
+                if (label == null) {
+                    continue;
+                }
+
                 float offsetPosY = tmp.transform.position.y + 1.5f;
                 Vector3 offsetPos = new Vector3(tmp.transform.position.x, offsetPosY, tmp.transform.position.z);
 
@@ -134,11 +157,15 @@ namespace FiscalShock.Demo {
                 texto.transform.position = offsetPos;
                 texto.text = v.id.ToString();
                 texto.name = $"Label for #{v.id}";
+                texto.transform.parent = holder.transform;
             }
             alreadyDrewPoints = true; // TODO one for each points to render I guess
         }
 
         private void renderAllSelected() {
+            if (dungen == null) {
+                return;
+            }
             if (renderDelaunay && dungen.dt != null) {
                 renderDelaunayTriangulation(dungen.dt, delaunayColor, delaunayRenderHeight);
             }
@@ -147,20 +174,39 @@ namespace FiscalShock.Demo {
             }
             if (renderDelaunayHull && dungen.dt != null) {
                 // TODO not same color as triangulation
-                renderEdges(dungen.dt.convexHullEdges, delaunayColor, delaunayRenderHeight);
+                renderEdges(dungen.dt.convexHullEdges, delaunayColor, delaunayRenderHeight + 15f);
             }
             if (renderVoronoi && dungen.vd != null) {
                 renderEdges(dungen.vd.edges, voronoiColor, voronoiRenderHeight);
                 // Voronoi cells
+                /*
                 List<Edge> es = dungen.vd.cells.SelectMany(c => c.sides).ToList();
                 var ef = es.Distinct().ToList();
                 renderEdges(ef, spanningTreeColor, voronoiRenderHeight + 0.5f);
+                */
+            }
+            if (renderMasterDelaunay && dungen.masterDt != null) {
+                renderDelaunayTriangulation(dungen.masterDt, masterDelaunayColor, masterDelaunayRenderHeight);
+            }
+            if (renderMasterVertices && dungen.masterDt != null && !alreadyDrewPoints) {
+                renderPoints(dungen.masterDt.vertices, masterDelaunayColor, masterDelaunayRenderHeight);
+            }
+            if (renderSpanningTree && dungen.spanningTree != null) {
+                renderEdges(dungen.spanningTree, spanningTreeColor, spanningTreeRenderHeight);
+            }
+            if (renderRooms && dungen.roomVoronoi != null) {
+                List<Edge> es = dungen.roomVoronoi.SelectMany(c => c.allEdges).ToList();
+
+                //renderEdges(es, roomColor, roomRenderHeight);
+                // room edges only
+                List<Edge> ext = dungen.roomVoronoi.SelectMany(c => c.exterior.sides).ToList();
+                renderEdges(ext, delaunayColor, roomRenderHeight+ 5f);
             }
         }
 
         private void setGraphColors(Color color) {
-            //edgeMat.SetPass(0);
-            //edgeMat.SetColor(Shader.PropertyToID("_Color"), color);  // set game view color
+            edgeMat.SetPass(0);
+            edgeMat.SetColor(Shader.PropertyToID("_Color"), color);  // set game view color
             GL.Color(color);  // set editor color
         }
 

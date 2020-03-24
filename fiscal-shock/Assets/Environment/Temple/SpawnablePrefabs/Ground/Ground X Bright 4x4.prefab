@@ -11,10 +11,11 @@ GameObject:
   - component: {fileID: 4000010891822376}
   - component: {fileID: 33000010030580336}
   - component: {fileID: 23000011405714132}
-  - component: {fileID: -8019539133051520944}
+  - component: {fileID: 1253377270779736223}
+  - component: {fileID: -1289498152119206759}
   m_Layer: 8
   m_Name: Ground X Bright 4x4
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -80,8 +81,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &-8019539133051520944
-MeshCollider:
+--- !u!65 &1253377270779736223
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -90,7 +91,18 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 909c3082c3c78374ab3034311da24f02, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 8.000002, y: 2.000029, z: 8.000006}
+  m_Center: {x: 0.00000023841858, y: -1.0000002, z: 0.0000035762787}
+--- !u!114 &-1289498152119206759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011723808604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce02a5bb4a2c2bc3fbe07f3cfc648918, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

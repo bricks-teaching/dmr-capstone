@@ -11,10 +11,11 @@ GameObject:
   - component: {fileID: 4000010290336004}
   - component: {fileID: 33000010034273906}
   - component: {fileID: 23000011528945302}
-  - component: {fileID: -3097834340238661526}
+  - component: {fileID: 2076563720819424607}
+  - component: {fileID: 6167704575421971160}
   m_Layer: 8
   m_Name: Ground X Mix 4x4
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -80,8 +81,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &-3097834340238661526
-MeshCollider:
+--- !u!65 &2076563720819424607
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -90,7 +91,18 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: a4550533bc686b94ebfbbea449a38678, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 8.000002, y: 2.00003, z: 8.000008}
+  m_Center: {x: 0, y: -0.99999976, z: 0.000004529953}
+--- !u!114 &6167704575421971160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010394175650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce02a5bb4a2c2bc3fbe07f3cfc648918, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

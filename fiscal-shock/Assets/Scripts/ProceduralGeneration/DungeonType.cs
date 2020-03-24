@@ -9,17 +9,17 @@ namespace FiscalShock.Procedural {
         [Tooltip("Prefabs for all valid ground tiles.")]
         public List<SpawnableObject> groundTiles;
 
-        [Tooltip("Dimensions of wall tiles. Prefabs should all be the same size and square on X and Y!")]
-        public Vector3 wallTileDimensions;
+        [Tooltip("Prefab cube with a seamless repeating texture to use for walls. Will be stretched on x to lengthen and on y to set height. Length on z (thickness) is preserved from the prefab.")]
+        public SpawnableObject wall;
 
-        [Tooltip("Number of wall tiles to stack to make wall.")]
-        public int maxWallHeight;
+        [Tooltip("Wall height.")]
+        public int wallHeight;
 
-        [Tooltip("Prefabs for all valid wall tiles.")]
-        public List<SpawnableObject> wallTiles;
+        [Tooltip("Prefab cube with a seamless repeating texture to use for the ceiling. Will be stretched on x and y to match the dimensions of the entire ground.")]
+        public SpawnableObject ceiling;
 
-        [Tooltip("Optional list of prefabs that decorate the top of the wall.")]
-        public List<SpawnableObject> wallToppers;
+        [Tooltip("Width of corridors.")]
+        public float hallWidth = 5f;
 
         [Tooltip("Probability of a given point being allowed to spawn any type of object.")]
         public float objectRate = 75;

@@ -9,11 +9,19 @@ namespace Tests {
     public class PolygonTest {
         [Test]
         public void testGetArea() {
-            Polygon p = new Polygon();
-            p.vertices.Add(new Vertex(1, 0));
-            p.vertices.Add(new Vertex(0, 1));
-            p.vertices.Add(new Vertex(-1, 0));
-            p.vertices.Add(new Vertex(0, -1));
+            List<Vertex> vs = new List<Vertex> {
+                new Vertex(1, 0),
+                new Vertex(0, 1),
+                new Vertex(-1, 0),
+                new Vertex(0, -1)
+            };
+            List<Edge> es = new List<Edge> {
+                new Edge(vs[0], vs[1]),
+                new Edge(vs[1], vs[2]),
+                new Edge(vs[2], vs[3]),
+                new Edge(vs[3], vs[0]),
+            };
+            Polygon p = new Polygon(es);
 
             double area = p.getArea();
             Assert.AreEqual(2, area);
@@ -21,14 +29,23 @@ namespace Tests {
 
         [Test]
         public void testCellGetArea() {
-            Cell p = new Cell(new Vertex(0, 0));
-            p.vertices.Add(new Vertex(0, 1));
-            p.vertices.Add(new Vertex(1, 0));
-            p.vertices.Add(new Vertex(-1, 0));
-            p.vertices.Add(new Vertex(0, -1));
-            p.orderVertices();
+            List<Vertex> vs = new List<Vertex> {
+                new Vertex(0, 1),
+                new Vertex(1, 0),
+                new Vertex(0, -1),
+                new Vertex(-1, 0)
+            };
+            List<Edge> es = new List<Edge> {
+                new Edge(vs[1], vs[0]),
+                new Edge(vs[0], vs[3]),
+                new Edge(vs[3], vs[2]),
+                new Edge(vs[2], vs[1]),
+            };
+            Cell c = new Cell(new Vertex(0, 0));
+            c.setSides(es);
+            c.orderVertices();
 
-            double area = p.getArea();
+            double area = c.getArea();
             Assert.AreEqual(2, area);
         }
     }

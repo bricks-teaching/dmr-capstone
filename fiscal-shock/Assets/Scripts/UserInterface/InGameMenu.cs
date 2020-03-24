@@ -9,7 +9,6 @@ public class InGameMenu : MonoBehaviour
     public GameObject optionsPanel;
     public GameObject quitPanel;
     public GameObject player;
-    public GameObject crossHair;
     public TextMeshProUGUI pauseText;
     private VolumeController[] volumeControllers;
     public Slider volumeSlider;
@@ -34,14 +33,20 @@ public class InGameMenu : MonoBehaviour
     }
 
     void onSceneLoad(Scene scene, LoadSceneMode mode) {
+        // Match up sliders to actual values
+        volumeSlider.value = Settings.volume;
+        mouseSlider.value = Settings.mouseSensitivity;
+
+        // Attach listeners for slider adjustments
         volumeSlider.onValueChanged.RemoveAllListeners();
-        crossHair = GameObject.Find("Crosshair");
         volumeControllers = GameObject.FindObjectsOfType<VolumeController>();
         foreach (VolumeController vc in volumeControllers) {
-            volumeSlider.onValueChanged.AddListener((value) => vc.audio.volume = value);
+            volumeSlider.onValueChanged.AddListener((value) => vc.GetComponent<AudioSource>().volume = value);
         }
         volumeSlider.onValueChanged.AddListener((value) => Settings.volume = value);
         mouseSlider.onValueChanged.AddListener((value) => Settings.mouseSensitivity = value);
+
+        // Disable the panels
         pausePanel.SetActive(false);
         quitPanel.SetActive(false);
         optionsPanel.SetActive(false);
@@ -51,16 +56,15 @@ public class InGameMenu : MonoBehaviour
         // Bring up pause menu
         if (Input.GetKeyDown(Settings.pauseKey)) {
             if (!pausePanel.activeSelf) {
+                System.GC.Collect();
                 Time.timeScale = 0;
                 pauseText.text = "PAUSED";
                 Settings.mutexUnlockCursorState(this);
                 pausePanel.SetActive(true);
-                crossHair?.SetActive(false);
             } else {
                 optionsPanel.SetActive(false);
                 quitPanel.SetActive(false);
                 pausePanel.SetActive(false);
-                crossHair?.SetActive(true);
                 Settings.lockCursorState(this);
                 Time.timeScale = 1;
                 pauseText.text = "";
@@ -77,7 +81,6 @@ public class InGameMenu : MonoBehaviour
     {
         Settings.lockCursorState(this);
         pausePanel.SetActive(false);
-        crossHair?.SetActive(true);
         Time.timeScale = 1;
         pauseText.text = "";
     }
@@ -101,6 +104,7 @@ public class InGameMenu : MonoBehaviour
 
     public void QuitAppClick ()
     {
+        Settings.saveSettings();
         Application.Quit();
     }
 

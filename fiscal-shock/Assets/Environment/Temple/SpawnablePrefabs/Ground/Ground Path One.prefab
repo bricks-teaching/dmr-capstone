@@ -11,10 +11,13 @@ GameObject:
   - component: {fileID: 4000011600306652}
   - component: {fileID: 33000011820685478}
   - component: {fileID: 23000012965636792}
-  - component: {fileID: 2685410680613562434}
+  - component: {fileID: 8718050713194060982}
+  - component: {fileID: 5336879263423266177}
+  - component: {fileID: -1908950239043286955}
+  - component: {fileID: -6979863788113843627}
   m_Layer: 8
   m_Name: Ground Path One
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -80,8 +83,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &2685410680613562434
-MeshCollider:
+--- !u!65 &8718050713194060982
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -90,7 +93,44 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 61c8a689e2f4dd4498d21ea2897f74b4, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 2.0068035, y: 2.0000284, z: 8.000006}
+  m_Center: {x: 2.9965987, y: 0.9999994, z: -0.000002861023}
+--- !u!65 &5336879263423266177
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012823727576}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.0068035, y: 2.0000284, z: 8.000006}
+  m_Center: {x: -2.9965968, y: 0.9999994, z: -0.000002861023}
+--- !u!65 &-1908950239043286955
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012823727576}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 7.999999, y: 1.6404722, z: 8.000006}
+  m_Center: {x: 0.0000009536743, y: 1.1797775, z: -0.000002861023}
+--- !u!114 &-6979863788113843627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012823727576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce02a5bb4a2c2bc3fbe07f3cfc648918, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

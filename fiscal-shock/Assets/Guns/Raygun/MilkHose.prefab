@@ -210,9 +210,10 @@ MonoBehaviour:
   accuracy: 10
   rotation: 10
   continuous: 1
-  missle: 0
+  missile: 0
   bulletPrefab: {fileID: 6264703180806227665, guid: fc0737757df3ef64996f7531b1ad9799,
     type: 3}
+  showCrosshair: 0
 --- !u!1 &7570062602167564427
 GameObject:
   m_ObjectHideFlags: 0
@@ -389,6 +390,7 @@ MonoBehaviour:
   accuracy: 6
   rotation: 0
   continuous: 0
-  missle: 0
+  missile: 0
   bulletPrefab: {fileID: 6264703180806227665, guid: fc0737757df3ef64996f7531b1ad9799,
     type: 3}
+  showCrosshair: 1

@@ -33,6 +33,7 @@ public class LoadingScreen : MonoBehaviour {
     /// </summary>
     /// <param name="sceneToLoad"></param>
     public void startLoadingScreen(string sceneToLoad) {
+        System.GC.Collect();
         currentlyLoading = true;
         nextScene = sceneToLoad;
         Time.timeScale = 0;

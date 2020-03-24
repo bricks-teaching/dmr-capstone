@@ -12,3 +12,6 @@ venv/
 docs/
 sphinx/exhale
 sphinx/xml
+
+# Temp files
+*.*~

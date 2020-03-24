@@ -9,9 +9,17 @@ namespace FiscalShock.Graphs {
         public List<Vertex> vertices { get; }
         public Vertex p => vertices[0];
         public Vertex q => vertices[1];
+        public List<Cell> cells { get; } = new List<Cell>();
+        public List<UnityEngine.GameObject> wallObjects = new List<UnityEngine.GameObject>();
 
         public Edge(Vertex a, Vertex b) {
             vertices = new List<Vertex> { a, b };
+        }
+
+        public Edge(UnityEngine.Vector3 a, UnityEngine.Vector3 b) {
+            Vertex va = new Vertex(a.x, a.z);
+            Vertex vb = new Vertex(b.x, b.z);
+            vertices = new List<Vertex> { va, vb };
         }
 
         public void connect(Vertex a, Vertex b) {
@@ -52,8 +60,8 @@ namespace FiscalShock.Graphs {
         /// between the endpoints
         /// </summary>
         /// <returns>length of this edge</returns>
-        public double getLength() {
-            return p.getDistanceTo(q);
+        public float getLength() {
+            return (float)p.getDistanceTo(q);
         }
 
         /// <summary>
@@ -62,6 +70,20 @@ namespace FiscalShock.Graphs {
         /// <returns></returns>
         public float getAngle() {
             return p.getAngleOfRotationTo(q);
+        }
+
+        public Vertex findIntersection(Edge other) {
+            double[] vertices = Mathy.findIntersection(
+                p.vector.x, p.vector.y,
+                q.vector.x, q.vector.y,
+                other.p.vector.x, other.p.vector.y,
+                other.q.vector.x, other.q.vector.y
+            );
+
+            if (vertices != null) {
+                return new Vertex(vertices[0], vertices[1]);
+            }
+            return null;
         }
     }
 }

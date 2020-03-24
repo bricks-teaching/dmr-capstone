@@ -15,8 +15,8 @@
 - Move right: D
 - Jump: Spacebar
 - Fire weapon: Left Mouse Button
-- 1: Switch to weapon 1
-- 2: Switch to weapon 2
+- Switch to weapon 1: 1
+- Switch to weapon 2: 2
 - Escape: Pause and in game settings
   - You can press Backspace while in the pause menu to toggle the menu's visibility while remaining paused.
 - F: Interact with passive NPCs and doors.

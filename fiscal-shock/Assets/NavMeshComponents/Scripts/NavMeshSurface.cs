@@ -1,3 +1,4 @@
+#pragma warning disable
 using System.Collections.Generic;
 #if UNITY_EDITOR
 using UnityEditor;

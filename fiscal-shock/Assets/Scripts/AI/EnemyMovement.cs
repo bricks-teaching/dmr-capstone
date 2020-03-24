@@ -57,7 +57,6 @@ public class EnemyMovement : MonoBehaviour {
         }
         prevPlayerFlatPos = new Vector2(player.transform.position.x, player.transform.position.z);
 
-        Debug.Log($"{gameObject.name}: {navMeshAgent.agentTypeID}");
         List<BakedNav> bakes = GameObject.Find("DungeonSummoner").GetComponent<Dungeoneer>().bakedNavMeshes;
         foreach (BakedNav bn in bakes) {
             if (bn.navMeshAgentId == navMeshAgent.agentTypeID) {

@@ -12,6 +12,8 @@ TagManager:
   - Decoration
   - Ground
   - Missile
+  - Compass
+  - Crosshair
   layers:
   - Default
   - TransparentFX
@@ -25,7 +27,7 @@ TagManager:
   - Decoration
   - Enemy
   - Player
-  - 
+  - Wall
   - 
   - 
   - 

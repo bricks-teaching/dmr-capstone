@@ -97,7 +97,7 @@ MonoBehaviour:
   damage: 10
   bulletSpeed: 30
   target: {fileID: 0}
-  rb: {fileID: 0}
+  rb: {fileID: 9184963046012739205}
   player: {fileID: 0}
 --- !u!54 &9184963046012739205
 Rigidbody:
