@@ -12,5 +12,21 @@ public class WeaponStats : MonoBehaviour
     public bool continuous = false;
     public bool missile = false;
     public GameObject bulletPrefab;
+    public bool usingPool { get; private set; }
     public bool showCrosshair = true;
+
+    public Queue<GameObject> bulletPool = new Queue<GameObject>();
+
+    void Start() {
+        BulletBehavior bb = bulletPrefab.GetComponent<BulletBehavior>();
+        if (bb.poolProjectiles) {
+            for (int i = 0; i < bb.poolSize; ++i) {
+                GameObject boolet = Instantiate(bulletPrefab, bulletPrefab.transform.position, bulletPrefab.transform.rotation);
+                boolet.transform.parent = transform;
+                boolet.SetActive(false);
+                bulletPool.Enqueue(boolet);
+            }
+            usingPool = true;
+        }
+    }
 }

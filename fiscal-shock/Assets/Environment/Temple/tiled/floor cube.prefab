@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 1313260826081911658}
   - component: {fileID: 1313260826081911659}
   - component: {fileID: 1313260826081911652}
-  m_Layer: 31
-  m_Name: ceiling cube
-  m_TagString: Untagged
+  m_Layer: 8
+  m_Name: floor cube
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
@@ -50,7 +50,7 @@ MeshRenderer:
   m_GameObject: {fileID: 1313260826081911653}
   m_Enabled: 1
   m_CastShadows: 0
-  m_ReceiveShadows: 0
+  m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0b891af3226f34ab0813771d630ba36b, type: 2}
+  - {fileID: 2100000, guid: fe9572159ef6e7a12abe39ec6f0669d4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
