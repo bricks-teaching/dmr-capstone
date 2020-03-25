@@ -120,20 +120,6 @@ PlayerSettings:
     Others: 1
   bundleVersion: 0.1
   preloadedAssets:
-  - {fileID: 1000010926352826, guid: fd6337a6e30116f46be72ad71a1e3ab3, type: 3}
-  - {fileID: 1000013993765564, guid: c45683f58af3e3d469eed2591cc8dcec, type: 3}
-  - {fileID: 1000012878430364, guid: d0b7208907c12d0488e2066b68fb39bc, type: 3}
-  - {fileID: 1000013908139876, guid: 8cf38f1e7b316994ab7d58551e900441, type: 3}
-  - {fileID: 1000012546069088, guid: 51b582f3200ef414ea0adb7a26c74324, type: 3}
-  - {fileID: 1000012823727576, guid: 607314d96864be34ab86da1f60d6a2df, type: 3}
-  - {fileID: 1000011684465984, guid: 1a8872f226bbcca4c88f54810a8de19d, type: 3}
-  - {fileID: 1000014131466504, guid: 0e2068a5c7772c940b8250627261894e, type: 3}
-  - {fileID: 1000011723808604, guid: 27cd8ff730f49d94f8e452217fabf065, type: 3}
-  - {fileID: 1000012037158656, guid: 61a3dad148f8ccf499ef5accd5df4a07, type: 3}
-  - {fileID: 1000010394175650, guid: 59b24224ed39899449a9bcd15f8498b5, type: 3}
-  - {fileID: 1000012118099154, guid: c605a43dd9fb82e47b0667a9595655a6, type: 3}
-  - {fileID: 1000011911542412, guid: 4da570c502021f54da11d2e4e2aaaf17, type: 3}
-  - {fileID: 1000010127456080, guid: ad89cac77079e92488853ed3e7591455, type: 3}
   - {fileID: 7378086569627226435, guid: d78d3a17d1ac54da5a77f1c9ea9f3b6c, type: 3}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -334,7 +320,7 @@ PlayerSettings:
   m_BuildTargetBatching:
   - m_BuildTarget: Standalone
     m_StaticBatching: 1
-    m_DynamicBatching: 0
+    m_DynamicBatching: 1
   - m_BuildTarget: tvOS
     m_StaticBatching: 1
     m_DynamicBatching: 0

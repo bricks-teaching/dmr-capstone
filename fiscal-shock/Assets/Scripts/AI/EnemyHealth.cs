@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 //This script controls the health of enemy bots
-public class EnemyHealth: MonoBehaviour
-{
+public class EnemyHealth : MonoBehaviour {
     public int startingHealth = 30;
     public GameObject explosion;
     public GameObject bigExplosion;
@@ -12,9 +13,27 @@ public class EnemyHealth: MonoBehaviour
     private GameObject lastBulletCollision;
     public AnimationManager animationManager;
     private bool dead;
+    private Queue<GameObject> explosions = new Queue<GameObject>();
+    private readonly int smallExplosionLimit = 12;
+    private Queue<GameObject> bigExplosions = new Queue<GameObject>();
+    private readonly int bigExplosionLimit = 6;
 
-    void Start(){
+    void Start() {
         totalHealth = startingHealth;
+
+        for (int i = 0; i < smallExplosionLimit; ++i) {
+            GameObject splode = Instantiate(explosion, gameObject.transform.position + transform.up, gameObject.transform.rotation);
+            splode.transform.parent = transform;
+            splode.SetActive(false);
+            explosions.Enqueue(splode);
+        }
+
+        for (int i = 0; i < bigExplosionLimit; ++i) {
+            GameObject splode = Instantiate(bigExplosion, gameObject.transform.position + transform.up, gameObject.transform.rotation);
+            splode.transform.parent = transform;
+            splode.SetActive(false);
+            bigExplosions.Enqueue(splode);
+        }
     }
 
     void OnCollisionEnter(Collision col) {
@@ -28,6 +47,7 @@ public class EnemyHealth: MonoBehaviour
             BulletBehavior bullet = col.gameObject.GetComponent(typeof(BulletBehavior)) as BulletBehavior;
             int bulletDamage = bullet.damage;
             totalHealth -= bulletDamage;
+
             if (totalHealth <= 0 && !dead) {
                 PlayerFinance.cashOnHand += pointValue;
                 float deathDuration = animationManager.playDeathAnimation();
@@ -41,19 +61,26 @@ public class EnemyHealth: MonoBehaviour
             // Debug.Log("Damage: " + bullet.damage + " points. Bot has " + totalHealth + " health points remaining");
             // Play sound effect and explosion particle system
             GameObject explode = null;
-            if(col.gameObject.tag == "Bullet"){
-                explode = Instantiate(explosion, gameObject.transform.position + transform.up, gameObject.transform.rotation);
+            if (col.gameObject.tag == "Bullet") {
+                explode = explosions.Dequeue();
+                explode.SetActive(true);
                 AudioSource hitSound = explode.GetComponent<AudioSource>();
                 hitSound.PlayOneShot(hitSoundClip, 0.4f * Settings.volume);
-            } else if(col.gameObject.tag == "Missile"){
-                explode = Instantiate(bigExplosion, gameObject.transform.position + transform.up, gameObject.transform.rotation);
+                explosions.Enqueue(explode);
+            } else if (col.gameObject.tag == "Missile") {
+                explode = bigExplosions.Dequeue();
+                explode.SetActive(true);
                 AudioSource hitSound = explode.GetComponent<AudioSource>();
                 hitSound.PlayOneShot(hitSoundClip, 0.65f * Settings.volume);
+                bigExplosions.Enqueue(explode);
             }
+            explode.transform.position = transform.position + transform.up;
+            explode.transform.rotation = transform.rotation;
             explode.transform.parent = gameObject.transform;
-            Destroy(explode, 0.9f);
+            StartCoroutine(explode.GetComponent<Explosion>().timeout());
 
             // If bot goes under 50% health, make it look damaged
+            /*
             if (totalHealth <= startingHealth / 2 && (totalHealth + bulletDamage) > startingHealth / 2) {
                 if (gameObject.tag == "Blaster") {
                     for (int i = 0; i < 2; i++) {
@@ -73,6 +100,7 @@ public class EnemyHealth: MonoBehaviour
                     }
                 }
             }
+            */
         }
     }
 }

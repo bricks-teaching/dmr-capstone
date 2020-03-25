@@ -3,11 +3,8 @@ using UnityEngine;
 
 namespace FiscalShock.Procedural {
     public class DungeonType : MonoBehaviour {
-        [Tooltip("Dimensions of ground tiles. Prefabs should all be the same size and square on X and Z!")]
-        public Vector3 groundTileDimensions;
-
-        [Tooltip("Prefabs for all valid ground tiles.")]
-        public List<SpawnableObject> groundTiles;
+        [Tooltip("Prefab cube with a seamless repeating texture to use for walls. Will be stretched on x and z to lengthen. Length on y (thickness) is preserved from the prefab.")]
+        public SpawnableObject ground;
 
         [Tooltip("Prefab cube with a seamless repeating texture to use for walls. Will be stretched on x to lengthen and on y to set height. Length on z (thickness) is preserved from the prefab.")]
         public SpawnableObject wall;
