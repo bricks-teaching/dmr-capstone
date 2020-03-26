@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class FeedbackController : MonoBehaviour
 {
@@ -9,7 +10,11 @@ public class FeedbackController : MonoBehaviour
     private static TextMeshProUGUI clone;
     public TextMeshProUGUI shotLoss;
     public TextMeshProUGUI temp;
+    public Image hitVinette;
     
+    public void Start() {
+        hitVinette.enabled = false;
+    }
 
     public void shoot(int cost) {
 
@@ -38,4 +43,9 @@ public class FeedbackController : MonoBehaviour
         Destroy(clone, 2f);
 
     }
+
+    public void removeHit() {
+        hitVinette.enabled = false;
+    }
+
 }

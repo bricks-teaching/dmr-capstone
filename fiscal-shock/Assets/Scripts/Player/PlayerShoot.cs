@@ -30,6 +30,7 @@ public class PlayerShoot : MonoBehaviour {
         fireSound = GetComponent<AudioSource>();
         crossHair.enabled = false;
         LoadWeapon();
+        feed.Start();
     }
 
     public void Update() {
@@ -125,6 +126,7 @@ public class PlayerShoot : MonoBehaviour {
             }
             animatedTime += Time.deltaTime;
         }
+        feed.removeHit();
     }
 
     private void fireBullet(float accuracy, int damage, GameObject bulletPrefab, float noise, Transform target) {
