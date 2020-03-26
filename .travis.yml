@@ -5,28 +5,28 @@ language: minimal
 # prevent branch builds that aren't PRs
 branches:
   only:
-  - master
+    - master
 
 env:
   global:
-  - BUILD_NAME=FiscalShock
+    - BUILD_NAME=FiscalShock
 
 after_failure:
-- bash ./ci/discord_hook.sh failure ${WEBHOOK_URL}
+  - bash ./ci/discord_hook.sh failure ${WEBHOOK_URL}
 
 cache:
   directories:
-  - .git/lfs
+    - .git/lfs
 
 git:
   depth: 25  # warning: tags more than this many commits ago will be lost!
   lfs_skip_smudge: true
 
 stages:
-- test
-- build
-- docs
-- deploy
+  - test
+  - build
+  - docs
+  - deploy
 
 ################################################################################
 
@@ -36,13 +36,94 @@ jobs:
     name: "Tests"
     if: type == pull_request
     services:
-    - docker
+      - docker
     script:
-    - source ./ci/travis_prepare_workspace.sh
-    - bash ./ci/travis_run_tests.sh
-    - echo Testing Linux build
-    - bash ./ci/docker_build.sh
+      - source ./ci/travis_prepare_workspace.sh
+      - bash ./ci/travis_run_tests.sh
+      - echo Testing Linux build
+      - bash ./ci/docker_build.sh
     env: IMAGE_NAME=gableroux/unity3d:2019.3.0f6 BUILD_TARGET=StandaloneLinux64 OPTS=-force-glcore BUILD_DIR=FiscalShock-linux64
+
+################################################################################
+
+  - stage: build
+  ############################
+  # Clone once (includes LFS)
+  ############################
+    script:
+      - bash ./ci/lfs_pull.sh
+    name: "Clone repository and LFS"
+    workspaces:
+      create:
+        name: lfs
+        paths:
+          - .
+
+  ############
+  # Linux 64
+  ############
+  - script:
+      - export IMAGE_NAME=gableroux/unity3d:2019.3.0f6; export BUILD_TARGET=StandaloneLinux64; export OPTS=-force-glcore; export BUILD_DIR=FiscalShock-linux64
+      - source ./ci/travis_prepare_workspace.sh
+      - bash ./ci/docker_build.sh
+      - bash ./ci/package_build.sh linux64
+    name: "Build and cache Linux64 (OpenGL)"
+    if: type != pull_request
+    services:
+      - docker
+    git:
+      clone: false
+    workspaces:
+      use:
+        - lfs
+      create:
+        name: linux64
+        paths:
+          - rls_linux64
+
+  ############
+  # Windows 64
+  ############
+  - script:
+      - export IMAGE_NAME=gableroux/unity3d:2019.3.0f6-windows; export BUILD_TARGET=StandaloneWindows64; export OPTS=-force-glcore; export BUILD_DIR=FiscalShock-win64
+      - source ./ci/travis_prepare_workspace.sh
+      - bash ./ci/docker_build.sh
+      - bash ./ci/package_build.sh win64
+    name: "Build and cache Windows64 (OpenGL)"
+    if: type != pull_request
+    services:
+      - docker
+    git:
+      clone: false
+    workspaces:
+      use:
+        - lfs
+      create:
+        name: win64
+        paths:
+          - rls_win64
+
+  ############
+  # mac
+  ############
+  - script:
+      - export BUILD_TARGET=StandaloneOSX; export IMAGE_NAME=gableroux/unity3d:2019.3.0f6-mac; export OPTS=-force-glcore; export BUILD_DIR=FiscalShock-mac
+      - source ./ci/travis_prepare_workspace.sh
+      - bash ./ci/docker_build.sh
+      - bash ./ci/package_build.sh mac
+    name: "Build and cache macOS (OpenGL)"
+    if: type != pull_request
+    services:
+      - docker
+    git:
+      clone: false
+    workspaces:
+      use:
+        - lfs
+      create:
+        name: mac
+        paths:
+          - rls_mac
 
 ################################################################################
 
@@ -52,11 +133,16 @@ jobs:
     if: type != pull_request
     language: python
     python:
-    - "3.8"
+      - "3.8"
     addons:
       apt:
         packages:
-        - doxygen
+          - doxygen
+    git:
+      clone: false
+    workspaces:
+      use:
+        - lfs
     deploy:
       provider: pages:git
       token: $GITHUB_TOKEN
@@ -73,80 +159,23 @@ jobs:
 
 ################################################################################
 
-  - stage: build
-  ############
-  # Linux 64
-  ############
-    script:
-    - export IMAGE_NAME=gableroux/unity3d:2019.3.0f6; export BUILD_TARGET=StandaloneLinux64; export OPTS=-force-glcore; export BUILD_DIR=FiscalShock-linux64
-    - source ./ci/travis_prepare_workspace.sh
-    - bash ./ci/lfs_pull.sh
-    - bash ./ci/docker_build.sh
-    - bash ./ci/package_build.sh linux64
-    name: "Build and cache Linux64 (OpenGL)"
-    if: type != pull_request
-    services:
-    - docker
-    workspaces:
-      create:
-        name: linux64
-        paths:
-        - rls_linux64
-
-  ############
-  # Windows 64
-  ############
-  - script:
-    - export IMAGE_NAME=gableroux/unity3d:2019.3.0f6-windows; export BUILD_TARGET=StandaloneWindows64; export OPTS=-force-glcore; export BUILD_DIR=FiscalShock-win64
-    - source ./ci/travis_prepare_workspace.sh
-    - bash ./ci/lfs_pull.sh
-    - bash ./ci/docker_build.sh
-    - bash ./ci/package_build.sh win64
-    name: "Build and cache Windows64 (OpenGL)"
-    if: type != pull_request
-    services:
-    - docker
-    workspaces:
-      create:
-        name: win64
-        paths:
-        - rls_win64
-
-  ############
-  # mac
-  ############
-  - script:
-    - export BUILD_TARGET=StandaloneOSX; export IMAGE_NAME=gableroux/unity3d:2019.3.0f6-mac; export OPTS=-force-glcore; export BUILD_DIR=FiscalShock-mac
-    - source ./ci/travis_prepare_workspace.sh
-    - bash ./ci/lfs_pull.sh
-    - bash ./ci/docker_build.sh
-    - bash ./ci/package_build.sh mac
-    name: "Build and cache macOS (OpenGL)"
-    if: type != pull_request
-    services:
-    - docker
-    workspaces:
-      create:
-        name: mac
-        paths:
-        - rls_mac
-
-################################################################################
-
   - stage: deploy
     script:
-    - ls -la *
-    - source ./ci/verify_package.sh linux64 || travis_terminate 1
-    - source ./ci/verify_package.sh win64 || travis_terminate 1
-    - source ./ci/verify_package.sh mac || travis_terminate 1
-    - bash ./ci/travis_set_tag.sh || travis_terminate 1
+      - ls -la *
+      - source ./ci/verify_package.sh linux64 || travis_terminate 1
+      - source ./ci/verify_package.sh win64 || travis_terminate 1
+      - source ./ci/verify_package.sh mac || travis_terminate 1
+      - bash ./ci/travis_set_tag.sh || travis_terminate 1
     name: Publish release to GitHub
     if: type != pull_request
+    git:
+      clone: false
     workspaces:
       use:
-      - linux64
-      - win64
-      - mac
+        - lfs
+        - linux64
+        - win64
+        - mac
     deploy:
       provider: releases
       api_key: $GITHUB_TOKEN
@@ -156,6 +185,6 @@ jobs:
       overwrite: true
       prerelease: true
       file:
-      - rls_linux64/FiscalShock-linux64.tar.gz
-      - rls_win64/FiscalShock-win64.zip
-      - rls_mac/FiscalShock-mac.tar.gz
+        - rls_linux64/FiscalShock-linux64.tar.gz
+        - rls_win64/FiscalShock-win64.zip
+        - rls_mac/FiscalShock-mac.tar.gz

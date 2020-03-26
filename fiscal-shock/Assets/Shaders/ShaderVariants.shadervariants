@@ -1,0 +1,324 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!200 &20000000
+ShaderVariantCollection:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ShaderVariants
+  m_Shaders:
+  - first: {fileID: 64, guid: 0000000000000000f000000000000000, type: 0}
+    second:
+      variants:
+      - keywords: SHADOWS_SPLIT_SPHERES
+        passType: 0
+  - first: {fileID: 10770, guid: 0000000000000000f000000000000000, type: 0}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
+  - first: {fileID: 66, guid: 0000000000000000f000000000000000, type: 0}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
+  - first: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+    second:
+      variants:
+      - keywords: DIRECTIONAL DIRLIGHTMAP_COMBINED LIGHTMAP_ON
+        passType: 4
+      - keywords: DIRECTIONAL LIGHTPROBE_SH
+        passType: 4
+      - keywords: DIRECTIONAL LIGHTPROBE_SH SHADOWS_SCREEN
+        passType: 4
+      - keywords: DIRECTIONAL FOG_LINEAR LIGHTPROBE_SH
+        passType: 4
+      - keywords: DIRECTIONAL FOG_LINEAR LIGHTPROBE_SH SHADOWS_SCREEN
+        passType: 4
+      - keywords: DIRECTIONAL LIGHTPROBE_SH _EMISSION
+        passType: 4
+      - keywords: DIRECTIONAL LIGHTPROBE_SH VERTEXLIGHT_ON
+        passType: 4
+      - keywords: DIRECTIONAL LIGHTPROBE_SH _ALPHATEST_ON _EMISSION
+        passType: 4
+      - keywords: DIRECTIONAL LIGHTPROBE_SH SHADOWS_SCREEN _ALPHATEST_ON _EMISSION
+        passType: 4
+      - keywords: DIRECTIONAL FOG_LINEAR LIGHTPROBE_SH _ALPHATEST_ON _EMISSION
+        passType: 4
+      - keywords: DIRECTIONAL FOG_LINEAR LIGHTPROBE_SH SHADOWS_SCREEN _ALPHATEST_ON
+          _EMISSION
+        passType: 4
+      - keywords: DIRECTIONAL LIGHTPROBE_SH _DETAIL_MULX2 _NORMALMAP
+        passType: 4
+      - keywords: DIRECTIONAL LIGHTPROBE_SH SHADOWS_SCREEN _DETAIL_MULX2 _NORMALMAP
+        passType: 4
+      - keywords: DIRECTIONAL FOG_LINEAR LIGHTPROBE_SH _DETAIL_MULX2 _NORMALMAP
+        passType: 4
+      - keywords: DIRECTIONAL FOG_LINEAR LIGHTPROBE_SH SHADOWS_SCREEN _DETAIL_MULX2
+          _NORMALMAP
+        passType: 4
+      - keywords: DIRECTIONAL LIGHTPROBE_SH _GLOSSYREFLECTIONS_OFF _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+          _SPECULARHIGHLIGHTS_OFF
+        passType: 4
+      - keywords: SPOT
+        passType: 5
+      - keywords: DIRECTIONAL
+        passType: 5
+      - keywords: POINT
+        passType: 5
+      - keywords: SHADOWS_DEPTH SHADOWS_SOFT SPOT
+        passType: 5
+      - keywords: POINT SHADOWS_CUBE SHADOWS_SOFT
+        passType: 5
+      - keywords: SHADOWS_DEPTH SHADOWS_SHADOWMASK SHADOWS_SOFT SPOT
+        passType: 5
+      - keywords: POINT SHADOWS_CUBE SHADOWS_SHADOWMASK SHADOWS_SOFT
+        passType: 5
+      - keywords: FOG_LINEAR SPOT
+        passType: 5
+      - keywords: FOG_LINEAR POINT SHADOWS_CUBE
+        passType: 5
+      - keywords: SPOT _ALPHATEST_ON
+        passType: 5
+      - keywords: DIRECTIONAL _ALPHATEST_ON
+        passType: 5
+      - keywords: POINT SHADOWS_CUBE _ALPHATEST_ON
+        passType: 5
+      - keywords: FOG_LINEAR SPOT _ALPHATEST_ON
+        passType: 5
+      - keywords: FOG_LINEAR POINT _ALPHATEST_ON
+        passType: 5
+      - keywords: FOG_LINEAR POINT SHADOWS_CUBE _ALPHATEST_ON
+        passType: 5
+      - keywords: SPOT _DETAIL_MULX2 _NORMALMAP
+        passType: 5
+      - keywords: DIRECTIONAL _DETAIL_MULX2 _NORMALMAP
+        passType: 5
+      - keywords: POINT SHADOWS_CUBE _DETAIL_MULX2 _NORMALMAP
+        passType: 5
+      - keywords: FOG_LINEAR SPOT _DETAIL_MULX2 _NORMALMAP
+        passType: 5
+      - keywords: FOG_LINEAR POINT _DETAIL_MULX2 _NORMALMAP
+        passType: 5
+      - keywords: FOG_LINEAR POINT SHADOWS_CUBE _DETAIL_MULX2 _NORMALMAP
+        passType: 5
+      - keywords: DIRECTIONAL _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A _SPECULARHIGHLIGHTS_OFF
+        passType: 5
+      - keywords: SHADOWS_DEPTH
+        passType: 8
+      - keywords: SHADOWS_CUBE
+        passType: 8
+      - keywords: SHADOWS_DEPTH _ALPHATEST_ON
+        passType: 8
+      - keywords: SHADOWS_CUBE _ALPHATEST_ON
+        passType: 8
+      - keywords: SHADOWS_DEPTH _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+        passType: 8
+  - first: {fileID: 47, guid: 0000000000000000f000000000000000, type: 0}
+    second:
+      variants:
+      - keywords: DIRECTIONAL LIGHTPROBE_SH _NORMALMAP _SPECGLOSSMAP
+        passType: 4
+      - keywords: DIRECTIONAL LIGHTPROBE_SH SHADOWS_SCREEN _NORMALMAP _SPECGLOSSMAP
+        passType: 4
+      - keywords: DIRECTIONAL FOG_LINEAR LIGHTPROBE_SH _NORMALMAP _SPECGLOSSMAP
+        passType: 4
+      - keywords: SPOT _NORMALMAP _SPECGLOSSMAP
+        passType: 5
+      - keywords: DIRECTIONAL _NORMALMAP _SPECGLOSSMAP
+        passType: 5
+      - keywords: FOG_LINEAR SPOT _NORMALMAP _SPECGLOSSMAP
+        passType: 5
+      - keywords: FOG_LINEAR POINT _NORMALMAP _SPECGLOSSMAP
+        passType: 5
+      - keywords: SHADOWS_DEPTH
+        passType: 8
+  - first: {fileID: 106, guid: 0000000000000000f000000000000000, type: 0}
+    second:
+      variants:
+      - keywords: _SUNDISK_NONE
+        passType: 0
+      - keywords: _SUNDISK_SIMPLE
+        passType: 0
+      - keywords: _SUNDISK_HIGH_QUALITY
+        passType: 0
+  - first: {fileID: 200, guid: 0000000000000000f000000000000000, type: 0}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
+  - first: {fileID: 211, guid: 0000000000000000f000000000000000, type: 0}
+    second:
+      variants:
+      - keywords: _ALPHABLEND_ON
+        passType: 4
+      - keywords: SOFTPARTICLES_ON _ALPHABLEND_ON
+        passType: 4
+      - keywords: FOG_LINEAR SOFTPARTICLES_ON _ALPHABLEND_ON
+        passType: 4
+      - keywords: PROCEDURAL_INSTANCING_ON SHADOWS_DEPTH _ALPHABLEND_ON
+        passType: 8
+  - first: {fileID: 9000, guid: 0000000000000000f000000000000000, type: 0}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
+  - first: {fileID: 9001, guid: 0000000000000000f000000000000000, type: 0}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
+  - first: {fileID: 9002, guid: 0000000000000000f000000000000000, type: 0}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
+  - first: {fileID: 9003, guid: 0000000000000000f000000000000000, type: 0}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
+  - first: {fileID: 9004, guid: 0000000000000000f000000000000000, type: 0}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
+  - first: {fileID: 9006, guid: 0000000000000000f000000000000000, type: 0}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
+  - first: {fileID: 9007, guid: 0000000000000000f000000000000000, type: 0}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
+  - first: {fileID: 10703, guid: 0000000000000000f000000000000000, type: 0}
+    second:
+      variants:
+      - keywords: DIRECTIONAL LIGHTPROBE_SH
+        passType: 4
+      - keywords: SHADOWS_DEPTH
+        passType: 8
+  - first: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
+  - first: {fileID: 4800000, guid: 68e6db2ebdc24f95958faec2be5558d6, type: 3}
+    second:
+      variants:
+      - keywords: UNDERLAY_INNER
+        passType: 0
+  - first: {fileID: 4800000, guid: fe393ace9b354375a9cb14cdbbc28be4, type: 3}
+    second:
+      variants:
+      - keywords: OUTLINE_ON UNDERLAY_ON
+        passType: 0
+  - first: {fileID: 4800000, guid: f57155d84e387e240914747a08cee4d2, type: 3}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
+  - first: {fileID: 4800000, guid: 4b9f3440d48c2f04c9c388365e070864, type: 3}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
+  - first: {fileID: 4800000, guid: 1ccecd9b89b8a4f14bfb64f29ddfcc81, type: 3}
+    second:
+      variants:
+      - keywords: DIRECTIONAL DIRLIGHTMAP_COMBINED LIGHTMAP_ON
+        passType: 4
+      - keywords: DIRECTIONAL LIGHTPROBE_SH
+        passType: 4
+      - keywords: DIRECTIONAL FOG_LINEAR
+        passType: 4
+      - keywords: DIRECTIONAL FOG_LINEAR LIGHTPROBE_SH
+        passType: 4
+      - keywords: DIRECTIONAL LIGHTPROBE_SH VERTEXLIGHT_ON
+        passType: 4
+      - keywords: SPOT
+        passType: 5
+      - keywords: DIRECTIONAL
+        passType: 5
+      - keywords: POINT
+        passType: 5
+      - keywords: SHADOWS_DEPTH SHADOWS_SOFT SPOT
+        passType: 5
+      - keywords: POINT SHADOWS_CUBE SHADOWS_SOFT
+        passType: 5
+      - keywords: SHADOWS_DEPTH SHADOWS_SHADOWMASK SHADOWS_SOFT SPOT
+        passType: 5
+      - keywords: POINT SHADOWS_CUBE SHADOWS_SHADOWMASK SHADOWS_SOFT
+        passType: 5
+      - keywords: FOG_LINEAR SPOT
+        passType: 5
+  - first: {fileID: 4800000, guid: e09b67e11f9dce04fa9164f45c1d7c54, type: 3}
+    second:
+      variants:
+      - keywords: DIRECTIONAL INSTANCING_ON LIGHTPROBE_SH
+        passType: 4
+      - keywords: DIRECTIONAL INSTANCING_ON LIGHTPROBE_SH SHADOWS_SCREEN
+        passType: 4
+      - keywords: DIRECTIONAL FOG_LINEAR INSTANCING_ON LIGHTPROBE_SH
+        passType: 4
+      - keywords: DIRECTIONAL FOG_LINEAR INSTANCING_ON LIGHTPROBE_SH SHADOWS_SCREEN
+        passType: 4
+      - keywords: DIRECTIONAL
+        passType: 5
+      - keywords: POINT SHADOWS_CUBE
+        passType: 5
+      - keywords: FOG_LINEAR SPOT
+        passType: 5
+      - keywords: FOG_LINEAR POINT
+        passType: 5
+      - keywords: FOG_LINEAR POINT SHADOWS_CUBE
+        passType: 5
+      - keywords: INSTANCING_ON SHADOWS_DEPTH
+        passType: 8
+  - first: {fileID: 4800000, guid: 29d0ab7daed08ae429de82071e84f419, type: 3}
+    second:
+      variants:
+      - keywords: DIRECTIONAL INSTANCING_ON LIGHTPROBE_SH
+        passType: 4
+      - keywords: DIRECTIONAL INSTANCING_ON LIGHTPROBE_SH SHADOWS_SCREEN
+        passType: 4
+      - keywords: DIRECTIONAL FOG_LINEAR INSTANCING_ON LIGHTPROBE_SH
+        passType: 4
+      - keywords: DIRECTIONAL FOG_LINEAR INSTANCING_ON LIGHTPROBE_SH SHADOWS_SCREEN
+        passType: 4
+      - keywords: SPOT
+        passType: 5
+      - keywords: DIRECTIONAL
+        passType: 5
+      - keywords: POINT SHADOWS_CUBE
+        passType: 5
+      - keywords: FOG_LINEAR SPOT
+        passType: 5
+      - keywords: DIRECTIONAL FOG_LINEAR
+        passType: 5
+      - keywords: FOG_LINEAR POINT
+        passType: 5
+      - keywords: FOG_LINEAR POINT SHADOWS_CUBE
+        passType: 5
+      - keywords: INSTANCING_ON SHADOWS_DEPTH
+        passType: 8
+  - first: {fileID: 4800000, guid: 1cb9a7ae074c45543aa8e0110f1abeb3, type: 3}
+    second:
+      variants:
+      - keywords: DIRECTIONAL INSTANCING_ON LIGHTPROBE_SH
+        passType: 4
+      - keywords: DIRECTIONAL FOG_LINEAR INSTANCING_ON LIGHTPROBE_SH
+        passType: 4
+      - keywords: DIRECTIONAL FOG_LINEAR INSTANCING_ON LIGHTPROBE_SH SHADOWS_SCREEN
+        passType: 4
+      - keywords: DIRECTIONAL
+        passType: 5
+      - keywords: FOG_LINEAR SPOT
+        passType: 5
+      - keywords: FOG_LINEAR POINT
+        passType: 5
+      - keywords: INSTANCING_ON SHADOWS_DEPTH
+        passType: 8
