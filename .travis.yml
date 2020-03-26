@@ -17,6 +17,7 @@ after_failure:
 cache:
   directories:
     - .git/lfs
+    - fiscal-shock/Library
 
 git:
   depth: 25  # warning: tags more than this many commits ago will be lost!
