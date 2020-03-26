@@ -3,8 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-public class InGameMenu : MonoBehaviour
-{
+public class InGameMenu : MonoBehaviour {
     public GameObject pausePanel;
     public GameObject optionsPanel;
     public GameObject quitPanel;
@@ -14,7 +13,7 @@ public class InGameMenu : MonoBehaviour
     public Slider volumeSlider;
     public Slider mouseSlider;
 
-    private bool guiEnable = false;
+
     public float volume {
         get => Settings.volume;
         set => Settings.volume = value;
@@ -62,7 +61,8 @@ public class InGameMenu : MonoBehaviour
                 pauseText.text = "PAUSED";
                 Settings.mutexUnlockCursorState(this);
                 pausePanel.SetActive(true);
-            } else {
+            }
+            else {
                 optionsPanel.SetActive(false);
                 quitPanel.SetActive(false);
                 pausePanel.SetActive(false);
@@ -78,75 +78,52 @@ public class InGameMenu : MonoBehaviour
         }
     }
 
-    public void PlayClick ()
-    {
+    public void PlayClick() {
         Settings.lockCursorState(this);
         pausePanel.SetActive(false);
         Time.timeScale = 1;
         pauseText.text = "";
     }
 
-    public void OptionsClick ()
-    {
-        
-    
-    
+    public void OptionsClick() {
+
+
+
         optionsPanel.SetActive(true);
-        guiEnable = true;
+        
 
         pausePanel.SetActive(false);
     }
 
-    public void QuitClick ()
-    {
+    public void QuitClick() {
         quitPanel.SetActive(true);
         pausePanel.SetActive(false);
     }
 
-    public void RestartClick ()
-    {
+    public void RestartClick() {
         SceneManager.LoadScene(0);
     }
 
-    public void QuitAppClick ()
-    {
+    public void QuitAppClick() {
         Settings.saveSettings();
         Application.Quit();
     }
 
-    public void CancelClick ()
-    {
+    public void CancelClick() {
         quitPanel.SetActive(false);
         pausePanel.SetActive(true);
     }
 
-    public void BackClick()
-    {
+    public void BackClick() {
         optionsPanel.SetActive(false);
-        guiEnable = false;
+
         pausePanel.SetActive(true);
     }
 
-    void OnGUI() {
-        
-    // Temporary graphics settings shamelessly stolen from unity docs
-    if(guiEnable){
-        string[] names = QualitySettings.names;
 
-        GUILayout.BeginArea(new Rect(Screen.width - 100, -250, 100, Screen.height));
-        GUILayout.FlexibleSpace();
- GUILayout.BeginVertical();
- GUILayout.FlexibleSpace();
-        for (int i = 0; i < names.Length; i++) {
-            if (GUILayout.Button(names[i])) {
-                QualitySettings.SetQualityLevel(i, true);
-            }
-        }
-         GUILayout.FlexibleSpace();
- GUILayout.EndVertical();
- GUILayout.FlexibleSpace();
-        GUILayout.EndArea ();
+    public void graphic(int i) {
+        QualitySettings.SetQualityLevel(i, true);
+    }
 
-    }
-    }
+
 }
