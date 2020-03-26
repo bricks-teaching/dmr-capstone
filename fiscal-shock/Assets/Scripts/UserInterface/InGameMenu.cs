@@ -14,6 +14,7 @@ public class InGameMenu : MonoBehaviour
     public Slider volumeSlider;
     public Slider mouseSlider;
 
+    private bool guiEnable = false;
     public float volume {
         get => Settings.volume;
         set => Settings.volume = value;
@@ -87,7 +88,12 @@ public class InGameMenu : MonoBehaviour
 
     public void OptionsClick ()
     {
+        
+    
+    
         optionsPanel.SetActive(true);
+        guiEnable = true;
+
         pausePanel.SetActive(false);
     }
 
@@ -117,6 +123,30 @@ public class InGameMenu : MonoBehaviour
     public void BackClick()
     {
         optionsPanel.SetActive(false);
+        guiEnable = false;
         pausePanel.SetActive(true);
+    }
+
+    void OnGUI() {
+        
+    // Temporary graphics settings shamelessly stolen from unity docs
+    if(guiEnable){
+        string[] names = QualitySettings.names;
+
+        GUILayout.BeginArea(new Rect(Screen.width - 100, -250, 100, Screen.height));
+        GUILayout.FlexibleSpace();
+ GUILayout.BeginVertical();
+ GUILayout.FlexibleSpace();
+        for (int i = 0; i < names.Length; i++) {
+            if (GUILayout.Button(names[i])) {
+                QualitySettings.SetQualityLevel(i, true);
+            }
+        }
+         GUILayout.FlexibleSpace();
+ GUILayout.EndVertical();
+ GUILayout.FlexibleSpace();
+        GUILayout.EndArea ();
+
+    }
     }
 }
