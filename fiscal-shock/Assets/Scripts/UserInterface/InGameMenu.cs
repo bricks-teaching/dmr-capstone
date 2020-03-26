@@ -86,12 +86,7 @@ public class InGameMenu : MonoBehaviour {
     }
 
     public void OptionsClick() {
-
-
-
         optionsPanel.SetActive(true);
-        
-
         pausePanel.SetActive(false);
     }
 
@@ -116,14 +111,10 @@ public class InGameMenu : MonoBehaviour {
 
     public void BackClick() {
         optionsPanel.SetActive(false);
-
         pausePanel.SetActive(true);
     }
-
 
     public void graphic(int i) {
         QualitySettings.SetQualityLevel(i, true);
     }
-
-
 }
