@@ -126,7 +126,7 @@ public class PlayerShoot : MonoBehaviour {
             }
             animatedTime += Time.deltaTime;
         }
-        feed.removeHit();
+
     }
 
     private void fireBullet(float accuracy, int damage, GameObject bulletPrefab, float noise, Transform target) {
