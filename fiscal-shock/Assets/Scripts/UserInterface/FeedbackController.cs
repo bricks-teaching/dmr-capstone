@@ -25,7 +25,7 @@ public class FeedbackController : MonoBehaviour
         clone.transform.SetParent(HUD.transform);
         clone.text = "-" + (cost.ToString());
         clone.transform.localPosition = new Vector3(0,0,0);
-        clone.transform.Translate(Random.Range(-135.6f, -105.0f),  Random.Range(-288.1f, -258.0f), Random.Range(-10.0f, 10.0f), Space.Self);
+        clone.transform.Translate(Random.Range(-10.6f, 10.0f),  Random.Range(-10.1f, 10.0f), Random.Range(-10.0f, 10.0f), Space.Self);
 
         Destroy(clone.gameObject, 2f);
 
