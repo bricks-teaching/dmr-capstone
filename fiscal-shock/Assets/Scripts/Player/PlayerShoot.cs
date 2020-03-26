@@ -21,6 +21,7 @@ public class PlayerShoot : MonoBehaviour {
     private float screenX;
     private float screenY;
     private WeaponStats currentWeaponStats;
+    public FeedbackController feed;
 
     public void Start() {
         screenX = Screen.width / 2;
@@ -69,9 +70,11 @@ public class PlayerShoot : MonoBehaviour {
 				}
                 if (rest){
                     fireBullet(10 - currentWeaponStats.accuracy, currentWeaponStats.strength, currentWeaponStats.bulletPrefab, 0f, null);
+                    feed.shoot(currentWeaponStats.bulletCost);
                 } else {
                     fireBullet(10 - currentWeaponStats.accuracy, currentWeaponStats.strength, currentWeaponStats.bulletPrefab, 0.09f, null);
                     PlayerFinance.cashOnHand -= currentWeaponStats.bulletCost;
+                    feed.shoot(currentWeaponStats.bulletCost);
                 }
                 rest = !rest;
             }
@@ -90,6 +93,7 @@ public class PlayerShoot : MonoBehaviour {
                 }
                 fireBullet(10 - currentWeaponStats.accuracy, currentWeaponStats.strength, currentWeaponStats.bulletPrefab, 1, target);
                 PlayerFinance.cashOnHand -= currentWeaponStats.bulletCost;
+                feed.shoot(currentWeaponStats.bulletCost);
             }
         }
         // If player is currently holstering or drawing a weapon, alter weapon position to animate the process.
