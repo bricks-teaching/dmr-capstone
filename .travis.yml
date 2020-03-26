@@ -24,6 +24,7 @@ git:
 
 stages:
   - test
+  - cache
   - build
   - docs
   - deploy
@@ -46,28 +47,31 @@ jobs:
 
 ################################################################################
 
-  - stage: build
+  - stage: cache
   ############################
   # Clone once (includes LFS)
   ############################
+    name: "Clone repository and LFS"
     script:
       - bash ./ci/lfs_pull.sh
-    name: "Clone repository and LFS"
+    if: type != pull_request
     workspaces:
       create:
         name: lfs
         paths:
           - .
 
+  - stage: build
   ############
   # Linux 64
   ############
-  - script:
+    name: "Build and cache Linux64 (OpenGL)"
+    script:
       - export IMAGE_NAME=gableroux/unity3d:2019.3.0f6; export BUILD_TARGET=StandaloneLinux64; export OPTS=-force-glcore; export BUILD_DIR=FiscalShock-linux64
+      - cd dmr-capstone/dmr-capstone
       - source ./ci/travis_prepare_workspace.sh
       - bash ./ci/docker_build.sh
       - bash ./ci/package_build.sh linux64
-    name: "Build and cache Linux64 (OpenGL)"
     if: type != pull_request
     services:
       - docker
@@ -86,6 +90,7 @@ jobs:
   ############
   - script:
       - export IMAGE_NAME=gableroux/unity3d:2019.3.0f6-windows; export BUILD_TARGET=StandaloneWindows64; export OPTS=-force-glcore; export BUILD_DIR=FiscalShock-win64
+      - cd dmr-capstone/dmr-capstone
       - source ./ci/travis_prepare_workspace.sh
       - bash ./ci/docker_build.sh
       - bash ./ci/package_build.sh win64
@@ -108,6 +113,7 @@ jobs:
   ############
   - script:
       - export BUILD_TARGET=StandaloneOSX; export IMAGE_NAME=gableroux/unity3d:2019.3.0f6-mac; export OPTS=-force-glcore; export BUILD_DIR=FiscalShock-mac
+      - cd dmr-capstone/dmr-capstone
       - source ./ci/travis_prepare_workspace.sh
       - bash ./ci/docker_build.sh
       - bash ./ci/package_build.sh mac
@@ -129,7 +135,9 @@ jobs:
 
   - stage: docs
     name: "Doxygen"
-    script: bash ./ci/generate_docs.sh
+    script:
+      - cd dmr-capstone/dmr-capstone
+      - bash ./ci/generate_docs.sh
     if: type != pull_request
     language: python
     python:
@@ -160,13 +168,14 @@ jobs:
 ################################################################################
 
   - stage: deploy
+    name: Publish release to GitHub
     script:
+      - cd dmr-capstone/dmr-capstone
       - ls -la *
       - source ./ci/verify_package.sh linux64 || travis_terminate 1
       - source ./ci/verify_package.sh win64 || travis_terminate 1
       - source ./ci/verify_package.sh mac || travis_terminate 1
       - bash ./ci/travis_set_tag.sh || travis_terminate 1
-    name: Publish release to GitHub
     if: type != pull_request
     git:
       clone: false
