@@ -11,10 +11,12 @@ public class HUD : MonoBehaviour
     public Transform playerTransform;
     public Transform escapeHatch;
     public TextMeshProUGUI shotLoss;
+    public TextMeshProUGUI earn;
 
     void Start() {
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         shotLoss.text = "";
+        earn.text = "";
     }
 
     /// <summary>

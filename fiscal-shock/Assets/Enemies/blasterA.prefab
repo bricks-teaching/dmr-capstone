@@ -134,6 +134,7 @@ MonoBehaviour:
   hitSoundClip: {fileID: 8300000, guid: 861e537fb624418428af6d6d55c73dfb, type: 3}
   pointValue: 30
   animationManager: {fileID: 8645812413896970740}
+  feed: {fileID: 7774178292728621519, guid: c5fcf0c2e8177009da4b226f700524cb, type: 3}
 --- !u!111 &4661802102344205313
 Animation:
   m_ObjectHideFlags: 0
