@@ -64,11 +64,9 @@ namespace FiscalShock.Procedural {
         public List<GameObject> enemies { get; } = new List<GameObject>();
         public GameObject player { get; private set; }
         public GameObject organizer { get; private set; }
-        public GameObject groundOrganizer { get; private set; }
         public GameObject wallOrganizer { get; private set; }
         public GameObject enemyOrganizer { get; private set; }
         public GameObject thingOrganizer { get; private set; }
-        public List<BakedNav> bakedNavMeshes { get; } = new List<BakedNav>();
 
         public void Start() {
             Debug.Log($"Starting to load");
@@ -197,13 +195,12 @@ namespace FiscalShock.Procedural {
             dungeonType = GameObject.FindObjectOfType<DungeonType>();
             organizer = new GameObject();
             organizer.name = "Dungeon Parts";
-            groundOrganizer = GameObject.Find("Ground Tiles");
-            groundOrganizer.transform.parent = organizer.transform;
             wallOrganizer = new GameObject();
             wallOrganizer.name = "Wall Tiles";
             wallOrganizer.transform.parent = organizer.transform;
             thingOrganizer = new GameObject();
             thingOrganizer.name = "Spawned Objects";
+            thingOrganizer.transform.parent = organizer.transform;
             enemyOrganizer = new GameObject();
             enemyOrganizer.name = "Enemies";
 
@@ -238,14 +235,6 @@ namespace FiscalShock.Procedural {
             Debug.Log($"Placing portals took {sw.ElapsedMilliseconds} ms");
             sw.Reset();
 
-            Debug.Log("Starting navmesh baking");
-            sw.Start();
-            bakeNavMeshes();
-            sw.Stop();
-            Debug.Log($"Baking navmeshes took {sw.ElapsedMilliseconds} ms");
-            sw.Reset();
-
-            // Enemies can only be spawned after baking
             Debug.Log("Starting enemy placement");
             sw.Start();
             spawnEnemies();
@@ -260,24 +249,6 @@ namespace FiscalShock.Procedural {
         /// <returns></returns>
         private List<Cell> getValidCells() {
             return vd.cells.Where(c => c.room != null).ToList();
-        }
-
-        private void bakeNavMeshes() {
-            NavMeshSurface[] navs = groundOrganizer.GetComponents<NavMeshSurface>();
-            foreach (NavMeshSurface nav in navs) {
-                nav.BuildNavMesh();
-                nav.enabled = false;
-            }
-            // Get triangulation of each, requires turning off all other navmeshes, because the triangulation functions check ALL active navmeshes
-            foreach (NavMeshSurface nav in navs) {
-                nav.enabled = true;
-                bakedNavMeshes.Add(new BakedNav(nav.agentTypeID, NavMesh.CalculateTriangulation()));
-                nav.enabled = false;
-            }
-            // Finally, enable all of them
-            foreach (NavMeshSurface nav in navs) {
-                nav.enabled = true;
-            }
         }
 
         private void makeSun() {
@@ -371,7 +342,7 @@ namespace FiscalShock.Procedural {
             GameObject thingToSpawn = spawnables[idx].prefab;
 
             // Place it at the correct point
-            Vector3 where = location.site.toVector3AtHeight(dungeonType.groundTileDimensions.y + thingToSpawn.transform.position.y);
+            Vector3 where = location.site.toVector3AtHeight(thingToSpawn.transform.position.y);
 
             GameObject thing = Instantiate(thingToSpawn, where, thingToSpawn.transform.rotation);
             thing.name = $"{thingToSpawn.name} @ {location.site.id}";

@@ -17,7 +17,6 @@ GameObject:
   - component: {fileID: 4661802102344205313}
   - component: {fileID: 1787231721965500831}
   - component: {fileID: 8645812413896970740}
-  - component: {fileID: 6130288473819772421}
   m_Layer: 10
   m_Name: blasterA
   m_TagString: Blaster
@@ -90,7 +89,6 @@ MonoBehaviour:
   visionRadius: 35
   player: {fileID: 0}
   animationManager: {fileID: 8645812413896970740}
-  nma: {fileID: 0}
 --- !u!114 &3393988917688406179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,28 +274,6 @@ MonoBehaviour:
     - {fileID: 7400000, guid: 27446eda311e117db967810bb3842a16, type: 2}
     - {fileID: 7400000, guid: 0a34d5ed3630b67149538f36b6ba5a44, type: 2}
     - {fileID: 7400000, guid: 18cc9da00bf85f4bd867427f0028e40d, type: 2}
---- !u!195 &6130288473819772421
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 358738656169530444}
-  m_Enabled: 0
-  m_AgentTypeID: -1372625422
-  m_Radius: 0.53
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 180
-  m_StoppingDistance: 1
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 16
-  m_BaseOffset: 2
-  m_WalkableMask: 1
-  m_ObstacleAvoidanceType: 1
 --- !u!1 &697954628164564041
 GameObject:
   m_ObjectHideFlags: 0

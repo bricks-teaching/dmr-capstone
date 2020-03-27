@@ -30,7 +30,7 @@ namespace FiscalShock.Procedural {
                 }
             }
 
-            Vector3 where = new Vector3(chosenCell.site.x, d.dungeonType.groundTileDimensions.y, chosenCell.site.y);
+            Vector3 where = new Vector3(chosenCell.site.x, 0, chosenCell.site.y);
             chosenCell.spawnedObject = UnityEngine.Object.Instantiate(portal, where, portal.transform.rotation);
             // Randomly rotate about the y-axis
             float rotation = d.mt.Next(360);

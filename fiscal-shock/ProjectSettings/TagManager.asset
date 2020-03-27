@@ -28,6 +28,7 @@ TagManager:
   - Enemy
   - Player
   - Wall
+  - EnemyAvoidanceTrigger
   - 
   - 
   - 
@@ -45,8 +46,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - HideFromScene
   m_SortingLayers:
   - name: Default
     uniqueID: 0
