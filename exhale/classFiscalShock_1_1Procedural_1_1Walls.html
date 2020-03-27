@@ -178,10 +178,27 @@
 </p>
 </dd></dl>
 
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Private Static Functions</p>
+<dl class="function">
+<dt>
+<span class="target" id="classFiscalShock_1_1Procedural_1_1Walls_1aaf9bcbdf96608adab6cb6da75e609b30"></span><code class="sig-name descname">static void FiscalShock.Procedural.Walls.constructEnemyAvoidanceBoundingBox(Dungeoneer d)</code></dt>
+<dd><p>Stand up trigger zones on the bounding box of the world for enemy movement AI to detect using raycasts. </p>
+</dd></dl>
+
 <dl class="function">
 <dt>
 <span class="target" id="classFiscalShock_1_1Procedural_1_1Walls_1abd0ad1bd74366b414ee7c6ee5d31566d"></span><code class="sig-name descname">static void FiscalShock.Procedural.Walls.constructWallsOnVoronoi(Dungeoneer d)</code></dt>
-<dd></dd></dl>
+<dd><p>Generate walls all over the Voronoi, except for room interiors. Used to do subtractive corridor generation. </p>
+<p><dl>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist">
+<li><code class="docutils literal notranslate"><span class="pre">d</span></code></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="function">
 <dt>
@@ -236,13 +253,10 @@
 </p>
 </dd></dl>
 
-</div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Private Static Functions</p>
 <dl class="function">
 <dt>
 <span class="target" id="classFiscalShock_1_1Procedural_1_1Walls_1af91df82483cfb4d42854537185b1d7c4"></span><code class="sig-name descname">static void FiscalShock.Procedural.Walls.destroyLagWalls(Dungeoneer d, List&lt; GameObject &gt; wallsToKeep)</code></dt>
-<dd><p>Remove walls that don’t need to exist, since occlusion culling does not seem to work with procgen. </p>
+<dd><p>Remove walls that don’t need to exist for performance reasons </p>
 <p><dl>
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist">
 <li><code class="docutils literal notranslate"><span class="pre">d</span></code></li>

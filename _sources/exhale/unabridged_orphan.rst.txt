@@ -100,11 +100,6 @@ Files
 .. toctree::
    :maxdepth: 5
 
-   file_fiscal-shock_Assets_Scripts_ProceduralGeneration_BakedNav.cs.rst
-
-.. toctree::
-   :maxdepth: 5
-
    file_fiscal-shock_Assets_Scripts_Projectiles_BulletBehavior.cs.rst
 
 .. toctree::
@@ -171,6 +166,11 @@ Files
    :maxdepth: 5
 
    file_fiscal-shock_Assets_Scripts_ProceduralGeneration_Escape.cs.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_fiscal-shock_Assets_Scripts_AI_Explosion.cs.rst
 
 .. toctree::
    :maxdepth: 5

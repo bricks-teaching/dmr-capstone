@@ -148,6 +148,11 @@ Classes and Structs
 .. toctree::
    :maxdepth: 5
 
+   classExplosion.rst
+
+.. toctree::
+   :maxdepth: 5
+
    classFiscalShock_1_1Demo_1_1ProceduralMeshRenderer.rst
 
 .. toctree::
@@ -199,11 +204,6 @@ Classes and Structs
    :maxdepth: 5
 
    classFiscalShock_1_1Graphs_1_1VoronoiRoom.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   classFiscalShock_1_1Procedural_1_1BakedNav.rst
 
 .. toctree::
    :maxdepth: 5

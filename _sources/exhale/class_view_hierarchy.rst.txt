@@ -17,7 +17,6 @@ Class Hierarchy
         - :ref:`exhale_class_classFiscalShock_1_1Graphs_1_1Voronoi`
         - :ref:`exhale_class_classFiscalShock_1_1Graphs_1_1VoronoiRoom`
     - :ref:`namespace_FiscalShock__Procedural`
-        - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1BakedNav`
         - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1Delve`
         - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1Dungeoneer`
         - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1DungeonType`
@@ -45,6 +44,7 @@ Class Hierarchy
 - :ref:`exhale_class_classEnemyHealth`
 - :ref:`exhale_class_classEnemyMovement`
 - :ref:`exhale_class_classEnemyShoot`
+- :ref:`exhale_class_classExplosion`
 - :ref:`exhale_class_classGameController`
 - :ref:`exhale_class_classHUD`
 - :ref:`exhale_class_classHUDSingleton`

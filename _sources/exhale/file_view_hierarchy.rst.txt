@@ -4,7 +4,6 @@ File Hierarchy
 
 - :ref:`file_fiscal-shock_Assets_Scripts_AI_AnimationManager.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_Finance_ATMScript.cs`
-- :ref:`file_fiscal-shock_Assets_Scripts_ProceduralGeneration_BakedNav.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_Projectiles_BulletBehavior.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_Player_Cheats.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_ThirdParty_Delaunator.cs`
@@ -19,6 +18,7 @@ File Hierarchy
 - :ref:`file_fiscal-shock_Assets_Scripts_AI_EnemyMovement.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_AI_EnemyShoot.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_ProceduralGeneration_Escape.cs`
+- :ref:`file_fiscal-shock_Assets_Scripts_AI_Explosion.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_ProceduralGeneration_ObjectGeneration_Floor.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_Player_GameController.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_Graphs_Graph.cs`
