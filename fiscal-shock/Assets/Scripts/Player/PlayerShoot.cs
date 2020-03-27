@@ -12,6 +12,8 @@ public class PlayerShoot : MonoBehaviour {
     public AudioClip fireSoundClip;
     public GameObject weapon { get; private set; }
     private int slot = 0;
+    public static bool slotZero = false;
+    public static bool slotOne = false;
     public List<GameObject> guns;
     public RawImage crossHair;
     private bool rest = false;
