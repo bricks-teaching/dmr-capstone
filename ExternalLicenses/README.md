@@ -16,6 +16,10 @@ Graphics assets are spread across the project.
 1. [Shopkeeper NPC model](#shopkeeper-npc)
 1. [Wooden sign model](#wooden-sign)
 
+----
+## Dirt Texture
+
+https://opengameart.org/content/tileable-200x200-dirt-texture
 
 ----
 ## Icons
