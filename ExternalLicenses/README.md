@@ -8,8 +8,10 @@ All licenses for third-party assets or source code are stored here to respect th
 ----
 
 # Graphics
-Graphics assets are spread across the project.
+Graphics assets are spread across the project. Assets from the Unity Asset Store are not included in this listing.
 
+1. [Crystals](#crystals)
+1. [Icons](#icons)
 1. [Market stand model](#market-stand)
 1. [Raygun model](#raygun)
 1. [Robot enemy models](#robot-enemies)
@@ -17,9 +19,12 @@ Graphics assets are spread across the project.
 1. [Wooden sign model](#wooden-sign)
 
 ----
-## Dirt Texture
+## Crystals
+[Original](https://opengameart.org/content/simple-3d-crystals-unwrapped-simple-texture)
 
-https://opengameart.org/content/tileable-200x200-dirt-texture
+Author: rubberduck
+
+License: [CC0 Public Domain](http://creativecommons.org/publicdomain/zero/1.0/)
 
 ----
 ## Icons

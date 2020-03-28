@@ -7,9 +7,12 @@ public class Cheats : MonoBehaviour {
     public string teleportToDelveKey = "f3";
     public string robinHood = "f1";
     public string toggleGraphMesh = "f4";
+    public string enableWallDestruction = "f8";
     public string toggleOcclusionCulling = "f9";
     public GameObject player;
     public CharacterController playerController;
+
+    public bool destroyWalls;
 
     void Update() {
         if (Input.GetKeyDown(teleportToEscapeKey)) {
@@ -17,7 +20,7 @@ public class Cheats : MonoBehaviour {
             Vector3 warpPoint = escape.transform.position;
             // Disable controller before teleportation
             playerController.enabled = false;
-            player.transform.position = new Vector3(warpPoint.x, warpPoint.y + 12, warpPoint.z);
+            player.transform.position = new Vector3(warpPoint.x - 1, warpPoint.y + 4, warpPoint.z + 1);
             playerController.enabled = true;
             Debug.Log($"Teleported to {warpPoint}");
         }
@@ -42,6 +45,10 @@ public class Cheats : MonoBehaviour {
             OcclusionCamera oc = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<OcclusionCamera>();
             oc.enabled = !oc.enabled;
             Debug.Log($"Toggled occlusion culling to {oc.enabled}");
+        }
+        if (Input.GetKeyDown(enableWallDestruction)) {
+            destroyWalls = !destroyWalls;
+            Debug.Log($"Toggled wall destruction: {destroyWalls}");
         }
     }
 }

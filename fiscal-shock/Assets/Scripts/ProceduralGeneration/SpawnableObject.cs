@@ -2,7 +2,16 @@ using UnityEngine;
 
 [System.Serializable]
 public class SpawnableObject {
+    [Tooltip("Object prefab.")]
     public GameObject prefab;
+
+    [Tooltip("Weight on [0, 1] applied against spawn chance. Higher weights indicate more likely spawning.")]
+    [Range(0f, 1f)]
+    public float weight = 1;
+
+    [Tooltip("Apply a random color to the first mesh renderer encountered in the game object. The prefab should have the colorable mesh renderer at the top.")]
+    public bool randomizeColor;
+    public bool alsoColorLight;
 }
 
 [System.Serializable]

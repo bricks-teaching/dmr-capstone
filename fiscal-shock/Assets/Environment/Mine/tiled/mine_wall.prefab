@@ -12,12 +12,13 @@ GameObject:
   - component: {fileID: 1409193277627659099}
   - component: {fileID: 1409193277627659096}
   - component: {fileID: 1409193277627659097}
+  - component: {fileID: -2302010238848573077}
   m_Layer: 12
   m_Name: mine_wall
   m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967294
   m_IsActive: 1
 --- !u!4 &1409193277627659102
 Transform:
@@ -93,3 +94,15 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-2302010238848573077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1409193277627659103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f10e867b5de5949699e3698a7dbd997, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

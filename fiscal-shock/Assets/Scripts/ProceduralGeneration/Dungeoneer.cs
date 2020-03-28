@@ -16,41 +16,6 @@ namespace FiscalShock.Procedural {
         [Tooltip("Seed for random number generator. Uses current Unix epoch time (ms) if left at 0.")]
         public long seed; //1584410049
 
-        [Tooltip("Number of vertices to generate. A higher number will generate a finer-grained mesh.")]
-        public int numberOfVertices = 100;
-
-        /*
-        [Tooltip("Unit scale. All vertex coordinates are multiplied by this number.")]
-        public float unitScale = 1;
-        */
-
-        [Tooltip("Minimum x-value of a vertex.")]
-        public int minX = -100;
-
-        [Tooltip("Maximum x-value of a vertex.")]
-        public int maxX = 100;
-
-        [Tooltip("Minimum y-value of a vertex.")]
-        public int minY = -100;
-
-        [Tooltip("Maximum y-value of a vertex.")]
-        public int maxY = 100;
-
-        [Tooltip("Minimum number of rooms to try to generate.")]
-        public int minRooms = 10;
-
-        [Tooltip("Maximum number of rooms to try to generate.")]
-        public int maxRooms = 16;
-
-        [Tooltip("Minimum distance between any two points chosen as 'master points' (used as room centers).")]
-        public double minimumDistanceBetweenMasterPoints = 32;
-
-        [Tooltip("Percentage of edges of the master point Delaunay triangulation to add back to the spanning tree as a decimal. Adding more edges back makes more routes to rooms available.")]
-        public float percentageOfEdgesToAddBack = 0.3f;
-
-        [Tooltip("Indicates general size of rooms expanding outward from the master site.")]
-        public int roomGrowthRadius = 3;
-
         public Delaunay dt { get; private set; }
         public Voronoi vd { get; private set; }
         public Delaunay masterDt { get; private set; }
@@ -59,7 +24,9 @@ namespace FiscalShock.Procedural {
         public List<Cell> validCells { get; private set; }
 
         public MersenneTwister mt { get; private set; }
-        public DungeonType dungeonType { get; set; }
+
+        [Tooltip("Default dungeon type when none is passed in.")]
+        public DungeonType dungeonType;
 
         public List<GameObject> enemies { get; } = new List<GameObject>();
         public GameObject player { get; private set; }
@@ -71,6 +38,10 @@ namespace FiscalShock.Procedural {
         public void Start() {
             Debug.Log($"Starting to load");
             initPRNG();
+            if (dungeonType == null) {
+                dungeonType = GameObject.Find("TempleDungeonType").GetComponent<DungeonType>();
+            }
+
             System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
             sw.Start();
             generateDelaunay();
@@ -101,9 +72,9 @@ namespace FiscalShock.Procedural {
 
         public List<double> makeRandomPoints() {
             List<double> vertices = new List<double>();
-            for (int i = 0; i < numberOfVertices*2; i += 2) {
-                vertices.Add(mt.Next(minX, maxX));
-                vertices.Add(mt.Next(minY, maxY));
+            for (int i = 0; i < dungeonType.numberOfVertices*2; i += 2) {
+                vertices.Add(mt.Next(dungeonType.minX, dungeonType.maxX));
+                vertices.Add(mt.Next(dungeonType.minY, dungeonType.maxY));
             }
             return vertices;
         }
@@ -121,7 +92,7 @@ namespace FiscalShock.Procedural {
         public void generateRoomGraphs() {
             Debug.Log("Generating room graphs");
             // pick how many rooms to make
-            int rooms = mt.Next(minRooms, maxRooms);
+            int rooms = mt.Next(dungeonType.minRooms, dungeonType.maxRooms);
             List<Vertex> masterDelaunayPoints = new List<Vertex>();
             List<double> masterDelaunayPointsFlat = new List<double>();
 
@@ -141,7 +112,7 @@ namespace FiscalShock.Procedural {
                 // don't pick something too close to another point already chosen
                 foreach (Vertex v in masterDelaunayPoints) {
                     double d = dt.vertices[selection].getDistanceTo(v);
-                    if (d < minimumDistanceBetweenMasterPoints) {
+                    if (d < dungeonType.minimumDistanceBetweenMasterPoints) {
                         tooClose = true;
                         break;
                     }
@@ -168,7 +139,7 @@ namespace FiscalShock.Procedural {
             spanningTree = masterDt.findSpanningTreeBFS();
 
             // add back some edges from triangulation to provide multiple routes
-            int edgesToAddBack = Mathf.CeilToInt(masterDt.edges.Count * percentageOfEdgesToAddBack);
+            int edgesToAddBack = Mathf.CeilToInt(masterDt.edges.Count * dungeonType.percentageOfEdgesToAddBack);
             for (int i = 0; i < edgesToAddBack; ++i) {
                 // randomly pick an edge
                 int t;
@@ -182,7 +153,7 @@ namespace FiscalShock.Procedural {
             // do voronoi blending around points using the original voronoi cells
             // does not merge separate rooms!
             roomVoronoi = masterDelaunayPoints.Select(v => new VoronoiRoom(v)).Where(r => r.site != null).ToList();
-            for (int i = 0; i < roomGrowthRadius; ++i) {
+            for (int i = 0; i < dungeonType.roomGrowthRadius; ++i) {
                 foreach (VoronoiRoom r in roomVoronoi) {
                     r.grow();
                 }
@@ -192,7 +163,6 @@ namespace FiscalShock.Procedural {
         }
 
         private void setDungeon() {
-            dungeonType = GameObject.FindObjectOfType<DungeonType>();
             organizer = new GameObject();
             organizer.name = "Dungeon Parts";
             wallOrganizer = new GameObject();
@@ -254,39 +224,32 @@ namespace FiscalShock.Procedural {
         private void makeSun() {
             GameObject sun = Instantiate(dungeonType.sun.prefab, dungeonType.sun.prefab.transform.position, dungeonType.sun.prefab.transform.rotation);
             sun.transform.localScale *= 10;
-            sun.transform.position = new Vector3(minX - 5, dungeonType.wallHeight * 4, minY - 5);
+            sun.transform.position = new Vector3(dungeonType.minX - 5, dungeonType.wallHeight * 4, dungeonType.minY - 5);
             sun.transform.Rotate(25, 45, -30);
             sun.name = "Sol";
         }
 
         private void randomizeCells() {
             Debug.Log("Randomizing and spawning environmental objects");
-            foreach (Cell cell in validCells) {
+            foreach (Cell cell in vd.cells) {
+            //foreach (Cell cell in validCells) {
                 // Don't spawn things on the convex hull for now
                 if (isPointOnOrNearConvexHull(cell.site)) {
                     continue;
                 }
 
                 // Roll 1d100 to see if we can spawn something
-                int randSpawn = mt.Next(100);
-                if (randSpawn > dungeonType.objectRate) {
+                float randSpawn = mt.NextFloat();
+                if (randSpawn > dungeonType.globalObjectRate) {
                     // Not going to spawn something
                     continue;
                 }
 
                 // Roll another 1d100 to figure out what to spawn
-                randSpawn = mt.Next(100);
-
-                // Light sources
-                float cumulativeRate = dungeonType.lightSourceRate;
-                if (randSpawn < cumulativeRate) {
-                    cell.spawnedObject = spawnFromList(dungeonType.lightSources, cell);
-                    cell.spawnedObject.transform.parent = thingOrganizer.transform;
-                    continue;
-                }
+                randSpawn = mt.NextFloat();
 
                 // Decorations
-                cumulativeRate += dungeonType.decorationRate;
+                float cumulativeRate = dungeonType.decorationRate;
                 if (randSpawn < cumulativeRate) {
                     cell.spawnedObject = spawnFromList(dungeonType.decorations, cell);
                     cell.spawnedObject.transform.parent = thingOrganizer.transform;
@@ -304,13 +267,14 @@ namespace FiscalShock.Procedural {
 
         private void spawnEnemies() {
             Debug.Log("Spawning enemies");
-            foreach (Cell cell in validCells) {
+            foreach (Cell cell in vd.cells) {
+            //foreach (Cell cell in validCells) {
                 // Don't spawn things on the convex hull for now
                 if (isPointOnOrNearConvexHull(cell.site)) {
                     continue;
                 }
 
-                int enemySpawn = mt.Next(100);
+                float enemySpawn = mt.NextFloat();
                 if (enemySpawn < dungeonType.enemyRate) {
                     GameObject enemy = spawnEnemy(dungeonType.randomEnemies, cell);
                     enemies.Add(enemy);
@@ -323,7 +287,8 @@ namespace FiscalShock.Procedural {
 
                     // Randomly resize enemy +/- the variation
                     // Example: +/- 15% => [0.85, 1.15] return values
-                    float enemySize = ((mt.Next(dungeonType.enemySizeVariation * 2) - dungeonType.enemySizeVariation) / 100f) + 1;
+                    // * 100 * 2 to double the interval (negative/positive) and then make it an int; MersenneTwister can only do a range on ints
+                    float enemySize = ((mt.Next(Mathf.CeilToInt(dungeonType.enemySizeVariation * 100) * 2) - dungeonType.enemySizeVariation) / 100f) + 1;
                     enemy.transform.localScale = new Vector3(enemy.transform.localScale.x * enemySize, enemy.transform.localScale.y * enemySize, enemy.transform.localScale.z * enemySize);
 
                     // Adjust enemy stats based on SpawnableEnemy setup
@@ -349,6 +314,21 @@ namespace FiscalShock.Procedural {
 
             // Randomly rotate about the y-axis
             thing.transform.Rotate(0, mt.Next(360), 0);
+
+            // Randomize color
+            if (spawnables[idx].randomizeColor) {
+                float r = mt.NextFloat();
+                float g = mt.NextFloat();
+                float b = mt.NextFloat();
+                Material mat = thing.GetComponentInChildren<Renderer>().material;
+                mat?.SetColor("_Color", new Color(r, g, b, 1f));
+                if (spawnables[idx].alsoColorLight) {
+                    Light lite = thing.GetComponentInChildren<Light>();
+                    if (lite != null) {
+                        lite.color = new Color(r, g, b);
+                    }
+                }
+            }
 
             return thing;
         }
