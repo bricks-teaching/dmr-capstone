@@ -154,7 +154,7 @@ MonoBehaviour:
   - {fileID: 680203695531066187}
   - {fileID: 7563193525656378907}
   crossHair: {fileID: 0}
-  feed: {fileID: 0}
+  feed: {fileID: 7774178292728621519, guid: c5fcf0c2e8177009da4b226f700524cb, type: 3}
 --- !u!82 &4429673032618852596
 AudioSource:
   m_ObjectHideFlags: 0
@@ -390,7 +390,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0898ccec5695ee40b02ad2f24298024, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitVinette: {fileID: 0}
+  hitVinette: {fileID: 2920395891782484346, guid: 39ea8aa96267a4541bb7005db3f204e4,
+    type: 3}
 --- !u!136 &7626383235625894246
 CapsuleCollider:
   m_ObjectHideFlags: 0
