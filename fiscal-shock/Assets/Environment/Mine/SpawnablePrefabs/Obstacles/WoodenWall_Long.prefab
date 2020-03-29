@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4136082098060894}
+  - component: {fileID: 8532167179034822791}
+  - component: {fileID: -5838615137741530320}
   m_Layer: 8
   m_Name: WoodenWall_Long
   m_TagString: Obstacle
@@ -25,13 +27,38 @@ Transform:
   m_GameObject: {fileID: 1030526785480462}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4720025110124628}
   - {fileID: 3294841600137849076}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8532167179034822791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1030526785480462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d14ccc4e83f5aec8db84560ece84405d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toBeDestroyed: 0
+--- !u!114 &-5838615137741530320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1030526785480462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce02a5bb4a2c2bc3fbe07f3cfc648918, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1882646562540318
 GameObject:
   m_ObjectHideFlags: 0
@@ -44,6 +71,7 @@ GameObject:
   - component: {fileID: 33173395639179234}
   - component: {fileID: 23754778030719522}
   - component: {fileID: 65806876417968030}
+  - component: {fileID: 4334330753650086746}
   m_Layer: 8
   m_Name: Group38072
   m_TagString: Untagged
@@ -121,6 +149,19 @@ BoxCollider:
   m_GameObject: {fileID: 1882646562540318}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.1893, y: 2.3595, z: 4.1693}
+  m_Center: {x: -0.006650001, y: 1.16885, z: -0.05795002}
+--- !u!65 &4334330753650086746
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1882646562540318}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.1893, y: 2.3595, z: 4.1693}

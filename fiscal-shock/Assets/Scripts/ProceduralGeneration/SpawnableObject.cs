@@ -5,7 +5,7 @@ public class SpawnableObject {
     [Tooltip("Object prefab.")]
     public GameObject prefab;
 
-    [Tooltip("Weight on [0, 1] applied against spawn chance. Higher weights indicate more likely spawning.")]
+    [Tooltip("Weight on [0, 1] applied against spawn chance. Higher weights indicate more likely spawning. A weight of 1 indicates that this item will always spawn when picked.")]
     [Range(0f, 1f)]
     public float weight = 1;
 

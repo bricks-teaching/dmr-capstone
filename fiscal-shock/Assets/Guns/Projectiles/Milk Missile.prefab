@@ -43,6 +43,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 10
   bulletSpeed: 30
+  bulletLifetime: 6
   target: {fileID: 0}
   rb: {fileID: 6650583005987385785}
   player: {fileID: 0}

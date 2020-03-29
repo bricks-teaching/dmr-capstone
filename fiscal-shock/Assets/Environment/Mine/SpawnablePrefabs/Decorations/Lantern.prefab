@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4871624545646660}
   - component: {fileID: 33643412747394408}
   - component: {fileID: 23070676030905798}
+  - component: {fileID: 7090597392653836024}
   m_Layer: 8
   m_Name: Latern002
   m_TagString: Untagged
@@ -79,6 +80,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &7090597392653836024
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085774721353398}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.3334, y: 0.5598, z: 0.3114}
+  m_Center: {x: 0.00039999932, y: 0.2799, z: -0.00010000169}
 --- !u!1 &1110247904728748
 GameObject:
   m_ObjectHideFlags: 0
@@ -549,6 +563,8 @@ GameObject:
   - component: {fileID: 4453513966746856}
   - component: {fileID: 95500934520479460}
   - component: {fileID: 2562010084746533899}
+  - component: {fileID: -8751145791938314138}
+  - component: {fileID: 2359498875457527712}
   m_Layer: 8
   m_Name: Lantern
   m_TagString: Decoration
@@ -582,7 +598,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1853534574060320}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: b96f7888254b46d4f80c9fc9a4b4d377, type: 2}
   m_CullingMode: 0
@@ -607,3 +623,28 @@ CapsuleCollider:
   m_Height: 0.65410185
   m_Direction: 1
   m_Center: {x: 0, y: 0.2802949, z: -0.0012863278}
+--- !u!114 &-8751145791938314138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1853534574060320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d14ccc4e83f5aec8db84560ece84405d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toBeDestroyed: 0
+--- !u!114 &2359498875457527712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1853534574060320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce02a5bb4a2c2bc3fbe07f3cfc648918, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

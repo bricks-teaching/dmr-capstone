@@ -3,7 +3,10 @@ using FiscalShock.Graphs;
 
 namespace FiscalShock.Procedural {
     public class WallInfo : MonoBehaviour {
-        public Edge associatedEdge;
+        /// <summary>
+        /// Edge associated with this wall
+        /// </summary>
+        public Edge associatedEdge { get; set; }
 
         private Cheats cheater;
 
@@ -11,8 +14,12 @@ namespace FiscalShock.Procedural {
             cheater = GameObject.Find("Cheater").GetComponent<Cheats>();
         }
 
+        /// <summary>
+        /// Cheat for destroying walls
+        /// </summary>
+        /// <param name="col"></param>
         void OnCollisionEnter(Collision col) {
-            if (cheater.destroyWalls && col.gameObject.tag == "Bullet" || col.gameObject.tag == "Missile"){
+            if (cheater.destroyWalls && (col.gameObject.tag == "Bullet" || col.gameObject.tag == "Missile")) {
                 Destroy(gameObject);
             }
         }

@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6686911122585031658
 Transform:
   m_ObjectHideFlags: 0
@@ -182,6 +182,7 @@ GameObject:
   - component: {fileID: 8433681065327464625}
   - component: {fileID: 1226351259607113243}
   - component: {fileID: 5609235719307228175}
+  - component: {fileID: 329416629621861272}
   m_Layer: 8
   m_Name: crystal_5_bevel
   m_TagString: Untagged
@@ -250,6 +251,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &329416629621861272
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7159157901856142108}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.035631932, y: 0.043933015, z: 0.06948938}
+  m_Center: {x: -0.00028009713, y: 0.0059031867, z: 0.024151543}
 --- !u!1 &7570568358172214283
 GameObject:
   m_ObjectHideFlags: 0
@@ -261,6 +275,8 @@ GameObject:
   - component: {fileID: 6866676714835818008}
   - component: {fileID: 2902368778206692887}
   - component: {fileID: 4056506411234107894}
+  - component: {fileID: -714839654514756421}
+  - component: {fileID: -5895355169651166590}
   m_Layer: 8
   m_Name: crystal_5
   m_TagString: Decoration
@@ -311,3 +327,28 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.9759543, y: 5.28002, z: 2.2706327}
   m_Center: {x: 0.050156564, y: 1.6050082, z: 1.0365674}
+--- !u!114 &-714839654514756421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7570568358172214283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d14ccc4e83f5aec8db84560ece84405d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toBeDestroyed: 0
+--- !u!114 &-5895355169651166590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7570568358172214283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce02a5bb4a2c2bc3fbe07f3cfc648918, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

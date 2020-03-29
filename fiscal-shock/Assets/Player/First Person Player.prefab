@@ -457,8 +457,8 @@ GameObject:
   - component: {fileID: 7431250935823654985}
   - component: {fileID: 2752714859477427732}
   m_Layer: 11
-  m_Name: Spot Light
-  m_TagString: Untagged
+  m_Name: Flashlight
+  m_TagString: Player Flashlight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -489,7 +489,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.5
+  m_Intensity: 0
   m_Range: 300
   m_SpotAngle: 110
   m_InnerSpotAngle: 1
@@ -523,7 +523,7 @@ Light:
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295

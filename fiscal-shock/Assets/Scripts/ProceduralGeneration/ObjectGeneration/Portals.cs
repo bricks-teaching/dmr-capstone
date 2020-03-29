@@ -5,13 +5,13 @@ namespace FiscalShock.Procedural {
     public static class Portals {
         public static void makeDelvePoint(Dungeoneer d) {
             Debug.Log("Placing Delve portal");
-            int delveSite = makePortal(d, d.dungeonType.delvePrefab);
+            int delveSite = makePortal(d, d.currentDungeonType.delvePrefab);
             d.validCells[delveSite].spawnedObject.name = "Delve Point";
         }
 
         public static void makeEscapePoint(Dungeoneer d) {
             Debug.Log("Placing Escape portal");
-            int escapeSite = makePortal(d, d.dungeonType.returnPrefab);
+            int escapeSite = makePortal(d, d.currentDungeonType.returnPrefab);
             d.validCells[escapeSite].spawnedObject.name = "Escape Point";
         }
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace FiscalShock.Procedural {
     public class DungeonType : MonoBehaviour {
@@ -87,16 +88,63 @@ namespace FiscalShock.Procedural {
         [Tooltip("Prefabs for all valid decorations (props not meant to impede player).")]
         public List<SpawnableObject> decorations;
 
-        /**********************************************************************/
-        [Header("Portals and Miscellaneous")]
+        [Tooltip("Optional object to spawn along the spanning tree. If empty, nothing is spawned.")]
+        public SpawnableObject spanningTreeTrack;
 
-        [Tooltip("Temporary global light source prefab.")]
-        public SpawnableObject sun;
+        /**********************************************************************/
+        [Header("Lighting")]
+
+        [Tooltip("Enable the global directional light for more ambient lighting.")]
+        public bool enableDirectionalLight = true;
+
+        [Tooltip("Strength of the player's flashlight.")]
+        public float playerFlashlightIntensity = 0.5f;
+
+        [Tooltip("Cone radius of the player's flashlight. Should be adjusted if player FOV is adjusted.")]
+        [Range(0f, 179f)]
+        public float playerFlashlightRadius = 110f;
+
+        [Tooltip("Range of the player's flashlight.")]
+        public float playerFlashlightRange = 300f;
+
+        [Tooltip("Ambient lighting mode. Trilight is equal to Gradient in the inspector, and Flat is equal to Color.")]
+        public AmbientMode ambientMode = AmbientMode.Trilight;
+
+        [Tooltip("Sky color, only used with Trilight lighting.")]
+        [ColorUsageAttribute(true,true)]
+        public Color skyColor = new Color(128, 128, 128);
+
+        [Tooltip("Equator color, only used with Trilight lighting.")]
+        [ColorUsageAttribute(true,true)]
+        public Color equatorColor = new Color(116, 128, 136);
+
+        [Tooltip("Ground color, only used with Trilight lighting.")]
+        [ColorUsageAttribute(true,true)]
+        public Color groundColor = new Color(48, 44, 36);
+
+        [Tooltip("Ambient color, only used with Flat lighting.")]
+        [ColorUsageAttribute(true,true)]
+        public Color ambientColor = new Color(255, 255, 255);
+
+        [Tooltip("Fog color. Fog is always enabled due to the far clip plane of the camera.")]
+        public Color fogColor = new Color(0, 0, 0);
+
+        /**********************************************************************/
+        [Header("Portals")]
 
         [Tooltip("Prefab for the object that returns you to the hub.")]
         public GameObject returnPrefab;
 
         [Tooltip("Prefab for the object that send you down another level in the dungeon.")]
         public GameObject delvePrefab;
+    }
+
+    [System.Serializable]
+    public class DungeonTypeData {
+        [Tooltip("Game object for a dungeon type.")]
+        public GameObject gameObject;
+
+        [Tooltip("Enum value for a dungeon type. Should be a one-to-one mapping for each dungeon type to each enum value! Used to pass info to/from state manager.")]
+        public DungeonTypeEnum typeEnum;
     }
 }

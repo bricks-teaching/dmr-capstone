@@ -595,6 +595,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &427768196 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3016848092569763616, guid: 9fab72962231bdd5c88e42061619ec50,
+    type: 3}
+  m_PrefabInstance: {fileID: 6446921101939105429}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &454172646
 GameObject:
   m_ObjectHideFlags: 0
@@ -1153,18 +1159,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5fcf0c2e8177009da4b226f700524cb, type: 3}
---- !u!114 &1735143399 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
+--- !u!1 &1773018386 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8117157573788985408, guid: bf0c8c2b9625c9ba29d85229184ca17f,
     type: 3}
-  m_PrefabInstance: {fileID: 6446921101939105429}
+  m_PrefabInstance: {fileID: 8117157575554609460}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 971074e275c9d4e3c87e2a7190ccbf01, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &2037631478 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3016848092569763618, guid: 9fab72962231bdd5c88e42061619ec50,
@@ -1183,7 +1183,7 @@ GameObject:
   - component: {fileID: 2145520136}
   m_Layer: 0
   m_Name: Directional Light
-  m_TagString: Untagged
+  m_TagString: Dungeon Directional Light
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1347,9 +1347,14 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 965116058272088900, guid: f84aca466460e50539423ad7e6c6f6d0,
         type: 3}
-      propertyPath: dungeonType
+      propertyPath: dungeonThemes.Array.data[0].gameObject
       value: 
-      objectReference: {fileID: 1735143399}
+      objectReference: {fileID: 1773018386}
+    - target: {fileID: 965116058272088900, guid: f84aca466460e50539423ad7e6c6f6d0,
+        type: 3}
+      propertyPath: dungeonThemes.Array.data[1].gameObject
+      value: 
+      objectReference: {fileID: 427768196}
     - target: {fileID: 965116058272088901, guid: f84aca466460e50539423ad7e6c6f6d0,
         type: 3}
       propertyPath: m_Name
@@ -1425,65 +1430,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3818754726965673852, guid: 6dd742c11940c74f99a2c5e37870aff9,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 3818754727204142644, guid: 6dd742c11940c74f99a2c5e37870aff9,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 3818754727205172578, guid: 6dd742c11940c74f99a2c5e37870aff9,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 3818754727437174644, guid: 6dd742c11940c74f99a2c5e37870aff9,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 3818754727666600861, guid: 6dd742c11940c74f99a2c5e37870aff9,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 3818754728194534588, guid: 6dd742c11940c74f99a2c5e37870aff9,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 3818754728309707323, guid: 6dd742c11940c74f99a2c5e37870aff9,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 3818754728472627864, guid: 6dd742c11940c74f99a2c5e37870aff9,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 3818754728695661301, guid: 6dd742c11940c74f99a2c5e37870aff9,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 3818754728762870584, guid: 6dd742c11940c74f99a2c5e37870aff9,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
     - target: {fileID: 8206290734519722499, guid: 6dd742c11940c74f99a2c5e37870aff9,
         type: 3}
       propertyPath: m_Name
       value: DungeonTutorial
-      objectReference: {fileID: 0}
-    - target: {fileID: 8206290734519722499, guid: 6dd742c11940c74f99a2c5e37870aff9,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 8206290734519722503, guid: 6dd742c11940c74f99a2c5e37870aff9,
         type: 3}
@@ -1604,121 +1554,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: MineDungeonType
       objectReference: {fileID: 0}
-    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
-        type: 3}
-      propertyPath: hallWidth
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
-        type: 3}
-      propertyPath: decorationRate
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
-        type: 3}
-      propertyPath: enemyRate
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
-        type: 3}
-      propertyPath: enemySizeVariation
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
-        type: 3}
-      propertyPath: globalObjectRate
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
-        type: 3}
-      propertyPath: decorations.Array.data[0].alsoColorLight
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
-        type: 3}
-      propertyPath: decorations.Array.data[0].weight
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
-        type: 3}
-      propertyPath: decorations.Array.data[1].weight
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
-        type: 3}
-      propertyPath: decorations.Array.data[2].weight
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
-        type: 3}
-      propertyPath: decorations.Array.data[3].weight
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
-        type: 3}
-      propertyPath: decorations.Array.data[4].weight
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
-        type: 3}
-      propertyPath: decorations.Array.data[5].weight
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
-        type: 3}
-      propertyPath: decorations.Array.data[6].weight
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
-        type: 3}
-      propertyPath: decorations.Array.data[7].weight
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
-        type: 3}
-      propertyPath: decorations.Array.data[8].weight
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
-        type: 3}
-      propertyPath: decorations.Array.data[9].weight
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
-        type: 3}
-      propertyPath: decorations.Array.data[1].alsoColorLight
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
-        type: 3}
-      propertyPath: decorations.Array.data[2].alsoColorLight
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
-        type: 3}
-      propertyPath: decorations.Array.data[3].alsoColorLight
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
-        type: 3}
-      propertyPath: decorations.Array.data[4].alsoColorLight
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
-        type: 3}
-      propertyPath: decorations.Array.data[5].alsoColorLight
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
-        type: 3}
-      propertyPath: decorations.Array.data[6].alsoColorLight
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
-        type: 3}
-      propertyPath: decorations.Array.data[7].alsoColorLight
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3016848092569763618, guid: 9fab72962231bdd5c88e42061619ec50,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1787,16 +1622,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TempleDungeonType
-      objectReference: {fileID: 0}
-    - target: {fileID: 8117157573788985409, guid: bf0c8c2b9625c9ba29d85229184ca17f,
-        type: 3}
-      propertyPath: hallWidth
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 8117157573788985409, guid: bf0c8c2b9625c9ba29d85229184ca17f,
-        type: 3}
-      propertyPath: wallHeight
-      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8117157573788985410, guid: bf0c8c2b9625c9ba29d85229184ca17f,
         type: 3}
@@ -1927,26 +1752,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LoadingScreen
-      objectReference: {fileID: 0}
-    - target: {fileID: 8457115162114266725, guid: 3df1f54d1485f5354891126c61ba8d15,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 8457115162116188159, guid: 3df1f54d1485f5354891126c61ba8d15,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 8457115162312606268, guid: 3df1f54d1485f5354891126c61ba8d15,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 8457115163449881506, guid: 3df1f54d1485f5354891126c61ba8d15,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3df1f54d1485f5354891126c61ba8d15, type: 3}

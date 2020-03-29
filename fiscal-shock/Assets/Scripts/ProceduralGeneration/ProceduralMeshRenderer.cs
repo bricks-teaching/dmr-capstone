@@ -72,8 +72,7 @@ namespace FiscalShock.Demo {
         public Material edgeMat;
 
         public TextMesh label = new TextMesh();
-
-        private bool alreadyDrewPoints = false;
+        public bool alreadyDrew { get; set; }
 
         private void Start() {
             label = GameObject.Find("ProceduralMeshLabel").GetComponent<TextMesh>();
@@ -128,13 +127,14 @@ namespace FiscalShock.Demo {
 
         /// <summary>
         /// Unity doesn't have GL.POINTS `¯\_(ツ)_/¯`
-        /// <para>But hey, look at how easy it is to programmatically spawn stuff!
-        /// *And* give its material a new color!</para>
         /// </summary>
         /// <param name="points"></param>
         /// <param name="color"></param>
         /// <param name="renderHeight"></param>
         private void renderPoints(List<Vertex> points, Color color, float renderHeight) {
+            if (alreadyDrew) {
+                return;
+            }
             GameObject holder = new GameObject();
             holder.name = "Vertices Display";
             foreach (Vertex v in points) {
@@ -159,7 +159,7 @@ namespace FiscalShock.Demo {
                 texto.name = $"Label for #{v.id}";
                 texto.transform.parent = holder.transform;
             }
-            alreadyDrewPoints = true; // TODO one for each points to render I guess
+            alreadyDrew = true;
         }
 
         private void renderAllSelected() {
@@ -169,7 +169,7 @@ namespace FiscalShock.Demo {
             if (renderDelaunay && dungen.dt != null) {
                 renderDelaunayTriangulation(dungen.dt, delaunayColor, delaunayRenderHeight);
             }
-            if (renderDelaunayVertices && dungen.dt != null && !alreadyDrewPoints) {
+            if (renderDelaunayVertices && dungen.dt != null) {
                 renderPoints(dungen.dt.vertices, delaunayColor, delaunayRenderHeight);
             }
             if (renderDelaunayHull && dungen.dt != null) {
@@ -188,7 +188,7 @@ namespace FiscalShock.Demo {
             if (renderMasterDelaunay && dungen.masterDt != null) {
                 renderDelaunayTriangulation(dungen.masterDt, masterDelaunayColor, masterDelaunayRenderHeight);
             }
-            if (renderMasterVertices && dungen.masterDt != null && !alreadyDrewPoints) {
+            if (renderMasterVertices && dungen.masterDt != null) {
                 renderPoints(dungen.masterDt.vertices, masterDelaunayColor, masterDelaunayRenderHeight);
             }
             if (renderSpanningTree && dungen.spanningTree != null) {

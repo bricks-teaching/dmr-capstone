@@ -14,6 +14,9 @@ TagManager:
   - Missile
   - Compass
   - Crosshair
+  - Player Flashlight
+  - Dungeon Directional Light
+  - Portal
   layers:
   - Default
   - TransparentFX

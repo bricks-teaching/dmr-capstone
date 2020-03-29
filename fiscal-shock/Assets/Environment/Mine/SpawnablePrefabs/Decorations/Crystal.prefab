@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4366815724954802
 Transform:
   m_ObjectHideFlags: 0
@@ -104,6 +104,7 @@ GameObject:
   - component: {fileID: 33325509190931476}
   - component: {fileID: 23060703099431774}
   - component: {fileID: 136072902283508114}
+  - component: {fileID: 3554550611709683954}
   m_Layer: 8
   m_Name: Crystal
   m_TagString: Untagged
@@ -186,6 +187,19 @@ CapsuleCollider:
   m_Height: 6.033814
   m_Direction: 1
   m_Center: {x: -1.7149005, y: 0.8184757, z: -0.1602346}
+--- !u!65 &3554550611709683954
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1671758133625024}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.78880346, y: 6.033814, z: 0.9321354}
+  m_Center: {x: -1.7149003, y: 0.8184757, z: -0.1602346}
 --- !u!1 &1874688915040734
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,7 +216,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4108851228742340
 Transform:
   m_ObjectHideFlags: 0
@@ -287,6 +301,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4350853436349194}
+  - component: {fileID: 7077778227514951285}
+  - component: {fileID: -8611774361102446234}
   m_Layer: 8
   m_Name: Crystal
   m_TagString: Decoration
@@ -311,3 +327,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7077778227514951285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932029908200276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d14ccc4e83f5aec8db84560ece84405d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toBeDestroyed: 0
+--- !u!114 &-8611774361102446234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932029908200276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce02a5bb4a2c2bc3fbe07f3cfc648918, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

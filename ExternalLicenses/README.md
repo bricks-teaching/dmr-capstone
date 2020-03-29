@@ -13,9 +13,11 @@ Graphics assets are spread across the project. Assets from the Unity Asset Store
 1. [Crystals](#crystals)
 1. [Icons](#icons)
 1. [Market stand model](#market-stand)
+1. [Mine textures](#mine-textures)
 1. [Raygun model](#raygun)
 1. [Robot enemy models](#robot-enemies)
 1. [Shopkeeper NPC model](#shopkeeper-npc)
+1. [Stun effect models](#stun-effect-models)
 1. [Wooden sign model](#wooden-sign)
 
 ----
@@ -41,12 +43,12 @@ Author: DoodleStudio
 License: [TurboSquid Royalty Free License](https://blog.turbosquid.com/royalty-free-license/#Royalty-Free-License)
 
 ----
-## Player
-[Original](https://shop.bitgem3d.com/products/npc-character-low-poly-3d-proto-series)
+## Mine textures
+[Original](https://opengameart.org/content/free-textures-pack-67)
 
-Author: Bitgem
+Author: yughues
 
-License: [Bitgem Royalty Free License](https://shop.bitgem3d.com/pages/terms-of-use-license)
+License: [CC0 Public Domain](http://creativecommons.org/publicdomain/zero/1.0/)
 
 ----
 ## Raygun
@@ -57,7 +59,7 @@ Author: knobknoster
 License: [TurboSquid Royalty Free License](https://blog.turbosquid.com/royalty-free-license/#Royalty-Free-License)
 
 ----
-## Robot Enemies
+## Robot enemies
 [Original](https://opengameart.org/content/robot-enemy-pack)
 
 Author: Teh_Bucket
@@ -71,6 +73,14 @@ License: [CC0 1.0](http://creativecommons.org/publicdomain/zero/1.0/)
 Author: Vertici
 
 License: [TurboSquid Royalty Free License](https://blog.turbosquid.com/royalty-free-license/#Royalty-Free-License)
+
+----
+## Stun effect models
+[Original Star](https://opengameart.org/content/star-0), [Original Bird](https://opengameart.org/content/bird-1)
+
+Authors: Savino (star), mess110 (bird)
+
+License: [CC0 1.0](http://creativecommons.org/publicdomain/zero/1.0/)
 
 ----
 ## Wooden sign
@@ -89,6 +99,7 @@ Audio assets are spread across the project.
 1. [Cash payment failure](#cash-payment-failure-sound)
 1. [Cash payment succes](#cash-payment-success-sound)
 1. [Dungeon and hub themes](#dungeon-and-hub-themes)
+1. [Explosion noise](#explosion-noise)
 1. [Main menu and win themes](#main-menu-and-win-themes)
 1. [Pause and lose themes](#pause-and-lose-themes)
 
@@ -122,6 +133,14 @@ License: [CC-BY 3.0](https://creativecommons.org/licenses/by/3.0/)
 Author: Marma
 
 License: [GDM Pro Licence](https://www.gamedevmarket.net/terms-conditions/#pro-licence)
+
+----
+## Explosion noise
+[Original](https://freesound.org/people/cydon/sounds/268557/)
+
+Author: cydon
+
+License: [CC BY-NC 3.0](http://creativecommons.org/licenses/by-nc/3.0/)
 
 ----
 

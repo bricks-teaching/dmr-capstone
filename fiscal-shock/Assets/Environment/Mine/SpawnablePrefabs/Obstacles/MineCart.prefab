@@ -43,8 +43,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.32, y: 0.4982059, z: 1.82}
-  m_Center: {x: 0, y: 0.25089705, z: 0}
+  m_Size: {x: 1.0652384, y: 0.5384316, z: 1.82}
+  m_Center: {x: -0.0067043304, y: 0.2710099, z: 0}
 --- !u!1 &1389564922508386
 GameObject:
   m_ObjectHideFlags: 0
@@ -54,6 +54,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4373968933739490}
+  - component: {fileID: 8844459036730078474}
+  - component: {fileID: 3108053746389797207}
   m_Layer: 8
   m_Name: MineCart
   m_TagString: Obstacle
@@ -70,13 +72,38 @@ Transform:
   m_GameObject: {fileID: 1389564922508386}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4021662390221584}
   - {fileID: 4594655367433796}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8844459036730078474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1389564922508386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d14ccc4e83f5aec8db84560ece84405d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toBeDestroyed: 0
+--- !u!114 &3108053746389797207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1389564922508386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce02a5bb4a2c2bc3fbe07f3cfc648918, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1650155768433588
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,7 +192,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4594655367433796}
-  - component: {fileID: 64515298642506664}
   m_Layer: 8
   m_Name: Minecart_Top
   m_TagString: Untagged
@@ -188,20 +214,6 @@ Transform:
   m_Father: {fileID: 4373968933739490}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &64515298642506664
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1914940381937718}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
 --- !u!1 &1979736812242330
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,6 +225,8 @@ GameObject:
   - component: {fileID: 4892978777613812}
   - component: {fileID: 33470935421245554}
   - component: {fileID: 23531265756444716}
+  - component: {fileID: 4001894047174756137}
+  - component: {fileID: 5785637235058061473}
   m_Layer: 8
   m_Name: CartMetal
   m_TagString: Untagged
@@ -281,3 +295,30 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &4001894047174756137
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1979736812242330}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 354d72d93c91a4c4485cb78f80a9bb5b, type: 3}
+--- !u!65 &5785637235058061473
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1979736812242330}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.2032001, y: 1.2557166, z: 1.5878999}
+  m_Center: {x: 0.0022999845, y: 0.60764194, z: -0.00084996223}

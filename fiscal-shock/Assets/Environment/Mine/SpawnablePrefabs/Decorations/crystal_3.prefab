@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6866286448616853259}
   - component: {fileID: 420305367011632402}
   - component: {fileID: 1167355203329126640}
+  - component: {fileID: 1813079267966676466}
   m_Layer: 8
   m_Name: crystal_3_bevel
   m_TagString: Untagged
@@ -79,6 +80,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &1813079267966676466
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 930007063508435267}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.043072104, y: 0.046655808, z: 0.0666018}
+  m_Center: {x: 0.00055790227, y: 0.00026534224, z: 0.021116165}
 --- !u!1 &3168597660279351781
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,6 +183,8 @@ GameObject:
   - component: {fileID: 1079385785948907867}
   - component: {fileID: 341649542467909618}
   - component: {fileID: 7402322249306866298}
+  - component: {fileID: -5478125642993119172}
+  - component: {fileID: 1981014443580305240}
   m_Layer: 8
   m_Name: crystal_3
   m_TagString: Decoration
@@ -219,6 +235,31 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.0312345, y: 5.658335, z: 3.6314247}
   m_Center: {x: 1.65353, y: 1.3334928, z: 0.6756346}
+--- !u!114 &-5478125642993119172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4080796173269588808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d14ccc4e83f5aec8db84560ece84405d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toBeDestroyed: 0
+--- !u!114 &1981014443580305240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4080796173269588808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce02a5bb4a2c2bc3fbe07f3cfc648918, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5715628926075201782
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,7 +276,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &829432078461208623
 Transform:
   m_ObjectHideFlags: 0

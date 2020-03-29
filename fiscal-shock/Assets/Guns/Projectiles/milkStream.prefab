@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 6264703180806227665}
   m_LocalRotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
   m_LocalPosition: {x: 6.4053483, y: 0.5, z: -13.448548}
-  m_LocalScale: {x: 2.2, y: 2.2, z: 100}
+  m_LocalScale: {x: 2.2, y: 2.2, z: 37.573}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -96,9 +96,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 10
   bulletSpeed: 30
-  target: {fileID: 0}
   rb: {fileID: 9184963046012739205}
-  player: {fileID: 0}
+  bulletLifetime: 2
   poolProjectiles: 1
   poolSize: 32
 --- !u!54 &9184963046012739205
@@ -128,5 +127,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.02, y: 0.02, z: 0.007}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.02, y: 0.02, z: 0.019793758}
+  m_Center: {x: 0, y: 5.9058744e-18, z: 0.0002651461}

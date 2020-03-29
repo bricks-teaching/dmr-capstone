@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 33386709555377772}
   - component: {fileID: 23425067972293112}
   - component: {fileID: 65517412570799956}
+  - component: {fileID: 8991225789897845629}
   m_Layer: 8
   m_Name: WoodenWall
   m_TagString: Untagged
@@ -93,6 +94,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.1893, y: 2.3595, z: 2.3322}
   m_Center: {x: -0.006650001, y: 1.16885, z: -0.01639998}
+--- !u!65 &8991225789897845629
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1335041004173174}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.1893, y: 2.3595, z: 2.3322}
+  m_Center: {x: -0.006650001, y: 1.16885, z: -0.01639998}
 --- !u!1 &1586776656466406
 GameObject:
   m_ObjectHideFlags: 0
@@ -102,6 +116,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4853076737315882}
+  - component: {fileID: 8188547605978849191}
+  - component: {fileID: -7629375527392745862}
   m_Layer: 8
   m_Name: WoodenWall
   m_TagString: Obstacle
@@ -118,13 +134,38 @@ Transform:
   m_GameObject: {fileID: 1586776656466406}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4357910031874474}
   - {fileID: 3276178518987326986}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8188547605978849191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1586776656466406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d14ccc4e83f5aec8db84560ece84405d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toBeDestroyed: 0
+--- !u!114 &-7629375527392745862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1586776656466406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce02a5bb4a2c2bc3fbe07f3cfc648918, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4030279343742594747
 GameObject:
   m_ObjectHideFlags: 0

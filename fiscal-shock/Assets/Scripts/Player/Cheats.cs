@@ -20,7 +20,7 @@ public class Cheats : MonoBehaviour {
             Vector3 warpPoint = escape.transform.position;
             // Disable controller before teleportation
             playerController.enabled = false;
-            player.transform.position = new Vector3(warpPoint.x - 1, warpPoint.y + 4, warpPoint.z + 1);
+            player.transform.position = new Vector3(warpPoint.x - Random.Range(-2, 2), warpPoint.y + 4, warpPoint.z + Random.Range(-2, 2));
             playerController.enabled = true;
             Debug.Log($"Teleported to {warpPoint}");
         }
@@ -28,7 +28,7 @@ public class Cheats : MonoBehaviour {
             GameObject delve = GameObject.Find("Delve Point");
             Vector3 warpPoint = delve.transform.position;
             playerController.enabled = false;
-            player.transform.position = new Vector3(warpPoint.x, warpPoint.y + 12, warpPoint.z);
+            player.transform.position = new Vector3(warpPoint.x - Random.Range(-2, 2), warpPoint.y + 4, warpPoint.z + Random.Range(-2, 2));
             playerController.enabled = true;
             Debug.Log($"Teleported to {warpPoint}");
         }
@@ -39,6 +39,11 @@ public class Cheats : MonoBehaviour {
         if (Input.GetKeyDown(toggleGraphMesh)) {
             ProceduralMeshRenderer pmr = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<ProceduralMeshRenderer>();
             pmr.enabled = !pmr.enabled;
+            if (!pmr.enabled) {
+                GameObject go = GameObject.Find("Vertices Display");
+                Destroy(go);
+                pmr.alreadyDrew = false;
+            }
             Debug.Log($"Toggled mesh view to {pmr.enabled}");
         }
         if (Input.GetKeyDown(toggleOcclusionCulling)) {

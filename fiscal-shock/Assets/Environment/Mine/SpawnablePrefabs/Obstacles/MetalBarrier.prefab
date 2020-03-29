@@ -9,6 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4029294248975508}
+  - component: {fileID: 6530171806438814154}
+  - component: {fileID: -1304750304579234506}
+  - component: {fileID: 171224387880319660}
   m_Layer: 8
   m_Name: MetalBarrier
   m_TagString: Obstacle
@@ -25,13 +28,51 @@ Transform:
   m_GameObject: {fileID: 1310453890160754}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4420639096126384}
   - {fileID: 470478457005505346}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6530171806438814154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310453890160754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d14ccc4e83f5aec8db84560ece84405d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toBeDestroyed: 0
+--- !u!114 &-1304750304579234506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310453890160754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce02a5bb4a2c2bc3fbe07f3cfc648918, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &171224387880319660
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310453890160754}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1593465151831616
 GameObject:
   m_ObjectHideFlags: 0
@@ -44,6 +85,7 @@ GameObject:
   - component: {fileID: 33508837783510104}
   - component: {fileID: 23460941984370984}
   - component: {fileID: 65388427712575680}
+  - component: {fileID: 7846590837176205323}
   m_Layer: 8
   m_Name: MetalBarrier
   m_TagString: Untagged
@@ -125,6 +167,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.20284924, y: 1.5407, z: 2.0786}
   m_Center: {x: -0.022275373, y: 0.80425, z: 0}
+--- !u!65 &7846590837176205323
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593465151831616}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.2474, y: 1.5407, z: 2.0786}
+  m_Center: {x: 0, y: 0.80425, z: 0}
 --- !u!1 &7193135126923185159
 GameObject:
   m_ObjectHideFlags: 0
