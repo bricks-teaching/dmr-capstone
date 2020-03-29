@@ -4815,6 +4815,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f95aae1f16e158c42b07fbbf6ed92e6c, type: 3}
+--- !u!114 &1989384753 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2853638349067084105, guid: f95aae1f16e158c42b07fbbf6ed92e6c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1989384752}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1989384754 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2853638350603367838, guid: f95aae1f16e158c42b07fbbf6ed92e6c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1989384752}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1989384755 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2853638349982462638, guid: f95aae1f16e158c42b07fbbf6ed92e6c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1989384752}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2047565443
 GameObject:
   m_ObjectHideFlags: 0
@@ -13335,3 +13365,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ad29ae288fc5199582b61c17e0c6892, type: 3}
+--- !u!1 &8747231637779417210 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8413208644744740988, guid: 0ad29ae288fc5199582b61c17e0c6892,
+    type: 3}
+  m_PrefabInstance: {fileID: 8747231637779417209}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8747231637779417211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8747231637779417210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c7239d5e6bb9be4e84a2d3cf0a1ca8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paymentSound: {fileID: 8300000, guid: f772155001c9d5144908c5d2281be825, type: 3}
+  failureSound: {fileID: 8300000, guid: 164f927125682d2da9eed62993dc4e1f, type: 3}
+  shopPanel: {fileID: 1989384755}
+  hoseButton: {fileID: 1989384754}
+  fishButton: {fileID: 1989384753}

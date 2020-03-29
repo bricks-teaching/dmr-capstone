@@ -26,7 +26,7 @@ public class DungeonEntry : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        if (isPlayerInTriggerZone && Input.GetKeyDown(Settings.interactKey) && (PlayerShoot.slotOne || PlayerShoot.slotZero)) { 
+        if (isPlayerInTriggerZone && Input.GetKeyDown(Settings.interactKey) && (PlayerShoot.slotOne || PlayerShoot.slotZero) && PlayerFinance.totalDebt > 0.0f) { 
             canvas.enabled = false;
             StateManager.cashOnEntrance = PlayerFinance.cashOnHand;
             StateManager.timesEntered++;

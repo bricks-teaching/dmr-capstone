@@ -12,6 +12,7 @@ public class ATMScript : MonoBehaviour {
     private TextMeshProUGUI signText;
     private string defaultSignText;
     private AudioSource audioS;
+    public GameObject bankPanel;
     public static float bankMaxLoan { get; set; } = 10000.0f;
     public static float bankInterestRate { get; set; } = 0.035f;
     public static int bankThreatLevel { get; set; } = 0;
@@ -37,11 +38,14 @@ public class ATMScript : MonoBehaviour {
         defaultSignText = signText.text.Replace("INTERACTKEY", Settings.interactKey.ToUpper());
         signText.text = defaultSignText;
         audioS = GetComponent<AudioSource>();
+        bankPanel.SetActive(false);
     }
 
     void Update() {
-        if (playerIsInTriggerZone && Input.GetKeyDown("f")) {
-            bool paymentSuccessful = payDebt(100, 1);
+        if (playerIsInTriggerZone && Input.GetKeyDown(Settings.interactKey)) {
+            Settings.mutexUnlockCursorState(this);
+            bankPanel.SetActive(true);
+            /*bool paymentSuccessful = payDebt(100, 1);
             if (paymentSuccessful) {
                 signText.text = "";
                 audioS.PlayOneShot(paymentSound, Settings.volume);
@@ -51,6 +55,7 @@ public class ATMScript : MonoBehaviour {
                 audioS.PlayOneShot(failureSound, Settings.volume * 2.5f);
                 Debug.Log("Not enough cash to pay denbts");
             }
+            */
         }
     }
     public enum LoanType {
@@ -146,5 +151,10 @@ public class ATMScript : MonoBehaviour {
 
     public void temporaryWinGame() {
         SceneManager.LoadScene("WinGame");
+    }
+
+    public void BackClick()
+    {
+        bankPanel.SetActive(false);
     }
 }

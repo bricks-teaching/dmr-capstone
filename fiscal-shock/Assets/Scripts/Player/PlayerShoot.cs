@@ -35,7 +35,7 @@ public class PlayerShoot : MonoBehaviour {
 
     public void Update() {
         // Change weapon
-        if (Input.GetKeyDown(Settings.weaponOneKey)) {
+        if (Input.GetKeyDown(Settings.weaponOneKey) && PlayerShoot.slotZero) {
             slot = 0;
             if (weapon != null) {
                 HolsterWeapon();
@@ -43,7 +43,7 @@ public class PlayerShoot : MonoBehaviour {
                 LoadWeapon();
             }
         }
-        if (Input.GetKeyDown(Settings.weaponTwoKey)) {
+        if (Input.GetKeyDown(Settings.weaponTwoKey) && PlayerShoot.slotOne) {
         slot = 1;
             if (weapon != null) {
                 HolsterWeapon();
