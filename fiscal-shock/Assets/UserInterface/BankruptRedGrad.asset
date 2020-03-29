@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BankruptRedGrad
   m_EditorClassIdentifier: 
   colorMode: 3
-  topLeft: {r: 0.54509807, g: 0, b: 0, a: 1}
-  topRight: {r: 0.54509807, g: 0, b: 0, a: 1}
-  bottomLeft: {r: 1, g: 0.07075471, b: 0.07075471, a: 1}
-  bottomRight: {r: 1, g: 0.07058824, b: 0.07058824, a: 1}
+  topLeft: {r: 0.6784314, g: 0.3254902, b: 0.3254902, a: 1}
+  topRight: {r: 0.28235295, g: 0.15686275, b: 0.15686275, a: 1}
+  bottomLeft: {r: 0.77254903, g: 0.20784314, b: 0.20784314, a: 1}
+  bottomRight: {r: 0.7254902, g: 0.07058824, b: 0.16470589, a: 1}
