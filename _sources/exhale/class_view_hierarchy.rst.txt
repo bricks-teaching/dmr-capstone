@@ -45,6 +45,7 @@ Class Hierarchy
 - :ref:`exhale_class_classEnemyMovement`
 - :ref:`exhale_class_classEnemyShoot`
 - :ref:`exhale_class_classExplosion`
+- :ref:`exhale_class_classFeedbackController`
 - :ref:`exhale_class_classGameController`
 - :ref:`exhale_class_classHUD`
 - :ref:`exhale_class_classHUDSingleton`

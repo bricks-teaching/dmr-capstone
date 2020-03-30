@@ -1,0 +1,29 @@
+
+.. _file_fiscal-shock_Assets_Scripts_UserInterface_FeedbackController.cs:
+
+File FeedbackController.cs
+==========================
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``fiscal-shock/Assets/Scripts/UserInterface/FeedbackController.cs``)
+--------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+Classes
+-------
+
+
+- :ref:`exhale_class_classFeedbackController`
+

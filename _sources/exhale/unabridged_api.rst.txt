@@ -153,6 +153,11 @@ Classes and Structs
 .. toctree::
    :maxdepth: 5
 
+   classFeedbackController.rst
+
+.. toctree::
+   :maxdepth: 5
+
    classFiscalShock_1_1Demo_1_1ProceduralMeshRenderer.rst
 
 .. toctree::

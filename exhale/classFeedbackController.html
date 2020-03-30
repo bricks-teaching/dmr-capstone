@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Class EnemyHealth &mdash; Fiscal Shock  documentation</title>
+  <title>Class FeedbackController &mdash; Fiscal Shock  documentation</title>
   
 
   
@@ -85,7 +85,7 @@
             
               <!-- Local TOC -->
               <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">Class EnemyHealth</a><ul>
+<li><a class="reference internal" href="#">Class FeedbackController</a><ul>
 <li><a class="reference internal" href="#inheritance-relationships">Inheritance Relationships</a><ul>
 <li><a class="reference internal" href="#base-type">Base Type</a></li>
 </ul>
@@ -138,13 +138,13 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Class EnemyHealth</li>
+      <li>Class FeedbackController</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/exhale/classEnemyHealth.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/exhale/classFeedbackController.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -157,10 +157,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="class-enemyhealth">
-<span id="exhale-class-classenemyhealth"></span><h1>Class EnemyHealth<a class="headerlink" href="#class-enemyhealth" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="class-feedbackcontroller">
+<span id="exhale-class-classfeedbackcontroller"></span><h1>Class FeedbackController<a class="headerlink" href="#class-feedbackcontroller" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><p>Defined in <a class="reference internal" href="file_fiscal-shock_Assets_Scripts_AI_EnemyHealth.cs.html#file-fiscal-shock-assets-scripts-ai-enemyhealth-cs"><span class="std std-ref">File EnemyHealth.cs</span></a></p></li>
+<li><p>Defined in <a class="reference internal" href="file_fiscal-shock_Assets_Scripts_UserInterface_FeedbackController.cs.html#file-fiscal-shock-assets-scripts-userinterface-feedbackcontroller-cs"><span class="std std-ref">File FeedbackController.cs</span></a></p></li>
 </ul>
 <div class="section" id="inheritance-relationships">
 <h2>Inheritance Relationships<a class="headerlink" href="#inheritance-relationships" title="Permalink to this headline">¶</a></h2>
@@ -174,94 +174,62 @@
 <div class="section" id="class-documentation">
 <h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="_CPPv411EnemyHealth">
-<span id="_CPPv311EnemyHealth"></span><span id="_CPPv211EnemyHealth"></span><span id="EnemyHealth"></span><span class="target" id="classEnemyHealth"></span><em class="property">class </em><code class="sig-name descname">EnemyHealth</code> : <em class="property">public</em> MonoBehaviour<a class="headerlink" href="#_CPPv411EnemyHealth" title="Permalink to this definition">¶</a><br /></dt>
+<dt id="_CPPv418FeedbackController">
+<span id="_CPPv318FeedbackController"></span><span id="_CPPv218FeedbackController"></span><span id="FeedbackController"></span><span class="target" id="classFeedbackController"></span><em class="property">class </em><code class="sig-name descname">FeedbackController</code> : <em class="property">public</em> MonoBehaviour<a class="headerlink" href="#_CPPv418FeedbackController" title="Permalink to this definition">¶</a><br /></dt>
 <dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt>
+<span class="target" id="classFeedbackController_1a4041afbeb54bf8f3cbbd0fd907a5022c"></span><code class="sig-name descname">void FeedbackController.Start()</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classFeedbackController_1a3bfaef7d664d2d49db8dbe1024a4362f"></span><code class="sig-name descname">void FeedbackController.shoot(int cost)</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classFeedbackController_1ae4938469875d249ccf9b2ad0aadee881"></span><code class="sig-name descname">void FeedbackController.profit(float amount)</code></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Members</p>
 <dl class="member">
 <dt>
-<span class="target" id="classEnemyHealth_1a38679a6db9f4c1a03512494520bd7016"></span><code class="sig-name descname">int EnemyHealth.startingHealth = 30</code></dt>
+<span class="target" id="classFeedbackController_1a1ea8e7a0730a910d3aa802521e94f71e"></span><code class="sig-name descname">TextMeshProUGUI FeedbackController.shotLoss</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classEnemyHealth_1a68d23dcfcaf3936282ed3d9d6e5b6459"></span><code class="sig-name descname">GameObject EnemyHealth.explosion</code></dt>
+<span class="target" id="classFeedbackController_1a27f487c373b57c5d608984fb39b84989"></span><code class="sig-name descname">TextMeshProUGUI FeedbackController.earn</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classEnemyHealth_1a3a14a2027bc3dcd6b02b7fe6e51aeecb"></span><code class="sig-name descname">GameObject EnemyHealth.bigExplosion</code></dt>
+<span class="target" id="classFeedbackController_1a7e9adedf20faeb97436b6f8a7cab0192"></span><code class="sig-name descname">TextMeshProUGUI FeedbackController.temp</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classEnemyHealth_1a4d7f0953579e818de8744e1c674ad240"></span><code class="sig-name descname">AudioClip EnemyHealth.hitSoundClip</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
-<span class="target" id="classEnemyHealth_1ac16f5d020e300bb8b64cb0d2afcaa24d"></span><code class="sig-name descname">float EnemyHealth.pointValue = 20</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
-<span class="target" id="classEnemyHealth_1a380e0d61a0ccfbf259f63a316d73bf9e"></span><code class="sig-name descname">AnimationManager EnemyHealth.animationManager</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
-<span class="target" id="classEnemyHealth_1aa62803255886afb1df7809eb5e9b98f0"></span><code class="sig-name descname">FeedbackController EnemyHealth.feed</code></dt>
+<span class="target" id="classFeedbackController_1aff849009c76eb1bad3d62c4ec7abff6b"></span><code class="sig-name descname">Image FeedbackController.hitVignette</code></dt>
 <dd></dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Private Functions</p>
-<dl class="function">
+<p class="breathe-sectiondef-title rubric">Public Static Attributes</p>
+<dl class="member">
 <dt>
-<span class="target" id="classEnemyHealth_1a54cf9f16d11c4af18d2cabcea9d937e6"></span><code class="sig-name descname">void EnemyHealth.Start()</code></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt>
-<span class="target" id="classEnemyHealth_1ac3595888d7baa6e7737643b2d537b557"></span><code class="sig-name descname">void EnemyHealth.OnCollisionEnter(Collision col)</code></dt>
+<span class="target" id="classFeedbackController_1ab1bb1763b028950b4f8e49526a57417f"></span><code class="sig-name descname">Canvas FeedbackController.HUD</code></dt>
 <dd></dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Private Members</p>
+<p class="breathe-sectiondef-title rubric">Private Static Attributes</p>
 <dl class="member">
 <dt>
-<span class="target" id="classEnemyHealth_1afe6a988ef81a6abcbe17acf7ece8da99"></span><code class="sig-name descname">int EnemyHealth.totalHealth</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
-<span class="target" id="classEnemyHealth_1a4962adc6c6beb01255c4780c62340076"></span><code class="sig-name descname">GameObject EnemyHealth.lastBulletCollision</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
-<span class="target" id="classEnemyHealth_1a27889576c1a4dc920927823de3e7691d"></span><code class="sig-name descname">bool EnemyHealth.dead</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
-<span class="target" id="classEnemyHealth_1ab12c8d1604c8e484e88a56a010d3fcc0"></span><code class="sig-name descname">Queue&lt;GameObject&gt; EnemyHealth.explosions = new Queue&lt;GameObject&gt;()</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
-<span class="target" id="classEnemyHealth_1aaa3638ad71ab8936cea4bd792a8d3ac7"></span><code class="sig-name descname">readonly int EnemyHealth.smallExplosionLimit = 12</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
-<span class="target" id="classEnemyHealth_1af5d7a97334a79683815ab28b6ad8c914"></span><code class="sig-name descname">Queue&lt;GameObject&gt; EnemyHealth.bigExplosions = new Queue&lt;GameObject&gt;()</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
-<span class="target" id="classEnemyHealth_1aa8f940a1cd2bff14e4a4e83e3c04e2d8"></span><code class="sig-name descname">readonly int EnemyHealth.bigExplosionLimit = 6</code></dt>
+<span class="target" id="classFeedbackController_1a7b21bc334ff8f47f913c9085aed1ee8b"></span><code class="sig-name descname">TextMeshProUGUI FeedbackController.clone</code></dt>
 <dd></dd></dl>
 
 </div>
