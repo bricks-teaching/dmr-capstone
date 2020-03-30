@@ -21,7 +21,7 @@ namespace FiscalShock.Procedural {
         public List<DungeonTypeData> dungeonThemes;
 
         /* Variables set during runtime */
-        public DungeonType currentDungeonType { get; private set; }
+        public DungeonType currentDungeonType { get; set; }
         public MersenneTwister mt { get; private set; }
 
         /* Graphs */
