@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3349042}
   - component: {fileID: 2384516}
   - component: {fileID: 4380148316530772369}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: -7814767230187970983}
   - component: {fileID: 7785802605005885285}
   - component: {fileID: 4981540016266358485}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: bucket (blue)
   m_TagString: Obstacle
   m_Icon: {fileID: 0}

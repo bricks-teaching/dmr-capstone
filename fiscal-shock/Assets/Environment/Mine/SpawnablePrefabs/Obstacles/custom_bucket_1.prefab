@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3346964}
   - component: {fileID: 2396414}
   - component: {fileID: 2753951386842328027}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 434272}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: bucket (green)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,7 +134,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 430914}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: bucket (red)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,7 +168,7 @@ GameObject:
   - component: {fileID: 3380060}
   - component: {fileID: 2338314}
   - component: {fileID: 906908547412850216}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -259,7 +259,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 417276}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: bucket (yellow)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -290,7 +290,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 429316}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: bucket (blue)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -325,7 +325,7 @@ GameObject:
   - component: {fileID: 5241585622067982568}
   - component: {fileID: 6734762740375981399}
   - component: {fileID: -361333969618980575}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: custom_bucket_1
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -416,7 +416,7 @@ GameObject:
   - component: {fileID: 3301782}
   - component: {fileID: 2337778}
   - component: {fileID: 6634939614142886120}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -510,7 +510,7 @@ GameObject:
   - component: {fileID: 3310276}
   - component: {fileID: 2305478}
   - component: {fileID: 4507167745210906253}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}

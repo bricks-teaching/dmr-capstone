@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3304676}
   - component: {fileID: 2303010}
   - component: {fileID: 6505078289966722993}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 476652}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: bucket (blue)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 43427206090189192}
   - component: {fileID: -7152863754822917255}
   - component: {fileID: 8232494960155929564}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: custom_bucketFrame_blue
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
