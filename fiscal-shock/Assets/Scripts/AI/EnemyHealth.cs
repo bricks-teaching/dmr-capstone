@@ -17,6 +17,7 @@ public class EnemyHealth : MonoBehaviour {
     private readonly int smallExplosionLimit = 12;
     private Queue<GameObject> bigExplosions = new Queue<GameObject>();
     private readonly int bigExplosionLimit = 6;
+    public FeedbackController feed;
 
     void Start() {
         totalHealth = startingHealth;
@@ -50,6 +51,7 @@ public class EnemyHealth : MonoBehaviour {
 
             if (totalHealth <= 0 && !dead) {
                 PlayerFinance.cashOnHand += pointValue;
+                feed.profit(pointValue);
                 float deathDuration = animationManager.playDeathAnimation();
                 GetComponent<EnemyMovement>().enabled = false;
                 GetComponent<EnemyShoot>().enabled = false;
