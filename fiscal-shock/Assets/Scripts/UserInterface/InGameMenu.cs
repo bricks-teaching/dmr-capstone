@@ -3,8 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-public class InGameMenu : MonoBehaviour
-{
+public class InGameMenu : MonoBehaviour {
     public GameObject pausePanel;
     public GameObject optionsPanel;
     public GameObject quitPanel;
@@ -13,6 +12,7 @@ public class InGameMenu : MonoBehaviour
     private VolumeController[] volumeControllers;
     public Slider volumeSlider;
     public Slider mouseSlider;
+
 
     public float volume {
         get => Settings.volume;
@@ -61,7 +61,8 @@ public class InGameMenu : MonoBehaviour
                 pauseText.text = "PAUSED";
                 Settings.mutexUnlockCursorState(this);
                 pausePanel.SetActive(true);
-            } else {
+            }
+            else {
                 optionsPanel.SetActive(false);
                 quitPanel.SetActive(false);
                 pausePanel.SetActive(false);
@@ -77,46 +78,43 @@ public class InGameMenu : MonoBehaviour
         }
     }
 
-    public void PlayClick ()
-    {
+    public void PlayClick() {
         Settings.lockCursorState(this);
         pausePanel.SetActive(false);
         Time.timeScale = 1;
         pauseText.text = "";
     }
 
-    public void OptionsClick ()
-    {
+    public void OptionsClick() {
         optionsPanel.SetActive(true);
         pausePanel.SetActive(false);
     }
 
-    public void QuitClick ()
-    {
+    public void QuitClick() {
         quitPanel.SetActive(true);
         pausePanel.SetActive(false);
     }
 
-    public void RestartClick ()
-    {
+    public void RestartClick() {
         SceneManager.LoadScene(0);
     }
 
-    public void QuitAppClick ()
-    {
+    public void QuitAppClick() {
         Settings.saveSettings();
         Application.Quit();
     }
 
-    public void CancelClick ()
-    {
+    public void CancelClick() {
         quitPanel.SetActive(false);
         pausePanel.SetActive(true);
     }
 
-    public void BackClick()
-    {
+    public void BackClick() {
         optionsPanel.SetActive(false);
         pausePanel.SetActive(true);
+    }
+
+    public void graphic(int i) {
+        QualitySettings.SetQualityLevel(i, true);
     }
 }
