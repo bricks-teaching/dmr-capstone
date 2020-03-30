@@ -11,14 +11,13 @@ public class FeedbackController : MonoBehaviour
     public TextMeshProUGUI shotLoss;
     public TextMeshProUGUI earn;
     public TextMeshProUGUI temp;
-    public Image hitVinette;
-    
+    public Image hitVignette;
+
     public void Start() {
-        hitVinette.enabled = false;
+        hitVignette.enabled = false;
     }
 
     public void shoot(int cost) {
-
         HUD = GameObject.FindGameObjectWithTag("HUD").GetComponent<Canvas>();
         temp = shotLoss;
         TextMeshProUGUI clone = Object.Instantiate(shotLoss);
@@ -29,11 +28,9 @@ public class FeedbackController : MonoBehaviour
         clone.transform.Translate(Random.Range(-10.6f, 10.0f),  Random.Range(-10.1f, 10.0f), Random.Range(-10.0f, 10.0f), Space.Self);
 
         Destroy(clone.gameObject, 2f);
-
     }
 
     public void profit(float amount) {
-
         HUD = GameObject.FindGameObjectWithTag("HUD").GetComponent<Canvas>();
         temp = earn;
         TextMeshProUGUI clone = Object.Instantiate(earn);
@@ -44,7 +41,6 @@ public class FeedbackController : MonoBehaviour
         clone.transform.Translate(Random.Range(160.6f, 170.0f),  Random.Range(-10.1f, 10.0f), Random.Range(-10.0f, 10.0f), Space.Self);
 
         Destroy(clone.gameObject, 2f);
-
     }
 
 }

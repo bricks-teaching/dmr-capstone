@@ -95,7 +95,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 256
-  field of view: 60
+  field of view: 70
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -366,7 +366,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 208130074868200880}
-  speed: 18
+  speed: 11
   gravity: -50
   jumpBy: 3
   groundCheck: {fileID: 208130074375257317}

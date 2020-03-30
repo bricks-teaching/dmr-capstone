@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour {
 
-    public Image hitVinette;
+    public Image hitVignette;
     private float time = 0.1f;
 
     void OnCollisionEnter(Collision col) {
@@ -14,9 +14,9 @@ public class PlayerHealth : MonoBehaviour {
             //Debug.Log("Player hit");
             BulletBehavior bullet = col.gameObject.GetComponent(typeof(BulletBehavior)) as BulletBehavior;
             PlayerFinance.cashOnHand -= bullet.damage;
-            hitVinette.enabled = true;
+            hitVignette.enabled = true;
             Time.timeScale = 0;
-            if(hitVinette.enabled == true){
+            if(hitVignette.enabled == true){
                 StartCoroutine(removeHitDelay());
             }
             Time.timeScale = 1;
@@ -26,8 +26,8 @@ public class PlayerHealth : MonoBehaviour {
     private IEnumerator<WaitForSeconds> removeHitDelay() {
         yield return new WaitForSeconds(time);
 
-        hitVinette.enabled = false;
-        while (hitVinette.enabled == true) {
+        hitVignette.enabled = false;
+        while (hitVignette.enabled == true) {
             yield return null;
         }
     }

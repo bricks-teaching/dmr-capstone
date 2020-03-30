@@ -8,10 +8,12 @@ public class HUD : MonoBehaviour
     public TextMeshProUGUI debtTracker;
     public GameObject compassImage;
     public RectTransform escapeCompass;
-    public Transform playerTransform;
-    public Transform escapeHatch;
     public TextMeshProUGUI shotLoss;
     public TextMeshProUGUI earn;
+
+    /* Variables set at runtime */
+    public Transform playerTransform { get; set; }
+    public Transform escapeHatch { get; set; }
 
     void Start() {
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
@@ -35,10 +37,8 @@ public class HUD : MonoBehaviour
             float angleToEscape = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
             float compassAngle = playerHeading - angleToEscape + 185;  // orig image does not point at 0 deg at z-rot 0, correction factor is 185
             escapeCompass.rotation = Quaternion.Slerp(escapeCompass.rotation, Quaternion.Euler(new Vector3(0, 0, compassAngle)), Time.deltaTime*10);
-        
         } else {
             compassImage.SetActive(false);
         }
     }
-    
 }
