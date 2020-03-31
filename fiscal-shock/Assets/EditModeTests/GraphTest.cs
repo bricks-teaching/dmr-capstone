@@ -8,7 +8,6 @@ using ThirdParty;
 
 namespace Tests {
     public class GraphTest {
-        Dungeoneer dg = new Dungeoneer();
         int delVerts;
         int delEdges;
         int delFaces;
@@ -18,6 +17,10 @@ namespace Tests {
 
         [SetUp]
         public void Init() {
+            GameObject go = new GameObject();
+            Dungeoneer dg = go.AddComponent<Dungeoneer>();
+            DungeonType dt = go.AddComponent<DungeonType>();
+            dg.currentDungeonType = dt;
             dg.seed = 5;
             dg.initPRNG();
             dg.generateDelaunay();

@@ -153,8 +153,6 @@ MonoBehaviour:
   guns:
   - {fileID: 680203695531066187}
   - {fileID: 7563193525656378907}
-  crossHair: {fileID: 0}
-  feed: {fileID: 7774178292728621519, guid: c5fcf0c2e8177009da4b226f700524cb, type: 3}
 --- !u!82 &4429673032618852596
 AudioSource:
   m_ObjectHideFlags: 0
@@ -263,7 +261,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18d262f8db7df7c6ead74923307508f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dungen: {fileID: 0}
   pointPrefab: {fileID: 3024218742173863289, guid: 6661f652006d0b97190e1a60269e5c2f,
     type: 3}
   renderDelaunay: 0
@@ -285,7 +282,6 @@ MonoBehaviour:
   roomColor: {r: 1, g: 1, b: 1, a: 1}
   roomRenderHeight: 3
   edgeMat: {fileID: 2100000, guid: 4c59fd6ae625a9500b147fcf863adeb3, type: 2}
-  label: {fileID: 0}
 --- !u!114 &7352360148000753307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -366,6 +362,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 208130074868200880}
+  ragdoll: {fileID: 0}
   speed: 11
   gravity: -50
   jumpBy: 3
@@ -390,8 +387,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0898ccec5695ee40b02ad2f24298024, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitVinette: {fileID: 2920395891782484346, guid: 39ea8aa96267a4541bb7005db3f204e4,
-    type: 3}
+  invincible: 0
 --- !u!136 &7626383235625894246
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -460,8 +456,8 @@ GameObject:
   - component: {fileID: 7431250935823654985}
   - component: {fileID: 2752714859477427732}
   m_Layer: 11
-  m_Name: Spot Light
-  m_TagString: Untagged
+  m_Name: Flashlight
+  m_TagString: Player Flashlight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -492,7 +488,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.5
+  m_Intensity: 0
   m_Range: 300
   m_SpotAngle: 110
   m_InnerSpotAngle: 1
@@ -526,7 +522,7 @@ Light:
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -666,15 +662,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a096803ec33e4f418a5d5d3d88b1aed, type: 3}
---- !u!1 &7563193525656378907 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7624205853972234779, guid: 3a096803ec33e4f418a5d5d3d88b1aed,
-    type: 3}
-  m_PrefabInstance: {fileID: 88737894036954112}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6822537443319655432 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6887630062639575048, guid: 3a096803ec33e4f418a5d5d3d88b1aed,
+    type: 3}
+  m_PrefabInstance: {fileID: 88737894036954112}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7563193525656378907 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7624205853972234779, guid: 3a096803ec33e4f418a5d5d3d88b1aed,
     type: 3}
   m_PrefabInstance: {fileID: 88737894036954112}
   m_PrefabAsset: {fileID: 0}
@@ -772,15 +768,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d6fe316390b5d84e81412caded02813, type: 3}
---- !u!1 &680203695531066187 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6393630796384626831, guid: 0d6fe316390b5d84e81412caded02813,
-    type: 3}
-  m_PrefabInstance: {fileID: 5893572530266532804}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4551952235250020696 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7989918510121097884, guid: 0d6fe316390b5d84e81412caded02813,
+    type: 3}
+  m_PrefabInstance: {fileID: 5893572530266532804}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &680203695531066187 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6393630796384626831, guid: 0d6fe316390b5d84e81412caded02813,
     type: 3}
   m_PrefabInstance: {fileID: 5893572530266532804}
   m_PrefabAsset: {fileID: 0}

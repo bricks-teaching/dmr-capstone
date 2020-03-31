@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 33000010759210038}
   - component: {fileID: 23000010744354036}
   - component: {fileID: 2280325490900858905}
+  - component: {fileID: 6716003397231631455}
   m_Layer: 8
   m_Name: Block 2x2x4
   m_TagString: Untagged
@@ -188,6 +189,19 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: eb8b7bc9e7f719748babe882bc5b435d, type: 3}
+--- !u!65 &6716003397231631455
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010696447846}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10.756535, y: 10.019173, z: 10.443762}
+  m_Center: {x: 0.42732525, y: 5.0095787, z: 0.34934545}
 --- !u!1 &1000010821125032
 GameObject:
   m_ObjectHideFlags: 0
@@ -2097,6 +2111,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4000014185562612}
+  - component: {fileID: -4102702015752449944}
+  - component: {fileID: -7525525819731136633}
   m_Layer: 8
   m_Name: Example Pieced Prefab 2
   m_TagString: Obstacle
@@ -2135,3 +2151,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-4102702015752449944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000014286614112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce02a5bb4a2c2bc3fbe07f3cfc648918, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-7525525819731136633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000014286614112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d14ccc4e83f5aec8db84560ece84405d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toBeDestroyed: 0

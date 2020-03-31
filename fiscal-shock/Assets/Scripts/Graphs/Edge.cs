@@ -11,15 +11,19 @@ namespace FiscalShock.Graphs {
         public Vertex q => vertices[1];
         public List<Cell> cells { get; } = new List<Cell>();
         public List<UnityEngine.GameObject> wallObjects = new List<UnityEngine.GameObject>();
+        public float length { get; }
+        public bool isWall { get; set; }
 
         public Edge(Vertex a, Vertex b) {
             vertices = new List<Vertex> { a, b };
+            length = getLength();
         }
 
         public Edge(UnityEngine.Vector3 a, UnityEngine.Vector3 b) {
             Vertex va = new Vertex(a.x, a.z);
             Vertex vb = new Vertex(b.x, b.z);
             vertices = new List<Vertex> { va, vb };
+            length = getLength();
         }
 
         public void connect(Vertex a, Vertex b) {
@@ -60,7 +64,7 @@ namespace FiscalShock.Graphs {
         /// between the endpoints
         /// </summary>
         /// <returns>length of this edge</returns>
-        public float getLength() {
+        private float getLength() {
             return (float)p.getDistanceTo(q);
         }
 

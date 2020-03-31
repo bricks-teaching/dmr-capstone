@@ -6,41 +6,54 @@ using UnityEngine.UI;
 
 public class FeedbackController : MonoBehaviour
 {
-    public static Canvas HUD;
-    private static TextMeshProUGUI clone;
+    private Queue<TextMeshProUGUI> shotLosses { get; } = new Queue<TextMeshProUGUI>();
+    private int numLossesToDisplay = 12;
+    private Queue<TextMeshProUGUI> earns { get; } = new Queue<TextMeshProUGUI>();
+    private int numEarnsToDisplay = 12;
     public TextMeshProUGUI shotLoss;
     public TextMeshProUGUI earn;
-    public TextMeshProUGUI temp;
     public Image hitVignette;
 
     public void Start() {
-        hitVignette.enabled = false;
+        for (int i = 0; i < numLossesToDisplay; ++i) {
+            TextMeshProUGUI sh = Instantiate(shotLoss);
+            sh.transform.SetParent(transform);
+            sh.enabled = false;
+            shotLosses.Enqueue(sh);
+        }
+        for (int i = 0; i < numEarnsToDisplay; ++i) {
+            TextMeshProUGUI ea = Instantiate(earn);
+            ea.transform.SetParent(transform);
+            ea.enabled = false;
+            earns.Enqueue(ea);
+        }
     }
 
     public void shoot(int cost) {
-        HUD = GameObject.FindGameObjectWithTag("HUD").GetComponent<Canvas>();
-        temp = shotLoss;
-        TextMeshProUGUI clone = Object.Instantiate(shotLoss);
-
-        clone.transform.SetParent(HUD.transform);
+        TextMeshProUGUI clone = shotLosses.Dequeue();
         clone.text = "-" + (cost.ToString());
         clone.transform.localPosition = new Vector3(0,0,0);
         clone.transform.Translate(Random.Range(-10.6f, 10.0f),  Random.Range(-10.1f, 10.0f), Random.Range(-10.0f, 10.0f), Space.Self);
+        clone.enabled = true;
+        shotLosses.Enqueue(clone);
 
-        Destroy(clone.gameObject, 2f);
+        StartCoroutine(timeout(clone, 2f));
     }
 
     public void profit(float amount) {
-        HUD = GameObject.FindGameObjectWithTag("HUD").GetComponent<Canvas>();
-        temp = earn;
-        TextMeshProUGUI clone = Object.Instantiate(earn);
-
-        clone.transform.SetParent(HUD.transform);
+        TextMeshProUGUI clone = earns.Dequeue();
         clone.text = "+" + (amount.ToString());
         clone.transform.localPosition = new Vector3(0,0,0);
         clone.transform.Translate(Random.Range(160.6f, 170.0f),  Random.Range(-10.1f, 10.0f), Random.Range(-10.0f, 10.0f), Space.Self);
+        clone.enabled = true;
+        earns.Enqueue(clone);
 
-        Destroy(clone.gameObject, 2f);
+        StartCoroutine(timeout(clone, 2f));
     }
 
+    private IEnumerator timeout(TextMeshProUGUI text, float duration) {
+        yield return new WaitForSeconds(duration);
+        text.enabled = false;
+        yield return null;
+    }
 }

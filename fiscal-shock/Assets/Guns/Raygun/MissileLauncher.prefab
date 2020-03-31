@@ -391,6 +391,6 @@ MonoBehaviour:
   rotation: 7
   continuous: 0
   missile: 1
-  bulletPrefab: {fileID: 6968642178780635194, guid: 72eecee5768406a40b01125b8161bff6,
+  bulletPrefab: {fileID: 2770534989684552186, guid: 6f75f9b709a5851d4bf112a9a3f1d3c4,
     type: 3}
   showCrosshair: 1

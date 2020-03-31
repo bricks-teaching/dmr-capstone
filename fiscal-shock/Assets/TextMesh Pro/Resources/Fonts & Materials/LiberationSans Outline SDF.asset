@@ -550,7 +550,7 @@ MonoBehaviour:
     m_Height: 1
   - m_X: 248
     m_Y: 163
-    m_Width: 775
+    m_Width: 716
     m_Height: 860
   - m_X: 248
     m_Y: 109
@@ -559,6 +559,10 @@ MonoBehaviour:
   - m_X: 289
     m_Y: 82
     m_Width: 19
+    m_Height: 27
+  - m_X: 307
+    m_Y: 82
+    m_Width: 1
     m_Height: 941
   - m_X: 62
     m_Y: 108

@@ -46,13 +46,8 @@ MonoBehaviour:
   playerPrefab: {fileID: 208130074868200894, guid: bc7ef44de2f694932a9d0fc4d3a3d809,
     type: 3}
   seed: 0
-  numberOfVertices: 500
-  minX: -150
-  maxX: 150
-  minY: -150
-  maxY: 150
-  minRooms: 6
-  maxRooms: 10
-  minimumDistanceBetweenMasterPoints: 32
-  percentageOfEdgesToAddBack: 0.35
-  roomGrowthRadius: 2
+  dungeonThemes:
+  - gameObject: {fileID: 0}
+    typeEnum: 0
+  - gameObject: {fileID: 0}
+    typeEnum: 1

@@ -1,15 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 //This script controls the health of enemy bots
 public class EnemyHealth : MonoBehaviour {
-    public int startingHealth = 30;
+    public float startingHealth = 30;
     public GameObject explosion;
     public GameObject bigExplosion;
     public AudioClip hitSoundClip;
+    public AudioSource hitSound;
     public float pointValue = 20;
-    private int totalHealth;
+    private float totalHealth;
     private GameObject lastBulletCollision;
     public AnimationManager animationManager;
     private bool dead;
@@ -17,10 +19,14 @@ public class EnemyHealth : MonoBehaviour {
     private readonly int smallExplosionLimit = 12;
     private Queue<GameObject> bigExplosions = new Queue<GameObject>();
     private readonly int bigExplosionLimit = 6;
-    public FeedbackController feed;
+    public GameObject stunEffect;
+    private FeedbackController feed;
+    private Rigidbody ragdoll;
 
     void Start() {
+        feed = GameObject.FindGameObjectWithTag("HUD").GetComponent<FeedbackController>();
         totalHealth = startingHealth;
+        ragdoll = gameObject.GetComponent<Rigidbody>();
 
         for (int i = 0; i < smallExplosionLimit; ++i) {
             GameObject splode = Instantiate(explosion, gameObject.transform.position + transform.up, gameObject.transform.rotation);
@@ -37,50 +43,76 @@ public class EnemyHealth : MonoBehaviour {
         }
     }
 
+    public void stun(float duration) {
+        if (!dead) {
+            StartCoroutine(stunRoutine(duration));
+        }
+    }
+
+    private IEnumerator stunRoutine(float duration) {
+        stunEffect.SetActive(true);
+        EnemyShoot es = gameObject.GetComponentInChildren<EnemyShoot>();
+        EnemyMovement em = gameObject.GetComponentInChildren<EnemyMovement>();
+        es.enabled = false;
+        em.stunned = true;
+        yield return new WaitForSeconds(duration);
+
+        em.enabled = true;
+        em.stunned = false;
+        stunEffect.SetActive(false);
+        ragdoll.isKinematic = true;
+
+        yield return null;
+    }
+
+    public void takeDamage(float damage) {
+        totalHealth -= damage;
+
+        if (totalHealth <= 0 && !dead) {
+            PlayerFinance.cashOnHand += pointValue;
+            float deathDuration = animationManager.playDeathAnimation();
+            GetComponent<EnemyMovement>().enabled = false;
+            GetComponent<EnemyShoot>().enabled = false;
+            animationManager.animator.PlayQueued("shrink");
+            Destroy(gameObject, deathDuration + 0.5f);
+            dead = true;
+            feed.profit(pointValue);
+        }
+    }
+
+    public void showDamageExplosion(Queue<GameObject> queue, float volumeMultiplier = 0.65f) {
+        // Debug.Log("Damage: " + bullet.damage + " points. Bot has " + totalHealth + " health points remaining");
+        // Play sound effect and explosion particle system
+        if (queue == null) {
+            queue = bigExplosions;
+        }
+        GameObject explode = queue.Dequeue();
+        explode.SetActive(true);
+        hitSound.PlayOneShot(hitSoundClip, volumeMultiplier * Settings.volume);
+        explosions.Enqueue(explode);
+        explode.transform.position = transform.position + transform.up;
+        explode.transform.rotation = transform.rotation;
+        explode.transform.parent = gameObject.transform;
+        StartCoroutine(explode.GetComponent<Explosion>().timeout());
+    }
+
     void OnCollisionEnter(Collision col) {
         if (col.gameObject.tag == "Bullet" || col.gameObject.tag == "Missile") {
-            if (col.gameObject == lastBulletCollision){
+            if (col.gameObject == lastBulletCollision) {
                 return;
             }
             lastBulletCollision = col.gameObject;
 
             // Reduce health
             BulletBehavior bullet = col.gameObject.GetComponent(typeof(BulletBehavior)) as BulletBehavior;
-            int bulletDamage = bullet.damage;
-            totalHealth -= bulletDamage;
-
-            if (totalHealth <= 0 && !dead) {
-                PlayerFinance.cashOnHand += pointValue;
-                feed.profit(pointValue);
-                float deathDuration = animationManager.playDeathAnimation();
-                GetComponent<EnemyMovement>().enabled = false;
-                GetComponent<EnemyShoot>().enabled = false;
-                animationManager.animator.PlayQueued("shrink");
-                Destroy(gameObject, deathDuration + 0.5f);
-                dead = true;
-            }
-
-            // Debug.Log("Damage: " + bullet.damage + " points. Bot has " + totalHealth + " health points remaining");
-            // Play sound effect and explosion particle system
-            GameObject explode = null;
+            takeDamage(bullet.damage);
             if (col.gameObject.tag == "Bullet") {
-                explode = explosions.Dequeue();
-                explode.SetActive(true);
-                AudioSource hitSound = explode.GetComponent<AudioSource>();
-                hitSound.PlayOneShot(hitSoundClip, 0.4f * Settings.volume);
-                explosions.Enqueue(explode);
+                showDamageExplosion(explosions, 0.4f);
             } else if (col.gameObject.tag == "Missile") {
-                explode = bigExplosions.Dequeue();
-                explode.SetActive(true);
-                AudioSource hitSound = explode.GetComponent<AudioSource>();
-                hitSound.PlayOneShot(hitSoundClip, 0.65f * Settings.volume);
-                bigExplosions.Enqueue(explode);
+                showDamageExplosion(bigExplosions, 0.65f);
             }
-            explode.transform.position = transform.position + transform.up;
-            explode.transform.rotation = transform.rotation;
-            explode.transform.parent = gameObject.transform;
-            StartCoroutine(explode.GetComponent<Explosion>().timeout());
 
+            // Doesn't work for new bots
             // If bot goes under 50% health, make it look damaged
             /*
             if (totalHealth <= startingHealth / 2 && (totalHealth + bulletDamage) > startingHealth / 2) {

@@ -7,12 +7,15 @@ public class InGameMenu : MonoBehaviour {
     public GameObject pausePanel;
     public GameObject optionsPanel;
     public GameObject quitPanel;
-    public GameObject player;
+    public GameObject player { get; set; }
     public TextMeshProUGUI pauseText;
     private VolumeController[] volumeControllers;
     public Slider volumeSlider;
     public Slider mouseSlider;
 
+    private void Start() {
+        player = GameObject.FindGameObjectWithTag("Player");
+    }
 
     public float volume {
         get => Settings.volume;

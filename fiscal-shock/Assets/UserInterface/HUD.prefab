@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8789901964930067533}
   m_Layer: 5
   m_Name: hitVignette
-  m_TagString: Untagged
+  m_TagString: Player Hit Vignette
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -52,7 +52,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6733368797599907908}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -241,7 +241,7 @@ GameObject:
   - component: {fileID: 7774178291814709401}
   m_Layer: 5
   m_Name: compass
-  m_TagString: Untagged
+  m_TagString: Compass
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -262,7 +262,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -69.5, y: -66.3}
+  m_AnchoredPosition: {x: -71, y: -67}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7774178291814709400
@@ -594,7 +594,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shotLoss: {fileID: 7774178293688705724}
   earn: {fileID: 4605779377017256754}
-  temp: {fileID: 7774178293688705724}
+  temp: {fileID: 4605779377017256754}
   hitVignette: {fileID: 8789901964930067533}
 --- !u!1 &7774178293192626643
 GameObject:

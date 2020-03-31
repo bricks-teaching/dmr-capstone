@@ -34,25 +34,24 @@ namespace FiscalShock.Procedural {
             float xlen = Vector3.Distance(topLeft, topRight);
             float zlen = Vector3.Distance(topLeft, bottomLeft);
 
-            Vector3 west = new Vector3(floorBounds.min.x, d.dungeonType.wallHeight/2, 0);
-            Vector3 north = new Vector3(0, d.dungeonType.wallHeight/2, floorBounds.max.z);
-            Vector3 east = new Vector3(floorBounds.max.x, d.dungeonType.wallHeight/2, 0);
-            Vector3 south = new Vector3(0, d.dungeonType.wallHeight/2, floorBounds.min.z);
+            Vector3 west = new Vector3(floorBounds.min.x, d.currentDungeonType.wallHeight/2, 0);
+            Vector3 north = new Vector3(0, d.currentDungeonType.wallHeight/2, floorBounds.max.z);
+            Vector3 east = new Vector3(floorBounds.max.x, d.currentDungeonType.wallHeight/2, 0);
+            Vector3 south = new Vector3(0, d.currentDungeonType.wallHeight/2, floorBounds.min.z);
 
-            trigger.transform.position = west;
-            trigger.transform.localScale = new Vector3(0, d.dungeonType.wallHeight, zlen);
+            setAvoidanceBoxOnSide(trigger, west, 1, d.currentDungeonType.wallHeight, zlen);
+            setAvoidanceBoxOnSide(trigger, north, xlen, d.currentDungeonType.wallHeight, 1);
+            setAvoidanceBoxOnSide(trigger, east, 1, d.currentDungeonType.wallHeight, zlen);
+            setAvoidanceBoxOnSide(trigger, south, xlen, d.currentDungeonType.wallHeight, 1);
 
-            GameObject no = UnityEngine.Object.Instantiate(trigger, north, trigger.transform.rotation);
-            no.transform.localScale = new Vector3(xlen, d.dungeonType.wallHeight, 1);
-            no.transform.parent = trigger.transform.parent;
+            // The original one isn't used, but it stays in the middle of the map, so destroy it to prevent weirdness on the AI
+            UnityEngine.Object.Destroy(trigger.gameObject);
+        }
 
-            GameObject ea = UnityEngine.Object.Instantiate(trigger, east, trigger.transform.rotation);
-            ea.transform.localScale = new Vector3(1, d.dungeonType.wallHeight, zlen);
-            ea.transform.parent = trigger.transform.parent;
-
-            GameObject so = UnityEngine.Object.Instantiate(trigger, south, trigger.transform.rotation);
-            so.transform.localScale = new Vector3(xlen, d.dungeonType.wallHeight, 1);
-            so.transform.parent = trigger.transform.parent;
+        private static void setAvoidanceBoxOnSide(GameObject prefab, Vector3 position, float scaleX, float scaleY, float scaleZ) {
+            GameObject side = UnityEngine.Object.Instantiate(prefab, position, prefab.transform.rotation);
+            side.transform.localScale = new Vector3(scaleX, scaleY, scaleZ);
+            side.transform.parent = prefab.transform.parent;
         }
 
         /// <summary>
@@ -96,18 +95,18 @@ namespace FiscalShock.Procedural {
         /// <param name="wall"></param>
         private static void constructWallOnEdge(Dungeoneer d, Edge wall) {
             // Since the prefab is stretched equally along x and y, it must be placed at the center for both x and y
-            Vector3 p = wall.p.toVector3AtHeight(d.dungeonType.wallHeight/2);
-            Vector3 q = wall.q.toVector3AtHeight(d.dungeonType.wallHeight/2);
+            Vector3 p = wall.p.toVector3AtHeight(d.currentDungeonType.wallHeight/2);
+            Vector3 q = wall.q.toVector3AtHeight(d.currentDungeonType.wallHeight/2);
             Vector3 wallCenter = (p+q)/2;
 
-            GameObject wallObject = UnityEngine.Object.Instantiate(d.dungeonType.wall.prefab, wallCenter, d.dungeonType.wall.prefab.transform.rotation);
+            GameObject wallObject = UnityEngine.Object.Instantiate(d.currentDungeonType.wall.prefab, wallCenter, d.currentDungeonType.wall.prefab.transform.rotation);
             wallObject.transform.parent = d.wallOrganizer.transform;
             wall.wallObjects.Add(wallObject);
 
             // Stretch wall
             wallObject.transform.localScale = new Vector3(
-                wall.getLength(),  // length of the original edge
-                wallObject.transform.localScale.y * d.dungeonType.wallHeight,  // desired wall height
+                wall.length,  // length of the original edge
+                wallObject.transform.localScale.y * d.currentDungeonType.wallHeight,  // desired wall height
                 wallObject.transform.localScale.z  // original prefab thickness
             );
 
@@ -117,11 +116,12 @@ namespace FiscalShock.Procedural {
 
             // Attach info to game object for later use
             wallObject.GetComponent<WallInfo>().associatedEdge = wall;
+            wall.isWall = true;
 
             /*
             Vector3 direction = (q-p).normalized;
             #if UNITY_EDITOR
-            Debug.DrawRay(p, direction * wall.getLength(), Color.white, 512);
+            Debug.DrawRay(p, direction * wall.length, Color.white, 512);
             #endif
             */
         }
@@ -131,31 +131,33 @@ namespace FiscalShock.Procedural {
         /// </summary>
         /// <param name="d"></param>
         private static List<GameObject> destroyWallsForCorridors(Dungeoneer d) {
-            LayerMask wallMask = 1 << 12;
+            LayerMask wallMask = 1 << LayerMask.NameToLayer("Wall");
             List<GameObject> wallsToKeep = new List<GameObject>();
 
             foreach (Edge e in d.spanningTree) {
-                float len = (float)(e.getLength());
+                float len = e.length;
 
-                Vector3 p = e.p.toVector3AtHeight(d.dungeonType.wallHeight/2);
-                Vector3 q = e.q.toVector3AtHeight(d.dungeonType.wallHeight/2);
+                Vector3 p = e.p.toVector3AtHeight(1);
+                Vector3 q = e.q.toVector3AtHeight(1);
                 Vector3 direction = (q-p).normalized;
+                // uncomment to debug raycasts
                 /*
                 #if UNITY_EDITOR
                 Debug.DrawRay(p, direction * len, Color.blue, 512);
                 #endif
                 */
 
-                // Cast a sphere to find what walls to destroy
-                RaycastHit[] hits = Physics.SphereCastAll(p, d.dungeonType.hallWidth, direction, len, wallMask);
-                List<RaycastHit> hit2 = new List<RaycastHit>(hits);
-                hit2 = hit2.OrderByDescending(h => h.distance).ToList();
-                foreach (RaycastHit hit in hit2) {
+                // Cast a ray to destroy initial set of walls. SphereCast does
+                // not always catch all walls close to the sphere center
+                List<RaycastHit> hits = new List<RaycastHit>(Physics.CapsuleCastAll(p, p + Vector3.up * d.currentDungeonType.wallHeight, d.currentDungeonType.hallWidth, direction, len, wallMask));
+                foreach (RaycastHit hit in hits) {
+                    hit.collider.gameObject.GetComponent<WallInfo>().associatedEdge.isWall = false;
+                    hit.collider.gameObject.name = $"Destroyed {hit.collider.gameObject.name}";
                     UnityEngine.Object.Destroy(hit.collider.gameObject);
                 }
 
                 // Cast a wider sphere to determine what walls to keep during cleanup
-                foreach (RaycastHit hit in Physics.SphereCastAll(p, d.dungeonType.hallWidth * 7, direction, len, wallMask)) {
+                foreach (RaycastHit hit in Physics.SphereCastAll(p, d.currentDungeonType.hallWidth * 7, direction, len, wallMask)) {
                     wallsToKeep.Add(hit.collider.gameObject);
                 }
             }
@@ -177,6 +179,8 @@ namespace FiscalShock.Procedural {
 
             foreach (GameObject w in GameObject.FindGameObjectsWithTag("Wall")) {
                 if (!wallsToKeep.Contains(w)) {
+                    w.GetComponent<WallInfo>().associatedEdge.isWall = false;
+                    w.name = $"Destroyed {w.name}";
                     UnityEngine.Object.Destroy(w);
                 }
             }

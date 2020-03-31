@@ -11,7 +11,10 @@ GameObject:
   - component: {fileID: 4000010474344608}
   - component: {fileID: 33000010478285182}
   - component: {fileID: 23000013034185700}
-  - component: {fileID: -8430559054879506965}
+  - component: {fileID: 7904385471873320006}
+  - component: {fileID: 8181188386349800147}
+  - component: {fileID: 909283894486924715}
+  - component: {fileID: 6175729478804097987}
   m_Layer: 8
   m_Name: Fence 2 Bright
   m_TagString: Obstacle
@@ -80,8 +83,46 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &-8430559054879506965
-MeshCollider:
+--- !u!114 &7904385471873320006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011113702724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce02a5bb4a2c2bc3fbe07f3cfc648918, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8181188386349800147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011113702724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d14ccc4e83f5aec8db84560ece84405d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toBeDestroyed: 0
+--- !u!65 &909283894486924715
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011113702724}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.8000011, y: 3.169727, z: 8.000006}
+  m_Center: {x: 0, y: 1.584853, z: -0.000009536745}
+--- !u!65 &6175729478804097987
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -90,7 +131,6 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 4773f78fb93481747ba6d43c5cf78f45, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 2.8000011, y: 3.169727, z: 8.000006}
+  m_Center: {x: 0, y: 1.584853, z: -0.000009536745}

@@ -29,7 +29,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &9041638283351773375
 Transform:
@@ -122,7 +122,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &3636848436095270041
 Transform:
@@ -4874,7 +4874,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &6782630984833589022
 Transform:
@@ -4905,9 +4905,10 @@ GameObject:
   - component: {fileID: 768399930780752127}
   - component: {fileID: 6914832937828705900}
   - component: {fileID: 6102529130990883628}
+  - component: {fileID: -5159868213195035033}
   m_Layer: 8
   m_Name: Delve
-  m_TagString: Untagged
+  m_TagString: Portal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -5016,6 +5017,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3266a785d7d50103c98fcae3d2f3fa0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-5159868213195035033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6092265165582998533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce02a5bb4a2c2bc3fbe07f3cfc648918, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1100606028023843805
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5112,6 +5125,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DelveArrow
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251394124068252912, guid: 613e316b8799974c3ba143003b8aa238,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 8254938965028709810, guid: 613e316b8799974c3ba143003b8aa238,
         type: 3}

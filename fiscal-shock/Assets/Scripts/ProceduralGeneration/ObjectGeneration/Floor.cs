@@ -35,13 +35,13 @@ namespace FiscalShock.Procedural {
             float actualWidth = Mathf.Max(Mathf.Abs(p.minX), Mathf.Abs(p.maxX)) * 2.5f;
             float actualHeight = Mathf.Max(Mathf.Abs(p.minY), Mathf.Abs(p.maxY)) * 2.5f;
             // fudge factor on ground cube y to make it line up more nicely
-            GameObject flo = stretchCube(d.dungeonType.ground.prefab, actualWidth, actualHeight, -0.2f);
+            GameObject flo = stretchCube(d.currentDungeonType.ground.prefab, actualWidth, actualHeight, -0.2f);
             flo.transform.parent = d.organizer.transform;
             flo.name = "Ground";
 
             // add optional ceiling
-            if (d.dungeonType.ceiling != null) {
-                GameObject ceiling = stretchCube(d.dungeonType.ceiling.prefab, actualWidth, actualHeight, d.dungeonType.wallHeight);
+            if (d.currentDungeonType.ceiling != null) {
+                GameObject ceiling = stretchCube(d.currentDungeonType.ceiling.prefab, actualWidth, actualHeight, d.currentDungeonType.wallHeight);
                 ceiling.transform.parent = d.organizer.transform;
                 ceiling.name = "Ceiling";
             }
