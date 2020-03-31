@@ -104,7 +104,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 5676983891017127546, guid: 39180d9180c94761a9d667fddf55796d,
     type: 3}
-  player: {fileID: 0}
   fireSoundClip: {fileID: 8300000, guid: c6abf3855d73e4345b8c1df9fbc40e9b, type: 3}
   botSize: 2
   botDamage: 3
@@ -137,7 +136,6 @@ MonoBehaviour:
   pointValue: 30
   animationManager: {fileID: 8645812413896970740}
   stunEffect: {fileID: 7765021918565417023}
-  feed: {fileID: 7774178292728621519, guid: c5fcf0c2e8177009da4b226f700524cb, type: 3}
 --- !u!111 &4661802102344205313
 Animation:
   m_ObjectHideFlags: 0

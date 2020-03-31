@@ -35,6 +35,7 @@ namespace FiscalShock.Procedural {
             // Randomly rotate about the y-axis
             float rotation = d.mt.Next(360);
             chosenCell.spawnedObject.transform.Rotate(0, rotation, 0);
+            chosenCell.hasPortal = true;
 
             return portalSite;
         }

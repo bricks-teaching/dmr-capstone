@@ -23,7 +23,7 @@ public class ExplodingObject : MonoBehaviour {
         hitMask = (1 << PLAYER) | (1 << ENEMY) | (1 << EXPLOSIVE);
         meshes = GetComponentsInChildren<Renderer>();
         colliders = GetComponentsInChildren<Collider>();
-        player = GameObject.FindObjectOfType<PlayerHealth>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerHealth>();
     }
 
     private void OnTriggerEnter(Collider col) {
@@ -57,6 +57,8 @@ public class ExplodingObject : MonoBehaviour {
             }
             if (layerHit == ENEMY) {
                 EnemyHealth eh = hit.gameObject.GetComponentInChildren<EnemyHealth>();
+                hit.attachedRigidbody.isKinematic = false;
+                hit.attachedRigidbody.AddExplosionForce(randomizedDamage*10, transform.position + Vector3.up, explosionRadius, 3f);
                 eh.takeDamage(randomizedDamage);
                 eh.showDamageExplosion(null, 0f);
                 eh.stun(3f);

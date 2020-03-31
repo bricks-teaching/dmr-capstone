@@ -21,10 +21,12 @@ public class EnemyHealth : MonoBehaviour {
     private readonly int bigExplosionLimit = 6;
     public GameObject stunEffect;
     private FeedbackController feed;
+    private Rigidbody ragdoll;
 
     void Start() {
         feed = GameObject.FindGameObjectWithTag("HUD").GetComponent<FeedbackController>();
         totalHealth = startingHealth;
+        ragdoll = gameObject.GetComponent<Rigidbody>();
 
         for (int i = 0; i < smallExplosionLimit; ++i) {
             GameObject splode = Instantiate(explosion, gameObject.transform.position + transform.up, gameObject.transform.rotation);
@@ -42,7 +44,9 @@ public class EnemyHealth : MonoBehaviour {
     }
 
     public void stun(float duration) {
-        StartCoroutine(stunRoutine(duration));
+        if (!dead) {
+            StartCoroutine(stunRoutine(duration));
+        }
     }
 
     private IEnumerator stunRoutine(float duration) {
@@ -56,6 +60,7 @@ public class EnemyHealth : MonoBehaviour {
         em.enabled = true;
         em.stunned = false;
         stunEffect.SetActive(false);
+        ragdoll.isKinematic = true;
 
         yield return null;
     }

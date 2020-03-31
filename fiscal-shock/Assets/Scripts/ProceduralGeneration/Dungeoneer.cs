@@ -3,7 +3,6 @@ using System.Linq;
 using UnityEngine;
 using FiscalShock.Graphs;
 using ThirdParty;
-using UnityEngine.AI;
 using UnityEngine.Rendering;
 
 /// <summary>
@@ -108,7 +107,6 @@ namespace FiscalShock.Procedural {
             // pick how many rooms to make
             int rooms = mt.Next(currentDungeonType.minRooms, currentDungeonType.maxRooms);
             List<Vertex> masterDelaunayPoints = new List<Vertex>();
-            List<double> masterDelaunayPointsFlat = new List<double>();
 
             // warning: potential infinite loops!
             int infinityGuard = 0;
@@ -139,14 +137,12 @@ namespace FiscalShock.Procedural {
                 }
 
                 // if we get this far, it's okay to add
-                masterDelaunayPointsFlat.Add(dt.vertices[selection].x);
-                masterDelaunayPointsFlat.Add(dt.vertices[selection].y);
                 masterDelaunayPoints.Add(dt.vertices[selection]);
                 infinityGuard = 0;
             }
 
             // get triangulation of those points
-            masterDt = new Delaunay(masterDelaunayPointsFlat);
+            masterDt = new Delaunay(masterDelaunayPoints);
 
             // get spanning tree
             //spanningTree = masterDt.edges.Distinct().ToList();
@@ -389,7 +385,11 @@ namespace FiscalShock.Procedural {
 
         private void spawnPlayer() {
             Debug.Log("Spawning player");
-            Vertex spawnPoint = masterDt.vertices[mt.Next(masterDt.vertices.Count-1)];
+
+            Vertex spawnPoint;
+            do {  // Don't spawn the player on portals. Warning: infinite loop if there are only 1-2 cells
+                spawnPoint = masterDt.vertices[mt.Next(masterDt.vertices.Count-1)];
+            } while (spawnPoint.cell.hasPortal);
             player = GameObject.FindGameObjectWithTag("Player");
             if (player == null) {
                 player = Instantiate(playerPrefab, playerPrefab.transform.position, playerPrefab.transform.rotation);
@@ -406,8 +406,7 @@ namespace FiscalShock.Procedural {
             InGameMenu menu = GameObject.FindObjectOfType<InGameMenu>();
             menu.player = player;
 
-            // Disable loading screen camera in this scene
-            GameObject.Find("LoadCamera").GetComponent<Camera>().enabled = false;
+            // Set up HUD
             GameObject hud = GameObject.Find("HUD");
             hud.GetComponent<Canvas>().enabled = true;
             HUD hudScript = hud.GetComponentInChildren<HUD>();
@@ -418,6 +417,9 @@ namespace FiscalShock.Procedural {
             PlayerShoot shootScript = player.GetComponentInChildren<PlayerShoot>();
             shootScript.enabled = true;
             shootScript.Start();
+
+            // Enable temporary player invincibility on spawn
+            StartCoroutine(player.GetComponentInChildren<PlayerHealth>().enableIframes(5f));
         }
 
         private bool isPointOnOrNearConvexHull(Vertex point) {

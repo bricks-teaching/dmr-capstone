@@ -362,6 +362,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 208130074868200880}
+  ragdoll: {fileID: 0}
   speed: 11
   gravity: -50
   jumpBy: 3
@@ -386,6 +387,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0898ccec5695ee40b02ad2f24298024, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  invincible: 0
 --- !u!136 &7626383235625894246
 CapsuleCollider:
   m_ObjectHideFlags: 0

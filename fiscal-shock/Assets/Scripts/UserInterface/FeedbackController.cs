@@ -15,7 +15,6 @@ public class FeedbackController : MonoBehaviour
     public Image hitVignette;
 
     public void Start() {
-        Debug.Log($"I'm starting!");
         for (int i = 0; i < numLossesToDisplay; ++i) {
             TextMeshProUGUI sh = Instantiate(shotLoss);
             sh.transform.SetParent(transform);

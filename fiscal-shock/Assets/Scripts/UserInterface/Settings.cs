@@ -133,7 +133,7 @@ public static class Settings {
 /// </summary>
 [System.Serializable]
 public class SettingsValues {
-    public float volume = 1f;
+    public float volume = 0.5f;
     public float mouseSensitivity = 100f;
 
     // ------------- keybinds ---------------
