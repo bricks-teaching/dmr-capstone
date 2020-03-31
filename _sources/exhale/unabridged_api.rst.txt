@@ -84,6 +84,11 @@ Namespaces
 .. toctree::
    :maxdepth: 5
 
+   namespace_UnityEngine__Rendering.rst
+
+.. toctree::
+   :maxdepth: 5
+
    namespace_UnityEngine__SceneManagement.rst
 
 .. toctree::
@@ -144,6 +149,11 @@ Classes and Structs
    :maxdepth: 5
 
    classEnemyShoot.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   classExplodingObject.rst
 
 .. toctree::
    :maxdepth: 5
@@ -228,6 +238,16 @@ Classes and Structs
 .. toctree::
    :maxdepth: 5
 
+   classFiscalShock_1_1Procedural_1_1DungeonTypeData.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   classFiscalShock_1_1Procedural_1_1Edgewise.rst
+
+.. toctree::
+   :maxdepth: 5
+
    classFiscalShock_1_1Procedural_1_1Escape.rst
 
 .. toctree::
@@ -239,6 +259,11 @@ Classes and Structs
    :maxdepth: 5
 
    classFiscalShock_1_1Procedural_1_1KillZone.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   classFiscalShock_1_1Procedural_1_1ObjectInfo.rst
 
 .. toctree::
    :maxdepth: 5
@@ -433,3 +458,8 @@ Enums
    :maxdepth: 5
 
    enum_AnimationManager_8cs_1a2c62c8325defaa3537c7de457e51d9e9.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   enum_StateManager_8cs_1a85b5d3c8a7ff99f7195c8c75a359d277.rst

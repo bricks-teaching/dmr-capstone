@@ -1,0 +1,14 @@
+.. _exhale_enum_StateManager_8cs_1a85b5d3c8a7ff99f7195c8c75a359d277:
+
+Enum DungeonTypeEnum
+====================
+
+- Defined in :ref:`file_fiscal-shock_Assets_Scripts_Finance_StateManager.cs`
+
+
+Enum Documentation
+------------------
+
+
+.. doxygenenum:: DungeonTypeEnum
+   :no-link:

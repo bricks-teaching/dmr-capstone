@@ -19,6 +19,8 @@ Namespaces
 
 - :ref:`namespace_UnityEngine__AI`
 
+- :ref:`namespace_UnityEngine__Rendering`
+
 - :ref:`namespace_UnityEngine__SceneManagement`
 
 - :ref:`namespace_UnityEngine__UI`

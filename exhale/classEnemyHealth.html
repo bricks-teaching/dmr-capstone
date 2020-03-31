@@ -177,10 +177,28 @@
 <dt id="_CPPv411EnemyHealth">
 <span id="_CPPv311EnemyHealth"></span><span id="_CPPv211EnemyHealth"></span><span id="EnemyHealth"></span><span class="target" id="classEnemyHealth"></span><em class="property">class </em><code class="sig-name descname">EnemyHealth</code> : <em class="property">public</em> MonoBehaviour<a class="headerlink" href="#_CPPv411EnemyHealth" title="Permalink to this definition">¶</a><br /></dt>
 <dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt>
+<span class="target" id="classEnemyHealth_1a233e5c3ffcbb0579bc7ab84254fd97fe"></span><code class="sig-name descname">void EnemyHealth.stun(float duration)</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classEnemyHealth_1a150d43bc537fd762f143db4046caa9e5"></span><code class="sig-name descname">void EnemyHealth.takeDamage(float damage)</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classEnemyHealth_1aed2bd9a754c6c630f808a6142b57f038"></span><code class="sig-name descname">void EnemyHealth.showDamageExplosion(Queue&lt; GameObject &gt; queue, float volumeMultiplier = 0.65f)</code></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Members</p>
 <dl class="member">
 <dt>
-<span class="target" id="classEnemyHealth_1a38679a6db9f4c1a03512494520bd7016"></span><code class="sig-name descname">int EnemyHealth.startingHealth = 30</code></dt>
+<span class="target" id="classEnemyHealth_1a5ac17bfd29fb8be389797eda35f07f37"></span><code class="sig-name descname">float EnemyHealth.startingHealth = 30</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
@@ -200,6 +218,11 @@
 
 <dl class="member">
 <dt>
+<span class="target" id="classEnemyHealth_1a3d52c6c871437bc7aa487ecb3c993ad3"></span><code class="sig-name descname">AudioSource EnemyHealth.hitSound</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
 <span class="target" id="classEnemyHealth_1ac16f5d020e300bb8b64cb0d2afcaa24d"></span><code class="sig-name descname">float EnemyHealth.pointValue = 20</code></dt>
 <dd></dd></dl>
 
@@ -210,7 +233,7 @@
 
 <dl class="member">
 <dt>
-<span class="target" id="classEnemyHealth_1aa62803255886afb1df7809eb5e9b98f0"></span><code class="sig-name descname">FeedbackController EnemyHealth.feed</code></dt>
+<span class="target" id="classEnemyHealth_1aefe1570777576d407ba0ec3532f089b6"></span><code class="sig-name descname">GameObject EnemyHealth.stunEffect</code></dt>
 <dd></dd></dl>
 
 </div>
@@ -223,6 +246,11 @@
 
 <dl class="function">
 <dt>
+<span class="target" id="classEnemyHealth_1a1d4cae91231ff75f338e904979a6f910"></span><code class="sig-name descname">IEnumerator EnemyHealth.stunRoutine(float duration)</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
 <span class="target" id="classEnemyHealth_1ac3595888d7baa6e7737643b2d537b557"></span><code class="sig-name descname">void EnemyHealth.OnCollisionEnter(Collision col)</code></dt>
 <dd></dd></dl>
 
@@ -231,7 +259,7 @@
 <p class="breathe-sectiondef-title rubric">Private Members</p>
 <dl class="member">
 <dt>
-<span class="target" id="classEnemyHealth_1afe6a988ef81a6abcbe17acf7ece8da99"></span><code class="sig-name descname">int EnemyHealth.totalHealth</code></dt>
+<span class="target" id="classEnemyHealth_1a8f07fe7b4633a52ea978b9c3e7698471"></span><code class="sig-name descname">float EnemyHealth.totalHealth</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
@@ -262,6 +290,16 @@
 <dl class="member">
 <dt>
 <span class="target" id="classEnemyHealth_1aa8f940a1cd2bff14e4a4e83e3c04e2d8"></span><code class="sig-name descname">readonly int EnemyHealth.bigExplosionLimit = 6</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classEnemyHealth_1aa62803255886afb1df7809eb5e9b98f0"></span><code class="sig-name descname">FeedbackController EnemyHealth.feed</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classEnemyHealth_1ac63b9f79a6f9834558ff61197aa1d441"></span><code class="sig-name descname">Rigidbody EnemyHealth.ragdoll</code></dt>
 <dd></dd></dl>
 
 </div>

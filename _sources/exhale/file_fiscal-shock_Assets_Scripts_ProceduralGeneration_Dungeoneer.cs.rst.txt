@@ -27,6 +27,8 @@ Namespaces
 
 - :ref:`namespace_FiscalShock__Procedural`
 
+- :ref:`namespace_UnityEngine__Rendering`
+
 
 Classes
 -------

@@ -29,3 +29,10 @@ Classes
 
 - :ref:`exhale_class_classStateManager`
 
+
+Enums
+-----
+
+
+- :ref:`exhale_enum_StateManager_8cs_1a85b5d3c8a7ff99f7195c8c75a359d277`
+

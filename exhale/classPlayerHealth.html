@@ -177,10 +177,23 @@
 <dt id="_CPPv412PlayerHealth">
 <span id="_CPPv312PlayerHealth"></span><span id="_CPPv212PlayerHealth"></span><span id="PlayerHealth"></span><span class="target" id="classPlayerHealth"></span><em class="property">class </em><code class="sig-name descname">PlayerHealth</code> : <em class="property">public</em> MonoBehaviour<a class="headerlink" href="#_CPPv412PlayerHealth" title="Permalink to this definition">¶</a><br /></dt>
 <dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt>
+<span class="target" id="classPlayerHealth_1acc634a15758c5bff6013ffa267263ec3"></span><code class="sig-name descname">void PlayerHealth.takeDamage(float damage)</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classPlayerHealth_1a1993607d13f9bb683648333aede490d4"></span><code class="sig-name descname">IEnumerator PlayerHealth.enableIframes(float duration)</code></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Members</p>
 <dl class="member">
 <dt>
-<span class="target" id="classPlayerHealth_1aa71bbb0262e4c0f6c58891369fc55e2f"></span><code class="sig-name descname">Image PlayerHealth.hitVignette</code></dt>
+<span class="target" id="classPlayerHealth_1a08d18feb191094dbf47ff548be29b019"></span><code class="sig-name descname">bool PlayerHealth.invincible</code></dt>
 <dd></dd></dl>
 
 </div>
@@ -188,12 +201,22 @@
 <p class="breathe-sectiondef-title rubric">Private Functions</p>
 <dl class="function">
 <dt>
+<span class="target" id="classPlayerHealth_1a2dc105641d870f4a48bf90a5d0dec87c"></span><code class="sig-name descname">void PlayerHealth.Start()</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
 <span class="target" id="classPlayerHealth_1a1760e7523e132e2f74d8cdc8ec2dafa2"></span><code class="sig-name descname">void PlayerHealth.OnCollisionEnter(Collision col)</code></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt>
-<span class="target" id="classPlayerHealth_1acc15c80d3872fe050b5e9a11e03be1f6"></span><code class="sig-name descname">IEnumerator&lt;WaitForSeconds&gt; PlayerHealth.removeHitDelay()</code></dt>
+<span class="target" id="classPlayerHealth_1a8217ebb7a58949e1585782e7de487945"></span><code class="sig-name descname">IEnumerator PlayerHealth.showHitVignette(float duration)</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classPlayerHealth_1a3c49fdd702b2cf0fca654ef6e502f311"></span><code class="sig-name descname">void PlayerHealth.Update()</code></dt>
 <dd></dd></dl>
 
 </div>
@@ -201,7 +224,17 @@
 <p class="breathe-sectiondef-title rubric">Private Members</p>
 <dl class="member">
 <dt>
-<span class="target" id="classPlayerHealth_1a4b6443e8096a40c554cbe34de9de89b5"></span><code class="sig-name descname">float PlayerHealth.time = 0.1f</code></dt>
+<span class="target" id="classPlayerHealth_1a63d5bf4b0731c74dfee39b90b013498f"></span><code class="sig-name descname">GameObject PlayerHealth.hitVignette</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classPlayerHealth_1afc2cbb227207f3d39e9aa89fd2bee2a7"></span><code class="sig-name descname">float PlayerHealth.timeMultiplier = 0.01f</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classPlayerHealth_1aeff0a5c0b91963eaeb01ddd89469f3c6"></span><code class="sig-name descname">Light PlayerHealth.playerFlashlight</code></dt>
 <dd></dd></dl>
 
 </div>

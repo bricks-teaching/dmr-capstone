@@ -20,9 +20,12 @@ Class Hierarchy
         - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1Delve`
         - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1Dungeoneer`
         - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1DungeonType`
+        - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1DungeonTypeData`
+        - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1Edgewise`
         - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1Escape`
         - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1Floor`
         - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1KillZone`
+        - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1ObjectInfo`
         - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1Portals`
         - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1WallInfo`
         - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1Walls`
@@ -44,6 +47,7 @@ Class Hierarchy
 - :ref:`exhale_class_classEnemyHealth`
 - :ref:`exhale_class_classEnemyMovement`
 - :ref:`exhale_class_classEnemyShoot`
+- :ref:`exhale_class_classExplodingObject`
 - :ref:`exhale_class_classExplosion`
 - :ref:`exhale_class_classFeedbackController`
 - :ref:`exhale_class_classGameController`
@@ -75,5 +79,6 @@ Class Hierarchy
 - :ref:`exhale_class_classWeaponStats`
 - :ref:`exhale_class_classWinScreen`
 - :ref:`exhale_enum_AnimationManager_8cs_1a2c62c8325defaa3537c7de457e51d9e9`
+- :ref:`exhale_enum_StateManager_8cs_1a85b5d3c8a7ff99f7195c8c75a359d277`
 
 
