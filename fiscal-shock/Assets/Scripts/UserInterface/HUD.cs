@@ -8,11 +8,17 @@ public class HUD : MonoBehaviour
     public TextMeshProUGUI debtTracker;
     public GameObject compassImage;
     public RectTransform escapeCompass;
-    public Transform playerTransform;
-    public Transform escapeHatch;
+    public TextMeshProUGUI shotLoss;
+    public TextMeshProUGUI earn;
+
+    /* Variables set at runtime */
+    public Transform playerTransform { get; set; }
+    public Transform escapeHatch { get; set; }
 
     void Start() {
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        shotLoss.text = "";
+        earn.text = "";
     }
 
     /// <summary>

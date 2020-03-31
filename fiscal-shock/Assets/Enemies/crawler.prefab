@@ -1222,6 +1222,7 @@ MonoBehaviour:
   pointValue: 20
   animationManager: {fileID: 3266909794282578669}
   stunEffect: {fileID: 2877221404637860338}
+  feed: {fileID: 7774178292728621519, guid: c5fcf0c2e8177009da4b226f700524cb, type: 3}
 --- !u!114 &911901237148917044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1253,7 +1254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a00e7cb6ea6b0824b8ad343952c40ee3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 3815249681377447051, guid: cacd24e6fa856834b8ae25144e1213d5,
+  bulletPrefab: {fileID: 5676983891017127546, guid: 39180d9180c94761a9d667fddf55796d,
     type: 3}
   player: {fileID: 0}
   fireSoundClip: {fileID: 8300000, guid: c6abf3855d73e4345b8c1df9fbc40e9b, type: 3}

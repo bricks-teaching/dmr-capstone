@@ -19,6 +19,9 @@ namespace FiscalShock.Procedural {
         /// </summary>
         /// <param name="col"></param>
         void OnCollisionEnter(Collision col) {
+            if (col.gameObject == null) {
+                return;
+            }
             if (cheater.destroyWalls && (col.gameObject.tag == "Bullet" || col.gameObject.tag == "Missile")) {
                 Destroy(gameObject);
             }

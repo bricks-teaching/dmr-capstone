@@ -20,8 +20,10 @@ public class EnemyHealth : MonoBehaviour {
     private Queue<GameObject> bigExplosions = new Queue<GameObject>();
     private readonly int bigExplosionLimit = 6;
     public GameObject stunEffect;
+    private FeedbackController feed;
 
     void Start() {
+        feed = GameObject.FindGameObjectWithTag("HUD").GetComponent<FeedbackController>();
         totalHealth = startingHealth;
 
         for (int i = 0; i < smallExplosionLimit; ++i) {
@@ -40,8 +42,7 @@ public class EnemyHealth : MonoBehaviour {
     }
 
     public void stun(float duration) {
-        IEnumerator routine = stunRoutine(duration);
-        StartCoroutine(routine);
+        StartCoroutine(stunRoutine(duration));
     }
 
     private IEnumerator stunRoutine(float duration) {
@@ -70,6 +71,7 @@ public class EnemyHealth : MonoBehaviour {
             animationManager.animator.PlayQueued("shrink");
             Destroy(gameObject, deathDuration + 0.5f);
             dead = true;
+            feed.profit(pointValue);
         }
     }
 

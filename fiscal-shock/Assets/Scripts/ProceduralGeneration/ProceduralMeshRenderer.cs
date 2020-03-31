@@ -9,8 +9,7 @@ using FiscalShock.Procedural;
 /// </summary>
 namespace FiscalShock.Demo {
     public class ProceduralMeshRenderer : MonoBehaviour {
-        [Tooltip("Link a Dungeoneer script to render its graphs.")]
-        public Dungeoneer dungen;
+        public Dungeoneer dungen { get; set; }
 
         [Tooltip("Prefab object used for rendering points.")]
         public GameObject pointPrefab;
@@ -71,7 +70,7 @@ namespace FiscalShock.Demo {
         [Tooltip("Material with a specific shader to color lines properly in game view. Don't change it unless you have a good reason!")]
         public Material edgeMat;
 
-        public TextMesh label = new TextMesh();
+        public TextMesh label { get; private set; } = new TextMesh();
         public bool alreadyDrew { get; set; }
 
         private void Start() {

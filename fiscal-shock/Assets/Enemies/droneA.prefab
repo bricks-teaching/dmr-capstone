@@ -405,6 +405,7 @@ MonoBehaviour:
   pointValue: 20
   animationManager: {fileID: 2153995193128306830}
   stunEffect: {fileID: 1317176121408274733}
+  feed: {fileID: 7774178292728621519, guid: c5fcf0c2e8177009da4b226f700524cb, type: 3}
 --- !u!114 &9080060908412219382
 MonoBehaviour:
   m_ObjectHideFlags: 0

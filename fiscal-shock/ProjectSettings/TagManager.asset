@@ -17,6 +17,10 @@ TagManager:
   - Player Flashlight
   - Dungeon Directional Light
   - Portal
+  - HUD
+  - Shoot
+  - Player Hit Vignette
+  - Enemy Projectile
   layers:
   - Default
   - TransparentFX

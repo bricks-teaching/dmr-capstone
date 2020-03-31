@@ -5,7 +5,7 @@
 //This script allows enemy bots to fire weapons.
 public class EnemyShoot : MonoBehaviour {
     public GameObject bulletPrefab;
-    public GameObject player;
+    public GameObject player { get; set; }
     private AudioSource fireSound;
     public AudioClip fireSoundClip;
     private float time = 0.0f;
@@ -55,9 +55,11 @@ public class EnemyShoot : MonoBehaviour {
         // Assumes bot is facing the player, so fire in that direction
         GameObject bullet = Instantiate(
             bulletPrefab,
-            gameObject.transform.position + (gameObject.transform.forward * botSize) + (gameObject.transform.up * gunHeight),
-            gameObject.transform.rotation);
+            transform.position + (transform.forward * botSize) + (transform.up * gunHeight),
+            transform.rotation);
         bullet.transform.parent = transform;
+        bullet.tag = "Enemy Projectile";
+        bullet.name = $"{gameObject.name}'s {bulletPrefab.name}";
         BulletBehavior bulletScript = bullet.GetComponent(typeof(BulletBehavior)) as BulletBehavior;
         bulletScript.damage = damage;
 

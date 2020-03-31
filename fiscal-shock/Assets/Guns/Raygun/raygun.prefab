@@ -53,8 +53,9 @@ MonoBehaviour:
   rotation: -200
   continuous: 0
   missile: 0
-  bulletPrefab: {fileID: 3815249681377447051, guid: cacd24e6fa856834b8ae25144e1213d5,
+  bulletPrefab: {fileID: 4757043727388683011, guid: 7552f1f9ecc1f3d0d90f3ba37f35fd67,
     type: 3}
+  showCrosshair: 1
 --- !u!1 &4145652567811039918
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,6 +235,7 @@ MonoBehaviour:
   missile: 0
   bulletPrefab: {fileID: 3815249681377447051, guid: cacd24e6fa856834b8ae25144e1213d5,
     type: 3}
+  showCrosshair: 1
 --- !u!1 &4658682082987931434
 GameObject:
   m_ObjectHideFlags: 0

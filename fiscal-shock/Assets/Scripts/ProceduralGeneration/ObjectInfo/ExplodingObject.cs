@@ -13,6 +13,7 @@ public class ExplodingObject : MonoBehaviour {
     private Renderer[] meshes;
     private Collider[] colliders;
     private bool exploding;
+    private PlayerHealth player;
 
     private void Start() {
         aso = gameObject.AddComponent<AudioSource>();
@@ -22,6 +23,7 @@ public class ExplodingObject : MonoBehaviour {
         hitMask = (1 << PLAYER) | (1 << ENEMY) | (1 << EXPLOSIVE);
         meshes = GetComponentsInChildren<Renderer>();
         colliders = GetComponentsInChildren<Collider>();
+        player = GameObject.FindObjectOfType<PlayerHealth>();
     }
 
     private void OnTriggerEnter(Collider col) {
@@ -29,6 +31,7 @@ public class ExplodingObject : MonoBehaviour {
             return;
         }
         switch (col.gameObject.tag) {
+            case "Enemy Projectile":
             case "Bullet":
             case "Missile":
                 explode();
@@ -50,7 +53,7 @@ public class ExplodingObject : MonoBehaviour {
             float randomizedDamage = explosionDamage * Random.Range(0.5f, 2f);
             int layerHit = hit.gameObject.layer;
             if (layerHit == PLAYER) {
-                hit.gameObject.GetComponentInChildren<PlayerHealth>().takeDamage(randomizedDamage);
+                player.takeDamage(randomizedDamage);
             }
             if (layerHit == ENEMY) {
                 EnemyHealth eh = hit.gameObject.GetComponentInChildren<EnemyHealth>();
