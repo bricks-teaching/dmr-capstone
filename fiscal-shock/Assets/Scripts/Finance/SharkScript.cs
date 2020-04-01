@@ -64,6 +64,7 @@ public class SharkScript : MonoBehaviour
             StateManager.nextID++;
             StateManager.totalLoans++;
             StateManager.calcDebtTotals();
+            updateFields();
             return true;
         } else {
             return false;
@@ -80,6 +81,7 @@ public class SharkScript : MonoBehaviour
             sharkDue = false;
             StateManager.totalLoans--;
             StateManager.calcDebtTotals();
+            updateFields();
             return true;
         } else { //none of the above
             //reduce debt and money by amount
@@ -88,6 +90,7 @@ public class SharkScript : MonoBehaviour
             PlayerFinance.cashOnHand -= amount;
             sharkDue = false;
             StateManager.calcDebtTotals();
+            updateFields();
             return true;
         }
     }
