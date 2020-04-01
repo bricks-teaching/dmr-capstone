@@ -13,6 +13,7 @@ public class ShopScript : MonoBehaviour
     public GameObject shopPanel;
     public Button hoseButton;
     public Button fishButton;
+    public Button backButton;
     private bool playerIsInTriggerZone = false;
     private bool hoseBought = false;
     private bool launcherBought = false;
@@ -33,8 +34,10 @@ public class ShopScript : MonoBehaviour
         shopPanel.SetActive(false);
         Button btnOne = hoseButton.GetComponent<Button>();
         Button btnTwo = fishButton.GetComponent<Button>();
+        Button btnThr = backButton.GetComponent<Button>();
 		btnOne.onClick.AddListener(buyHose);
         btnTwo.onClick.AddListener(buyFish);
+        btnThr.onClick.AddListener(BackClick);
     }
     // Update is called once per frame
     void Update()
@@ -66,10 +69,10 @@ public class ShopScript : MonoBehaviour
     void buyHose(){
         bool success = buyWeapon(0, 1000.0f);
         if(success){
-            dialogText.text = "";
+            dialogText.text = "Alright, here ya go, try not to get yourself kilt. No really, I mean kilt, not killed, but don’t do that either";
             audioS.PlayOneShot(paymentSound, Settings.volume);
         } else {
-            dialogText.text = "";
+            dialogText.text = "You sure you have enough there, pal? I ain’t running a charity here...";
             audioS.PlayOneShot(failureSound, Settings.volume * 2.5f);
         }
     }
@@ -77,15 +80,17 @@ public class ShopScript : MonoBehaviour
     void buyFish(){
         bool success = buyWeapon(1, 1500.0f);
         if(success){
-            dialogText.text = "";
+            dialogText.text = "Pretty weird that the only way to make money around here is killing robots, innit?";
             audioS.PlayOneShot(paymentSound, Settings.volume);
         } else {
-            dialogText.text = "";
+            dialogText.text = "I think you are a bit short today, go kill some bots and come back";
             audioS.PlayOneShot(failureSound, Settings.volume * 2.5f);
         }
     }
     public void BackClick()
     {
+        dialogText.text = "What are ya buyin?";
         shopPanel.SetActive(false);
+        Settings.mutexLockCursorState(this);
     }
 }

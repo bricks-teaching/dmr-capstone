@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 using System.Linq;
+using System.Globalization;
 
 public class ATMScript : MonoBehaviour {
     public AudioClip paymentSound;
@@ -10,9 +11,20 @@ public class ATMScript : MonoBehaviour {
     public static bool bankDue = true;
     private bool playerIsInTriggerZone = false;
     private TextMeshProUGUI signText;
-    private string defaultSignText;
+    //private string defaultSignText;
+    private int loanCount = 0;
     private AudioSource audioS;
     public GameObject bankPanel;
+    private TextMeshProUGUI dialogText;
+    public Button payButton;
+    public Button newLoan;
+    public Button secLoan;
+    public Button backButton;
+    public InputField payAmount;
+    public InputField payID;
+    public InputField loanInput;
+    public InputField secInput;
+    public Text id1, id2, id3, type1, type2, type3, amount1, amount2, amount3;
     public static float bankMaxLoan { get; set; } = 10000.0f;
     public static float bankInterestRate { get; set; } = 0.035f;
     public static int bankThreatLevel { get; set; } = 0;
@@ -29,16 +41,24 @@ public class ATMScript : MonoBehaviour {
     void OnTriggerExit(Collider col) {
         if (col.gameObject.tag == "Player") {
             playerIsInTriggerZone = false;
-            signText.text = defaultSignText;
+            //signText.text = defaultSignText;
         }
     }
 
     void Start() {
-        signText = GetComponentInChildren<TextMeshProUGUI>();
-        defaultSignText = signText.text.Replace("INTERACTKEY", Settings.interactKey.ToUpper());
-        signText.text = defaultSignText;
+        //signText = GetComponentInChildren<TextMeshProUGUI>();
+        //defaultSignText = signText.text.Replace("INTERACTKEY", Settings.interactKey.ToUpper());
+        //signText.text = defaultSignText;
         audioS = GetComponent<AudioSource>();
         bankPanel.SetActive(false);
+        Button btnOne = payButton.GetComponent<Button>();
+        Button btnTwo = newLoan.GetComponent<Button>();
+        Button btnThr = secLoan.GetComponent<Button>();
+        Button btnFou = backButton.GetComponent<Button>();
+        btnOne.onClick.AddListener(payLoan);
+        btnTwo.onClick.AddListener(addLoan);
+        btnThr.onClick.AddListener(addSecLoan);
+        btnFou.onClick.AddListener(BackClick);
     }
 
     void Update() {
@@ -59,13 +79,15 @@ public class ATMScript : MonoBehaviour {
         }
     }
     public enum LoanType {
-    Unsecured,
-    Secured
+        Unsecured,
+        Secured
     }
 
     public bool addDebt(float amount, LoanType loanType) {
-        //loanType is one for default loan and two for the secured loan
-        if (bankThreatLevel < 3 && bankMaxLoan > (bankTotal + amount)){
+        if(amount < 0.0f){
+            return false;
+        }
+        if (bankThreatLevel < 3 && bankMaxLoan > (bankTotal + amount) && loanCount < 4){
             // bank threat is below 3 and is below max total debt
             Loan newLoan = null;
             switch (loanType) {
@@ -83,33 +105,38 @@ public class ATMScript : MonoBehaviour {
             StateManager.nextID++;
             StateManager.totalLoans++;
             StateManager.calcDebtTotals();
+            loanCount++;
+            updateFields();
             return true;
         } else {
             return false;
         }
-
     }
 
     public bool payDebt(float amount, int loanNum) {
+        Loan selectedLoan = StateManager.loanList.Where(l => l.ID == loanNum).First();
+        if(amount < 0.0f || selectedLoan.Equals(null)){
+            return false;
+        }
         if (PlayerFinance.cashOnHand < amount) { // amount is more than money on hand
             //display a message stating error
             return false;
         } else if (bankTotal <= amount) { // amount is more than the debt
-            Loan selectedLoan = StateManager.loanList.Where(l => l.ID == loanNum).First();
             StateManager.loanList.Remove(selectedLoan);
             PlayerFinance.cashOnHand -= bankTotal;
             bankDue = false;
             StateManager.totalLoans--;
             StateManager.calcDebtTotals();
-            temporaryWinGame();
+            updateFields();
+            //temporaryWinGame();
             return true;
         } else { // none of the above
             // reduce debt and money by amount
-            Loan selectedLoan = StateManager.loanList.Where(l => l.ID == loanNum).First();
             selectedLoan.total -= amount;
             PlayerFinance.cashOnHand -= amount;
             bankDue = false;
             StateManager.calcDebtTotals();
+            updateFields();
             return true;
         }
     }
@@ -153,8 +180,58 @@ public class ATMScript : MonoBehaviour {
         SceneManager.LoadScene("WinGame");
     }
 
+    void payLoan(){
+        float am = float.Parse(payAmount.text, CultureInfo.InvariantCulture.NumberFormat);
+        int az = int.Parse(payID.text);
+        bool z = payDebt(am, az);
+        if(z){
+            dialogText.text = "Thank you for your payment!";
+            audioS.PlayOneShot(paymentSound, Settings.volume);
+        } else {
+            dialogText.text = "You dont have the money on you.";
+            audioS.PlayOneShot(failureSound, Settings.volume * 2.5f);
+        }
+    }
+    void addLoan(){
+        float an = float.Parse(loanInput.text, CultureInfo.InvariantCulture.NumberFormat);
+        bool y = addDebt(an, LoanType.Unsecured);
+        if(y){
+            dialogText.text = "All set!";
+            audioS.PlayOneShot(paymentSound, Settings.volume);
+        } else {
+            dialogText.text = "Hmm.. I would suggest paying off previous debts first";
+            audioS.PlayOneShot(failureSound, Settings.volume * 2.5f);
+        }
+    }
+    void addSecLoan(){
+        float ao = float.Parse(secInput.text, CultureInfo.InvariantCulture.NumberFormat);
+        bool x = addDebt(ao, LoanType.Secured);
+        if(x){
+            dialogText.text = "YOUR SOUL IS MINE! erm, I mean... All Set!";
+            audioS.PlayOneShot(paymentSound, Settings.volume);
+        } else {
+            dialogText.text = "Nope, declined.";
+            audioS.PlayOneShot(failureSound, Settings.volume * 2.5f);
+        }
+    }
+
+    void updateFields(){
+        Loan[] item = StateManager.loanList.Where(l => !l.source).ToArray();
+        id1.text = item[0].ID.ToString();
+        amount1.text = item[0].total.ToString();
+        type1.text = "Bank";
+        id2.text = item[1].ID.ToString();
+        amount2.text = item[1].total.ToString();
+        type2.text = "Bank";
+        id3.text = item[2].ID.ToString();
+        amount3.text = item[2].total.ToString();
+        type3.text = "Bank";
+    }
+
     public void BackClick()
     {
+        dialogText.text = "How may I help you?";
         bankPanel.SetActive(false);
+        Settings.mutexLockCursorState(this);
     }
 }
