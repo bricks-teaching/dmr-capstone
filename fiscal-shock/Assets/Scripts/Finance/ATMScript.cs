@@ -191,7 +191,7 @@ public class ATMScript : MonoBehaviour {
             dialogText.text = "Thank you for your payment!";
             audioS.PlayOneShot(paymentSound, Settings.volume);
         } else {
-            dialogText.text = "You dont have the money on you.";
+            dialogText.text = "You don't have the money on you.";
             audioS.PlayOneShot(failureSound, Settings.volume * 2.5f);
         }
     }
@@ -202,7 +202,7 @@ public class ATMScript : MonoBehaviour {
             dialogText.text = "All set!";
             audioS.PlayOneShot(paymentSound, Settings.volume);
         } else {
-            dialogText.text = "Hmm.. I would suggest paying off previous debts first";
+            dialogText.text = "Hmm... I would suggest paying off previous debts first.";
             audioS.PlayOneShot(failureSound, Settings.volume * 2.5f);
         }
     }
@@ -210,7 +210,7 @@ public class ATMScript : MonoBehaviour {
         float ao = float.Parse(secInput.text, CultureInfo.InvariantCulture.NumberFormat);
         bool x = addDebt(ao, LoanType.Secured);
         if(x){
-            dialogText.text = "YOUR SOUL IS MINE! erm, I mean... All Set!";
+            dialogText.text = "YOUR SOUL IS MINE! Erm, I mean... All Set!";
             audioS.PlayOneShot(paymentSound, Settings.volume);
         } else {
             dialogText.text = "Nope, declined.";

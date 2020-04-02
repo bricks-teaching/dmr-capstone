@@ -143,7 +143,7 @@ public class SharkScript : MonoBehaviour
             dialogText.text = "Thank you for your payment!";
             audioS.PlayOneShot(paymentSound, Settings.volume);
         } else {
-            dialogText.text = "You dont have the money on you.";
+            dialogText.text = "You don't have the money on you.";
             audioS.PlayOneShot(failureSound, Settings.volume * 2.5f);
         }
     }
@@ -154,7 +154,7 @@ public class SharkScript : MonoBehaviour
             dialogText.text = "I guess I could do you a favor. *snicker*";
             audioS.PlayOneShot(paymentSound, Settings.volume);
         } else {
-            dialogText.text = "Do I look like an easy mark to you";
+            dialogText.text = "Do I look like an easy mark to you?";
             audioS.PlayOneShot(failureSound, Settings.volume * 2.5f);
         }
     }
@@ -180,7 +180,7 @@ public class SharkScript : MonoBehaviour
 
     public void BackClick()
     {
-        dialogText.text = "I'll make you an offer you can't refuse";
+        dialogText.text = "I'll make you an offer you can't refuse.";
         sharkPanel.SetActive(false);
         Settings.forceLockCursorState();
     }

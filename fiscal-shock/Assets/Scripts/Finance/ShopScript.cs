@@ -69,10 +69,10 @@ public class ShopScript : MonoBehaviour
     void buyHose(){
         bool success = buyWeapon(0, 1000.0f);
         if(success){
-            dialogText.text = "Alright, here ya go, try not to get yourself kilt. No really, I mean kilt, not killed, but don’t do that either";
+            dialogText.text = "Alright, here ya go, try not to get yourself kilt. No really, I mean kilt, not killed, but don't do that either.";
             audioS.PlayOneShot(paymentSound, Settings.volume);
         } else {
-            dialogText.text = "You sure you have enough there, pal? I ain’t running a charity here...";
+            dialogText.text = "You sure you have enough there, pal? I ain't running a charity here...";
             audioS.PlayOneShot(failureSound, Settings.volume * 2.5f);
         }
     }
@@ -83,7 +83,7 @@ public class ShopScript : MonoBehaviour
             dialogText.text = "Pretty weird that the only way to make money around here is killing robots, innit?";
             audioS.PlayOneShot(paymentSound, Settings.volume);
         } else {
-            dialogText.text = "I think you are a bit short today, go kill some bots and come back";
+            dialogText.text = "I think you are a bit short today, go kill some bots and come back.";
             audioS.PlayOneShot(failureSound, Settings.volume * 2.5f);
         }
     }
