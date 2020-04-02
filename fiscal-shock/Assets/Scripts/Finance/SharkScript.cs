@@ -12,7 +12,7 @@ public class SharkScript : MonoBehaviour
     public static bool sharkDue { get; set; } = false;
     private bool playerIsInTriggerZone = false;
     private AudioSource audioS;
-    private TextMeshProUGUI dialogText;
+    public TextMeshProUGUI dialogText;
     public GameObject sharkPanel;
     public Button payButton;
     public Button newLoan;
@@ -51,7 +51,7 @@ public class SharkScript : MonoBehaviour
 
     void Update() {
         if (playerIsInTriggerZone && Input.GetKeyDown(Settings.interactKey)) {
-            Settings.mutexUnlockCursorState(this);
+            Settings.forceUnlockCursorState();
             sharkPanel.SetActive(true);
         }
     }
@@ -63,6 +63,7 @@ public class SharkScript : MonoBehaviour
             PlayerFinance.cashOnHand += amount;
             StateManager.nextID++;
             StateManager.totalLoans++;
+            sharkTotal += amount;
             StateManager.calcDebtTotals();
             updateFields();
             return true;
@@ -80,6 +81,7 @@ public class SharkScript : MonoBehaviour
             PlayerFinance.cashOnHand -= sharkTotal;
             sharkDue = false;
             StateManager.totalLoans--;
+            sharkTotal = 0.0f;
             StateManager.calcDebtTotals();
             updateFields();
             return true;
@@ -89,6 +91,7 @@ public class SharkScript : MonoBehaviour
             selectedLoan.total -= amount;
             PlayerFinance.cashOnHand -= amount;
             sharkDue = false;
+            sharkTotal -= amount;
             StateManager.calcDebtTotals();
             updateFields();
             return true;
@@ -155,21 +158,27 @@ public class SharkScript : MonoBehaviour
 
     void updateFields(){
         Loan[] item = StateManager.loanList.Where(l => l.source).ToArray();
+        if(item.Length > 0){
         id1.text = item[0].ID.ToString();
         amount1.text = item[0].total.ToString();
         type1.text = "Payday";
+        }
+        if (item.Length > 1) {
         id2.text = item[1].ID.ToString();
         amount2.text = item[1].total.ToString();
         type2.text = "Payday";
+        }
+        if(item.Length > 2){
         id3.text = item[2].ID.ToString();
         amount3.text = item[2].total.ToString();
         type3.text = "Payday";
+        }
     }
 
     public void BackClick()
     {
         dialogText.text = "I'll make you an offer you can't refuse";
         sharkPanel.SetActive(false);
-        Settings.mutexLockCursorState(this);
+        Settings.forceLockCursorState();
     }
 }

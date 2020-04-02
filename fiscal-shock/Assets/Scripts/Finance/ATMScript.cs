@@ -10,12 +10,10 @@ public class ATMScript : MonoBehaviour {
     public AudioClip failureSound;
     public static bool bankDue = true;
     private bool playerIsInTriggerZone = false;
-    private TextMeshProUGUI signText;
-    //private string defaultSignText;
     private int loanCount = 0;
     private AudioSource audioS;
     public GameObject bankPanel;
-    private TextMeshProUGUI dialogText;
+    public TextMeshProUGUI dialogText;
     public Button payButton;
     public Button newLoan;
     public Button secLoan;
@@ -63,7 +61,7 @@ public class ATMScript : MonoBehaviour {
 
     void Update() {
         if (playerIsInTriggerZone && Input.GetKeyDown(Settings.interactKey)) {
-            Settings.mutexUnlockCursorState(this);
+            Settings.forceUnlockCursorState();
             bankPanel.SetActive(true);
             /*bool paymentSuccessful = payDebt(100, 1);
             if (paymentSuccessful) {
@@ -93,9 +91,11 @@ public class ATMScript : MonoBehaviour {
             switch (loanType) {
                 case LoanType.Unsecured:
                     newLoan = new Loan(StateManager.nextID, amount, bankInterestRate, false);
+                    bankTotal += amount;
                     break;
                 case LoanType.Secured:
                     newLoan = new Loan(StateManager.nextID, amount * securedAmount, bankInterestRate * rateReducer, false);
+                    bankTotal += amount * securedAmount;
                     break;
                 default:
                     return false; //this shouldnt activate, false return is a failsafe measure
@@ -126,6 +126,7 @@ public class ATMScript : MonoBehaviour {
             PlayerFinance.cashOnHand -= bankTotal;
             bankDue = false;
             StateManager.totalLoans--;
+            bankTotal = 0.0f;
             StateManager.calcDebtTotals();
             updateFields();
             //temporaryWinGame();
@@ -135,6 +136,7 @@ public class ATMScript : MonoBehaviour {
             selectedLoan.total -= amount;
             PlayerFinance.cashOnHand -= amount;
             bankDue = false;
+            bankTotal -= amount;
             StateManager.calcDebtTotals();
             updateFields();
             return true;
@@ -217,21 +219,27 @@ public class ATMScript : MonoBehaviour {
 
     void updateFields(){
         Loan[] item = StateManager.loanList.Where(l => !l.source).ToArray();
+        if(item.Length > 0){
         id1.text = item[0].ID.ToString();
         amount1.text = item[0].total.ToString();
         type1.text = "Bank";
+        }
+        if (item.Length > 1) {
         id2.text = item[1].ID.ToString();
         amount2.text = item[1].total.ToString();
         type2.text = "Bank";
+        }
+        if(item.Length > 2){
         id3.text = item[2].ID.ToString();
         amount3.text = item[2].total.ToString();
         type3.text = "Bank";
+        }
     }
 
     public void BackClick()
     {
         dialogText.text = "How may I help you?";
         bankPanel.SetActive(false);
-        Settings.mutexLockCursorState(this);
+        Settings.forceLockCursorState();
     }
 }

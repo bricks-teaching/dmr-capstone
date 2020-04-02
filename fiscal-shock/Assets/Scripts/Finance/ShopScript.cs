@@ -9,7 +9,7 @@ public class ShopScript : MonoBehaviour
     private AudioSource audioS;
     public AudioClip paymentSound;
     public AudioClip failureSound;
-    private TextMeshProUGUI dialogText;
+    public TextMeshProUGUI dialogText;
     public GameObject shopPanel;
     public Button hoseButton;
     public Button fishButton;
@@ -43,7 +43,7 @@ public class ShopScript : MonoBehaviour
     void Update()
     {
         if (playerIsInTriggerZone && Input.GetKeyDown(Settings.interactKey)) {
-            Settings.mutexUnlockCursorState(this);
+            Settings.forceUnlockCursorState();
             shopPanel.SetActive(true);
         }
     }
@@ -91,6 +91,6 @@ public class ShopScript : MonoBehaviour
     {
         dialogText.text = "What are ya buyin?";
         shopPanel.SetActive(false);
-        Settings.mutexLockCursorState(this);
+        Settings.forceLockCursorState();
     }
 }

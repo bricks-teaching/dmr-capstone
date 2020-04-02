@@ -30,7 +30,7 @@ public static class StateManager
     //Total debt of the player updated whenever a loan is drawn out, paid or interest is applied
     //used to calculate average income
     public static LinkedList<float> income = new LinkedList<float>();
-    public static float totalDebt {get; set;}
+    public static float totalDebt {get; set;} = 0.0f;
     public static int nextID {get; set;} = 0;
     public static int totalLoans {get; set;}
     public static int timesEntered {get; set;} = 0;

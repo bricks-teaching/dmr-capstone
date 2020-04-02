@@ -156,7 +156,7 @@ RectTransform:
   - {fileID: 1953018391}
   - {fileID: 1693467710}
   m_Father: {fileID: 2107854072}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -1.044}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -292,7 +292,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2107854072}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -345,6 +345,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8747231637779417209}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &86205824 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2853638350781843588, guid: f95aae1f16e158c42b07fbbf6ed92e6c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1989384752}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &91971649
 GameObject:
   m_ObjectHideFlags: 0
@@ -378,7 +390,7 @@ RectTransform:
   - {fileID: 1750265517}
   - {fileID: 1732156940}
   m_Father: {fileID: 2107854072}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -484,6 +496,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 91971649}
   m_CullTransparentMesh: 0
+--- !u!114 &98810636 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9214063460842544283, guid: 9ca1cedeef94a1e49b2ca8ed1b500dcc,
+    type: 3}
+  m_PrefabInstance: {fileID: 2107854071}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &158176249
 GameObject:
   m_ObjectHideFlags: 0
@@ -1342,7 +1366,7 @@ RectTransform:
   m_Children:
   - {fileID: 1154368127}
   m_Father: {fileID: 2107854072}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4414,6 +4438,18 @@ Transform:
   m_Father: {fileID: 1972142716}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1034357521 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4433406323038762800, guid: 941b74efde6c3ab4ea600ef71b6707ad,
+    type: 3}
+  m_PrefabInstance: {fileID: 646437955}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1039182730
 GameObject:
   m_ObjectHideFlags: 0
@@ -5565,6 +5601,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 6086966762498077241, guid: 15ac0d14389aaef3389c5254f87a7c61,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6298733852041539432, guid: 15ac0d14389aaef3389c5254f87a7c61,
         type: 3}
       propertyPath: m_text
@@ -5610,6 +5651,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 368729592, guid: 15ac0d14389aaef3389c5254f87a7c61, type: 3}
+    - {fileID: 1300599031882793088, guid: 15ac0d14389aaef3389c5254f87a7c61, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 15ac0d14389aaef3389c5254f87a7c61, type: 3}
 --- !u!1 &1654674224 stripped
 GameObject:
@@ -5631,6 +5673,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   paymentSound: {fileID: 8300000, guid: f772155001c9d5144908c5d2281be825, type: 3}
   failureSound: {fileID: 8300000, guid: 164f927125682d2da9eed62993dc4e1f, type: 3}
+  dialogText: {fileID: 98810636}
   sharkPanel: {fileID: 2107854075}
   payButton: {fileID: 430714726}
   newLoan: {fileID: 2107854073}
@@ -6988,7 +7031,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2107854072}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7137,7 +7180,7 @@ PrefabInstance:
     - target: {fileID: 7026876791435733734, guid: 9ca1cedeef94a1e49b2ca8ed1b500dcc,
         type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 9214063459776831040, guid: 9ca1cedeef94a1e49b2ca8ed1b500dcc,
         type: 3}
@@ -14013,6 +14056,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 2615099453659327262, guid: 95a55c7a09b854f35a8b80e3a5aa13e7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2636471985636048342, guid: 95a55c7a09b854f35a8b80e3a5aa13e7,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -15263,6 +15311,11 @@ PrefabInstance:
       propertyPath: loanInput
       value: 
       objectReference: {fileID: 646437972}
+    - target: {fileID: 8085073058183398623, guid: 95a55c7a09b854f35a8b80e3a5aa13e7,
+        type: 3}
+      propertyPath: dialogText
+      value: 
+      objectReference: {fileID: 1034357521}
     - target: {fileID: 8088076036775987309, guid: 95a55c7a09b854f35a8b80e3a5aa13e7,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -15453,7 +15506,8 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7079470535720524199, guid: 95a55c7a09b854f35a8b80e3a5aa13e7, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 95a55c7a09b854f35a8b80e3a5aa13e7, type: 3}
 --- !u!4 &8085073058183398610 stripped
 Transform:
@@ -15623,6 +15677,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 968277039334156790, guid: 0ad29ae288fc5199582b61c17e0c6892,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1036069547046253735, guid: 0ad29ae288fc5199582b61c17e0c6892,
         type: 3}
       propertyPath: m_text
@@ -15746,7 +15805,8 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5405978985424493391, guid: 0ad29ae288fc5199582b61c17e0c6892, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0ad29ae288fc5199582b61c17e0c6892, type: 3}
 --- !u!1 &8747231637779417210 stripped
 GameObject:
@@ -15768,6 +15828,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   paymentSound: {fileID: 8300000, guid: f772155001c9d5144908c5d2281be825, type: 3}
   failureSound: {fileID: 8300000, guid: 164f927125682d2da9eed62993dc4e1f, type: 3}
+  dialogText: {fileID: 86205824}
   shopPanel: {fileID: 2853638349982462638, guid: f95aae1f16e158c42b07fbbf6ed92e6c,
     type: 3}
   hoseButton: {fileID: 1989384754}
