@@ -8,7 +8,6 @@ echo Generating documentation...
 pushd .
 cd sphinx
 pip install -r requirements.txt
-git lfs pull -I ../fiscal-shock/Assets/UserInterface/dmr-icon128.png
 make html
 popd
 touch docs/html/.nojekyll

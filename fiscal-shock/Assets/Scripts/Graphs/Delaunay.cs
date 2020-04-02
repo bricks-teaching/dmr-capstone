@@ -1,19 +1,48 @@
 using System.Collections.Generic;
 using ThirdParty.Delaunator;
+using System.Linq;
 
 namespace FiscalShock.Graphs {
     /// <summary>
     /// Interface and extension of the Delaunator library
     /// </summary>
     public class Delaunay : Graph {
-        public Triangulation delaunator { get; }
-        public List<Triangle> triangles { get; } = new List<Triangle>();
+        public Triangulation delaunator { get; private set; }
+        public List<Triangle> triangles { get;} = new List<Triangle>();
 
         public Voronoi dual { get; set; }
-        public List<Vertex> convexHull { get; } = new List<Vertex>();
-        public List<Edge> convexHullEdges { get; } = new List<Edge>();
+        public List<Vertex> convexHull { get; private set; } = new List<Vertex>();
+        public List<Edge> convexHullEdges { get; private set; } = new List<Edge>();
 
         public Delaunay(List<double> input) {
+            fromDoubleList(input);
+        }
+
+        /// <summary>
+        /// Generate Delaunay using a list of vertices
+        /// </summary>
+        /// <param name="input">vertices</param>
+        public Delaunay(List<Vertex> input) {
+            List<double> flat = new List<double>();
+            foreach (Vertex v in input) {
+                flat.Add(v.x);
+                flat.Add(v.y);
+            }
+            fromDoubleList(flat);
+            foreach (Vertex v in vertices) {
+                // set cells to be the same, the reference is lost
+                v.cell = input
+                            .Where(x => x.vector == v.vector)
+                            .Select(x => x.cell)
+                            .FirstOrDefault();
+            }
+        }
+
+        /// <summary>
+        /// Inner method to do Delaunay from vertices
+        /// </summary>
+        /// <param name="input"></param>
+        private void fromDoubleList(List<double> input) {
             delaunator = new Triangulation(input);
 
             // Set up data structures for use in other scripts

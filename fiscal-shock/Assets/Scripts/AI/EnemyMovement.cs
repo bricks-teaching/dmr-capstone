@@ -21,6 +21,8 @@ public class EnemyMovement : MonoBehaviour {
 
     public GameObject player;
 
+    public bool stunned { get; set; }
+
     private float safeRadiusAvg;
     private float destinationRefreshDistance;
     private float distanceFromPlayer;
@@ -32,7 +34,6 @@ public class EnemyMovement : MonoBehaviour {
     public AnimationManager animationManager;
 
     void Start() {
-
         enemyRb = GetComponent<Rigidbody>();
         shootScript = GetComponent<EnemyShoot>();
         //enemyRb.useGravity = false;
@@ -47,7 +48,7 @@ public class EnemyMovement : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        if (player == null || (Vector3.Distance(player.transform.position, gameObject.transform.position) > visionRadius)) {
+        if (player == null || (Vector3.Distance(player.transform.position, gameObject.transform.position) > visionRadius) || stunned) {
             // TODO drunkard's walk
             animationManager.playIdleAnimation();
             shootScript.spottedPlayer = false;

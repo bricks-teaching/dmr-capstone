@@ -5,12 +5,13 @@ public class DungeonEntry : MonoBehaviour {
     private bool isPlayerInTriggerZone = false;
     private GameObject loadingScreen;
     private LoadingScreen loadScript;
-    private Canvas canvas;
+    public Canvas textCanvas;
+    public Canvas selectionScreen;
 
     void Start() {
         loadingScreen = GameObject.Find("LoadingScreen");
         loadScript = (LoadingScreen)loadingScreen.GetComponent<LoadingScreen>();
-        canvas = GetComponentInChildren<Canvas>();
+        selectionScreen.enabled = false;
     }
 
     void OnTriggerEnter(Collider col) {
@@ -26,11 +27,27 @@ public class DungeonEntry : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        if (isPlayerInTriggerZone && Input.GetKeyDown(Settings.interactKey) && (PlayerShoot.slotOne || PlayerShoot.slotZero) && StateManager.totalDebt > 0.0f) { 
-            canvas.enabled = false;
-            StateManager.cashOnEntrance = PlayerFinance.cashOnHand;
-            StateManager.timesEntered++;
-            loadScript.startLoadingScreen("Dungeon");
+        if (isPlayerInTriggerZone && Input.GetKeyDown(Settings.interactKey) && (PlayerShoot.slotOne || PlayerShoot.slotZero) ) {
+            Settings.forceUnlockCursorState();
+            textCanvas.enabled = false;
+            selectionScreen.enabled = true;
         }
+    }
+
+    public void closeSelectionScreen() {
+        selectionScreen.enabled = false;
+        Settings.mutexLockCursorState(this);
+        if (isPlayerInTriggerZone) {
+            textCanvas.enabled = true;
+        }
+    }
+
+    public void selectDungeon(int value) {
+        selectionScreen.enabled = false;
+        StateManager.selectedDungeon = (DungeonTypeEnum)value;
+        StateManager.cashOnEntrance = PlayerFinance.cashOnHand;
+        StateManager.timesEntered++;
+        Settings.forceLockCursorState();
+        loadScript.startLoadingScreen("Dungeon");
     }
 }

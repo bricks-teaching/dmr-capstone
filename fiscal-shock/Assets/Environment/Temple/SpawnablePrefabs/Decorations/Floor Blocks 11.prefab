@@ -12,6 +12,9 @@ GameObject:
   - component: {fileID: 33000010301278602}
   - component: {fileID: 23000010655633040}
   - component: {fileID: 2123003005720274068}
+  - component: {fileID: -7032674442881329211}
+  - component: {fileID: 7698429153458344570}
+  - component: {fileID: 6314638971467470307}
   m_Layer: 8
   m_Name: Floor Blocks 11
   m_TagString: Decoration
@@ -94,3 +97,41 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 95a70da30cae78a47827319edf13a925, type: 3}
+--- !u!114 &-7032674442881329211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010830122014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce02a5bb4a2c2bc3fbe07f3cfc648918, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7698429153458344570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010830122014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d14ccc4e83f5aec8db84560ece84405d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toBeDestroyed: 0
+--- !u!65 &6314638971467470307
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010830122014}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 11.29035, y: 3.8064728, z: 9.324008}
+  m_Center: {x: -0.3239727, y: -0.13879639, z: 1.0051756}

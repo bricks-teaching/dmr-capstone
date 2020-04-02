@@ -517,6 +517,7 @@ GameObject:
   - component: {fileID: 33000014152624836}
   - component: {fileID: 23000011572719428}
   - component: {fileID: 8473224347411382980}
+  - component: {fileID: 2588814145570090978}
   m_Layer: 8
   m_Name: Block 1x3
   m_TagString: Untagged
@@ -599,6 +600,19 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: fcc2ae21649182746a86b95e8e122cb5, type: 3}
+--- !u!65 &2588814145570090978
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011584477596}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 8.055549, y: 6.000006, z: 5.648875}
+  m_Center: {x: -1.1645303, y: 3.0000002, z: 1.8244157}
 --- !u!1 &1000011638362178
 GameObject:
   m_ObjectHideFlags: 0
@@ -702,6 +716,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4000010542303642}
+  - component: {fileID: 9164776291475233724}
+  - component: {fileID: 2817940277608184486}
   m_Layer: 8
   m_Name: Example Pieced Prefab 3
   m_TagString: Obstacle
@@ -732,6 +748,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9164776291475233724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013311032376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce02a5bb4a2c2bc3fbe07f3cfc648918, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2817940277608184486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013311032376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d14ccc4e83f5aec8db84560ece84405d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toBeDestroyed: 0
 --- !u!1 &1000014284729902
 GameObject:
   m_ObjectHideFlags: 0

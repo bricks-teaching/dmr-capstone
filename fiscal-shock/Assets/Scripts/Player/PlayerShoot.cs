@@ -15,16 +15,17 @@ public class PlayerShoot : MonoBehaviour {
     public static bool slotZero = false;
     public static bool slotOne = false;
     public List<GameObject> guns;
-    public RawImage crossHair;
+    public RawImage crossHair { get; private set; }
     private bool rest = false;
     public RaycastHit hit;
     private ArrayList missiles = new ArrayList();
-    //public GameObject debugger;
     private float screenX;
     private float screenY;
     private WeaponStats currentWeaponStats;
+    private FeedbackController feed;
 
     public void Start() {
+        feed = GameObject.FindGameObjectWithTag("HUD").GetComponent<FeedbackController>();
         screenX = Screen.width / 2;
         screenY = Screen.height / 2;
         crossHair = GameObject.FindGameObjectWithTag("Crosshair").GetComponentInChildren<RawImage>();
@@ -69,11 +70,14 @@ public class PlayerShoot : MonoBehaviour {
 					// TODO play sound fx
 					return;
 				}
-                if (rest){
+                if (rest) {
                     fireBullet(10 - currentWeaponStats.accuracy, currentWeaponStats.strength, currentWeaponStats.bulletPrefab, 0f, null);
+                    PlayerFinance.cashOnHand -= currentWeaponStats.bulletCost;
+                    feed.shoot(currentWeaponStats.bulletCost);
                 } else {
                     fireBullet(10 - currentWeaponStats.accuracy, currentWeaponStats.strength, currentWeaponStats.bulletPrefab, 0.09f, null);
                     PlayerFinance.cashOnHand -= currentWeaponStats.bulletCost;
+                    feed.shoot(currentWeaponStats.bulletCost);
                 }
                 rest = !rest;
             }
@@ -92,6 +96,7 @@ public class PlayerShoot : MonoBehaviour {
                 }
                 fireBullet(10 - currentWeaponStats.accuracy, currentWeaponStats.strength, currentWeaponStats.bulletPrefab, 1, target);
                 PlayerFinance.cashOnHand -= currentWeaponStats.bulletCost;
+                feed.shoot(currentWeaponStats.bulletCost);
             }
         }
         // If player is currently holstering or drawing a weapon, alter weapon position to animate the process.

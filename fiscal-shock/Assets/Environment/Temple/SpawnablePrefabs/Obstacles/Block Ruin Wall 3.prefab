@@ -12,6 +12,9 @@ GameObject:
   - component: {fileID: 33000012570798060}
   - component: {fileID: 23000012434319184}
   - component: {fileID: -6135420869884330318}
+  - component: {fileID: 1630731963588738516}
+  - component: {fileID: 4177151479772462229}
+  - component: {fileID: 6010163599803382765}
   m_Layer: 8
   m_Name: Block Ruin Wall 3
   m_TagString: Obstacle
@@ -27,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1000013738948874}
   m_LocalRotation: {x: 0.0000018099951, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0.6, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
@@ -94,3 +97,41 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 4b8ad319e47b7eb4993ce3829cf893e8, type: 3}
+--- !u!114 &1630731963588738516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013738948874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce02a5bb4a2c2bc3fbe07f3cfc648918, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4177151479772462229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013738948874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d14ccc4e83f5aec8db84560ece84405d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toBeDestroyed: 0
+--- !u!65 &6010163599803382765
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013738948874}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 16.485542, y: 8.486613, z: 4.000028}
+  m_Center: {x: -0.7572284, y: 2.4647512, z: 0.9999917}

@@ -15,10 +15,6 @@ public static class Settings {
         get => values.mouseSensitivity;
         set => values.mouseSensitivity = value;
     }
-    public static bool sawTutorial {
-        get => values.sawTutorial;
-        set => values.sawTutorial = value;
-    }
 
     // ------------- keybinds ---------------
     public static string pauseKey => values.pauseKey;
@@ -132,12 +128,13 @@ public static class Settings {
     }
 }
 
-
+/// <summary>
+/// Serializable data class that can be saved to json.
+/// </summary>
 [System.Serializable]
 public class SettingsValues {
-    public float volume = 1f;
+    public float volume = 0.5f;
     public float mouseSensitivity = 100f;
-    public bool sawTutorial = false;  // TODO move to state manager when implemented
 
     // ------------- keybinds ---------------
     public string pauseKey = "escape";

@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Loan
 {
-    public int ID;// {get; set;}
-    public float total;// {get; set;}
-    public float rate;// {get; set;}
-    public bool paid;// {get; set;}
-    public bool source;// {get; set;}
-    public int age;// {get; set;}
+    public int ID;// { get; set; }
+    public float total;// { get; set; }
+    public float rate;// { get; set; }
+    public bool paid;// { get; set; }
+    public bool source;// { get; set; }
+    public int age;// { get; set; }
 
     //source is true when it is the shark, false when it is the bank
     public Loan(int num, float tot, float rat, bool shark)
@@ -23,6 +23,11 @@ public class Loan
     }
 }
 
+public enum DungeonTypeEnum {
+    Temple,
+    Mine
+}
+
 public static class StateManager
 {
     //list of loans that the player posesses
@@ -30,16 +35,19 @@ public static class StateManager
     //Total debt of the player updated whenever a loan is drawn out, paid or interest is applied
     //used to calculate average income
     public static LinkedList<float> income = new LinkedList<float>();
-    public static float totalDebt {get; set;} = 0.0f;
-    public static int nextID {get; set;} = 0;
-    public static int totalLoans {get; set;}
-    public static int timesEntered {get; set;} = 0;
-    public static int currentFloor {get; set;} = 0;
-    public static int change {get; set;} = 5;
-    public static int creditScore {get; set;}
-    public static int paymentStreak {get; set;}
-    public static float cashOnEntrance {get; set;}
-    public static float averageIncome {get; set;}
+    public static float totalDebt { get; set;  }
+    public static int nextID { get; set; } = 0;
+    public static int totalLoans { get; set; }
+    public static int timesEntered { get; set; } = 0;
+    public static int currentFloor { get; set; } = 0;
+    public static int change { get; set; } = 5;
+    public static int creditScore { get; set; }
+    public static int paymentStreak { get; set; }
+    public static float cashOnEntrance { get; set; }
+    public static float averageIncome { get; set; }
+
+    public static DungeonTypeEnum selectedDungeon { get; set; }
+    public static bool sawTutorial = false;
 
     public static void calcCreditScore()
     {
