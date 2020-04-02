@@ -162,19 +162,19 @@ public class SharkScript : MonoBehaviour
     void updateFields(){
         Loan[] item = StateManager.loanList.Where(l => l.source).ToArray();
         if(item.Length > 0){
-        id1.text = item[0].ID.ToString();
-        amount1.text = item[0].total.ToString();
-        type1.text = "Payday";
+            id1.text = item[0].ID.ToString();
+            amount1.text = item[0].total.ToString();
+            type1.text = "Payday";
         }
         if (item.Length > 1) {
-        id2.text = item[1].ID.ToString();
-        amount2.text = item[1].total.ToString();
-        type2.text = "Payday";
+            id2.text = item[1].ID.ToString();
+            amount2.text = item[1].total.ToString();
+            type2.text = "Payday";
         }
         if(item.Length > 2){
-        id3.text = item[2].ID.ToString();
-        amount3.text = item[2].total.ToString();
-        type3.text = "Payday";
+            id3.text = item[2].ID.ToString();
+            amount3.text = item[2].total.ToString();
+            type3.text = "Payday";
         }
     }
 

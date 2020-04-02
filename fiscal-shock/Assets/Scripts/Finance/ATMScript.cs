@@ -10,6 +10,7 @@ public class ATMScript : MonoBehaviour {
     public AudioClip failureSound;
     public static bool bankDue = true;
     private bool playerIsInTriggerZone = false;
+    private bool firstLoan = false;
     private int loanCount = 0;
     private AudioSource audioS;
     public GameObject bankPanel;
@@ -57,23 +58,17 @@ public class ATMScript : MonoBehaviour {
         btnTwo.onClick.AddListener(addLoan);
         btnThr.onClick.AddListener(addSecLoan);
         btnFou.onClick.AddListener(BackClick);
+        if(!firstLoan){
+            addDebt(2000.0f, LoanType.Unsecured);
+            PlayerFinance.cashOnHand = 900.0f;
+            firstLoan = true;
+        }
     }
 
     void Update() {
         if (playerIsInTriggerZone && Input.GetKeyDown(Settings.interactKey)) {
             Settings.forceUnlockCursorState();
             bankPanel.SetActive(true);
-            /*bool paymentSuccessful = payDebt(100, 1);
-            if (paymentSuccessful) {
-                signText.text = "";
-                audioS.PlayOneShot(paymentSound, Settings.volume);
-                Debug.Log("Paid $100");
-            } else {
-                signText.text = "Please tender payments using cash, not respects.";
-                audioS.PlayOneShot(failureSound, Settings.volume * 2.5f);
-                Debug.Log("Not enough cash to pay denbts");
-            }
-            */
         }
     }
     public enum LoanType {
@@ -184,10 +179,10 @@ public class ATMScript : MonoBehaviour {
     }
 
     void payLoan(){
-        float am = float.Parse(payAmount.text, CultureInfo.InvariantCulture.NumberFormat);
-        int az = int.Parse(payID.text);
-        bool z = payDebt(am, az);
-        if(z){
+        float amount = float.Parse(payAmount.text, CultureInfo.InvariantCulture.NumberFormat);
+        int ID = int.Parse(payID.text);
+        bool paid = payDebt(amount, ID);
+        if(paid){
             dialogText.text = "Thank you for your payment!";
             audioS.PlayOneShot(paymentSound, Settings.volume);
         } else {
@@ -196,9 +191,9 @@ public class ATMScript : MonoBehaviour {
         }
     }
     void addLoan(){
-        float an = float.Parse(loanInput.text, CultureInfo.InvariantCulture.NumberFormat);
-        bool y = addDebt(an, LoanType.Unsecured);
-        if(y){
+        float plusDebt = float.Parse(loanInput.text, CultureInfo.InvariantCulture.NumberFormat);
+        bool worked = addDebt(plusDebt, LoanType.Unsecured);
+        if(worked){
             dialogText.text = "All set!";
             audioS.PlayOneShot(paymentSound, Settings.volume);
         } else {
@@ -207,9 +202,9 @@ public class ATMScript : MonoBehaviour {
         }
     }
     void addSecLoan(){
-        float ao = float.Parse(secInput.text, CultureInfo.InvariantCulture.NumberFormat);
-        bool x = addDebt(ao, LoanType.Secured);
-        if(x){
+        float plusSec = float.Parse(secInput.text, CultureInfo.InvariantCulture.NumberFormat);
+        bool yes = addDebt(plusSec, LoanType.Secured);
+        if(yes){
             dialogText.text = "YOUR SOUL IS MINE! Erm, I mean... All Set!";
             audioS.PlayOneShot(paymentSound, Settings.volume);
         } else {
@@ -221,19 +216,19 @@ public class ATMScript : MonoBehaviour {
     void updateFields(){
         Loan[] item = StateManager.loanList.Where(l => !l.source).ToArray();
         if(item.Length > 0){
-        id1.text = item[0].ID.ToString();
-        amount1.text = item[0].total.ToString();
-        type1.text = "Bank";
+            id1.text = item[0].ID.ToString();
+            amount1.text = item[0].total.ToString();
+            type1.text = "Bank";
         }
         if (item.Length > 1) {
-        id2.text = item[1].ID.ToString();
-        amount2.text = item[1].total.ToString();
-        type2.text = "Bank";
+            id2.text = item[1].ID.ToString();
+            amount2.text = item[1].total.ToString();
+            type2.text = "Bank";
         }
         if(item.Length > 2){
-        id3.text = item[2].ID.ToString();
-        amount3.text = item[2].total.ToString();
-        type3.text = "Bank";
+            id3.text = item[2].ID.ToString();
+            amount3.text = item[2].total.ToString();
+            type3.text = "Bank";
         }
     }
 

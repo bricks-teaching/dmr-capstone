@@ -15,6 +15,7 @@ public class ShopScript : MonoBehaviour
     public Button fishButton;
     public Button backButton;
     private bool playerIsInTriggerZone = false;
+    private bool boughtAlready = false;
 
     void OnTriggerEnter(Collider col) {
         if (col.gameObject.tag == "Player") {
@@ -67,6 +68,10 @@ public class ShopScript : MonoBehaviour
         if(success){
             dialogText.text = "Alright, here ya go, try not to get yourself kilt. No really, I mean kilt, not killed, but don't do that either.";
             audioS.PlayOneShot(paymentSound, Settings.volume);
+        } else if(boughtAlready){
+            boughtAlready =  false;
+            dialogText.text = "Do you really need two of those?";
+            audioS.PlayOneShot(failureSound, Settings.volume);
         } else {
             dialogText.text = "You sure you have enough there, pal? I ain't running a charity here...";
             audioS.PlayOneShot(failureSound, Settings.volume * 2.5f);
@@ -76,10 +81,14 @@ public class ShopScript : MonoBehaviour
     void buyFish(){
         bool success = buyWeapon(1, 1500.0f);
         if(success){
-            dialogText.text = "Pretty weird that the only way to make money around here is killing robots, innit?";
+            dialogText.text = "Pretty weird that the only way to make money around here is scrapping robots, innit?";
             audioS.PlayOneShot(paymentSound, Settings.volume);
+        } else if(boughtAlready){
+            boughtAlready =  false;
+            dialogText.text = "Sorry man, out of stock";
+            audioS.PlayOneShot(failureSound, Settings.volume);
         } else {
-            dialogText.text = "I think you are a bit short today, go kill some bots and come back.";
+            dialogText.text = "I think you are a bit short today. Go scrap some bots and come back.";
             audioS.PlayOneShot(failureSound, Settings.volume * 2.5f);
         }
     }
