@@ -27,7 +27,7 @@ public class DungeonEntry : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        if (isPlayerInTriggerZone && Input.GetKeyDown(Settings.interactKey) && (PlayerShoot.slotOne || PlayerShoot.slotZero) ) {
+        if (isPlayerInTriggerZone && Input.GetKeyDown(Settings.interactKey) && (StateManager.purchasedHose || StateManager.purchasedLauncher) ) {
             Settings.forceUnlockCursorState();
             textCanvas.enabled = false;
             selectionScreen.enabled = true;

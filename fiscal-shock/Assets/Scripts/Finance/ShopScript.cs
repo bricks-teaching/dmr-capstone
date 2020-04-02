@@ -15,8 +15,6 @@ public class ShopScript : MonoBehaviour
     public Button fishButton;
     public Button backButton;
     private bool playerIsInTriggerZone = false;
-    private bool hoseBought = false;
-    private bool launcherBought = false;
 
     void OnTriggerEnter(Collider col) {
         if (col.gameObject.tag == "Player") {
@@ -29,7 +27,7 @@ public class ShopScript : MonoBehaviour
             playerIsInTriggerZone = false;
         }
     }
-    void Start(){
+    void Start() {
         audioS = GetComponent<AudioSource>();
         shopPanel.SetActive(false);
         Button btnOne = hoseButton.GetComponent<Button>();
@@ -52,13 +50,11 @@ public class ShopScript : MonoBehaviour
         if(cost > PlayerFinance.cashOnHand){
             return false;
         }
-        if(weapon == 0 && !hoseBought){
-            PlayerShoot.slotZero = true;
-            hoseBought = true;
+        if(weapon == 0 && !StateManager.purchasedHose){
+            StateManager.purchasedHose = true;
             PlayerFinance.cashOnHand -= cost;
-        } else if(weapon == 1 && !launcherBought){
-            PlayerShoot.slotOne = true;
-            launcherBought = true;
+        } else if(weapon == 1 && !StateManager.purchasedLauncher){
+            StateManager.purchasedLauncher = true;
             PlayerFinance.cashOnHand -= cost;
         } else {
             return false;
@@ -89,7 +85,7 @@ public class ShopScript : MonoBehaviour
     }
     public void BackClick()
     {
-        dialogText.text = "What are ya buyin?";
+        dialogText.text = "What are ya buyin'?";
         shopPanel.SetActive(false);
         Settings.forceLockCursorState();
     }
