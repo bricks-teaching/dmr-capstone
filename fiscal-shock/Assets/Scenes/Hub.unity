@@ -337,10 +337,31 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: bc7ef44de2f694932a9d0fc4d3a3d809, type: 3}
 --- !u!1 &227535413 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 5787472379156899421, guid: bc7ef44de2f694932a9d0fc4d3a3d809,
+  m_CorrespondingSourceObject: {fileID: 4394974664537101101, guid: bc7ef44de2f694932a9d0fc4d3a3d809,
     type: 3}
   m_PrefabInstance: {fileID: 227535412}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &227535417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 227535413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7258ca8be47462e47836452427c49b1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  strength: 22
+  bulletCost: 10
+  accuracy: 6
+  rotation: 5
+  continuous: 0
+  missile: 0
+  bulletPrefab: {fileID: 3162396488851152888, guid: 10b4250e3d7f4f645b550f4423415140,
+    type: 3}
+  showCrosshair: 1
 --- !u!1 &395298640
 GameObject:
   m_ObjectHideFlags: 0
