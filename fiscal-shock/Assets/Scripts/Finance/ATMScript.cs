@@ -85,7 +85,7 @@ public class ATMScript : MonoBehaviour {
         if(amount < 0.0f){
             return false;
         }
-        if (bankThreatLevel < 3 && bankMaxLoan > (bankTotal + amount) && loanCount < 4){
+        if (bankThreatLevel < 3 && bankMaxLoan > (bankTotal + amount) && loanCount < 3){
             // bank threat is below 3 and is below max total debt
             Loan newLoan = null;
             switch (loanType) {
@@ -127,6 +127,7 @@ public class ATMScript : MonoBehaviour {
             bankDue = false;
             StateManager.totalLoans--;
             bankTotal = 0.0f;
+            loanCount--;
             StateManager.calcDebtTotals();
             updateFields();
             //temporaryWinGame();

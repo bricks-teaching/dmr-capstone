@@ -25,6 +25,7 @@ public class SharkScript : MonoBehaviour
     public static float sharkMaxLoan { get; set; } = 4000.0f;
     public static int sharkThreatLevel { get; set; } = 3;
     public static float sharkTotal { get; set; }
+    private int loanCount = 0;
 
     void OnTriggerEnter(Collider col) {
         if (col.gameObject.tag == "Player") {
@@ -56,7 +57,7 @@ public class SharkScript : MonoBehaviour
         }
     }
     public bool addDebt(float amount){
-        if (sharkThreatLevel < 5 && sharkMaxLoan > (sharkTotal + amount)){
+        if (sharkThreatLevel < 5 && sharkMaxLoan > (sharkTotal + amount) && loanCount < 3){
             //shark threat is below 5 and is below max total debt
             Loan newLoan = new Loan(StateManager.nextID, amount, sharkInterestRate, true);
             StateManager.loanList.AddLast(newLoan);
@@ -64,6 +65,7 @@ public class SharkScript : MonoBehaviour
             StateManager.nextID++;
             StateManager.totalLoans++;
             sharkTotal += amount;
+            loanCount++;
             StateManager.calcDebtTotals();
             updateFields();
             return true;
@@ -82,6 +84,7 @@ public class SharkScript : MonoBehaviour
             sharkDue = false;
             StateManager.totalLoans--;
             sharkTotal = 0.0f;
+            loanCount--;
             StateManager.calcDebtTotals();
             updateFields();
             return true;
