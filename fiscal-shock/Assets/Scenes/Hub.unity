@@ -355,8 +355,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   strength: 22
   bulletCost: 10
-  accuracy: 6
-  rotation: 5
+  accuracy: 5
+  rotation: 10
   continuous: 0
   missile: 1
   bulletPrefab: {fileID: 3162396488851152888, guid: 10b4250e3d7f4f645b550f4423415140,
