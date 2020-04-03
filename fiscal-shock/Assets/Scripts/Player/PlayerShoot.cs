@@ -131,7 +131,8 @@ public class PlayerShoot : MonoBehaviour {
     private void fireBullet(float accuracy, int damage, GameObject bulletPrefab, float noise, Transform target) {
         fireSound.PlayOneShot(fireSoundClip, Settings.volume * noise);
         GameObject bullet;
-        Vector3 bulletPosition = weapon.transform.parent.position + weapon.transform.parent.forward * 0.8f;
+        //Vector3 bulletPosition = weapon.transform.parent.position + weapon.transform.parent.forward * 0.8f;
+        Vector3 bulletPosition = currentWeaponStats.projectileSpawnPoint.position;
 
         if (currentWeaponStats.usingPool) {
             bullet = currentWeaponStats.bulletPool.Dequeue();

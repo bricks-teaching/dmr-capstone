@@ -14,6 +14,7 @@ public class WeaponStats : MonoBehaviour
     public GameObject bulletPrefab;
     public bool usingPool { get; private set; }
     public bool showCrosshair = true;
+    public Transform projectileSpawnPoint;
 
     public Queue<GameObject> bulletPool = new Queue<GameObject>();
 

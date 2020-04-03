@@ -45,7 +45,6 @@ GameObject:
   - component: {fileID: 5086685436175638547}
   - component: {fileID: 4429673032618852596}
   - component: {fileID: 1280419835}
-  - component: {fileID: 7352360148000753307}
   m_Layer: 11
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -282,18 +281,6 @@ MonoBehaviour:
   roomColor: {r: 1, g: 1, b: 1, a: 1}
   roomRenderHeight: 3
   edgeMat: {fileID: 2100000, guid: 4c59fd6ae625a9500b147fcf863adeb3, type: 2}
---- !u!114 &7352360148000753307
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 208130074384889237}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 699d868b9b25af55cb1933363b5e0054, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &208130074868200894
 GameObject:
   m_ObjectHideFlags: 0
@@ -362,7 +349,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 208130074868200880}
-  ragdoll: {fileID: 0}
   speed: 11
   gravity: -50
   jumpBy: 3
@@ -575,21 +561,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1359406411681418236}
     m_Modifications:
-    - target: {fileID: 1450474401058387740, guid: 3a096803ec33e4f418a5d5d3d88b1aed,
-        type: 3}
-      propertyPath: m_CastShadows
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2408480555946731742, guid: 3a096803ec33e4f418a5d5d3d88b1aed,
-        type: 3}
-      propertyPath: m_CastShadows
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2489038661999449615, guid: 3a096803ec33e4f418a5d5d3d88b1aed,
-        type: 3}
-      propertyPath: m_CastShadows
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6887630062639575048, guid: 3a096803ec33e4f418a5d5d3d88b1aed,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -645,20 +616,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7242515751792092566, guid: 3a096803ec33e4f418a5d5d3d88b1aed,
-        type: 3}
-      propertyPath: m_CastShadows
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7624205853972234779, guid: 3a096803ec33e4f418a5d5d3d88b1aed,
         type: 3}
       propertyPath: m_Name
       value: MissileLauncher
-      objectReference: {fileID: 0}
-    - target: {fileID: 7624205853972234779, guid: 3a096803ec33e4f418a5d5d3d88b1aed,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a096803ec33e4f418a5d5d3d88b1aed, type: 3}
@@ -681,35 +642,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1159550279302887141}
     m_Modifications:
-    - target: {fileID: 1159826230906389066, guid: 0d6fe316390b5d84e81412caded02813,
-        type: 3}
-      propertyPath: m_CastShadows
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1440858277050596507, guid: 0d6fe316390b5d84e81412caded02813,
-        type: 3}
-      propertyPath: m_CastShadows
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2690123739002641800, guid: 0d6fe316390b5d84e81412caded02813,
-        type: 3}
-      propertyPath: m_CastShadows
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6194338680107552514, guid: 0d6fe316390b5d84e81412caded02813,
-        type: 3}
-      propertyPath: m_CastShadows
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6393630796384626831, guid: 0d6fe316390b5d84e81412caded02813,
         type: 3}
       propertyPath: m_Name
       value: MilkHose
-      objectReference: {fileID: 0}
-    - target: {fileID: 6393630796384626831, guid: 0d6fe316390b5d84e81412caded02813,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7989918510121097884, guid: 0d6fe316390b5d84e81412caded02813,
         type: 3}

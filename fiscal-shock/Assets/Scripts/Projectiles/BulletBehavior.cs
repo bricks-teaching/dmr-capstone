@@ -30,7 +30,7 @@ public class BulletBehavior : MonoBehaviour
     }
 
     void OnCollisionEnter(Collision col) {
-        if (col.gameObject.tag == "Bullet") {  // doesn't help missiles!
+        if (col.gameObject.tag == "Bullet" | col.gameObject.layer == LayerMask.NameToLayer("Player")) {  // doesn't help missiles!
             return;
         }
         if (poolProjectiles) {
