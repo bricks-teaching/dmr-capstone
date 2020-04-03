@@ -8,7 +8,6 @@ public class Cheats : MonoBehaviour {
     public string robinHood = "f1";
     public string toggleGraphMesh = "f4";
     public string enableWallDestruction = "f8";
-    public string toggleOcclusionCulling = "f9";
     public GameObject player;
     public CharacterController playerController;
 
@@ -33,8 +32,8 @@ public class Cheats : MonoBehaviour {
             Debug.Log($"Teleported to {warpPoint}");
         }
         if (Input.GetKeyDown(robinHood)) {
-            PlayerFinance.cashOnHand += 100;
-            Debug.Log("Added 100 monies");
+            PlayerFinance.cashOnHand += 500;
+            Debug.Log("Added 500 monies");
         }
         if (Input.GetKeyDown(toggleGraphMesh)) {
             ProceduralMeshRenderer pmr = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<ProceduralMeshRenderer>();
@@ -45,11 +44,6 @@ public class Cheats : MonoBehaviour {
                 pmr.alreadyDrew = false;
             }
             Debug.Log($"Toggled mesh view to {pmr.enabled}");
-        }
-        if (Input.GetKeyDown(toggleOcclusionCulling)) {
-            OcclusionCamera oc = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<OcclusionCamera>();
-            oc.enabled = !oc.enabled;
-            Debug.Log($"Toggled occlusion culling to {oc.enabled}");
         }
         if (Input.GetKeyDown(enableWallDestruction)) {
             destroyWalls = !destroyWalls;

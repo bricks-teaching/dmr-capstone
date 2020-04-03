@@ -36,20 +36,3 @@ Files:
 Modifications:
 1. Included only the `Delaunator` source code; no project files, tests, or benchmarking files were added
 1. Added `#pragma warning disable` directive to prevent Roslyn code analysis
-
-## Occlusion Culling
-[Original](https://gist.github.com/spaceemotion/c3e8ac144cbf9a9e8bca3baa8f005a39)
-
-Author: mrjackspade
-
-License: Public Domain
-
-Files:
-- `OcclusionBase.cs`
-- `OcclusionCamera.cs`
-- `OcclusionObject.cs`
-
-Modifications:
-1. Wrapped code in the namespace `ThirdParty`
-1. Added `#pragma warning disable` directive to prevent Roslyn code analysis
-1. Changed references to variables found only in the author's project

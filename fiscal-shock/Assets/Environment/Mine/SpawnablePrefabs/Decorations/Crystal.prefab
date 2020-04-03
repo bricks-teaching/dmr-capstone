@@ -302,7 +302,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4350853436349194}
   - component: {fileID: 7077778227514951285}
-  - component: {fileID: -8611774361102446234}
   m_Layer: 8
   m_Name: Crystal
   m_TagString: Decoration
@@ -337,18 +336,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d14ccc4e83f5aec8db84560ece84405d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  toBeDestroyed: 0
---- !u!114 &-8611774361102446234
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1932029908200276}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce02a5bb4a2c2bc3fbe07f3cfc648918, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

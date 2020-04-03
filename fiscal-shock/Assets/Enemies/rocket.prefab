@@ -65,9 +65,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 50
   bulletSpeed: 30
-  target: {fileID: 0}
   rb: {fileID: 3240223035097015125}
-  player: {fileID: 0}
+  bulletLifetime: 2
+  poolProjectiles: 0
+  poolSize: 0
 --- !u!54 &3240223035097015125
 Rigidbody:
   m_ObjectHideFlags: 0
