@@ -69,9 +69,8 @@ public class SharkScript : MonoBehaviour
             StateManager.calcDebtTotals();
             updateFields();
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     public bool payDebt(float amount, int loanNum){
