@@ -358,7 +358,7 @@ MonoBehaviour:
   accuracy: 6
   rotation: 5
   continuous: 0
-  missile: 0
+  missile: 1
   bulletPrefab: {fileID: 3162396488851152888, guid: 10b4250e3d7f4f645b550f4423415140,
     type: 3}
   showCrosshair: 1
