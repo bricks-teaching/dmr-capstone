@@ -21,6 +21,7 @@ public class PlayerShoot : MonoBehaviour {
     private float screenY;
     private WeaponStats currentWeaponStats;
     private FeedbackController feed;
+    public LayerMask missileHomingTargetLayer;
 
     public void Start() {
         feed = GameObject.FindGameObjectWithTag("HUD").GetComponent<FeedbackController>();
@@ -55,7 +56,7 @@ public class PlayerShoot : MonoBehaviour {
         }
         foreach (GameObject missile in missiles) {
             BulletBehavior bulletScript = missile.GetComponent(typeof(BulletBehavior)) as BulletBehavior;
-            bulletScript.rb.velocity = (bulletScript.target.position - missile.transform.position).normalized * bulletScript.bulletSpeed;
+            bulletScript.rb.velocity = (bulletScript.target.TransformPoint(bulletScript.localizedTarget) - missile.transform.position).normalized * bulletScript.bulletSpeed;
         }
         if (currentWeaponStats.continuous) {
             if (Input.GetMouseButtonDown(0) && !weaponChanging && Time.timeScale > 0)
@@ -69,11 +70,11 @@ public class PlayerShoot : MonoBehaviour {
 					return;
 				}
                 if (rest) {
-                    fireBullet(10 - currentWeaponStats.accuracy, currentWeaponStats.strength, currentWeaponStats.bulletPrefab, 0f, null);
+                    fireBullet(10 - currentWeaponStats.accuracy, currentWeaponStats.strength, currentWeaponStats.bulletPrefab, 0f, null, Vector3.zero);
                     PlayerFinance.cashOnHand -= currentWeaponStats.bulletCost;
                     feed.shoot(currentWeaponStats.bulletCost);
                 } else {
-                    fireBullet(10 - currentWeaponStats.accuracy, currentWeaponStats.strength, currentWeaponStats.bulletPrefab, 0.09f, null);
+                    fireBullet(10 - currentWeaponStats.accuracy, currentWeaponStats.strength, currentWeaponStats.bulletPrefab, 0.09f, null, Vector3.zero);
                     PlayerFinance.cashOnHand -= currentWeaponStats.bulletCost;
                     feed.shoot(currentWeaponStats.bulletCost);
                 }
@@ -87,12 +88,14 @@ public class PlayerShoot : MonoBehaviour {
 					return;
 				}
                 Transform target = null;
-                if (currentWeaponStats.missile && Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity)){
+                Vector3 localTarget = Vector3.zero;
+                if (currentWeaponStats.missile && Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, missileHomingTargetLayer)) {
                     //Debug.Log(hit.collider);
                     //Instantiate(debugger, transform.position + (transform.TransformDirection(Vector3.forward) * hit.distance), transform.rotation);
                     target = hit.collider.transform;
+                    localTarget = target.InverseTransformPoint(hit.point);
                 }
-                fireBullet(10 - currentWeaponStats.accuracy, currentWeaponStats.strength, currentWeaponStats.bulletPrefab, 1, target);
+                fireBullet(10 - currentWeaponStats.accuracy, currentWeaponStats.strength, currentWeaponStats.bulletPrefab, 1, target, localTarget);
                 PlayerFinance.cashOnHand -= currentWeaponStats.bulletCost;
                 feed.shoot(currentWeaponStats.bulletCost);
             }
@@ -128,7 +131,7 @@ public class PlayerShoot : MonoBehaviour {
         }
     }
 
-    private void fireBullet(float accuracy, int damage, GameObject bulletPrefab, float noise, Transform target) {
+    private void fireBullet(float accuracy, int damage, GameObject bulletPrefab, float noise, Transform target, Vector3 localTarget) {
         fireSound.PlayOneShot(fireSoundClip, Settings.volume * noise);
         GameObject bullet;
         //Vector3 bulletPosition = weapon.transform.parent.position + weapon.transform.parent.forward * 0.8f;
@@ -152,6 +155,7 @@ public class PlayerShoot : MonoBehaviour {
         bulletScript.damage = damage;
         if (target != null){
             bulletScript.target = target;
+            bulletScript.localizedTarget = localTarget;
             bulletScript.player = this;
             missiles.Add(bullet);
         } else if (accuracy > 0.1f) {

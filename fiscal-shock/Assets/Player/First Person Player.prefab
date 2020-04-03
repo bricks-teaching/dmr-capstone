@@ -152,6 +152,9 @@ MonoBehaviour:
   guns:
   - {fileID: 680203695531066187}
   - {fileID: 7563193525656378907}
+  missileHomingTargetLayer:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!82 &4429673032618852596
 AudioSource:
   m_ObjectHideFlags: 0

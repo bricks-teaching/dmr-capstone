@@ -23,6 +23,7 @@ public class BulletBehavior : MonoBehaviour
 
     /* Variables set during runtime */
     public Transform target { get; set; }
+    public Vector3 localizedTarget { get; set; }
     public PlayerShoot player { get; set; }
 
     public void Start() {
