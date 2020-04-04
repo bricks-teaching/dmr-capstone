@@ -2,13 +2,17 @@ using UnityEngine;
 using TMPro;
 
 public class Sign : MonoBehaviour {
-    private Canvas canvas;
-    private TextMeshProUGUI signText;
+    public Canvas canvas;
+    public TextMeshProUGUI signText;
 
     void Start() {
-        canvas = GetComponentInChildren<Canvas>();
+        if (canvas == null) {
+            canvas = GetComponentInChildren<Canvas>();
+        }
         canvas.enabled = false;
-        signText = GetComponentInChildren<TextMeshProUGUI>();
+        if (signText == null) {
+            signText = GetComponentInChildren<TextMeshProUGUI>();
+        }
         signText.text = signText.text.Replace("INTERACTKEY", Settings.interactKey.ToUpper()).Replace("PAUSEKEY", Settings.pauseKey.ToUpper());
     }
 

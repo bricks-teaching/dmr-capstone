@@ -34,7 +34,7 @@ public class PlayerShoot : MonoBehaviour {
 
     public void Update() {
         // Change weapon
-        if (Input.GetKeyDown(Settings.weaponOneKey)) {
+        if (Input.GetKeyDown(Settings.weaponOneKey) && StateManager.purchasedHose) {
             slot = 0;
             if (weapon != null) {
                 HolsterWeapon();
@@ -42,8 +42,8 @@ public class PlayerShoot : MonoBehaviour {
                 LoadWeapon();
             }
         }
-        if (Input.GetKeyDown(Settings.weaponTwoKey)) {
-        slot = 1;
+        if (Input.GetKeyDown(Settings.weaponTwoKey) && StateManager.purchasedLauncher) {
+            slot = 1;
             if (weapon != null) {
                 HolsterWeapon();
             } else {
@@ -55,7 +55,9 @@ public class PlayerShoot : MonoBehaviour {
         }
         foreach (GameObject missile in missiles) {
             BulletBehavior bulletScript = missile.GetComponent(typeof(BulletBehavior)) as BulletBehavior;
-            bulletScript.rb.velocity = (bulletScript.target.position - missile.transform.position).normalized * bulletScript.bulletSpeed;
+            if (bulletScript.target != null) {
+                bulletScript.rb.velocity = (bulletScript.target.position - missile.transform.position).normalized * bulletScript.bulletSpeed;
+            }
         }
         if (currentWeaponStats.continuous) {
             if (Input.GetMouseButtonDown(0) && !weaponChanging && Time.timeScale > 0)
@@ -80,7 +82,7 @@ public class PlayerShoot : MonoBehaviour {
                 rest = !rest;
             }
         } else {
-            if (Input.GetMouseButtonDown(0) && !weaponChanging && Time.timeScale > 0)
+            if (Input.GetMouseButtonDown(0) && !weaponChanging && Time.timeScale > 0 && UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "Hub")
             {
 				if (PlayerFinance.cashOnHand < currentWeaponStats.bulletCost) {
 					// TODO play sound fx
@@ -104,7 +106,7 @@ public class PlayerShoot : MonoBehaviour {
             }
             Vector3 rotationVector = transform.rotation.eulerAngles;
             rotationVector.x += currentWeaponStats.rotation;
-            weapon.transform.rotation = Quaternion.Slerp(weapon.transform.rotation, Quaternion.Euler(rotationVector), Time.fixedDeltaTime * 6);
+            weapon.transform.rotation = Quaternion.Slerp(weapon.transform.parent.rotation, Quaternion.Euler(rotationVector), Time.fixedDeltaTime * 6);
             // After animation has run set weapon changing to false
             if (animatedTime > 0.9f) {
                 animatedTime = 0f;
@@ -117,7 +119,7 @@ public class PlayerShoot : MonoBehaviour {
         } else if (holsteringWeapon) {
             weapon.transform.position -= (transform.up * 5f) + transform.forward;
             Vector3 rotationVector = transform.rotation.eulerAngles;
-            weapon.transform.rotation = Quaternion.Slerp(weapon.transform.rotation, Quaternion.Euler(rotationVector), Time.fixedDeltaTime * 6);
+            weapon.transform.rotation = Quaternion.Slerp(weapon.transform.parent.rotation, Quaternion.Euler(rotationVector), Time.fixedDeltaTime * 6);
             // After animation has run, get the new weapon
             if (animatedTime > 0.8f) {
                 animatedTime = 0f;
@@ -174,6 +176,12 @@ public class PlayerShoot : MonoBehaviour {
     }
 
     public void LoadWeapon() {
+        if (slot == 0 && !StateManager.purchasedHose) {
+            return;
+        }
+        if (slot == 1 && !StateManager.purchasedLauncher) {
+            return;
+        }
         drawingWeapon = true;
         // Update weapon slot and enable weapon object
         weapon?.SetActive(false);
