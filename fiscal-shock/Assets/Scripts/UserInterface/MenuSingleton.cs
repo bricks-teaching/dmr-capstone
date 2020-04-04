@@ -15,5 +15,6 @@ public class MenuSingleton : MonoBehaviour {
              menuInstance = this;
          }
          DontDestroyOnLoad(this.gameObject);
+         StateManager.singletons.Add(this.gameObject);
      }
 }

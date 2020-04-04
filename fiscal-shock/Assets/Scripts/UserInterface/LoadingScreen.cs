@@ -28,6 +28,7 @@ public class LoadingScreen : MonoBehaviour {
             loadScreenInstance = this;
         }
         DontDestroyOnLoad(this.gameObject);
+        // Do not add to StateManager.singletons unless you never want to use the load screen to get to the menu
     }
 
     void Start() {

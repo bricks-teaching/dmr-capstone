@@ -5,8 +5,6 @@ public class MainMenu : MonoBehaviour {
     public void Start() {
         Settings.forceUnlockCursorState();
         Settings.loadSettings();
-        Application.targetFrameRate = Settings.targetFramerate;
-        QualitySettings.vSyncCount = Settings.vsync;
     }
 
     void PlayClick() {
@@ -17,9 +15,6 @@ public class MainMenu : MonoBehaviour {
 
     void QuitClick() {
         Debug.Log("Quitting from main menu.");
-        Settings.saveSettings();
-        Application.Quit();
+        Settings.quitToDesktop();
     }
-
-    
 }

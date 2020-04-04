@@ -2,8 +2,10 @@
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.Collections.Generic;
 
 public class InGameMenu : MonoBehaviour {
+    public static InGameMenu inGameMenuInstance { get; private set; }
     public GameObject pausePanel;
     public GameObject optionsPanel;
     public GameObject quitPanel;
@@ -12,9 +14,22 @@ public class InGameMenu : MonoBehaviour {
     private VolumeController[] volumeControllers;
     public Slider volumeSlider;
     public Slider mouseSlider;
+    public TMP_Dropdown gfx;
+
+    void Awake() {
+        if (inGameMenuInstance != null && inGameMenuInstance != this) {
+            Destroy(this.gameObject);
+            return;
+        } else {
+            inGameMenuInstance = this;
+        }
+        DontDestroyOnLoad(this.gameObject);
+        StateManager.singletons.Add(this.gameObject);
+    }
 
     private void Start() {
         player = GameObject.FindGameObjectWithTag("Player");
+        gfx.AddOptions(new List<string>(QualitySettings.names));
     }
 
     public float volume {
@@ -99,12 +114,13 @@ public class InGameMenu : MonoBehaviour {
     }
 
     public void RestartClick() {
-        SceneManager.LoadScene(0);
+        pauseText.text = "";
+        Settings.quitToMainMenu();
     }
 
     public void QuitAppClick() {
-        Settings.saveSettings();
-        Application.Quit();
+        pauseText.text = "";
+        Settings.quitToDesktop();
     }
 
     public void CancelClick() {

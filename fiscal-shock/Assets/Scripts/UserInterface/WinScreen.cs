@@ -7,6 +7,6 @@ public class WinScreen : MonoBehaviour {
 
     public void QuitClick() {
         Debug.Log("Quit by win game.");
-        Application.Quit();
+        Settings.quitToDesktop();
     }
 }

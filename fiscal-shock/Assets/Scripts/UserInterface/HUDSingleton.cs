@@ -15,5 +15,6 @@ public class HUDSingleton : MonoBehaviour {
              hudInstance = this;
          }
          DontDestroyOnLoad(this.gameObject);
+         StateManager.singletons.Add(this.gameObject);
      }
 }

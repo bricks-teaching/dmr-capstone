@@ -51,6 +51,8 @@ public static class StateManager
     public static DungeonTypeEnum selectedDungeon { get; set; }
     public static bool sawTutorial = false;
 
+    public static List<GameObject> singletons = new List<GameObject>();
+
     public static void calcCreditScore()
     {
         int baseScore = 500, sharkPen = 0;

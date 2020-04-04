@@ -9,6 +9,7 @@ public class MouseLook : MonoBehaviour
     public Transform body;
 
     private float xRotation = 0f;
+    private CursorLockMode lastCursorLockState;
 
     public void Start() {
         Settings.lockCursorState(this);
@@ -26,5 +27,25 @@ public class MouseLook : MonoBehaviour
 
         transform.localRotation = Quaternion.Euler(xRotation,0f,0f);
         body.Rotate(Vector3.up * mouseX);
+    }
+
+    /// <summary>
+    /// Release cursor and freeze time when the game is no longer in
+    /// focus.
+    /// </summary>
+    /// <param name="focused"></param>
+    public void OnApplicationFocus(bool focused) {
+        if (!focused) {  // game window is no longer in focus
+            lastCursorLockState = Cursor.lockState;
+            Settings.forceUnlockCursorState();
+            Time.timeScale = 0;
+        } else {
+            if (lastCursorLockState == CursorLockMode.Locked) {
+                // It used to be locked, lock it again
+                Settings.forceLockCursorState();
+            }
+            // otherwise, leave it unlocked and unpause
+            Time.timeScale = 1;
+        }
     }
 }

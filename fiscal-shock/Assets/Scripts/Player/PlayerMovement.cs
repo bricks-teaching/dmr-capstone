@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+//using UnityEngine.InputSystem;
 
 /**
 Here is the tutorial I followed:
@@ -56,5 +57,12 @@ public class PlayerMovement : MonoBehaviour
 
         //Lets user fall down based on velocity
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    public void teleport(Vector3 destination) {
+        controller.enabled = false;
+        transform.position = destination;
+        controller.enabled = true;
+        Debug.Log($"Teleported to {destination}");
     }
 }

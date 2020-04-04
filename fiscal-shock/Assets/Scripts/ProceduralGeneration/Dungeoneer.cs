@@ -398,15 +398,13 @@ namespace FiscalShock.Procedural {
                 StateManager.purchasedLauncher = true;
                 PlayerFinance.cashOnHand = 1000f;
             }
-            CharacterController playerController = player.GetComponentInChildren<CharacterController>();
-            playerController.enabled = false;
-            player.transform.position = spawnPoint.toVector3AtHeight(currentDungeonType.wallHeight * 0.8f);
-            playerController.enabled = true;
+            PlayerMovement pm = player.GetComponentInChildren<PlayerMovement>();
+            pm.teleport(spawnPoint.toVector3AtHeight(currentDungeonType.wallHeight * 0.8f));
 
             // Attach any other stuff to player here
             Cheats cheater = GameObject.FindObjectOfType<Cheats>();
             cheater.player = player;
-            cheater.playerController = player.GetComponentInChildren<CharacterController>();
+            cheater.playerMovement = pm;
             InGameMenu menu = GameObject.FindObjectOfType<InGameMenu>();
             menu.player = player;
 
