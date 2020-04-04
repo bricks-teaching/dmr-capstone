@@ -44,6 +44,11 @@ Namespaces
 .. toctree::
    :maxdepth: 5
 
+   namespace_System__Globalization.rst
+
+.. toctree::
+   :maxdepth: 5
+
    namespace_System__IO.rst
 
 .. toctree::
@@ -374,6 +379,11 @@ Classes and Structs
    :maxdepth: 5
 
    classSharkScript.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   classShopScript.rst
 
 .. toctree::
    :maxdepth: 5

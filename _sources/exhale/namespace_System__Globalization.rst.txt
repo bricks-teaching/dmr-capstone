@@ -1,0 +1,13 @@
+
+.. _namespace_System__Globalization:
+
+Namespace System::Globalization
+===============================
+
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+
+

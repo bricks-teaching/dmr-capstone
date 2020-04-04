@@ -212,6 +212,11 @@
 <span class="target" id="classATMScript_1a1184c2af89498fdc50e25a8c3da386ef"></span><code class="sig-name descname">void ATMScript.temporaryWinGame()</code></dt>
 <dd></dd></dl>
 
+<dl class="function">
+<dt>
+<span class="target" id="classATMScript_1aaa5f63ca69f069806cc124e4062ce4b8"></span><code class="sig-name descname">void ATMScript.BackClick()</code></dt>
+<dd></dd></dl>
+
 </div>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Members</p>
@@ -223,6 +228,61 @@
 <dl class="member">
 <dt>
 <span class="target" id="classATMScript_1aff4f1d9ff428bfa92a6032a3553321cd"></span><code class="sig-name descname">AudioClip ATMScript.failureSound</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classATMScript_1a043246a4890a3c60ce81d75ca2ea06e5"></span><code class="sig-name descname">GameObject ATMScript.bankPanel</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classATMScript_1a56cc3de1d2f6841542b095f4719831b9"></span><code class="sig-name descname">TextMeshProUGUI ATMScript.dialogText</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classATMScript_1a023f4a0162f2993055c50af4c5501d58"></span><code class="sig-name descname">Button ATMScript.payButton</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classATMScript_1ad3d1159a6b64bc79a3c1472ec8dce2dd"></span><code class="sig-name descname">Button ATMScript.newLoan</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classATMScript_1a98b9a94abc6045a918c3a7991448a192"></span><code class="sig-name descname">Button ATMScript.secLoan</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classATMScript_1a9e6aa302914c9b8f6666d9053c734f93"></span><code class="sig-name descname">Button ATMScript.backButton</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classATMScript_1a7004b8d96ab99da8b935c2b57bb3a90c"></span><code class="sig-name descname">InputField ATMScript.payAmount</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classATMScript_1a32f595646bda849576e930915669aa3a"></span><code class="sig-name descname">InputField ATMScript.payID</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classATMScript_1a1d5edb2c7fd367d6885ed93eb4fcfc66"></span><code class="sig-name descname">InputField ATMScript.loanInput</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classATMScript_1aa231798f93f046f6a821c6f291fb3e4a"></span><code class="sig-name descname">InputField ATMScript.secInput</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classATMScript_1afa862817d655885731fd2733f251489b"></span><code class="sig-name descname">Text ATMScript.id1</code></dt>
 <dd></dd></dl>
 
 </div>
@@ -302,6 +362,26 @@
 <span class="target" id="classATMScript_1a2870f93f3a805800dc818d34da2995e5"></span><code class="sig-name descname">void ATMScript.Update()</code></dt>
 <dd></dd></dl>
 
+<dl class="function">
+<dt>
+<span class="target" id="classATMScript_1a670ad50ff64e96fcfdb0feb237a71c47"></span><code class="sig-name descname">void ATMScript.payLoan()</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classATMScript_1af9cac8175b32ce0853bcda6074a40d0c"></span><code class="sig-name descname">void ATMScript.addLoan()</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classATMScript_1a1917024448ab08523eefd0b3b253a2c5"></span><code class="sig-name descname">void ATMScript.addSecLoan()</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classATMScript_1ab46ed479cd400210ece27a444cf6b421"></span><code class="sig-name descname">void ATMScript.updateFields()</code></dt>
+<dd></dd></dl>
+
 </div>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Private Members</p>
@@ -312,17 +392,57 @@
 
 <dl class="member">
 <dt>
-<span class="target" id="classATMScript_1a01d6ef8989f4c7465f2e43e06c3de8a1"></span><code class="sig-name descname">TextMeshProUGUI ATMScript.signText</code></dt>
+<span class="target" id="classATMScript_1a455ff998a98ad4856583dd63b54c3131"></span><code class="sig-name descname">bool ATMScript.firstLoan = false</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classATMScript_1a6c4cbfd05ca0102d8325830bf036307d"></span><code class="sig-name descname">string ATMScript.defaultSignText</code></dt>
+<span class="target" id="classATMScript_1a55308aaa2725fa0db62018c46ac127c4"></span><code class="sig-name descname">int ATMScript.loanCount = 0</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
 <span class="target" id="classATMScript_1a4f687c8b3fc5105bdb979b8ca75cc11f"></span><code class="sig-name descname">AudioSource ATMScript.audioS</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classATMScript_1ab2b2ad4f86be020a6739e61d47ce4458"></span><code class="sig-name descname">Text ATMScript.id2</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classATMScript_1af67164661846d4997529ce2be5b93fb2"></span><code class="sig-name descname">Text ATMScript.id3</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classATMScript_1a1b4ef896a8c969d6b8cdd2ee8a7233ca"></span><code class="sig-name descname">Text ATMScript.type1</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classATMScript_1a9d1b91851759bbb13477c7f2389a8a83"></span><code class="sig-name descname">Text ATMScript.type2</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classATMScript_1aa852ec518adacafdfd906cdd34567084"></span><code class="sig-name descname">Text ATMScript.type3</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classATMScript_1ab90cf824979564dd0f8d9c6d5794c543"></span><code class="sig-name descname">Text ATMScript.amount1</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classATMScript_1ae1567ad05ddaf842e5e5d152c1568174"></span><code class="sig-name descname">Text ATMScript.amount2</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classATMScript_1a5755c322e5dd0365cdb7fc0d311120d5"></span><code class="sig-name descname">Text ATMScript.amount3</code></dt>
 <dd></dd></dl>
 
 </div>

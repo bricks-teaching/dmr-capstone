@@ -19,6 +19,8 @@ Namespaces
 
 - :ref:`namespace_System__Collections`
 
+- :ref:`namespace_System__Globalization`
+
 - :ref:`namespace_System__IO`
 
 - :ref:`namespace_System__Linq`

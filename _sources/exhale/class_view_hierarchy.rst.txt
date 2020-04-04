@@ -69,6 +69,7 @@ Class Hierarchy
 - :ref:`exhale_class_classSettings`
 - :ref:`exhale_class_classSettingsValues`
 - :ref:`exhale_class_classSharkScript`
+- :ref:`exhale_class_classShopScript`
 - :ref:`exhale_class_classSign`
 - :ref:`exhale_class_classSpawnableEnemy`
 - :ref:`exhale_class_classSpawnableObject`

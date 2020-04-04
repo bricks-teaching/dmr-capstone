@@ -25,6 +25,8 @@ Namespaces
 ----------
 
 
+- :ref:`namespace_System__Globalization`
+
 - :ref:`namespace_TMPro`
 
 - :ref:`namespace_UnityEngine__SceneManagement`
