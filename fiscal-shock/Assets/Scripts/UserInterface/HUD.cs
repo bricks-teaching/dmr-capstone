@@ -10,6 +10,7 @@ public class HUD : MonoBehaviour
     public RectTransform escapeCompass;
     public TextMeshProUGUI shotLoss;
     public TextMeshProUGUI earn;
+    public TextMeshProUGUI fps;
 
     /* Variables set at runtime */
     public Transform playerTransform { get; set; }
@@ -19,6 +20,7 @@ public class HUD : MonoBehaviour
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         shotLoss.text = "";
         earn.text = "";
+        fps.enabled = Settings.values.showFPS;
     }
 
     /// <summary>
@@ -29,6 +31,10 @@ public class HUD : MonoBehaviour
     void Update() {
         pocketChange.text = "" + PlayerFinance.cashOnHand.ToString("F2");
         debtTracker.text = "DEBT: -" + StateManager.totalDebt.ToString("F2");
+
+        if (Settings.values.showFPS && Time.timeScale > 0) {
+            fps.text = $"{(int)(1.0f/Time.smoothDeltaTime)}";
+        }
 
         if (escapeHatch != null && playerTransform != null) {
             compassImage.SetActive(true);

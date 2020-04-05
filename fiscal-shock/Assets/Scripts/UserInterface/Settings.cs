@@ -35,43 +35,48 @@ public static class Settings {
 
     public static void updateCurrentSettings() {
         // Apply default quality level settings first
-        QualitySettings.SetQualityLevel(values.currentQuality);
+        QualitySettings.SetQualityLevel(values.currentQuality, true);
+        Application.targetFrameRate = values.targetFramerate;
 
         if (values.overrideQualitySettings) {
-            // Frame rate
             QualitySettings.vSyncCount = values.vsyncCount;
-            Application.targetFrameRate = values.targetFramerate;
-
-            // Particle effects
-            QualitySettings.softParticles = values.enableSoftParticles;
 
             // Texture quality
             QualitySettings.anisotropicFiltering = values.anisotropicTextures;
             QualitySettings.antiAliasing = values.antialiasingSamples;
 
             // Lighting
-            QualitySettings.pixelLightCount = (int)values.pixelLightCount;
+            QualitySettings.pixelLightCount = values.pixelLightCount;
             QualitySettings.shadowDistance = values.shadowDistance;
             QualitySettings.shadowResolution = values.shadowResolution;
+        } else {
+            QualitySettings.vSyncCount = qualityPreset.vsyncCount;
+
+            // Texture quality
+            QualitySettings.anisotropicFiltering = qualityPreset.anisotropicTextures;
+            QualitySettings.antiAliasing = qualityPreset.antialiasingSamples;
+
+            // Lighting
+            QualitySettings.pixelLightCount = qualityPreset.pixelLightCount;
+            QualitySettings.shadowDistance = qualityPreset.shadowDistance;
+            QualitySettings.shadowResolution = qualityPreset.shadowResolution;
         }
     }
 
     public static void resetToCurrentQualityDefaults() {
-        QualitySettings.SetQualityLevel(values.currentQuality, true);
+        values.overrideQualitySettings = false;
+        updateCurrentSettings();
 
         // Frame rate
         values.vsyncCount = QualitySettings.vSyncCount;
         values.targetFramerate = Application.targetFrameRate;
-
-        // Particle effects
-        values.enableSoftParticles = QualitySettings.softParticles;
 
         // Texture quality
         values.anisotropicTextures = QualitySettings.anisotropicFiltering;
         values.antialiasingSamples = QualitySettings.antiAliasing;
 
         // Lighting
-        values.pixelLightCount = (PixelLightQuality)QualitySettings.pixelLightCount;
+        values.pixelLightCount = QualitySettings.pixelLightCount;
         values.shadowDistance = QualitySettings.shadowDistance;
         values.shadowResolution = QualitySettings.shadowResolution;
     }
@@ -184,6 +189,139 @@ public static class Settings {
         cursorStateMutexOwner = null;
         Cursor.lockState = CursorLockMode.Locked;
     }
+
+    public static QualityPreset qualityPreset = DefaultQualitySettings.Default;
+    /* stringified */
+    public static string[] shadowResNames = {
+        "Off", // warning: special case
+        "Low",
+        "Medium",
+        "High",
+        "Very High"
+    };
+
+    public static string[] anisotropicNames = {
+        "Disabled",
+        "Enabled",
+        "Force Enabled"
+    };
+
+    public static string[] pixelQualityNames = {
+        "None",
+        "Low",
+        "Medium",
+        "High",
+        "Ultra"
+    };
+
+    public static string[] vsyncCountNames = {
+        "Disabled",
+        "Every",
+        "Every Other"
+    };
+
+    public static string[] antialiasingNames = {
+        "Disabled",
+        "2x MSAA",
+        "4x MSAA",
+        "8x MSAA"
+    };
+}
+
+/// <summary>
+/// Unity has no concept of "reset to the default of this quality preset,"
+/// so here we go...
+/// </summary>
+public static class DefaultQualitySettings {
+    public static QualityPreset VeryLow = new QualityPreset {
+        vsyncCount = 0,
+        anisotropicTextures = AnisotropicFiltering.Disable,
+        antialiasingSamples = 0,
+        pixelLightCount = 0,
+        shadowDistance = 0,
+        shadowResolution = ShadowResolution.Low
+    };
+    public static QualityPreset Low = new QualityPreset {
+        vsyncCount = 0,
+        anisotropicTextures = AnisotropicFiltering.Disable,
+        antialiasingSamples = 0,
+        pixelLightCount = 1,
+        shadowDistance = 0,
+        shadowResolution = ShadowResolution.Low
+    };
+    public static QualityPreset Medium = new QualityPreset {
+        vsyncCount = 0,
+        anisotropicTextures = AnisotropicFiltering.Enable,
+        antialiasingSamples = 0,
+        pixelLightCount = 1,
+        shadowDistance = 20,
+        shadowResolution = ShadowResolution.Low
+    };
+    public static QualityPreset Default = new QualityPreset {
+        vsyncCount = 1,
+        anisotropicTextures = AnisotropicFiltering.Enable,
+        antialiasingSamples = 2,
+        pixelLightCount = 1,
+        shadowDistance = 40,
+        shadowResolution = ShadowResolution.Low
+    };
+    public static QualityPreset High = new QualityPreset {
+        vsyncCount = 1,
+        anisotropicTextures = AnisotropicFiltering.Enable,
+        antialiasingSamples = 2,
+        pixelLightCount = 2,
+        shadowDistance = 40,
+        shadowResolution = ShadowResolution.Medium
+    };
+    public static QualityPreset VeryHigh = new QualityPreset {
+        vsyncCount = 1,
+        anisotropicTextures = AnisotropicFiltering.Enable,
+        antialiasingSamples = 4,
+        pixelLightCount = 3,
+        shadowDistance = 70,
+        shadowResolution = ShadowResolution.High
+    };
+    public static QualityPreset Ultra = new QualityPreset {
+        vsyncCount = 1,
+        anisotropicTextures = AnisotropicFiltering.Enable,
+        antialiasingSamples = 4,
+        pixelLightCount = 4,
+        shadowDistance = 128,
+        shadowResolution = ShadowResolution.VeryHigh
+    };
+
+    public static QualityPreset getPresetByIndex(int i) {
+        switch (i) {
+            case 0:
+                return VeryLow;
+            case 1:
+                return Low;
+            case 2:
+                return Medium;
+            case 3:
+                return Default;
+            case 4:
+                return High;
+            case 5:
+                return VeryHigh;
+            default:
+                return Ultra;
+        }
+    }
+}
+
+/// <summary>
+/// Holds values of quality preset defaults. Unity does not make
+/// quality preset values available at runtime, and any manually
+/// modified settings are never reset.
+/// </summary>
+public struct QualityPreset {
+    public int vsyncCount;
+    public AnisotropicFiltering anisotropicTextures;
+    public int antialiasingSamples;
+    public int pixelLightCount;
+    public float shadowDistance;
+    public ShadowResolution shadowResolution;
 }
 
 /// <summary>
@@ -201,13 +339,15 @@ public class SettingsValues {
     public string weaponTwoKey = "2";
     public string hidePauseMenuKey = "backspace";
 
+    public bool showFPS = false;
+
     // --- configurable graphics ---
+    public bool overrideQualitySettings = false;
     public int targetFramerate = 60;  // requires vsyncCount = 0
     public int vsyncCount = 1;  // 0, 1, 2, 3, 4
-    public bool enableSoftParticles = false;
     public AnisotropicFiltering anisotropicTextures = AnisotropicFiltering.Disable;  // Disable, Enable, ForceEnable
     public int antialiasingSamples = 2;  // 0, 2, 4, 8 only supported
-    public PixelLightQuality pixelLightCount = PixelLightQuality.Low;  // 0, 1, 2, 3, 4; 0 = dark, no pixel lights!
+    public int pixelLightCount = 1;  // 0, 1, 2, 3, 4; 0 = dark, no pixel lights!
     public float shadowDistance = 40;  // maximum distance to draw shadows at
     public ShadowResolution shadowResolution = ShadowResolution.Low;  // Low, Medium, High, VeryHigh
 
@@ -216,15 +356,6 @@ public class SettingsValues {
        who break stuff and want to reset to defaults.
     */
     public string[] qualityLevelNames = QualitySettings.names;
-    public bool overrideQualitySettings = true;
-    public string currentQualityName = "Default";
     public int currentQuality = 3;
-}
-
-public enum PixelLightQuality {
-    None,
-    Low,
-    Medium,
-    High,
-    Ultra
+    public string currentQualityName = "Default";
 }
