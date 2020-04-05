@@ -1,0 +1,17 @@
+.. _exhale_struct_structHomingTargets:
+
+Struct HomingTargets
+====================
+
+- Defined in :ref:`file_fiscal-shock_Assets_Scripts_Player_PlayerShoot.cs`
+
+
+Struct Documentation
+--------------------
+
+
+.. doxygenstruct:: HomingTargets
+   :members:
+   :protected-members:
+   :private-members:
+   :undoc-members:

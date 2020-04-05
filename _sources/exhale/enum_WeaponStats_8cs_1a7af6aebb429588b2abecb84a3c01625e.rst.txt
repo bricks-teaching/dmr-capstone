@@ -1,0 +1,14 @@
+.. _exhale_enum_WeaponStats_8cs_1a7af6aebb429588b2abecb84a3c01625e:
+
+Enum ProjectileType
+===================
+
+- Defined in :ref:`file_fiscal-shock_Assets_Scripts_Player_WeaponStats.cs`
+
+
+Enum Documentation
+------------------
+
+
+.. doxygenenum:: ProjectileType
+   :no-link:

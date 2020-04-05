@@ -34,9 +34,7 @@ Class Hierarchy
         - :ref:`exhale_class_classThirdParty_1_1Delaunator_1_1ListExtensions`
         - :ref:`exhale_class_classThirdParty_1_1Delaunator_1_1Triangulation`
     - :ref:`exhale_class_classThirdParty_1_1MersenneTwister`
-    - :ref:`exhale_class_classThirdParty_1_1OcclusionBase`
-    - :ref:`exhale_class_classThirdParty_1_1OcclusionCamera`
-    - :ref:`exhale_class_classThirdParty_1_1OcclusionObject`
+- :ref:`exhale_struct_structHomingTargets`
 - :ref:`exhale_class_classAnimationCategory`
 - :ref:`exhale_class_classAnimationManager`
 - :ref:`exhale_class_classATMScript`
@@ -81,5 +79,7 @@ Class Hierarchy
 - :ref:`exhale_class_classWinScreen`
 - :ref:`exhale_enum_AnimationManager_8cs_1a2c62c8325defaa3537c7de457e51d9e9`
 - :ref:`exhale_enum_StateManager_8cs_1a85b5d3c8a7ff99f7195c8c75a359d277`
+- :ref:`exhale_enum_WeaponStats_8cs_1a6632920782fdcfb50d09c28a324a5042`
+- :ref:`exhale_enum_WeaponStats_8cs_1a7af6aebb429588b2abecb84a3c01625e`
 
 

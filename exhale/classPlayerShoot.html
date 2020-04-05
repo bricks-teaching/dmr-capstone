@@ -198,11 +198,6 @@
 <span class="target" id="classPlayerShoot_1a85c4bef4446a5a83aa7e9ace8e225a12"></span><code class="sig-name descname">void PlayerShoot.HolsterWeapon()</code></dt>
 <dd></dd></dl>
 
-<dl class="function">
-<dt>
-<span class="target" id="classPlayerShoot_1a93773d6379c2e1d3ea8b3173335a54d6"></span><code class="sig-name descname">void PlayerShoot.removeMissile(GameObject missile)</code></dt>
-<dd></dd></dl>
-
 </div>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Members</p>
@@ -213,12 +208,17 @@
 
 <dl class="member">
 <dt>
+<span class="target" id="classPlayerShoot_1a2c639df09aa78bcff7e427a889900222"></span><code class="sig-name descname">AudioClip PlayerShoot.outOfAmmo</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
 <span class="target" id="classPlayerShoot_1aa5909cbe343f8e2809b19f461e44ec30"></span><code class="sig-name descname">List&lt;GameObject&gt; PlayerShoot.guns</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classPlayerShoot_1a061f7389b4dd1e2615bc6004050cbd44"></span><code class="sig-name descname">RaycastHit PlayerShoot.hit</code></dt>
+<span class="target" id="classPlayerShoot_1ac1f2ae051826b0aaacb3f43ea28c312d"></span><code class="sig-name descname">LayerMask PlayerShoot.missileHomingTargetLayer</code></dt>
 <dd></dd></dl>
 
 </div>
@@ -239,8 +239,42 @@
 <p class="breathe-sectiondef-title rubric">Private Functions</p>
 <dl class="function">
 <dt>
-<span class="target" id="classPlayerShoot_1ad0ec3145366a25f2bf369a86b5434c7e"></span><code class="sig-name descname">void PlayerShoot.fireBullet(float accuracy, int damage, GameObject bulletPrefab, float noise, Transform target)</code></dt>
-<dd></dd></dl>
+<span class="target" id="classPlayerShoot_1a22dc004e9f9954eee45ed5633e7ba935"></span><code class="sig-name descname">void PlayerShoot.fireAutomatic()</code></dt>
+<dd><p>Continuous fire while button is held down. </p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classPlayerShoot_1af0b9a6894f5b5932cc70151a4027d48e"></span><code class="sig-name descname">void PlayerShoot.fireSemiautomatic()</code></dt>
+<dd><p>One click, one shot, but no reload action. </p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classPlayerShoot_1a3fb658ae31ab068a0becae04abe303fc"></span><code class="sig-name descname">HomingTargets PlayerShoot.getHomingTargets()</code></dt>
+<dd><p>Sets up homing targets if the projectile has homing enabled. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p></p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classPlayerShoot_1a80848616a99629e8589c20f5dfee6644"></span><code class="sig-name descname">void PlayerShoot.fireBullet(float accuracy, int damage, float noise, HomingTargets target)</code></dt>
+<dd><p>Fire a bullet. </p>
+<p><dl>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist">
+<li><code class="docutils literal notranslate"><span class="pre">accuracy</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">damage</span></code></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">noise</span></code>: modifier on sound effect volume</p></li>
+<li><code class="docutils literal notranslate"><span class="pre">target</span></code></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
@@ -278,11 +312,6 @@
 <dl class="member">
 <dt>
 <span class="target" id="classPlayerShoot_1a792096c9094f8405a7184b8aaf2a9979"></span><code class="sig-name descname">bool PlayerShoot.rest = false</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
-<span class="target" id="classPlayerShoot_1acb6da6052dbb9344fc73ebe80f761f33"></span><code class="sig-name descname">ArrayList PlayerShoot.missiles = new ArrayList()</code></dt>
 <dd></dd></dl>
 
 <dl class="member">

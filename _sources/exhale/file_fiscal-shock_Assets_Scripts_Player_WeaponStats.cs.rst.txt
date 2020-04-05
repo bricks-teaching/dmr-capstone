@@ -27,3 +27,12 @@ Classes
 
 - :ref:`exhale_class_classWeaponStats`
 
+
+Enums
+-----
+
+
+- :ref:`exhale_enum_WeaponStats_8cs_1a6632920782fdcfb50d09c28a324a5042`
+
+- :ref:`exhale_enum_WeaponStats_8cs_1a7af6aebb429588b2abecb84a3c01625e`
+

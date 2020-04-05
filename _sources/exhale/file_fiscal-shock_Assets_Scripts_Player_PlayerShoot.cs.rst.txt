@@ -25,5 +25,7 @@ Classes
 -------
 
 
+- :ref:`exhale_struct_structHomingTargets`
+
 - :ref:`exhale_class_classPlayerShoot`
 

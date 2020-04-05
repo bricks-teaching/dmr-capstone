@@ -1,0 +1,14 @@
+.. _exhale_enum_WeaponStats_8cs_1a6632920782fdcfb50d09c28a324a5042:
+
+Enum FirearmAction
+==================
+
+- Defined in :ref:`file_fiscal-shock_Assets_Scripts_Player_WeaponStats.cs`
+
+
+Enum Documentation
+------------------
+
+
+.. doxygenenum:: FirearmAction
+   :no-link:
