@@ -393,6 +393,10 @@ namespace FiscalShock.Procedural {
             player = GameObject.FindGameObjectWithTag("Player");
             if (player == null) {
                 player = Instantiate(playerPrefab, playerPrefab.transform.position, playerPrefab.transform.rotation);
+                // Give player all weapons when starting in dungeon, since that implies it's a dev starting in the editor
+                StateManager.purchasedHose = true;
+                StateManager.purchasedLauncher = true;
+                PlayerFinance.cashOnHand = 1000f;
             }
             CharacterController playerController = player.GetComponentInChildren<CharacterController>();
             playerController.enabled = false;

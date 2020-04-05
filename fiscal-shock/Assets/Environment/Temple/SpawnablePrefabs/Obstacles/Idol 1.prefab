@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 33000010997261744}
   - component: {fileID: 23000010783972846}
   - component: {fileID: 8937129562713040829}
-  - component: {fileID: -7800687564068282417}
   - component: {fileID: 7065324549388516925}
   m_Layer: 8
   m_Name: Idol 1
@@ -96,18 +95,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 3a1d3020b389e374d846159123ec8e37, type: 3}
---- !u!114 &-7800687564068282417
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000012591900880}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce02a5bb4a2c2bc3fbe07f3cfc648918, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7065324549388516925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,4 +107,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d14ccc4e83f5aec8db84560ece84405d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toBeDestroyed: 0

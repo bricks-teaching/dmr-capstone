@@ -908,7 +908,6 @@ MonoBehaviour:
   robinHood: f1
   toggleGraphMesh: f4
   enableWallDestruction: f8
-  toggleOcclusionCulling: f9
   player: {fileID: 0}
   playerController: {fileID: 0}
   destroyWalls: 0
@@ -1537,8 +1536,20 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 190865240, guid: 3df1f54d1485f5354891126c61ba8d15, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1609317935, guid: 3df1f54d1485f5354891126c61ba8d15, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1609317935, guid: 3df1f54d1485f5354891126c61ba8d15, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1609317935, guid: 3df1f54d1485f5354891126c61ba8d15, type: 3}
+      propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8457115162114266724, guid: 3df1f54d1485f5354891126c61ba8d15,

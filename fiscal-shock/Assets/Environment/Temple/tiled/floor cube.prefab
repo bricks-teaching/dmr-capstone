@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 1313260826081911658}
   - component: {fileID: 1313260826081911659}
   - component: {fileID: 1313260826081911652}
-  - component: {fileID: -2789007883154263280}
   m_Layer: 8
   m_Name: floor cube
   m_TagString: Ground
@@ -94,15 +93,3 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-2789007883154263280
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1313260826081911653}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce02a5bb4a2c2bc3fbe07f3cfc648918, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

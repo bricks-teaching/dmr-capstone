@@ -289,7 +289,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4826482260062094}
   - component: {fileID: -6152245481079807310}
-  - component: {fileID: -5880924156798374673}
   m_Layer: 8
   m_Name: CrystalCluster
   m_TagString: Decoration
@@ -324,18 +323,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d14ccc4e83f5aec8db84560ece84405d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  toBeDestroyed: 0
---- !u!114 &-5880924156798374673
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1923833813363800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce02a5bb4a2c2bc3fbe07f3cfc648918, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

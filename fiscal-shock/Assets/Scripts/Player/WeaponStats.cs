@@ -9,24 +9,38 @@ public class WeaponStats : MonoBehaviour
     public int bulletCost = 1;
     public float accuracy = 6;
     public float rotation = 0;
-    public bool continuous = false;
-    public bool missile = false;
+    public FirearmAction action;
+    public ProjectileType projectileType;  // Not part of bullet behavior right now, since the logic is in the shoot scripts
     public GameObject bulletPrefab;
-    public bool usingPool { get; private set; }
     public bool showCrosshair = true;
+    public Transform projectileSpawnPoint;
 
     public Queue<GameObject> bulletPool = new Queue<GameObject>();
 
     void Start() {
         BulletBehavior bb = bulletPrefab.GetComponent<BulletBehavior>();
-        if (bb.poolProjectiles) {
-            for (int i = 0; i < bb.poolSize; ++i) {
-                GameObject boolet = Instantiate(bulletPrefab, bulletPrefab.transform.position, bulletPrefab.transform.rotation);
-                boolet.transform.parent = transform;
-                boolet.SetActive(false);
-                bulletPool.Enqueue(boolet);
-            }
-            usingPool = true;
+        if (bb.poolSize < 1) {
+            Debug.LogError($"Bullet prefab must have a pool size for player-fired bullets!");
         }
+        GameObject pool = new GameObject();
+        pool.name = $"{gameObject.name}'s Projectile Pool";
+        for (int i = 0; i < bb.poolSize; ++i) {
+            GameObject boolet = Instantiate(bulletPrefab, bulletPrefab.transform.position, bulletPrefab.transform.rotation);
+            boolet.transform.parent = pool.transform;
+            boolet.SetActive(false);
+            bulletPool.Enqueue(boolet);
+        }
+        DontDestroyOnLoad(pool);
     }
+}
+
+public enum FirearmAction {
+    SingleShot,
+    Automatic,
+    Semiautomatic
+}
+
+public enum ProjectileType {
+    Bullet,
+    HomingMissile
 }

@@ -20,7 +20,7 @@ public class PlayerHealth : MonoBehaviour {
 
     void OnCollisionEnter(Collision col) {
         if (col.gameObject.tag == "Enemy Projectile") {
-            BulletBehavior bullet = col.gameObject.GetComponent(typeof(BulletBehavior)) as BulletBehavior;
+            BulletBehavior bullet = col.gameObject.GetComponent<BulletBehavior>();
             takeDamage(bullet.damage);
         }
     }

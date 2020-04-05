@@ -98,6 +98,7 @@ Audio assets are spread across the project.
 1. [Bullet firing and impact sounds](#bullet-firing-and-impact-sounds)
 1. [Cash payment failure](#cash-payment-failure-sound)
 1. [Cash payment succes](#cash-payment-success-sound)
+1. [Dry-firing (out of ammo)](#dry-firing)
 1. [Dungeon and hub themes](#dungeon-and-hub-themes)
 1. [Explosion noise](#explosion-noise)
 1. [Main menu and win themes](#main-menu-and-win-themes)
@@ -125,6 +126,15 @@ License: [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)
 Author: kiddpark
 
 License: [CC-BY 3.0](https://creativecommons.org/licenses/by/3.0/)
+
+----
+
+## Dry-firing noise
+[Original](https://freesound.org/people/j1987/sounds/107806/)
+
+Author: j1987
+
+License: [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)
 
 ----
 ## Dungeon and hub themes

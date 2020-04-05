@@ -10,17 +10,17 @@ public class PlayerShoot : MonoBehaviour {
     private float animatedTime;
     private AudioSource fireSound;
     public AudioClip fireSoundClip;
+    public AudioClip outOfAmmo;
     public GameObject weapon { get; private set; }
     private int slot = 0;
     public List<GameObject> guns;
     public RawImage crossHair { get; private set; }
     private bool rest = false;
-    public RaycastHit hit;
-    private ArrayList missiles = new ArrayList();
     private float screenX;
     private float screenY;
     private WeaponStats currentWeaponStats;
     private FeedbackController feed;
+    public LayerMask missileHomingTargetLayer;
 
     public void Start() {
         feed = GameObject.FindGameObjectWithTag("HUD").GetComponent<FeedbackController>();
@@ -53,52 +53,32 @@ public class PlayerShoot : MonoBehaviour {
         if (weapon == null) {
             return;
         }
-        foreach (GameObject missile in missiles) {
-            BulletBehavior bulletScript = missile.GetComponent(typeof(BulletBehavior)) as BulletBehavior;
-            if (bulletScript.target != null) {
-                bulletScript.rb.velocity = (bulletScript.target.position - missile.transform.position).normalized * bulletScript.bulletSpeed;
+
+        if (Time.timeScale > 0 && !weaponChanging && Input.GetMouseButton(0)) {  // Firing
+            // Make sure player has enough money to fire
+            if (PlayerFinance.cashOnHand < currentWeaponStats.bulletCost) {
+                if (Input.GetMouseButtonDown(0)) {  // otherwise, the sound is auto fired
+                    fireSound.PlayOneShot(outOfAmmo, Settings.volume * 2f);
+                }
+                return;
+            }
+            switch (currentWeaponStats.action) {
+                case FirearmAction.Automatic:
+                    fireAutomatic();
+                    break;
+
+                case FirearmAction.Semiautomatic:
+                    fireSemiautomatic();
+                    break;
+
+                case FirearmAction.SingleShot:
+                    // ... would require manual reload action, not implemented.
+                    break;
+                default:
+                    break;
             }
         }
-        if (currentWeaponStats.continuous) {
-            if (Input.GetMouseButtonDown(0) && !weaponChanging && Time.timeScale > 0)
-            {
-                fireSound.PlayOneShot(fireSoundClip, 0.5f * Settings.volume);
-            }
-            if (Input.GetMouseButton(0) && !weaponChanging && Time.timeScale > 0)
-            {
-				if (PlayerFinance.cashOnHand < currentWeaponStats.bulletCost) {
-					// TODO play sound fx
-					return;
-				}
-                if (rest) {
-                    fireBullet(10 - currentWeaponStats.accuracy, currentWeaponStats.strength, currentWeaponStats.bulletPrefab, 0f, null);
-                    PlayerFinance.cashOnHand -= currentWeaponStats.bulletCost;
-                    feed.shoot(currentWeaponStats.bulletCost);
-                } else {
-                    fireBullet(10 - currentWeaponStats.accuracy, currentWeaponStats.strength, currentWeaponStats.bulletPrefab, 0.09f, null);
-                    PlayerFinance.cashOnHand -= currentWeaponStats.bulletCost;
-                    feed.shoot(currentWeaponStats.bulletCost);
-                }
-                rest = !rest;
-            }
-        } else {
-            if (Input.GetMouseButtonDown(0) && !weaponChanging && Time.timeScale > 0 && UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "Hub")
-            {
-				if (PlayerFinance.cashOnHand < currentWeaponStats.bulletCost) {
-					// TODO play sound fx
-					return;
-				}
-                Transform target = null;
-                if (currentWeaponStats.missile && Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity)){
-                    //Debug.Log(hit.collider);
-                    //Instantiate(debugger, transform.position + (transform.TransformDirection(Vector3.forward) * hit.distance), transform.rotation);
-                    target = hit.collider.transform;
-                }
-                fireBullet(10 - currentWeaponStats.accuracy, currentWeaponStats.strength, currentWeaponStats.bulletPrefab, 1, target);
-                PlayerFinance.cashOnHand -= currentWeaponStats.bulletCost;
-                feed.shoot(currentWeaponStats.bulletCost);
-            }
-        }
+
         // If player is currently holstering or drawing a weapon, alter weapon position to animate the process.
         if (drawingWeapon) {
             if ((weapon.transform.parent.position - weapon.transform.position).magnitude > .1) {
@@ -130,49 +110,96 @@ public class PlayerShoot : MonoBehaviour {
         }
     }
 
-    private void fireBullet(float accuracy, int damage, GameObject bulletPrefab, float noise, Transform target) {
-        fireSound.PlayOneShot(fireSoundClip, Settings.volume * noise);
-        GameObject bullet;
-        Vector3 bulletPosition = weapon.transform.parent.position + weapon.transform.parent.forward;
-
-        if (currentWeaponStats.usingPool) {
-            bullet = currentWeaponStats.bulletPool.Dequeue();
-            bullet.transform.position = bulletPosition;
-            bullet.transform.rotation = weapon.transform.parent.rotation;
-            bullet.SetActive(true);
+    /// <summary>
+    /// Continuous fire while button is held down.
+    /// </summary>
+    private void fireAutomatic() {
+        HomingTargets targets = getHomingTargets();
+        if (rest) {
+            fireBullet(10 - currentWeaponStats.accuracy, currentWeaponStats.strength, 0f, targets);
         } else {
-            bullet = Instantiate(bulletPrefab, bulletPosition, weapon.transform.parent.rotation);
+            fireBullet(10 - currentWeaponStats.accuracy, currentWeaponStats.strength, 0.09f, targets);
+        }
+        rest = !rest;
+    }
+
+    /// <summary>
+    /// One click, one shot, but no reload action.
+    /// </summary>
+    private void fireSemiautomatic() {
+        if (Input.GetMouseButtonDown(0)) {
+            fireBullet(10 - currentWeaponStats.accuracy, currentWeaponStats.strength, 1, getHomingTargets());
+        }
+    }
+
+    /// <summary>
+    /// Sets up homing targets if the projectile has homing enabled.
+    /// </summary>
+    /// <returns></returns>
+    private HomingTargets getHomingTargets() {
+        Transform target = null;
+        Vector3 localTarget = Vector3.zero;
+        RaycastHit hit;
+        if (currentWeaponStats.projectileType == ProjectileType.HomingMissile && Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 128, missileHomingTargetLayer)) {
+            target = hit.collider.transform;
+            localTarget = target.InverseTransformPoint(hit.point);
         }
 
-        BulletBehavior bulletScript = bullet.GetComponent(typeof(BulletBehavior)) as BulletBehavior;
+        return new HomingTargets(target, localTarget);
+    }
 
-        if (currentWeaponStats.usingPool) {
-            bulletScript.Start();
+    /// <summary>
+    /// Fire a bullet.
+    /// </summary>
+    /// <param name="accuracy"></param>
+    /// <param name="damage"></param>
+    /// <param name="noise">modifier on sound effect volume</param>
+    /// <param name="target"></param>
+    private void fireBullet(float accuracy, int damage, float noise, HomingTargets target) {
+        GameObject bullet;
+        Vector3 bulletPosition = currentWeaponStats.projectileSpawnPoint.position;
+        if (currentWeaponStats.bulletPool.Count < 2) {
+            bullet = Instantiate(currentWeaponStats.bulletPrefab, transform.position, transform.rotation);
+        } else {
+            bullet = currentWeaponStats.bulletPool.Dequeue();
         }
+        BulletBehavior bulletScript = bullet.GetComponent<BulletBehavior>();
+        bullet.SetActive(false);
 
-        bulletScript.damage = damage;
-        if (target != null){
-            bulletScript.target = target;
+        try {
+            bullet.transform.position = bulletPosition;
+            bullet.transform.rotation = currentWeaponStats.projectileSpawnPoint.rotation;
+
+            bulletScript.damage = damage;
+            bulletScript.target = target.body;
+            bulletScript.localizedTarget = target.localizedTarget;
             bulletScript.player = this;
-            missiles.Add(bullet);
-        } else if (accuracy > 0.1f) {
-            Vector3 rotationVector = bullet.transform.rotation.eulerAngles;
-            rotationVector.x += ((Random.value * 2) - 1) * accuracy;
-            rotationVector.y += ((Random.value * 2) - 1) * accuracy;
-            rotationVector.z += ((Random.value * 2) - 1) * accuracy;
-            float scatterX = screenX + Random.Range(-accuracy, accuracy);
-            float scatterY = screenY + Random.Range(-accuracy, accuracy);
-            Ray ray = Camera.main.ScreenPointToRay(new Vector3(scatterX, scatterY, 0));
-            bulletScript.rb.velocity = ray.direction * bulletScript.bulletSpeed;
-            bullet.transform.rotation = Quaternion.Euler(rotationVector);
-        }
 
-        if (currentWeaponStats.usingPool) {
+            if (accuracy > 0.1f) {
+                Vector3 rotationVector = bullet.transform.rotation.eulerAngles;
+                rotationVector.x += ((Random.value * 2) - 1) * accuracy;
+                rotationVector.y += ((Random.value * 2) - 1) * accuracy;
+                rotationVector.z += ((Random.value * 2) - 1) * accuracy;
+                float scatterX = screenX + Random.Range(-accuracy, accuracy);
+                float scatterY = screenY + Random.Range(-accuracy, accuracy);
+                Ray ray = Camera.main.ScreenPointToRay(new Vector3(scatterX, scatterY, 0));
+                bulletScript.rb.velocity = ray.direction * bulletScript.bulletSpeed;
+                bullet.transform.rotation = Quaternion.Euler(rotationVector);
+            }
+
+            bullet.SetActive(true);
             currentWeaponStats.bulletPool.Enqueue(bullet);
             StartCoroutine(bulletScript.timeout());
-        } else {
-            Destroy(bullet, 2f);
+        } catch (System.Exception e) {
+            // return bullet to queue in case something errored
+            Debug.LogError($"Encountered error while firing: {e}: {e.Message}");
+            if (bullet != null) {
+                currentWeaponStats.bulletPool.Enqueue(bullet);
+            }
         }
+        fireSound.PlayOneShot(fireSoundClip, Settings.volume * noise);
+        PlayerFinance.cashOnHand -= currentWeaponStats.bulletCost;
+        feed.shoot(currentWeaponStats.bulletCost);
     }
 
     public void LoadWeapon() {
@@ -200,8 +227,14 @@ public class PlayerShoot : MonoBehaviour {
         // Hide crossHair while weapon is changing
         crossHair.enabled = false;
     }
+}
 
-    public void removeMissile(GameObject missile){
-        missiles.Remove(missile);
+public struct HomingTargets {
+    public Transform body;
+    public Vector3 localizedTarget;
+
+    public HomingTargets(Transform transform, Vector3 vector) {
+        body = transform;
+        localizedTarget = vector;
     }
 }
