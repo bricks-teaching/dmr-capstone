@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 public static class PlayerFinance {
-    public static float cashOnHand { get; set; } = 1000.0f;
-    public static float totalDebt {get; set;}
+    public static float cashOnHand { get; set; } = 0.0f;
     public static float totalDebtBank {get; set;}
     public static float totalDebtShark { get; set;}
 
