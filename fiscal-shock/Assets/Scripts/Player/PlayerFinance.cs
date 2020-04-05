@@ -18,7 +18,6 @@ public static class PlayerFinance {
             ATMScript.bankInterest();
             ATMScript.bankDue = true;
         }
-        StateManager.calcDebtTotals();
         StateManager.income.AddLast(PlayerFinance.cashOnHand - StateManager.cashOnEntrance);
         StateManager.calcAverageIncome();
         StateManager.calcCreditScore();

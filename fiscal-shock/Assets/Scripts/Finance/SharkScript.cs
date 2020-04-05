@@ -25,7 +25,6 @@ public class SharkScript : MonoBehaviour
     public static float sharkMaxLoan { get; set; } = 4000.0f;
     public static int sharkThreatLevel { get; set; } = 3;
     public static float sharkTotal { get; set; }
-    private int loanCount = 0;
 
     void OnTriggerEnter(Collider col) {
         if (col.gameObject.tag == "Player") {
@@ -59,14 +58,12 @@ public class SharkScript : MonoBehaviour
     public bool addDebt(float amount){
         if (sharkThreatLevel < 5 && sharkMaxLoan > (sharkTotal + amount) && loanCount < 3){
             //shark threat is below 5 and is below max total debt
-            Loan newLoan = new Loan(StateManager.nextID, amount, sharkInterestRate, true);
+            Loan newLoan = new Loan(StateManager.nextID, amount, sharkInterestRate, LoanType.Payday);
             StateManager.loanList.AddLast(newLoan);
             PlayerFinance.cashOnHand += amount;
             StateManager.nextID++;
-            StateManager.totalLoans++;
             sharkTotal += amount;
             loanCount++;
-            StateManager.calcDebtTotals();
             updateFields();
             return true;
         }
@@ -81,10 +78,8 @@ public class SharkScript : MonoBehaviour
             StateManager.loanList.Remove(selectedLoan);
             PlayerFinance.cashOnHand -= sharkTotal;
             sharkDue = false;
-            StateManager.totalLoans--;
             sharkTotal = 0.0f;
             loanCount--;
-            StateManager.calcDebtTotals();
             updateFields();
             return true;
         } else { //none of the above
@@ -94,7 +89,6 @@ public class SharkScript : MonoBehaviour
             PlayerFinance.cashOnHand -= amount;
             sharkDue = false;
             sharkTotal -= amount;
-            StateManager.calcDebtTotals();
             updateFields();
             return true;
         }
@@ -105,7 +99,7 @@ public class SharkScript : MonoBehaviour
         bool paid = true;
         foreach (Loan item in StateManager.loanList)
         {
-            if(!item.paid && item.source)
+            if(!item.paid && item.source == LoanType.Payday)
             {
                 sharkThreatLevel++;
                 StateManager.paymentStreak = 0;
@@ -124,7 +118,7 @@ public class SharkScript : MonoBehaviour
         float tempAdd;
         foreach (Loan item in StateManager.loanList)
         {
-            if(item.source)
+            if(item.source == LoanType.Payday)
             {
                 item.paid = false;
                 tempAdd = item.total * item.rate;
@@ -159,7 +153,7 @@ public class SharkScript : MonoBehaviour
     }
 
     void updateFields(){
-        Loan[] item = StateManager.loanList.Where(l => l.source).ToArray();
+        Loan[] item = StateManager.loanList.Where(l => l.source == LoanType.Payday).ToArray();
         if(item.Length > 0){
             id1.text = item[0].ID.ToString();
             amount1.text = item[0].total.ToString();

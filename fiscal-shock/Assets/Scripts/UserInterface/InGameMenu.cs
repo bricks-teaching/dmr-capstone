@@ -235,8 +235,10 @@ public class InGameMenu : MonoBehaviour {
     }
 
     public void toggleFPS(bool toggle) {
-        Settings.values.showFPS = toggle;
-        fpsText.enabled = toggle;
+        try {  // fpsText isn't always instantiated in time
+            Settings.values.showFPS = toggle;
+            fpsText.enabled = toggle;
+        } catch {}
     }
 
     /// <summary>

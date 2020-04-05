@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Loan
 {
@@ -8,19 +9,24 @@ public class Loan
     public float total;// { get; set; }
     public float rate;// { get; set; }
     public bool paid;// { get; set; }
-    public bool source;// { get; set; }
+    public LoanType source;// { get; set; }
     public int age;// { get; set; }
 
-    //source is true when it is the shark, false when it is the bank
-    public Loan(int num, float tot, float rat, bool shark)
+    public Loan(int num, float tot, float rat, LoanType type)
     {
         ID = num;
         total = tot;
         rate = rat;
         paid = true;
-        source = shark;
+        source = type;
         age = 0;
     }
+}
+
+public enum LoanType {
+    Payday,
+    Unsecured,
+    Secured
 }
 
 public enum DungeonTypeEnum {
@@ -35,9 +41,9 @@ public static class StateManager
     //Total debt of the player updated whenever a loan is drawn out, paid or interest is applied
     //used to calculate average income
     public static LinkedList<float> income = new LinkedList<float>();
-    public static float totalDebt { get; set;  }
+    public static float totalDebt => loanList.Sum(l => l.total);
     public static int nextID { get; set; } = 0;
-    public static int totalLoans { get; set; }
+    public static int totalLoans => loanList.Count;
     public static int timesEntered { get; set; } = 0;
     public static int currentFloor { get; set; } = 0;
     public static int change { get; set; } = 5;
@@ -63,7 +69,7 @@ public static class StateManager
             if(item.age > oldestLoan){
                 oldestLoan = item.age;
             }
-            if(item.source){
+            if(item.source == LoanType.Payday){
                 sharkPen++;
             }
         }
@@ -89,11 +95,6 @@ public static class StateManager
         }
     }
 
-    //calculates debt total
-    public static void calcDebtTotals()
-    {
-        totalDebt = SharkScript.sharkTotal + ATMScript.bankTotal;
-    }
     public static void calcAverageIncome()
     {
         float tem = 0.0f;

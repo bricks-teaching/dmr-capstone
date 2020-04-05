@@ -4,25 +4,19 @@ using UnityEngine.UI;
 using TMPro;
 using System.Linq;
 using System.Globalization;
+using System.Collections.Generic;
 
 public class ATMScript : MonoBehaviour {
     public AudioClip paymentSound;
     public AudioClip failureSound;
     public static bool bankDue = true;
     private bool playerIsInTriggerZone = false;
-    private int loanCount = 0;
+    private int loanCount => StateManager.loanList.Where(l => l.source != LoanType.Payday).Count();
     private AudioSource audioS;
     public GameObject bankPanel;
     public TextMeshProUGUI dialogText;
-    public Button payButton;
-    public Button newLoan;
-    public Button secLoan;
-    public Button backButton;
-    public InputField payAmount;
-    public InputField payID;
-    public InputField loanInput;
-    public InputField secInput;
-    public Text id1, id2, id3, type1, type2, type3, amount1, amount2, amount3;
+    public TMP_InputField paymentId, paymentAmount;
+    public List<LoanEntry> loanEntries;
     public static float bankMaxLoan { get; set; } = 10000.0f;
     public static float bankInterestRate { get; set; } = 0.035f;
     public static int bankThreatLevel { get; set; } = 0;
@@ -49,14 +43,6 @@ public class ATMScript : MonoBehaviour {
         //signText.text = defaultSignText;
         audioS = GetComponent<AudioSource>();
         bankPanel.SetActive(false);
-        Button btnOne = payButton.GetComponent<Button>();
-        Button btnTwo = newLoan.GetComponent<Button>();
-        Button btnThr = secLoan.GetComponent<Button>();
-        Button btnFou = backButton.GetComponent<Button>();
-        btnOne.onClick.AddListener(payLoan);
-        btnTwo.onClick.AddListener(addLoan);
-        btnThr.onClick.AddListener(addSecLoan);
-        btnFou.onClick.AddListener(BackClick);
         if (!StateManager.sawTutorial) {  // implies this is the first visit to town
             addDebt(2000.0f, LoanType.Unsecured);
             PlayerFinance.cashOnHand = 900f;
@@ -69,10 +55,6 @@ public class ATMScript : MonoBehaviour {
             bankPanel.SetActive(true);
         }
     }
-    public enum LoanType {
-        Unsecured,
-        Secured
-    }
 
     public bool addDebt(float amount, LoanType loanType) {
         if(amount < 0.0f){
@@ -83,11 +65,11 @@ public class ATMScript : MonoBehaviour {
             Loan newLoan = null;
             switch (loanType) {
                 case LoanType.Unsecured:
-                    newLoan = new Loan(StateManager.nextID, amount, bankInterestRate, false);
+                    newLoan = new Loan(StateManager.nextID, amount, bankInterestRate, loanType);
                     bankTotal += amount;
                     break;
                 case LoanType.Secured:
-                    newLoan = new Loan(StateManager.nextID, amount * securedAmount, bankInterestRate * rateReducer, false);
+                    newLoan = new Loan(StateManager.nextID, amount * securedAmount, bankInterestRate * rateReducer, loanType);
                     bankTotal += amount * securedAmount;
                     break;
                 default:
@@ -96,9 +78,6 @@ public class ATMScript : MonoBehaviour {
             StateManager.loanList.AddLast(newLoan);
             PlayerFinance.cashOnHand += amount;
             StateManager.nextID++;
-            StateManager.totalLoans++;
-            StateManager.calcDebtTotals();
-            loanCount++;
             updateFields();
             return true;
         } else {
@@ -108,22 +87,18 @@ public class ATMScript : MonoBehaviour {
 
     public bool payDebt(float amount, int loanNum) {
         Loan selectedLoan = StateManager.loanList.Where(l => l.ID == loanNum).First();
-        if(amount < 0.0f || selectedLoan.Equals(null)){
+        if (amount < 0.0f || selectedLoan.Equals(null)){
             return false;
         }
         if (PlayerFinance.cashOnHand < amount) { // amount is more than money on hand
             //display a message stating error
             return false;
-        } else if (bankTotal <= amount) { // amount is more than the debt
-            StateManager.loanList.Remove(selectedLoan);
-            PlayerFinance.cashOnHand -= bankTotal;
+        } else if (selectedLoan.total <= amount) { // amount is more than the debt
+            PlayerFinance.cashOnHand -= selectedLoan.total;
             bankDue = false;
-            StateManager.totalLoans--;
             bankTotal = 0.0f;
-            loanCount--;
-            StateManager.calcDebtTotals();
+            StateManager.loanList.Remove(selectedLoan);
             updateFields();
-            //temporaryWinGame();
             return true;
         } else { // none of the above
             // reduce debt and money by amount
@@ -131,7 +106,6 @@ public class ATMScript : MonoBehaviour {
             PlayerFinance.cashOnHand -= amount;
             bankDue = false;
             bankTotal -= amount;
-            StateManager.calcDebtTotals();
             updateFields();
             return true;
         }
@@ -142,7 +116,7 @@ public class ATMScript : MonoBehaviour {
         bool paid = true;
         foreach (Loan item in StateManager.loanList)
         {
-            if(!item.paid && !item.source)
+            if(!item.paid && item.source != LoanType.Payday)
             {
                 bankThreatLevel++;
                 StateManager.paymentStreak = 0;
@@ -161,7 +135,7 @@ public class ATMScript : MonoBehaviour {
         float tempAdd;
         foreach (Loan item in StateManager.loanList)
         {
-            if(!item.source)
+            if(item.source != LoanType.Payday)
             {
                 item.paid = false;
                 tempAdd = item.total * item.rate;
@@ -176,57 +150,70 @@ public class ATMScript : MonoBehaviour {
         SceneManager.LoadScene("WinGame");
     }
 
-    void payLoan(){
-        float amount = float.Parse(payAmount.text, CultureInfo.InvariantCulture.NumberFormat);
-        int ID = int.Parse(payID.text);
-        bool paid = payDebt(amount, ID);
-        if(paid){
-            dialogText.text = "Thank you for your payment!";
-            audioS.PlayOneShot(paymentSound, Settings.volume);
-        } else {
-            dialogText.text = "You don't have the money on you.";
+    public void payLoan() {
+        try {
+            float amount = float.Parse(paymentAmount.text, CultureInfo.InvariantCulture.NumberFormat);
+            int ID = int.Parse(paymentId.text);
+            if (payDebt(amount, ID)) {
+                dialogText.text = "Thank you for your payment!";
+                audioS.PlayOneShot(paymentSound, Settings.volume);
+            } else {
+                dialogText.text = "You don't have the money on you.";
+                audioS.PlayOneShot(failureSound, Settings.volume * 2.5f);
+            }
+        } catch (System.Exception e) {
+            Debug.LogWarning($"{e.Message}");
+            dialogText.text = "I'm afraid I don't understand what you're trying to do.";
             audioS.PlayOneShot(failureSound, Settings.volume * 2.5f);
         }
     }
-    void addLoan(){
-        float plusDebt = float.Parse(loanInput.text, CultureInfo.InvariantCulture.NumberFormat);
-        bool worked = addDebt(plusDebt, LoanType.Unsecured);
-        if(worked){
-            dialogText.text = "All set!";
-            audioS.PlayOneShot(paymentSound, Settings.volume);
-        } else {
-            dialogText.text = "Hmm... I would suggest paying off previous debts first.";
+
+    public void addLoan(TMP_InputField textField) {
+        try {
+            float amount = float.Parse(textField.text, CultureInfo.InvariantCulture.NumberFormat);
+            if (addDebt(amount, LoanType.Unsecured)) {
+                dialogText.text = "All set!";
+                audioS.PlayOneShot(paymentSound, Settings.volume);
+            } else {
+                dialogText.text = "Hmm... I would suggest paying off previous debts first.";
+                audioS.PlayOneShot(failureSound, Settings.volume * 2.5f);
+            }
+        } catch (System.Exception e) {
+            Debug.LogWarning($"{e.Message}");
+            dialogText.text = "Perhaps you meant to give me a number?";
             audioS.PlayOneShot(failureSound, Settings.volume * 2.5f);
         }
     }
-    void addSecLoan(){
-        float plusSec = float.Parse(secInput.text, CultureInfo.InvariantCulture.NumberFormat);
-        bool yes = addDebt(plusSec, LoanType.Secured);
-        if(yes){
-            dialogText.text = "YOUR SOUL IS MINE! Erm, I mean... All Set!";
-            audioS.PlayOneShot(paymentSound, Settings.volume);
-        } else {
-            dialogText.text = "Nope, declined.";
+    public void addSecLoan(TMP_InputField textField) {
+        try {
+            float amount = float.Parse(textField.text, CultureInfo.InvariantCulture.NumberFormat);
+            Debug.Log($"{amount}");
+            if (addDebt(amount, LoanType.Secured)) {
+                dialogText.text = "YOUR SOUL IS MINE! Erm, I mean... All Set!";
+                audioS.PlayOneShot(paymentSound, Settings.volume);
+            } else {
+                dialogText.text = "Nope, declined.";
+                audioS.PlayOneShot(failureSound, Settings.volume * 2.5f);
+            }
+        } catch (System.Exception e) {
+            Debug.LogWarning($"{e.Message}");
+            dialogText.text = "I apologize for the confusion. I can only accept amounts in base ten.";
             audioS.PlayOneShot(failureSound, Settings.volume * 2.5f);
         }
     }
 
     void updateFields(){
-        Loan[] item = StateManager.loanList.Where(l => !l.source).ToArray();
-        if(item.Length > 0){
-            id1.text = item[0].ID.ToString();
-            amount1.text = item[0].total.ToString();
-            type1.text = "Bank";
-        }
-        if (item.Length > 1) {
-            id2.text = item[1].ID.ToString();
-            amount2.text = item[1].total.ToString();
-            type2.text = "Bank";
-        }
-        if(item.Length > 2){
-            id3.text = item[2].ID.ToString();
-            amount3.text = item[2].total.ToString();
-            type3.text = "Bank";
+        Loan[] item = StateManager.loanList.Where(l => l.source != LoanType.Payday).ToArray();
+        for (int i = 0; i < loanEntries.Count; ++i) {
+            if (i >= item.Length) {
+                loanEntries[i].id.text = "";
+                loanEntries[i].amount.text = "";
+                loanEntries[i].type.text = "";
+            } else {
+                loanEntries[i].id.text = item[i].ID.ToString();
+                loanEntries[i].amount.text = item[i].total.ToString();
+                loanEntries[i].type.text = $"{(item[i].source == LoanType.Secured? "Secured" : "Unsecured")}";
+            }
         }
     }
 
@@ -236,4 +223,9 @@ public class ATMScript : MonoBehaviour {
         bankPanel.SetActive(false);
         Settings.forceLockCursorState();
     }
+}
+
+[System.Serializable]
+public class LoanEntry {
+    public TextMeshProUGUI id, type, amount;
 }
