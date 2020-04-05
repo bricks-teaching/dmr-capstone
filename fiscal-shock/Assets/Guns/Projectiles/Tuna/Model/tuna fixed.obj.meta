@@ -1,14 +1,9 @@
 fileFormatVersion: 2
-guid: e1c7567d6d079dc4d814ba22a5ab204e
+guid: b29c003ffdd4da47685b7b72ab5072b8
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Atlantic bluefin tuna
-    second: {fileID: 2100000, guid: b2d9bf5044b3f654cb30f916583b6beb, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 1
     materialName: 0

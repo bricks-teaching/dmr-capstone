@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 9184963046012739205}
   - component: {fileID: 5308881954942502720}
   m_Layer: 0
-  m_Name: milkStream 2
+  m_Name: milkStream
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -99,7 +99,7 @@ MonoBehaviour:
   rb: {fileID: 9184963046012739205}
   bulletLifetime: 2
   poolProjectiles: 1
-  poolSize: 32
+  poolSize: 24
 --- !u!54 &9184963046012739205
 Rigidbody:
   m_ObjectHideFlags: 0

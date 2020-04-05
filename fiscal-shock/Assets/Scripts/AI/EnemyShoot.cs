@@ -57,10 +57,11 @@ public class EnemyShoot : MonoBehaviour {
             bulletPrefab,
             transform.position + (transform.forward * botSize) + (transform.up * gunHeight),
             transform.rotation);
+        bullet.SetActive(false);
         bullet.transform.parent = transform;
         bullet.tag = "Enemy Projectile";
         bullet.name = $"{gameObject.name}'s {bulletPrefab.name}";
-        BulletBehavior bulletScript = bullet.GetComponent(typeof(BulletBehavior)) as BulletBehavior;
+        BulletBehavior bulletScript = bullet.GetComponent<BulletBehavior>();
         bulletScript.damage = damage;
 
         // Fire the bullet and apply accuracy
@@ -69,6 +70,7 @@ public class EnemyShoot : MonoBehaviour {
         rotationVector.y += ((Random.value * 2) - 1) * accuracy;
         rotationVector.z += ((Random.value * 2) - 1) * accuracy;
         bullet.transform.rotation = Quaternion.Euler(rotationVector);
-        Destroy(bullet, 1f);
+        bullet.SetActive(true);
+        Destroy(bullet, bulletScript.bulletLifetime);
     }
 }

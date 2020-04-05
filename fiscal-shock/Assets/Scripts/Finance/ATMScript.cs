@@ -10,7 +10,6 @@ public class ATMScript : MonoBehaviour {
     public AudioClip failureSound;
     public static bool bankDue = true;
     private bool playerIsInTriggerZone = false;
-    private bool firstLoan = false;
     private int loanCount = 0;
     private AudioSource audioS;
     public GameObject bankPanel;
@@ -58,10 +57,9 @@ public class ATMScript : MonoBehaviour {
         btnTwo.onClick.AddListener(addLoan);
         btnThr.onClick.AddListener(addSecLoan);
         btnFou.onClick.AddListener(BackClick);
-        if(!firstLoan){
+        if (!StateManager.sawTutorial) {  // implies this is the first visit to town
             addDebt(2000.0f, LoanType.Unsecured);
-            PlayerFinance.cashOnHand = 900.0f;
-            firstLoan = true;
+            PlayerFinance.cashOnHand = 900f;
         }
     }
 

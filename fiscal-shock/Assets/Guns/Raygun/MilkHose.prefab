@@ -204,7 +204,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7989918510121097884
 Transform:
   m_ObjectHideFlags: 0
@@ -240,8 +240,8 @@ MonoBehaviour:
   bulletCost: 1
   accuracy: 10
   rotation: 10
-  continuous: 1
-  missile: 0
+  action: 1
+  projectileType: 0
   bulletPrefab: {fileID: 6264703180806227665, guid: 04e3a3b995ff74ec8bb4691c3fd07e3b,
     type: 3}
   showCrosshair: 0
@@ -336,7 +336,6 @@ GameObject:
   - component: {fileID: 5840321597525294536}
   - component: {fileID: 292386019065170044}
   - component: {fileID: 2690123739002641800}
-  - component: {fileID: 5401640945222087046}
   m_Layer: 0
   m_Name: Cube.001
   m_TagString: Untagged
@@ -405,25 +404,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &5401640945222087046
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7687938806035632547}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7258ca8be47462e47836452427c49b1b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  strength: 10
-  bulletCost: 1
-  accuracy: 6
-  rotation: 0
-  continuous: 0
-  missile: 0
-  bulletPrefab: {fileID: 6264703180806227665, guid: fc0737757df3ef64996f7531b1ad9799,
-    type: 3}
-  showCrosshair: 1
-  projectileSpawnPoint: {fileID: 0}

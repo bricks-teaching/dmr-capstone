@@ -104,8 +104,15 @@ public class EnemyHealth : MonoBehaviour {
             lastBulletCollision = col.gameObject;
 
             // Reduce health
-            BulletBehavior bullet = col.gameObject.GetComponent(typeof(BulletBehavior)) as BulletBehavior;
+            BulletBehavior bullet = col.gameObject.GetComponent<BulletBehavior>();
+            if (bullet == null) {  // try checking parents
+                bullet = col.gameObject.GetComponentInParent<BulletBehavior>();
+            }
+            if (bullet.grounded) {  // only airborne projectiles should hit for now
+                return;
+            }
             takeDamage(bullet.damage);
+            bullet.rb.AddForce(new Vector3(0, -5f, 0));
             if (col.gameObject.tag == "Bullet") {
                 showDamageExplosion(explosions, 0.4f);
             } else if (col.gameObject.tag == "Missile") {

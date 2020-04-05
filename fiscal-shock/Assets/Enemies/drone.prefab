@@ -376,7 +376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a00e7cb6ea6b0824b8ad343952c40ee3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 6264703180806227665, guid: fc0737757df3ef64996f7531b1ad9799,
+  bulletPrefab: {fileID: 6264703180806227665, guid: 04e3a3b995ff74ec8bb4691c3fd07e3b,
     type: 3}
   fireSoundClip: {fileID: 8300000, guid: c6abf3855d73e4345b8c1df9fbc40e9b, type: 3}
   botSize: 2
