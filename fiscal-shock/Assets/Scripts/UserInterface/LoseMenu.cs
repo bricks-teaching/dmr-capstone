@@ -12,7 +12,7 @@ public class LoseMenu : MonoBehaviour {
 
     public void RetryClick() {
         // Currently lets you "start over" where you left off, is this desirable?    
-        SceneManager.LoadScene("Hub");
+        loadScript.startLoadingScreen("Hub");
     }
 
     public void BankruptClick() {
