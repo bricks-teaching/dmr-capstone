@@ -16,9 +16,7 @@ public class WinScreen : MonoBehaviour {
     }
 
     public void GoBack() {
-        Debug.Log("Reload into HUB");
-        //loadScript.startLoadingScreen("Hub");
-        SceneManager.LoadScene("Hub");
+        loadScript.startLoadingScreen("Hub");
         Time.timeScale = 1;
         Settings.forceLockCursorState();
     }
