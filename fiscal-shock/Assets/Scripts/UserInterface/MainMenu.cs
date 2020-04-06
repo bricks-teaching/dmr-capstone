@@ -11,7 +11,7 @@ public class MainMenu : MonoBehaviour {
 
     void PlayClick() {
         Debug.Log("Starting game...");
-        SceneManager.LoadScene("Hub");
+        SceneManager.LoadScene("Story");
         Time.timeScale = 1;
     }
 

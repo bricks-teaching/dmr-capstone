@@ -585,6 +585,7 @@ MonoBehaviour:
   doneColor: {r: 0, g: 0.5943396, b: 0.33840966, a: 1}
   progressFill: {fileID: 190865241}
   percentText: {fileID: 1364363986}
+  storyText: {fileID: 0}
 --- !u!1 &8457115162116188159
 GameObject:
   m_ObjectHideFlags: 0
