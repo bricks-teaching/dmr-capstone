@@ -98,16 +98,20 @@ public class InGameMenu : MonoBehaviour {
                 Settings.forceUnlockCursorState();
                 background.SetActive(true);
                 pausePanel.SetActive(true);
-            } else {
+            } else if (Time.timeScale == 0 || background.activeSelf) {
                 disableAllPanels();
                 Settings.forceLockCursorState();
-                Time.timeScale = 1;
-                pauseText.text = "";
+                StateManager.pauseAvailable = true;
             }
         }
-        if (Input.GetKeyDown(Settings.hidePauseMenuKey) && Time.timeScale == 0) {
-                disableAllPanels();
-                // no longer a toggle
+        if (Input.GetKeyDown(Settings.hidePauseMenuKey)) {
+            disableAllPanels();
+            if (Time.timeScale > 0) {  // getting bugged in the pause menu lately
+                background.SetActive(false);
+                pauseText.text = "";
+                Settings.mutexLockCursorState(this);
+                StateManager.pauseAvailable = true;
+            }
         }
     }
 

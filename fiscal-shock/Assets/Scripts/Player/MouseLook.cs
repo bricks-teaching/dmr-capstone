@@ -38,14 +38,9 @@ public class MouseLook : MonoBehaviour
         if (!focused) {  // game window is no longer in focus
             lastCursorLockState = Cursor.lockState;
             Settings.forceUnlockCursorState();
-            Time.timeScale = 0;
-        } else {
-            if (lastCursorLockState == CursorLockMode.Locked) {
-                // It used to be locked, lock it again
-                Settings.forceLockCursorState();
-            }
-            // otherwise, leave it unlocked and unpause
-            Time.timeScale = 1;
+        } else if (lastCursorLockState == CursorLockMode.Locked) {
+            // It used to be locked, lock it again
+            Settings.forceLockCursorState();
         }
     }
 }

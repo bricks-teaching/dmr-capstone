@@ -36,24 +36,24 @@ public enum DungeonTypeEnum {
 
 public static class StateManager
 {
-    public static float cashOnHand { get; set; } = 0.0f;
+    public static float cashOnHand { get; set; } = DefaultState.cashOnHand;
     //list of loans that the player posesses
     public static LinkedList<Loan> loanList = new LinkedList<Loan>();
     //Total debt of the player updated whenever a loan is drawn out, paid or interest is applied
     //used to calculate average income
     public static LinkedList<float> income = new LinkedList<float>();
     public static float totalDebt => loanList.Sum(l => l.total);
-    public static int nextID { get; set; } = 0;
+    public static int nextID { get; set; } = DefaultState.nextID;
     public static int totalLoans => loanList.Count;
-    public static int timesEntered { get; set; } = 0;
-    public static int currentFloor { get; set; } = 0;
-    public static int change { get; set; } = 5;
-    public static int creditScore { get; set; }
-    public static int paymentStreak { get; set; }
-    public static float cashOnEntrance { get; set; }
-    public static float averageIncome { get; set; }
-    public static bool purchasedHose;
-    public static bool purchasedLauncher;
+    public static int timesEntered { get; set; } = DefaultState.timesEntered;
+    public static int currentFloor { get; set; } = DefaultState.currentFloor;
+    public static int change { get; set; } = DefaultState.change;
+    public static int creditScore { get; set; } = DefaultState.creditScore;
+    public static int paymentStreak { get; set; } = DefaultState.paymentStreak;
+    public static float cashOnEntrance { get; set; } = DefaultState.cashOnEntrance;
+    public static float averageIncome { get; set; } = DefaultState.averageIncome;
+    public static bool purchasedHose = DefaultState.purchasedHose;
+    public static bool purchasedLauncher = DefaultState.purchasedLauncher;
 
     public static DungeonTypeEnum selectedDungeon { get; set; }
     public static bool sawTutorial = false;
@@ -125,4 +125,44 @@ public static class StateManager
         }
         averageIncome = tem / timesEntered;
     }
+
+    public static void resetToDefaultState() {
+        cashOnHand = DefaultState.cashOnHand;
+        loanList.Clear();
+        income.Clear();
+        nextID = DefaultState.nextID;
+        timesEntered = DefaultState.timesEntered;
+        currentFloor = DefaultState.currentFloor;
+        change = DefaultState.change;
+        creditScore = DefaultState.creditScore;
+        paymentStreak = DefaultState.paymentStreak;
+        cashOnEntrance = DefaultState.cashOnEntrance;
+        averageIncome = DefaultState.averageIncome;
+        purchasedHose = DefaultState.purchasedHose;
+        purchasedLauncher = DefaultState.purchasedLauncher;
+        sawTutorial = DefaultState.sawTutorial;
+        singletons.Clear();
+        pauseAvailable = DefaultState.pauseAvailable;
+    }
+}
+
+/// <summary>
+/// Value types only!
+/// Reference types (lists, gameobjects, etc.) must be cleared inside
+/// the reset function.
+/// </summary>
+public static class DefaultState {
+    public readonly static float cashOnHand = 0.0f;
+    public readonly static int nextID = 0;
+    public readonly static int timesEntered = 0;
+    public readonly static int currentFloor = 0;
+    public readonly static int change = 5;
+    public readonly static int creditScore = 0;
+    public readonly static int paymentStreak = 0;
+    public readonly static float cashOnEntrance = 0;
+    public readonly static float averageIncome = 0;
+    public readonly static bool purchasedHose = false;
+    public readonly static bool purchasedLauncher = false;
+    public readonly static bool sawTutorial = false;
+    public readonly static bool pauseAvailable = true;
 }

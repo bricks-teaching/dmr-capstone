@@ -19,6 +19,7 @@ public class LoadingScreen : MonoBehaviour {
     public Color doneColor;
     public Image progressFill;
     public TextMeshProUGUI percentText;
+    public string previousScene { get; private set; }
 
     void Awake() {
         if (loadScreenInstance != null && loadScreenInstance != this) {
@@ -57,7 +58,9 @@ public class LoadingScreen : MonoBehaviour {
     /// </summary>
     /// <param name="sceneToLoad"></param>
     public void startLoadingScreen(string sceneToLoad) {
+        StateManager.pauseAvailable = false;
         System.GC.Collect();
+        previousScene = SceneManager.GetActiveScene().name;
         nextScene = sceneToLoad;
         StartCoroutine(loadScene());
     }
@@ -74,5 +77,6 @@ public class LoadingScreen : MonoBehaviour {
 
         async = null;
         loadCamera.enabled = false;
+        StateManager.pauseAvailable = true;
     }
 }

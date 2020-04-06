@@ -98,8 +98,8 @@ public static class Settings {
                 UnityEngine.Object.Destroy(go);
             }
         }
-        StateManager.singletons.Clear();  // empty the list
         saveSettings();
+        StateManager.resetToDefaultState();
 
         // Load the right scene, using the loading screen if it is available
         if (loading != null) {
