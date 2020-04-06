@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LoseMenu : MonoBehaviour {
     private GameObject loadingScreen;
@@ -10,8 +11,8 @@ public class LoseMenu : MonoBehaviour {
     }
 
     public void RetryClick() {
-        // Currently lets you "start over" where you left off, is this desirable?
-        loadScript.startLoadingScreen("Hub");
+        // Currently lets you "start over" where you left off, is this desirable?    
+        SceneManager.LoadScene("Hub");
     }
 
     public void BankruptClick() {
