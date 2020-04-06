@@ -3493,7 +3493,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   storyCamera: {fileID: 1981296530}
-  textSpeed: 0.7
+  textSpeed: 0.9
 --- !u!114 &1635868272
 MonoBehaviour:
   m_ObjectHideFlags: 0

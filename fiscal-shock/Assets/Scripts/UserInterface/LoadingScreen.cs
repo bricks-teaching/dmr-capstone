@@ -20,9 +20,7 @@ public class LoadingScreen : MonoBehaviour {
     public Image progressFill;
     public TextMeshProUGUI percentText;
 
-    public GameObject tutorial;
     private bool story = true;
-    private int showing = 0;
     private int storyPosition = 0;
     private string[] stories0 = {"Hostile robots are excavating the Ruins of Tehamahouti,",
                                 "stealing every shiny object they can get their hands on.",

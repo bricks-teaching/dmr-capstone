@@ -14,7 +14,7 @@ public class IntroStory : MonoBehaviour
     private int storyPosition = 0;
     private int delay1 = 0;
     private int delay2 = 0;
-    public float textSpeed = 1;
+    public float textSpeed;
 
     private string[] stories = {"A small loan has gotten out of hand, and now \nyou must rebuild your credit and get out of debt.",
                                 "If you manage your money right, you should\n get out of all this just fine.",
@@ -43,8 +43,12 @@ public class IntroStory : MonoBehaviour
     {
         showText();
         if(Input.GetMouseButtonDown(0)){
-            if((int) (showing / textSpeed) <= introStory.Length){
-                showing = (introStory.Length * textSpeed) - 1;
+            if((int) showing <= introStory.Length){
+                showing = introStory.Length - 1;
+                if(storyPosition == 4){
+                    delay1 = 12;
+                    delay2 = 12;
+                }
             } else {
                 if(storyPosition < stories.Length - 1){
                     strikeThrough1.enabled = false;
@@ -65,7 +69,7 @@ public class IntroStory : MonoBehaviour
                 }
             }
         }
-        if(storyPosition == 4 && (int) (showing / textSpeed) > 16){
+        if(storyPosition == 4 && (int) showing > 16){
             if(delay1 < 12){
                 showing -= textSpeed;
                 delay1++;
@@ -73,7 +77,7 @@ public class IntroStory : MonoBehaviour
                 strikeThrough1.enabled = true;
             }
         }
-        if(storyPosition == 4 && (int) (showing / textSpeed) > 32){
+        if(storyPosition == 4 && (int) showing  > 32){
             if(delay2 < 12){
                 showing -= textSpeed;
                 delay2++;
@@ -84,8 +88,8 @@ public class IntroStory : MonoBehaviour
     }
 
     void showText(){
-        if ((int) (showing / textSpeed) <= introStory.Length){
-            storyText.text = introStory.Substring(0,(int) (showing / textSpeed));
+        if ((int) showing <= introStory.Length){
+            storyText.text = introStory.Substring(0,(int) showing);
             showing += textSpeed;
         }
     }
