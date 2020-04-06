@@ -239,6 +239,16 @@ public class InGameMenu : MonoBehaviour {
         } catch {}
     }
 
+    public void toggleFullscreen(bool toggle) {
+        Settings.values.fullscreen = toggle;
+    }
+
+    public void setResolution(int i) {
+        Resolution r = Settings.getResolutionByIndex(i);
+        Settings.values.resolutionWidth = r.width;
+        Settings.values.resolutionHeight = r.height;
+    }
+
     /// <summary>
     /// sets up all the graphics widgets to the proper value
     /// </summary>
@@ -255,6 +265,9 @@ public class InGameMenu : MonoBehaviour {
         widgets.overrideToggle.interactable = false;
         widgets.overrideToggle.isOn = Settings.values.overrideQualitySettings;
         widgets.overrideToggle.interactable = true;
+        widgets.fullscreenToggle.interactable = false;
+        widgets.fullscreenToggle.isOn = Settings.values.fullscreen;
+        widgets.fullscreenToggle.interactable = true;
     }
 
     public void populateDropdowns() {
@@ -264,10 +277,12 @@ public class InGameMenu : MonoBehaviour {
         widgets.pixelLighting.AddOptions(new List<string>(Settings.pixelQualityNames));
         widgets.shadowRes.AddOptions(new List<string>(Settings.shadowResNames));
         widgets.anisotropic.AddOptions(new List<string>(Settings.anisotropicNames));
+        widgets.resolution.AddOptions(Settings.getSupportedResolutions());
     }
 
     public void closeGraphics() {
         disableAllPanelsExcept(optionsPanel);
+        Settings.updateCurrentSettings();
     }
 }
 
@@ -276,6 +291,7 @@ public class GraphicsWidgets {
     public TextMeshProUGUI qualityText;
     public Toggle overrideToggle;
     public Toggle showFPSToggle;
+    public Toggle fullscreenToggle;
     public Slider shadowDistance;
 
     public TMP_Dropdown qualityDropdown;
@@ -284,4 +300,5 @@ public class GraphicsWidgets {
     public TMP_Dropdown shadowRes;
     public TMP_Dropdown anisotropic;
     public TMP_Dropdown antialiasing;
+    public TMP_Dropdown resolution;
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 /// <summary>
 /// Global settings used across many files
@@ -37,6 +38,7 @@ public static class Settings {
         // Apply default quality level settings first
         QualitySettings.SetQualityLevel(values.currentQuality, true);
         Application.targetFrameRate = values.targetFramerate;
+        Screen.SetResolution(values.resolutionWidth, values.resolutionHeight, values.fullscreen);
 
         if (values.overrideQualitySettings) {
             QualitySettings.vSyncCount = values.vsyncCount;
@@ -191,6 +193,7 @@ public static class Settings {
     }
 
     public static QualityPreset qualityPreset = DefaultQualitySettings.Default;
+
     /* stringified */
     public static string[] shadowResNames = {
         "Off", // warning: special case
@@ -226,6 +229,18 @@ public static class Settings {
         "4x MSAA",
         "8x MSAA"
     };
+
+    public static Resolution getResolutionByIndex(int i) {
+        return Screen.resolutions[i];
+    }
+
+    public static List<string> getSupportedResolutions() {
+        List<string> res = new List<string>();
+        foreach (Resolution r in Screen.resolutions) {
+            res.Add($"{r.width}x{r.height}");
+        }
+        return res;
+    }
 }
 
 /// <summary>
@@ -344,6 +359,9 @@ public class SettingsValues {
     // --- configurable graphics ---
     public bool overrideQualitySettings = false;
     public int targetFramerate = 60;  // requires vsyncCount = 0
+    public int resolutionWidth = 1920;
+    public int resolutionHeight = 1080;
+    public bool fullscreen = false;
     public int vsyncCount = 1;  // 0, 1, 2, 3, 4
     public AnisotropicFiltering anisotropicTextures = AnisotropicFiltering.Disable;  // Disable, Enable, ForceEnable
     public int antialiasingSamples = 2;  // 0, 2, 4, 8 only supported
