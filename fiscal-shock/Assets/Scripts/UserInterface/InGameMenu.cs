@@ -90,7 +90,7 @@ public class InGameMenu : MonoBehaviour {
 
     void Update() {
         // Bring up pause menu
-        if (Input.GetKeyDown(Settings.pauseKey)) {
+        if (Input.GetKeyDown(Settings.pauseKey) && StateManager.pauseAvailable) {
             if (Time.timeScale > 0) {
                 System.GC.Collect();
                 Time.timeScale = 0;
@@ -105,11 +105,9 @@ public class InGameMenu : MonoBehaviour {
                 pauseText.text = "";
             }
         }
-        if (Input.GetKeyDown(Settings.hidePauseMenuKey)) {
-            if (Time.timeScale == 0) {
+        if (Input.GetKeyDown(Settings.hidePauseMenuKey) && Time.timeScale == 0) {
                 disableAllPanels();
                 // no longer a toggle
-            }
         }
     }
 

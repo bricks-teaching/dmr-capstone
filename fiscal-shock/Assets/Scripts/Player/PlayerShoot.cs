@@ -56,7 +56,7 @@ public class PlayerShoot : MonoBehaviour {
 
         if (Time.timeScale > 0 && !weaponChanging && Input.GetMouseButton(0)) {  // Firing
             // Make sure player has enough money to fire
-            if (PlayerFinance.cashOnHand < currentWeaponStats.bulletCost) {
+            if (StateManager.cashOnHand < currentWeaponStats.bulletCost) {
                 if (Input.GetMouseButtonDown(0)) {  // otherwise, the sound is auto fired
                     fireSound.PlayOneShot(outOfAmmo, Settings.volume * 2f);
                 }
@@ -198,7 +198,7 @@ public class PlayerShoot : MonoBehaviour {
             }
         }
         fireSound.PlayOneShot(fireSoundClip, Settings.volume * noise);
-        PlayerFinance.cashOnHand -= currentWeaponStats.bulletCost;
+        StateManager.cashOnHand -= currentWeaponStats.bulletCost;
         feed.shoot(currentWeaponStats.bulletCost);
     }
 

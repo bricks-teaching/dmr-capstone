@@ -659,10 +659,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1600, y: 900}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -696,7 +696,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8457115162312606271}
   - component: {fileID: 8457115162312606270}
-  - component: {fileID: 8457115162312606273}
   m_Layer: 0
   m_Name: LoadCamera
   m_TagString: Untagged
@@ -762,14 +761,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &8457115162312606273
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8457115162312606268}
-  m_Enabled: 0
 --- !u!1 &8457115163449881506
 GameObject:
   m_ObjectHideFlags: 0

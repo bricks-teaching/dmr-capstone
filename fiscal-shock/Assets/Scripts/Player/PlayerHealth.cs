@@ -35,7 +35,7 @@ public class PlayerHealth : MonoBehaviour {
 
     public void takeDamage(float damage) {
         if (!invincible) {
-            PlayerFinance.cashOnHand -= damage;
+            StateManager.cashOnHand -= damage;
             StartCoroutine(showHitVignette(damage * timeMultiplier));
         }
     }

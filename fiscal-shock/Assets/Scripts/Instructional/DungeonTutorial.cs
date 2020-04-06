@@ -11,10 +11,16 @@ public class DungeonTutorial : MonoBehaviour {
         }
     }
 
+    public void Update() {
+        if (Input.GetKeyDown(Settings.pauseKey)) {
+            dismissWindow();
+        }
+    }
+
     public void dismissWindow() {
         GetComponent<Canvas>().enabled = false;
         Settings.lockCursorState(this);
-        StateManager.sawTutorial = true; // TODO change to state manager when implemented
+        StateManager.sawTutorial = true;
         Time.timeScale = 1;
     }
 }

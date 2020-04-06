@@ -25,7 +25,7 @@ public class Cheats : MonoBehaviour {
             playerMovement.teleport(new Vector3(warpPoint.x - Random.Range(-2, 2), warpPoint.y + 4, warpPoint.z + Random.Range(-2, 2)));
         }
         if (Input.GetKeyDown(robinHood)) {
-            PlayerFinance.cashOnHand += 500;
+            StateManager.cashOnHand += 500;
             Debug.Log("Added 500 monies");
         }
         if (Input.GetKeyDown(toggleGraphMesh)) {

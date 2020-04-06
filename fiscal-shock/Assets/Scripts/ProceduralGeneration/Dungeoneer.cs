@@ -396,7 +396,7 @@ namespace FiscalShock.Procedural {
                 // Give player all weapons when starting in dungeon, since that implies it's a dev starting in the editor
                 StateManager.purchasedHose = true;
                 StateManager.purchasedLauncher = true;
-                PlayerFinance.cashOnHand = 1000f;
+                StateManager.cashOnHand = 1000f;
             }
             PlayerMovement pm = player.GetComponentInChildren<PlayerMovement>();
             pm.teleport(spawnPoint.toVector3AtHeight(currentDungeonType.wallHeight * 0.8f));

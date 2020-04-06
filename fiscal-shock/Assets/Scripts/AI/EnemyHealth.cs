@@ -69,7 +69,7 @@ public class EnemyHealth : MonoBehaviour {
         totalHealth -= damage;
 
         if (totalHealth <= 0 && !dead) {
-            PlayerFinance.cashOnHand += pointValue;
+            StateManager.cashOnHand += pointValue;
             float deathDuration = animationManager.playDeathAnimation();
             GetComponent<EnemyMovement>().enabled = false;
             GetComponent<EnemyShoot>().enabled = false;

@@ -36,6 +36,7 @@ public enum DungeonTypeEnum {
 
 public static class StateManager
 {
+    public static float cashOnHand { get; set; } = 0.0f;
     //list of loans that the player posesses
     public static LinkedList<Loan> loanList = new LinkedList<Loan>();
     //Total debt of the player updated whenever a loan is drawn out, paid or interest is applied
@@ -58,6 +59,26 @@ public static class StateManager
     public static bool sawTutorial = false;
 
     public static List<GameObject> singletons = new List<GameObject>();
+    public static bool pauseAvailable = true;
+
+    public static bool startNewDay() {
+        Debug.Log($"Accumulating interest for day {StateManager.timesEntered}");
+
+        //If unpaid debts present up threat level
+        SharkScript.sharkUnpaid();
+        //activates interest method in sharkscript also sets paid to false
+        SharkScript.sharkInterest();
+        //If unpaid debts present up threat level
+        ATMScript.bankUnpaid();
+        //activates interest method in atmscript also sets paid to false
+        ATMScript.bankInterest();
+
+        income.AddLast(cashOnHand - cashOnEntrance);
+        calcAverageIncome();
+        calcCreditScore();
+        Debug.Log($"New debt total: {totalDebt}");
+        return true;
+    }
 
     public static void calcCreditScore()
     {

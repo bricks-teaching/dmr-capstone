@@ -15,7 +15,7 @@ namespace FiscalShock.Procedural {
                 loadScript.startLoadingScreen("LoseGame");
                 GameObject musicPlayer = GameObject.Find("DungeonMusic");
                 Destroy(musicPlayer);
-                PlayerFinance.startNewDay();
+                StateManager.startNewDay();
             }
         }
     }

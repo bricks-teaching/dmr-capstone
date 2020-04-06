@@ -32,8 +32,8 @@ public class FeedbackController : MonoBehaviour
     public void shoot(int cost) {
         TextMeshProUGUI clone = shotLosses.Dequeue();
         clone.text = "-" + (cost.ToString());
-        clone.transform.localPosition = new Vector3(0,0,0);
-        clone.transform.Translate(Random.Range(-10.6f, 10.0f),  Random.Range(-10.1f, 10.0f), Random.Range(-10.0f, 10.0f), Space.Self);
+        clone.transform.localPosition = new Vector3(Screen.width*-0.15f, 0, 0);
+        clone.transform.Translate(Random.Range(Screen.width*-0.1f, Screen.width*0.1f), Random.Range(-20f, 20f), Random.Range(Screen.height*-0.2f, Screen.height*0.2f), Space.Self);
         clone.enabled = true;
         shotLosses.Enqueue(clone);
 
@@ -43,8 +43,8 @@ public class FeedbackController : MonoBehaviour
     public void profit(float amount) {
         TextMeshProUGUI clone = earns.Dequeue();
         clone.text = "+" + (amount.ToString());
-        clone.transform.localPosition = new Vector3(0,0,0);
-        clone.transform.Translate(Random.Range(160.6f, 170.0f),  Random.Range(-10.1f, 10.0f), Random.Range(-10.0f, 10.0f), Space.Self);
+        clone.transform.localPosition = new Vector3(Screen.width*0.5f, 0, 0);
+        clone.transform.Translate(Random.Range(Screen.width*-0.1f, Screen.width*0.1f), Random.Range(-20f, 20f), Random.Range(Screen.height*-0.2f, Screen.height*0.2f), Space.Self);
         clone.enabled = true;
         earns.Enqueue(clone);
 

@@ -15,6 +15,22 @@ public class HUD : MonoBehaviour
     /* Variables set at runtime */
     public Transform playerTransform { get; set; }
     public Transform escapeHatch { get; set; }
+    public static HUD hudInstance { get; private set; }
+    private float fpsUpdateRate = 1f;  // in seconds
+    private float accumulatedFps;
+    private float ticksSinceLastUpdate;
+    private int numTicksSinceLast;
+
+     void Awake() {
+         if (hudInstance != null && hudInstance != this) {
+             Destroy(this.gameObject);
+             return;
+         } else {
+             hudInstance = this;
+         }
+         DontDestroyOnLoad(this.gameObject);
+         StateManager.singletons.Add(this.gameObject);
+     }
 
     void Start() {
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
@@ -29,11 +45,24 @@ public class HUD : MonoBehaviour
     /// concern.
     /// </summary>
     void Update() {
-        pocketChange.text = "" + PlayerFinance.cashOnHand.ToString("F2");
+        pocketChange.text = "" + StateManager.cashOnHand.ToString("F2");
         debtTracker.text = "DEBT: -" + StateManager.totalDebt.ToString("F2");
 
         if (Settings.values.showFPS && Time.timeScale > 0) {
-            fps.text = $"{(int)(1.0f/Time.smoothDeltaTime)}";
+            ticksSinceLastUpdate += Time.deltaTime;
+            numTicksSinceLast++;
+            accumulatedFps += Time.smoothDeltaTime;
+            if (ticksSinceLastUpdate > fpsUpdateRate) {
+                int fpsValue = (int)(1.0f/(accumulatedFps/numTicksSinceLast));
+                // value can be negative shortly after unpausing, don't update it
+                // and it also goes sky-high sometimes, let's try to not run the game at 1k fps
+                if (fpsValue > 0 && fpsValue < 1000) {
+                    fps.text = $"{fpsValue}";
+                }
+                ticksSinceLastUpdate = 0f;
+                numTicksSinceLast = 0;
+                accumulatedFps = 0;
+            }
         }
 
         if (escapeHatch != null && playerTransform != null) {

@@ -39,7 +39,6 @@ namespace FiscalShock.Procedural {
                 // Face player away from the door
                 player.transform.LookAt(new Vector3(6, 1, -9));
                 playerController.enabled = true;
-                loadScript.startLoadingScreen("Hub");
 
                 // Manually kill the music box, since it isn't destroyed naturally
                 GameObject musicPlayer = GameObject.Find("DungeonMusic");
@@ -47,7 +46,8 @@ namespace FiscalShock.Procedural {
                 GameObject.Find("HUD").GetComponentInChildren<HUD>().escapeHatch = null;
 
                 // Apply interest
-                PlayerFinance.startNewDay();
+                StateManager.startNewDay();
+                loadScript.startLoadingScreen("Hub");
             }
         }
     }

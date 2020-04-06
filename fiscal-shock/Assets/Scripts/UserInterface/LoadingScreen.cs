@@ -46,7 +46,7 @@ public class LoadingScreen : MonoBehaviour {
             if (progressBar.value > 0.9f) {
                 progressFill.color = doneColor;
             }
-            percentText.text = $"{progressBar.value * 100}%";
+            percentText.text = $"{(int)(progressBar.value * 100)}%";
         }
     }
 

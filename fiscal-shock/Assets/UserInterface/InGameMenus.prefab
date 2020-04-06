@@ -8929,7 +8929,6 @@ GameObject:
   - component: {fileID: 5090732086679441543}
   - component: {fileID: 5090732086679441540}
   - component: {fileID: 5090732086679441536}
-  - component: {fileID: 2019482709883816436}
   m_Layer: 5
   m_Name: InGameMenus
   m_TagString: Untagged
@@ -9053,18 +9052,6 @@ MonoBehaviour:
     shadowRes: {fileID: 8460652154713432031}
     anisotropic: {fileID: 2098475436653579699}
     antialiasing: {fileID: 5158953320315491109}
---- !u!114 &2019482709883816436
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5090732086679441541}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a46c4d2148a635f528b7320c82aeea8f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5090732086680956833
 GameObject:
   m_ObjectHideFlags: 0
