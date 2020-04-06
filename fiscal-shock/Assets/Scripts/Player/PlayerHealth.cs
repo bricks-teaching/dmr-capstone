@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -37,6 +38,9 @@ public class PlayerHealth : MonoBehaviour {
         if (!invincible) {
             PlayerFinance.cashOnHand -= damage;
             StartCoroutine(showHitVignette(damage * timeMultiplier));
+        }
+        if (PlayerFinance.cashOnHand < 0){
+            SceneManager.LoadScene("LoseGame");
         }
     }
 
