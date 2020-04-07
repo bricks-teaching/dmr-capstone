@@ -10,19 +10,26 @@ public class ATMScript : MonoBehaviour {
     public AudioClip paymentSound;
     public AudioClip failureSound;
     private bool playerIsInTriggerZone = false;
-    private int loanCount => StateManager.loanList.Count(l => l.source != LoanType.Payday);
     private AudioSource audioS;
     public TextMeshProUGUI dialogText, rateText;
     public GameObject bankPanel;
     public TMP_InputField paymentId, paymentAmount;
     public List<LoanEntry> loanEntries;
-    public static float bankMaxLoan { get; set; } = 10000.0f;
+    private static List<Loan> bankLoans => StateManager.loanList.Where(l => l.source != LoanType.Payday).ToList();
+    private int loanCount => bankLoans.Count;
+    public static float bankTotal => bankLoans.Sum(l => l.total);
+    /// <summary>
+    /// Bank will loan more based on how many times you've been in dungeon.
+    /// Quick fix; can be abused if player pays off loans then just repeatedly
+    /// re-enters and the max loan keeps going up. Checks and offsets are
+    /// because ln(n < 3) < 1
+    /// </summary>
+    /// <returns></returns>
+    public static float bankMaxLoan => 2600.0f * (StateManager.timesEntered > 0? Mathf.Log(StateManager.timesEntered + 2) : 1);
     public static float bankInterestRate { get; set; } = 0.035f;
     public static int bankThreatLevel { get; set; } = 0;
-    public static float bankTotal => StateManager.loanList.Where(l => l.source != LoanType.Payday).Sum(l => l.total);
     public static float securedAmount { get; set; } = 1.15f;
-    public static float rateReducer { get; set; } = 0.85f;
-    private static List<Loan> bankLoans => StateManager.loanList.Where(l => l.source != LoanType.Payday).ToList();
+    public static float rateReducer { get; set; } = 0.75f;
 
     void OnTriggerEnter(Collider col) {
         if (col.gameObject.tag == "Player") {
@@ -65,7 +72,7 @@ public class ATMScript : MonoBehaviour {
         if (amount < 0.0f) {
             return false;
         }
-        if (bankThreatLevel < 3 && bankMaxLoan > (bankTotal + amount) && loanCount < 3) {
+        if (bankThreatLevel < 3 && bankMaxLoan >= (bankTotal + amount) && loanCount < 3) {
             // bank threat is below 3 and is below max total debt
             Loan newLoan = null;
             switch (loanType) {
@@ -100,6 +107,7 @@ public class ATMScript : MonoBehaviour {
         }
         else if (selectedLoan.total <= amount) { // amount is more than the debt
             StateManager.cashOnHand -= selectedLoan.total;
+            StateManager.cashOnHand += selectedLoan.collateral;  // get back extra amount paid on secured loans
             StateManager.loanList.Remove(selectedLoan);
             checkWin();
             updateFields();
@@ -208,8 +216,8 @@ public class ATMScript : MonoBehaviour {
             }
             else {
                 loanEntries[i].id.text = bankLoans[i].ID.ToString();
-                loanEntries[i].amount.text = bankLoans[i].total.ToString();
-                loanEntries[i].type.text = $"{(bankLoans[i].source == LoanType.Secured ? "Secured" : "Unsecured")}";
+                loanEntries[i].amount.text = bankLoans[i].total.ToString("N2");
+                loanEntries[i].type.text = $"{(bankLoans[i].source == LoanType.Secured ? $"Secured ({bankLoans[i].collateral.ToString("N2")})" : "Unsecured")}";
             }
         }
     }

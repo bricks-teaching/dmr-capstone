@@ -2655,6 +2655,16 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 371.3
       objectReference: {fileID: 0}
+    - target: {fileID: 7284600360369221995, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 60.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 7284600360369221995, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_textAlignment
+      value: 513
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84799466cc8d9f321a88138ad2940097, type: 3}
 --- !u!1001 &7378086568286334699

@@ -10,17 +10,17 @@ public class SharkScript : MonoBehaviour {
     public AudioClip paymentSound;
     public AudioClip failureSound;
     private bool playerIsInTriggerZone = false;
-    public int loanCount => StateManager.loanList.Count(l => l.source == LoanType.Payday);
     private AudioSource audioS;
     public TextMeshProUGUI dialogText, rateText;
     public GameObject sharkPanel;
     public TMP_InputField paymentId, paymentAmount;
     public List<LoanEntry> loanEntries;
-    public static float sharkMaxLoan { get; set; } = 4000.0f;
-    public static float sharkInterestRate { get; set; } = 0.155f;
+    public static float sharkMaxLoan { get; set; } = 20000.0f;
+    public static float sharkInterestRate { get; set; } = 0.3333f;
     public static int sharkThreatLevel { get; set; } = 3;
-    public static float sharkTotal => StateManager.loanList.Where(l => l.source == LoanType.Payday).Sum(l => l.total);
     private static List<Loan> sharkLoans => StateManager.loanList.Where(l => l.source == LoanType.Payday).ToList();
+    public int loanCount => sharkLoans.Count;
+    public static float sharkTotal => sharkLoans.Sum(l => l.total);
 
     void OnTriggerEnter(Collider col) {
         if (col.gameObject.tag == "Player") {
@@ -59,7 +59,7 @@ public class SharkScript : MonoBehaviour {
         if (amount < 0.0f) {
             return false;
         }
-        if (sharkThreatLevel < 5 && sharkMaxLoan > (sharkTotal + amount) && loanCount < 3) {
+        if (sharkThreatLevel < 5 && sharkMaxLoan >= (sharkTotal + amount) && loanCount < 3) {
             //shark threat is below 5 and is below max total debt
             Loan newLoan = new Loan(StateManager.nextID, amount, sharkInterestRate, LoanType.Payday);
             StateManager.loanList.AddLast(newLoan);
@@ -167,7 +167,7 @@ public class SharkScript : MonoBehaviour {
             }
             else {
                 loanEntries[i].id.text = sharkLoans[i].ID.ToString();
-                loanEntries[i].amount.text = sharkLoans[i].total.ToString();
+                loanEntries[i].amount.text = sharkLoans[i].total.ToString("N2");
                 loanEntries[i].type.text = "Payday";
             }
         }

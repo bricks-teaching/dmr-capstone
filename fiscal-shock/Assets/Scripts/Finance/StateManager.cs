@@ -15,6 +15,8 @@ public class Loan
     public bool paid { get; set; }
     public LoanType source { get; set; }
     public int age { get; set; }
+    public float originalAmount { get; private set; }
+    public float collateral => (source == LoanType.Secured)? originalAmount - (originalAmount / ATMScript.securedAmount) : 0;
 
     public Loan(int num, float tot, float rat, LoanType type)
     {
@@ -24,6 +26,7 @@ public class Loan
         paid = true;
         source = type;
         age = 0;
+        originalAmount = tot;
     }
 }
 
