@@ -103,6 +103,7 @@ Audio assets are spread across the project.
 1. [Explosion noise](#explosion-noise)
 1. [Main menu and win themes](#main-menu-and-win-themes)
 1. [Pause and lose themes](#pause-and-lose-themes)
+1. [Squish (fire rate limit)](#squish)
 
 ----
 
@@ -169,6 +170,15 @@ License: [GDM Pro Licence](https://www.gamedevmarket.net/terms-conditions/#pro-l
 Author: Tim Beek
 
 License: [GDM Pro Licence](https://www.gamedevmarket.net/terms-conditions/#pro-licence)
+
+----
+
+## Squish
+[Original](https://freesound.org/people/Angel_Perez_Grandi/sounds/47341/)
+
+Author: Angel_Perez_Grandi
+
+License: [CC-BY 3.0](http://creativecommons.org/licenses/by/3.0/)
 
 ----
 

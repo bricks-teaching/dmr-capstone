@@ -8,6 +8,7 @@ public class WeaponStats : MonoBehaviour
     public int strength = 10;
     public int bulletCost = 1;
     public float accuracy = 6;
+    public float fireRate = 0;  // 0 = no delay
     public float rotation = 0;
     public FirearmAction action;
     public ProjectileType projectileType;  // Not part of bullet behavior right now, since the logic is in the shoot scripts

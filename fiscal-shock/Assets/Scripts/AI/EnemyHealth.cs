@@ -65,18 +65,21 @@ public class EnemyHealth : MonoBehaviour {
         yield return null;
     }
 
-    public void takeDamage(float damage) {
+    public void takeDamage(float damage, int paybackMultiplier=0) {
+        float prevHealth = totalHealth;
         totalHealth -= damage;
 
         if (totalHealth <= 0 && !dead) {
-            StateManager.cashOnHand += pointValue;
+            // Get up to half the original health as payback, adjusted due to fish cannon scoring too much cash because it OHKOs right now
+            float profit = pointValue + (Mathf.Clamp(prevHealth, 1, startingHealth/2) * paybackMultiplier);
+            StateManager.cashOnHand += profit;
             float deathDuration = animationManager.playDeathAnimation();
             GetComponent<EnemyMovement>().enabled = false;
             GetComponent<EnemyShoot>().enabled = false;
             animationManager.animator.PlayQueued("shrink");
             Destroy(gameObject, deathDuration + 0.5f);
             dead = true;
-            feed.profit(pointValue);
+            feed.profit(profit);
         }
     }
 
@@ -111,8 +114,7 @@ public class EnemyHealth : MonoBehaviour {
             if (bullet.grounded) {  // only airborne projectiles should hit for now
                 return;
             }
-            takeDamage(bullet.damage);
-            bullet.rb.AddForce(new Vector3(0, -5f, 0));
+            takeDamage(bullet.damage, 1);
             if (col.gameObject.tag == "Bullet") {
                 showDamageExplosion(explosions, 0.4f);
             } else if (col.gameObject.tag == "Missile") {

@@ -96,6 +96,7 @@ MonoBehaviour:
   strength: 100
   bulletCost: 22
   accuracy: 6
+  fireRate: 1.4
   rotation: 10
   action: 2
   projectileType: 1

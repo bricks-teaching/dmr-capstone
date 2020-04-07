@@ -150,6 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireSoundClip: {fileID: 8300000, guid: c6abf3855d73e4345b8c1df9fbc40e9b, type: 3}
   outOfAmmo: {fileID: 8300000, guid: 1b956f10a609206ae85411415f79193a, type: 3}
+  fireRateSound: {fileID: 8300000, guid: f49015bd1ad12882ab98d5c8586b9347, type: 3}
   guns:
   - {fileID: 680203695531066187}
   - {fileID: 6958153899972218731}

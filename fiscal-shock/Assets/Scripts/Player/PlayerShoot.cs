@@ -11,6 +11,7 @@ public class PlayerShoot : MonoBehaviour {
     private AudioSource fireSound;
     public AudioClip fireSoundClip;
     public AudioClip outOfAmmo;
+    public AudioClip fireRateSound;
     public GameObject weapon { get; private set; }
     private int slot = 0;
     public List<GameObject> guns;
@@ -21,6 +22,7 @@ public class PlayerShoot : MonoBehaviour {
     private WeaponStats currentWeaponStats;
     private FeedbackController feed;
     public LayerMask missileHomingTargetLayer;
+    private float timeSinceLastShot;
 
     public void Start() {
         feed = GameObject.FindGameObjectWithTag("HUD").GetComponent<FeedbackController>();
@@ -33,6 +35,12 @@ public class PlayerShoot : MonoBehaviour {
     }
 
     public void Update() {
+        timeSinceLastShot += Time.deltaTime;
+        if (currentWeaponStats.showCrosshair && timeSinceLastShot >= currentWeaponStats.fireRate) {
+            crossHair.color = new Color(1f, 1f, 1f, 0.8f);
+        } else if (currentWeaponStats.showCrosshair) {
+            crossHair.color = new Color(1f, 1f, 1f, 0.2f);
+        }
         // Change weapon
         if (Input.GetKeyDown(Settings.weaponOneKey) && StateManager.purchasedHose) {
             slot = 0;
@@ -62,20 +70,29 @@ public class PlayerShoot : MonoBehaviour {
                 }
                 return;
             }
-            switch (currentWeaponStats.action) {
-                case FirearmAction.Automatic:
-                    fireAutomatic();
-                    break;
+            if (timeSinceLastShot < currentWeaponStats.fireRate && currentWeaponStats.action != FirearmAction.Automatic) {  // auto weapons should fire as fast as they can
+                if (Input.GetMouseButtonDown(0)) {  // otherwise, the sound is auto fired
+                    fireSound.PlayOneShot(fireRateSound, Settings.volume * 3f);
+                }
+                return;
+            }
+            if (timeSinceLastShot >= currentWeaponStats.fireRate) {
+                switch (currentWeaponStats.action) {
+                    case FirearmAction.Automatic:
+                        fireAutomatic();
+                        break;
 
-                case FirearmAction.Semiautomatic:
-                    fireSemiautomatic();
-                    break;
+                    case FirearmAction.Semiautomatic:
+                        fireSemiautomatic();
+                        break;
 
-                case FirearmAction.SingleShot:
-                    // ... would require manual reload action, not implemented.
-                    break;
-                default:
-                    break;
+                    case FirearmAction.SingleShot:
+                        // ... would require manual reload action, not implemented.
+                        break;
+                    default:
+                        break;
+                }
+                timeSinceLastShot = 0;
             }
         }
 
