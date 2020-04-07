@@ -44,7 +44,7 @@ public class ATMScript : MonoBehaviour {
             StateManager.cashOnHand = 900f;
         }
         updateFields();
-        rateText.text = $"Today's rates: {bankInterestRate * 100}%";
+        rateText.text = $"Our flexible loan options are always backed by the UDIC.\nUnsecured: {bankInterestRate * 100}%\nSecured: {bankInterestRate * rateReducer * 100}% + {(securedAmount-1)*100}% of amount";
     }
 
     void Update() {
