@@ -42,6 +42,11 @@ public class DungeonEntry : MonoBehaviour {
         }
     }
 
+    public void selectDungeonStart(int value){
+        loadScript.refreshStory();
+        selectDungeon(value);
+    }
+
     public void selectDungeon(int value) {
         selectionScreen.enabled = false;
         StateManager.selectedDungeon = (DungeonTypeEnum)value;

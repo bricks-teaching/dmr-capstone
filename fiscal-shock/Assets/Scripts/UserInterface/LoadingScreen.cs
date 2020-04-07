@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine;
@@ -27,13 +28,13 @@ public class LoadingScreen : MonoBehaviour {
                                 "Clear out the robots before it becomes a total archaeological loss!",
                                 "Oh, and try not to die."};
                     
-    private string[] stories1 = {"We have traced a cache of black market gold and gemstones to a series of mines around the world.",
+    private string[] stories1 = {"We have traced a cache of black market gold and gemstones to a series of mines.",
                                 "Naturally, BOTCORP is the culprit. Due to his affiliation and close ties with illegal markets,",
                                 "we believe that he is storing stolen artifacts for resale here as well.",
                                 "Your job is the same as always, crash the bots.",
                                 "Our specialists will come in and take care of the rest."};
 
-    private string[] stories;
+    private string[] stories = {};
 
     void Awake() {
         if (loadScreenInstance != null && loadScreenInstance != this) {
@@ -76,6 +77,11 @@ public class LoadingScreen : MonoBehaviour {
         }
     }
 
+    public void refreshStory(){
+        storyPosition = 0;
+        story = true;
+    }
+
     /// <summary>
     /// Disables any scripts passed in and then starts the coroutine to begin
     /// asynchronous loading of the next scene while keeping a loading screen
@@ -95,14 +101,14 @@ public class LoadingScreen : MonoBehaviour {
         async = SceneManager.LoadSceneAsync(nextScene);
         if(story){
             async.allowSceneActivation = false;
-        }
-        if(StateManager.selectedDungeon == (DungeonTypeEnum)0){
+            if(StateManager.selectedDungeon == (DungeonTypeEnum)0){
             stories = stories0;
-        } else {
-            stories = stories1;
-        }
-
-        loadingText.text = stories[0];
+            } else {
+                stories = stories1;
+            }
+            loadingText.text = stories[0];
+        } 
+    
         while (!async.isDone) {
             yield return null;
         }
