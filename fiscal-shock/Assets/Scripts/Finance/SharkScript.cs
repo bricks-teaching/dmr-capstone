@@ -177,6 +177,6 @@ public class SharkScript : MonoBehaviour {
         dialogText.text = "I'll make you an offer you can't refuse.";
         sharkPanel.SetActive(false);
         Settings.forceLockCursorState();
-        StateManager.pauseAvailable = true;
+        StartCoroutine(StateManager.makePauseAvailableAgain());
     }
 }

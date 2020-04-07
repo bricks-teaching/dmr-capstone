@@ -69,7 +69,7 @@ public class DungeonEntry : MonoBehaviour {
         StateManager.cashOnEntrance = StateManager.cashOnHand;
         StateManager.timesEntered++;
         Settings.forceLockCursorState();
-        StateManager.pauseAvailable = true;
+        StartCoroutine(StateManager.makePauseAvailableAgain());
         loadScript.startLoadingScreen("Dungeon");
     }
 }

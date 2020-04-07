@@ -2,15 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
+/// <summary>
+/// Represents a single loan.
+/// </summary>
 public class Loan
 {
-    public int ID;// { get; set; }
-    public float total;// { get; set; }
-    public float rate;// { get; set; }
-    public bool paid;// { get; set; }
-    public LoanType source;// { get; set; }
-    public int age;// { get; set; }
+    public int ID { get; set; }
+    public float total { get; set; }
+    public float rate { get; set; }
+    public bool paid { get; set; }
+    public LoanType source { get; set; }
+    public int age { get; set; }
 
     public Loan(int num, float tot, float rat, LoanType type)
     {
@@ -23,17 +27,31 @@ public class Loan
     }
 }
 
+/// <summary>
+/// Valid loan types. LoanType.Payday implies that a loan is from
+/// the Loan Shark and not the Bank.
+/// </summary>
 public enum LoanType {
     Payday,
     Unsecured,
     Secured
 }
 
+/// <summary>
+/// Valid dungeon types. Used to communicate to the Dungeoneer
+/// what kind of dungeon to load.
+/// </summary>
 public enum DungeonTypeEnum {
     Temple,
     Mine
 }
 
+/// <summary>
+/// Represents a play session. Consider this the player's
+/// "save data." Save games could be implemented by serializing
+/// this to JSON (may require a separate backing data class with
+/// no methods).
+/// </summary>
 public static class StateManager
 {
     public static float cashOnHand { get; set; } = DefaultState.cashOnHand;
@@ -51,7 +69,7 @@ public static class StateManager
     public static int creditScore { get; set; } = DefaultState.creditScore;
     public static int paymentStreak { get; set; } = DefaultState.paymentStreak;
     public static float cashOnEntrance { get; set; } = DefaultState.cashOnEntrance;
-    public static float averageIncome { get; set; } = DefaultState.averageIncome;
+    public static float averageIncome => income.Average();
     public static bool purchasedHose = DefaultState.purchasedHose;
     public static bool purchasedLauncher = DefaultState.purchasedLauncher;
 
@@ -61,6 +79,25 @@ public static class StateManager
     public static List<GameObject> singletons = new List<GameObject>();
     public static bool pauseAvailable = true;
 
+    /// <summary>
+    /// Hitting "esc" to exit GUIs sometimes hits the pause code too,
+    /// depending on order of execution. Bad things happen when the pause menu
+    /// has a different order of execution. So, this is the nicest way to
+    /// avoid bringing up the pause menu when someone exits a shop via
+    /// keyboard.
+    /// </summary>
+    /// <returns></returns>
+    public static IEnumerator makePauseAvailableAgain() {
+        yield return new WaitForSeconds(0.5f);
+        StateManager.pauseAvailable = true;
+        yield return null;
+    }
+
+    /// <summary>
+    /// Calls creditor functions to accumulate interest and gets income earned
+    /// from the last dungeon dive.
+    /// </summary>
+    /// <returns></returns>
     public static bool startNewDay() {
         Debug.Log($"Accumulating interest for day {StateManager.timesEntered}");
 
@@ -74,12 +111,14 @@ public static class StateManager
         ATMScript.bankInterest();
 
         income.AddLast(cashOnHand - cashOnEntrance);
-        calcAverageIncome();
         calcCreditScore();
         Debug.Log($"New debt total: {totalDebt}");
         return true;
     }
 
+    /// <summary>
+    /// Calculates the player's credit score. Not currently used.
+    /// </summary>
     public static void calcCreditScore()
     {
         int baseScore = 500, sharkPen = 0;
@@ -116,16 +155,11 @@ public static class StateManager
         }
     }
 
-    public static void calcAverageIncome()
-    {
-        float tem = 0.0f;
-        foreach (float item in StateManager.income)
-        {
-            tem += item;
-        }
-        averageIncome = tem / timesEntered;
-    }
-
+    /// <summary>
+    /// Resets the StateManager to the default state. Use this when
+    /// the player's session needs to be reset. The StateManger is
+    /// set up for a "fresh" playthrough.
+    /// </summary>
     public static void resetToDefaultState() {
         cashOnHand = DefaultState.cashOnHand;
         loanList.Clear();
@@ -137,7 +171,6 @@ public static class StateManager
         creditScore = DefaultState.creditScore;
         paymentStreak = DefaultState.paymentStreak;
         cashOnEntrance = DefaultState.cashOnEntrance;
-        averageIncome = DefaultState.averageIncome;
         purchasedHose = DefaultState.purchasedHose;
         purchasedLauncher = DefaultState.purchasedLauncher;
         sawTutorial = DefaultState.sawTutorial;
@@ -147,6 +180,7 @@ public static class StateManager
 }
 
 /// <summary>
+/// Default StateManager values.
 /// Value types only!
 /// Reference types (lists, gameobjects, etc.) must be cleared inside
 /// the reset function.
@@ -159,8 +193,7 @@ public static class DefaultState {
     public readonly static int change = 5;
     public readonly static int creditScore = 0;
     public readonly static int paymentStreak = 0;
-    public readonly static float cashOnEntrance = 0;
-    public readonly static float averageIncome = 0;
+    public readonly static float cashOnEntrance = 0.0f;
     public readonly static bool purchasedHose = false;
     public readonly static bool purchasedLauncher = false;
     public readonly static bool sawTutorial = false;

@@ -66,6 +66,13 @@ public class InGameMenu : MonoBehaviour {
         SceneManager.sceneLoaded -= onSceneLoad;
     }
 
+    /// <summary>
+    /// Delegate to listen to scene load events. Needed to adjust volume
+    /// controllers, which are attached to music players in the levels.
+    /// Otherwise, the music players aren't affected by the settings volume.
+    /// </summary>
+    /// <param name="scene"></param>
+    /// <param name="mode"></param>
     void onSceneLoad(Scene scene, LoadSceneMode mode) {
         // Attach listeners for slider adjustments
         volumeSlider.onValueChanged.RemoveAllListeners();
@@ -75,6 +82,9 @@ public class InGameMenu : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Disable all panels, as if you're going to unpause
+    /// </summary>
     private void disableAllPanels() {
         foreach (GameObject p in panels) {
             p.SetActive(false);
@@ -82,28 +92,30 @@ public class InGameMenu : MonoBehaviour {
         background.SetActive(false);
     }
 
+    /// <summary>
+    /// Dismiss all panels except the one specified
+    /// </summary>
+    /// <param name="keep">leave this one open</param>
     private void disableAllPanelsExcept(GameObject keep) {
         foreach (GameObject p in panels) {
             p.SetActive(p == keep);
         }
     }
 
+    /// <summary>
+    /// Pause menu event handling.
+    /// </summary>
     void Update() {
-        // Bring up pause menu
-        if (Input.GetKeyDown(Settings.pauseKey) && StateManager.pauseAvailable) {
-            if (Time.timeScale > 0) {
-                System.GC.Collect();
-                Time.timeScale = 0;
-                pauseText.text = "PAUSED";
-                Settings.forceUnlockCursorState();
-                background.SetActive(true);
-                pausePanel.SetActive(true);
-            } else if (Time.timeScale == 0 || background.activeSelf) {
-                disableAllPanels();
-                Settings.forceLockCursorState();
-                StateManager.pauseAvailable = true;
-            }
+        // Was the game already paused or is the background image up, implying the game should be paused, but it's running and the menu is up?
+        if (Input.GetKeyDown(Settings.pauseKey) && (Time.timeScale == 0 || background.activeSelf)) {
+            disableAllPanels();
+            pauseText.text = "";
+            Time.timeScale = 1;
+            Settings.forceLockCursorState();
+            StateManager.pauseAvailable = true;
+            return;
         }
+        // Hide pause menus for screenshots
         if (Input.GetKeyDown(Settings.hidePauseMenuKey)) {
             disableAllPanels();
             if (Time.timeScale > 0) {  // getting bugged in the pause menu lately
@@ -112,6 +124,16 @@ public class InGameMenu : MonoBehaviour {
                 Settings.mutexLockCursorState(this);
                 StateManager.pauseAvailable = true;
             }
+            return;
+        }
+        // Bring up pause menu
+        if (Input.GetKeyDown(Settings.pauseKey) && StateManager.pauseAvailable && Time.timeScale > 0) {
+            System.GC.Collect();
+            Time.timeScale = 0;
+            pauseText.text = "PAUSED";
+            Settings.forceUnlockCursorState();
+            background.SetActive(true);
+            pausePanel.SetActive(true);
         }
     }
 
@@ -153,6 +175,10 @@ public class InGameMenu : MonoBehaviour {
     }
 
     /* graphics stuff */
+    /// <summary>
+    /// Update to a new quality preset
+    /// </summary>
+    /// <param name="level">Dropdown index, corresponds to a quality level in the array of valid presets</param>
     public void changeQualityLevel(int level) {
         Settings.values.currentQuality = level;
         Settings.values.currentQualityName = QualitySettings.names[level];
@@ -161,6 +187,10 @@ public class InGameMenu : MonoBehaviour {
         loadAllWidgetsFromCurrentState();
     }
 
+    /// <summary>
+    /// Reset all configurable settings to the defaults of the currently
+    /// selected preset
+    /// </summary>
     public void resetToDefaults() {
         Settings.resetToCurrentQualityDefaults();
         loadAllWidgetsFromCurrentState();
@@ -169,6 +199,11 @@ public class InGameMenu : MonoBehaviour {
         widgets.overrideToggle.interactable = true;
     }
 
+    /// <summary>
+    /// Toggles whether to apply configurable graphics settings or use the
+    /// quality preset defaults.
+    /// </summary>
+    /// <param name="toggle"></param>
     public void toggleQualityOverrides(bool toggle) {
         // interactable check is a hack, because every time the value of toggle.isOn is changed, this function is called
         if (widgets.overrideToggle.interactable) {
@@ -178,12 +213,24 @@ public class InGameMenu : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Change vsync count for software vertical sync. A vsyncCount
+    /// of 0 is required to cap the frame rate, otherwise, the
+    /// monitor's refresh rate is the target framerate.
+    /// </summary>
+    /// <param name="v"></param>
     public void setVsyncCount(int v) {
         changedAnySetting();
         Settings.values.vsyncCount = v;
         QualitySettings.vSyncCount = Settings.values.vsyncCount;
     }
 
+    /// <summary>
+    /// Updates texture anti-aliasing settings. Values should be
+    /// powers of: 0, 2, 4, 8 are the only sampling resolutions
+    /// available in Unity.
+    /// </summary>
+    /// <param name="aa"></param>
     public void setAntialiasing(int aa) {
         changedAnySetting();
         // indices are powers of 2 for aa samples
@@ -191,12 +238,23 @@ public class InGameMenu : MonoBehaviour {
         QualitySettings.antiAliasing = Settings.values.antialiasingSamples;
     }
 
+    /// <summary>
+    /// Updates number of times light is calculated on a pixel. More lights
+    /// means better quality lighting, but drastically reduces performance.
+    /// </summary>
+    /// <param name="lights">number of lights per pixel</param>
     public void setPixelLighting(int lights) {
         changedAnySetting();
         Settings.values.pixelLightCount = lights;
         QualitySettings.pixelLightCount = Settings.values.pixelLightCount;
     }
 
+    /// <summary>
+    /// Updates shadow resolution settings. Hard-coded to use
+    /// hard shadows except on the highest resolutions. Soft
+    /// shadows are more graphics-intensive.
+    /// </summary>
+    /// <param name="res"></param>
     public void setShadowRes(int res) {
         changedAnySetting();
         if (res == 0) {
@@ -210,24 +268,46 @@ public class InGameMenu : MonoBehaviour {
         QualitySettings.shadowResolution = Settings.values.shadowResolution;
     }
 
+    /// <summary>
+    /// Sets the distance at which the camera starts rendering shadows.
+    /// Should never be higher than the far clip plane of the camera (128).
+    /// Setting this high is bad news! In dungeons, the player probably
+    /// can't see shadows farther than ~50 units due to perspective.
+    /// </summary>
+    /// <param name="dist"></param>
     public void setShadowDistance(float dist) {
         changedAnySetting();
         Settings.values.shadowDistance = (int)dist;
         QualitySettings.shadowDistance = Settings.values.shadowDistance;
     }
 
+    /// <summary>
+    /// Sets anisotropic filtering quality. Anisotropic filtering smooths
+    /// out textures that are "stretched." Most noticeable on walls that
+    /// get squished textures sometimes.
+    /// </summary>
+    /// <param name="ani"></param>
     public void setAnisotropic(int ani) {
         changedAnySetting();
         Settings.values.anisotropicTextures = (AnisotropicFiltering)ani;
         QualitySettings.anisotropicFiltering = Settings.values.anisotropicTextures;
     }
 
+    /// <summary>
+    /// Not in the options menu. Requires vsyncCount to be 0 to be
+    /// applied anyway.
+    /// </summary>
+    /// <param name="fps"></param>
     public void setFramerate(int fps) {
         changedAnySetting();
         Settings.values.targetFramerate = fps;
         Application.targetFrameRate = Settings.values.targetFramerate;
     }
 
+    /// <summary>
+    /// If any setting is customized, we should tick the "override" box,
+    /// because that's implied by changing a setting.
+    /// </summary>
     public void changedAnySetting() {
         widgets.overrideToggle.interactable = false;
         widgets.overrideToggle.isOn = true;
@@ -236,6 +316,10 @@ public class InGameMenu : MonoBehaviour {
         widgets.qualityText.text = $"Current Quality: {Settings.values.currentQualityName}{(Settings.values.overrideQualitySettings? "*" : "")}";
     }
 
+    /// <summary>
+    /// Toggles display of FPS in the top right of the screen.
+    /// </summary>
+    /// <param name="toggle"></param>
     public void toggleFPS(bool toggle) {
         try {  // fpsText isn't always instantiated in time
             Settings.values.showFPS = toggle;
@@ -243,10 +327,22 @@ public class InGameMenu : MonoBehaviour {
         } catch {}
     }
 
+    /// <summary>
+    /// Toggles windowed or full screen mode.
+    /// </summary>
+    /// <param name="toggle"></param>
     public void toggleFullscreen(bool toggle) {
         Settings.values.fullscreen = toggle;
     }
 
+    /// <summary>
+    /// Updates the game window resolution. Strange things will
+    /// happen if the player changes their valid resolutions
+    /// during play (the dropdown is never updated). This wouldn't
+    /// happen unless the player hotplugged a different monitor or
+    /// graphics card, though. Rare cases.
+    /// </summary>
+    /// <param name="i"></param>
     public void setResolution(int i) {
         Resolution r = Settings.getResolutionByIndex(i);
         Settings.values.resolutionWidth = r.width;
@@ -254,7 +350,8 @@ public class InGameMenu : MonoBehaviour {
     }
 
     /// <summary>
-    /// sets up all the graphics widgets to the proper value
+    /// Sets up all the graphics widgets to the proper value
+    /// based on what's in the settings file.
     /// </summary>
     public void loadAllWidgetsFromCurrentState() {
         widgets.qualityText.text = $"Current Quality: {Settings.values.currentQualityName}{(Settings.values.overrideQualitySettings? "*" : "")}";
@@ -274,6 +371,9 @@ public class InGameMenu : MonoBehaviour {
         widgets.fullscreenToggle.interactable = true;
     }
 
+    /// <summary>
+    /// Populates drop downs. Should only ever happen once!
+    /// </summary>
     public void populateDropdowns() {
         widgets.qualityDropdown.AddOptions(new List<string>(QualitySettings.names));
         widgets.antialiasing.AddOptions(new List<string>(Settings.antialiasingNames));
@@ -284,12 +384,20 @@ public class InGameMenu : MonoBehaviour {
         widgets.resolution.AddOptions(Settings.getSupportedResolutions());
     }
 
+    /// <summary>
+    /// Close the graphics panel. Implies going back to the
+    /// main options panel.
+    /// </summary>
     public void closeGraphics() {
         disableAllPanelsExcept(optionsPanel);
         Settings.updateCurrentSettings();
     }
 }
 
+/// <summary>
+/// Data class to hold a bunch of stuff in inspector view
+/// without clogging up the script view.
+/// </summary>
 [System.Serializable]
 public class GraphicsWidgets {
     public TextMeshProUGUI qualityText;

@@ -218,7 +218,7 @@ public class ATMScript : MonoBehaviour {
         dialogText.text = "How may I help you?";
         bankPanel.SetActive(false);
         Settings.forceLockCursorState();
-        StateManager.pauseAvailable = true;
+        StartCoroutine(StateManager.makePauseAvailableAgain());
     }
 }
 
