@@ -101,6 +101,7 @@ public class ATMScript : MonoBehaviour {
         else if (selectedLoan.total <= amount) { // amount is more than the debt
             StateManager.cashOnHand -= selectedLoan.total;
             StateManager.loanList.Remove(selectedLoan);
+            checkWin();
             updateFields();
             return true;
         }
@@ -110,6 +111,12 @@ public class ATMScript : MonoBehaviour {
             StateManager.cashOnHand -= amount;
             updateFields();
             return true;
+        }
+    }
+
+    public void checkWin() {
+        if (StateManager.loanList.Count == 0) {
+            GameObject.FindGameObjectWithTag("Loading Screen").GetComponent<LoadingScreen>().startLoadingScreen("WinGame");
         }
     }
 
@@ -133,10 +140,6 @@ public class ATMScript : MonoBehaviour {
             item.paid = false;
             item.total += item.rate * item.total;
         }
-    }
-
-    public void temporaryWinGame() {
-        SceneManager.LoadScene("WinGame");
     }
 
     public void payLoan() {

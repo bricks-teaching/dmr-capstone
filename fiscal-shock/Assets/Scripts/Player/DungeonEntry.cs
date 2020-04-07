@@ -14,8 +14,8 @@ public class DungeonEntry : MonoBehaviour {
     private AudioSource audioSource;
 
     void Start() {
-        loadingScreen = GameObject.Find("LoadingScreen");
-        loadScript = (LoadingScreen)loadingScreen.GetComponent<LoadingScreen>();
+        loadingScreen = GameObject.FindGameObjectWithTag("Loading Screen");
+        loadScript = loadingScreen.GetComponent<LoadingScreen>();
         selectionScreen.enabled = false;
         audioSource = GameObject.FindObjectOfType<AudioSource>();
     }

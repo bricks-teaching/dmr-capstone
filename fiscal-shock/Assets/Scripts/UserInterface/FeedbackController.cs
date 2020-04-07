@@ -33,7 +33,7 @@ public class FeedbackController : MonoBehaviour
         TextMeshProUGUI clone = shotLosses.Dequeue();
         clone.text = "-" + (cost.ToString());
         clone.transform.localPosition = new Vector3(Screen.width*-0.15f, 0, 0);
-        clone.transform.Translate(Random.Range(Screen.width*-0.1f, Screen.width*0.1f), Random.Range(-20f, 20f), Random.Range(Screen.height*-0.2f, Screen.height*0.2f), Space.Self);
+        clone.transform.Translate(Random.Range(Screen.width*-0.1f, 0), Random.Range(-20f, 20f), Random.Range(Screen.height*-0.2f, Screen.height*0.2f), Space.Self);
         clone.enabled = true;
         shotLosses.Enqueue(clone);
 

@@ -79,6 +79,7 @@ public class SharkScript : MonoBehaviour {
         else if (sharkTotal <= amount) { //amount is more than the debt
             StateManager.cashOnHand -= sharkTotal;
             StateManager.loanList.Remove(selectedLoan);
+            checkWin();
             updateFields();
             return true;
         }
@@ -88,6 +89,12 @@ public class SharkScript : MonoBehaviour {
             StateManager.cashOnHand -= amount;
             updateFields();
             return true;
+        }
+    }
+
+    public void checkWin() {
+        if (StateManager.loanList.Count == 0) {
+            GameObject.FindGameObjectWithTag("Loading Screen").GetComponent<LoadingScreen>().startLoadingScreen("WinGame");
         }
     }
 

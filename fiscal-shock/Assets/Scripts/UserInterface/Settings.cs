@@ -35,6 +35,7 @@ public static class Settings {
     }
 
     public static void updateCurrentSettings() {
+        Debug.Log("Updating all game settings...");
         // Apply default quality level settings first
         QualitySettings.SetQualityLevel(values.currentQuality, true);
         Application.targetFrameRate = values.targetFramerate;
@@ -89,7 +90,7 @@ public static class Settings {
     }
 
     public static void quitToMainMenu() {
-        LoadingScreen loading = GameObject.Find("LoadingScreen")?.GetComponentInChildren<LoadingScreen>();
+        LoadingScreen loading = GameObject.FindGameObjectWithTag("Loading Screen")?.GetComponentInChildren<LoadingScreen>();
 
         // Destroy singletons; tracked by StateManager
         // Caution: don't add the load camera to the list!

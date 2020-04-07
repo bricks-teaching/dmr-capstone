@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SpawnPoint : MonoBehaviour {
     public bool autoSpawn = true;
     public GameObject playerPrefab;
     private static SpawnPoint spawnPointInstance;
+    private Vector3 defaultHubPos = new Vector3(3.117362f, 1.2f, -7.210602f);
+    private Quaternion defaultHubRotation = Quaternion.Euler(0, 90, 0);
 
     void Awake() {
         if (spawnPointInstance != null && spawnPointInstance != this) {
@@ -16,10 +19,34 @@ public class SpawnPoint : MonoBehaviour {
         StateManager.singletons.Add(gameObject);
     }
 
-    void Start() {
+    void OnEnable() {
+        SceneManager.sceneLoaded += onSceneLoad;
+    }
+
+    void OnDisable() {
+        SceneManager.sceneLoaded -= onSceneLoad;
+    }
+
+    void onSceneLoad(Scene s, LoadSceneMode ss) {
         if (autoSpawn) {
             spawnPlayer();
+            Settings.forceLockCursorState();
         }
+    }
+
+    void Start() {
+        onSceneLoad(SceneManager.GetActiveScene(), LoadSceneMode.Single);
+    }
+
+    public void resetToHubDefaults() {
+        transform.position = defaultHubPos;
+        transform.rotation = defaultHubRotation;
+        autoSpawn = true;
+        GameObject.FindGameObjectWithTag("Player Flashlight").GetComponent<Light>().intensity = 0;
+        PlayerShoot shootScript = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerShoot>();
+        shootScript.weapon.SetActive(false);
+        shootScript.crossHair.enabled = false;
+        shootScript.enabled = false;
     }
 
     public GameObject spawnNewPlayer() {
