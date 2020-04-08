@@ -4,6 +4,9 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
+/// <summary>
+/// A script the was made to manage creating the clone objects for feedback.
+/// </summary>
 public class FeedbackController : MonoBehaviour
 {
     private Queue<TextMeshProUGUI> shotLosses { get; } = new Queue<TextMeshProUGUI>();
@@ -29,6 +32,10 @@ public class FeedbackController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Creates the feedback on the screen for money lost when shooting.
+    /// </summary>
+    /// <param name="cost"></param>
     public void shoot(int cost) {
         TextMeshProUGUI clone = shotLosses.Dequeue();
         clone.text = "-" + (cost.ToString());
@@ -40,6 +47,10 @@ public class FeedbackController : MonoBehaviour
         StartCoroutine(timeout(clone, 2f));
     }
 
+    /// <summary>
+    /// Creates the feedback on the screen for money gained from killing enemies.
+    /// </summary>
+    /// <param name="amount"></param>
     public void profit(float amount) {
         TextMeshProUGUI clone = earns.Dequeue();
         clone.text = "+" + (amount.ToString());
@@ -51,6 +62,12 @@ public class FeedbackController : MonoBehaviour
         StartCoroutine(timeout(clone, 2f));
     }
 
+    /// <summary>
+    /// Coroutine to time out the created clones.
+    /// </summary>
+    /// <param name="text"></param>
+    /// <param name="duration"></param>
+    /// <returns></returns>
     private IEnumerator timeout(TextMeshProUGUI text, float duration) {
         yield return new WaitForSeconds(duration);
         text.enabled = false;
