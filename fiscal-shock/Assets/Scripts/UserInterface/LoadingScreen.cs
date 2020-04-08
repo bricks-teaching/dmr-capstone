@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine;
@@ -20,11 +21,19 @@ public class LoadingScreen : MonoBehaviour {
     public Image progressFill;
     public TextMeshProUGUI percentText;
 
+    private readonly string templeStory = "Hostile robots are excavating the Ruins of Tehamahouti, stealing every shiny object they can get their hands on. Clear out the robots before it becomes a total archaeological loss! Oh, and try not to die.\n\n";
+
+    private readonly string mineStory = "We have traced a cache of black market gold and gemstones to a series of mines. Naturally, BOTCORP is the culprit. Due to the CEO's affiliation and close ties with illegal markets, we believe that he is storing stolen artifacts for resale here, as well. Your job is the same as always: crush the bots. Our specialists will come in and take care of the rest.\n\n";
+
+    private bool clickTextAdded;
+    private string defaultText = "Loading...\n\n";
+
     void Awake() {
         if (loadScreenInstance != null && loadScreenInstance != this) {
             Destroy(this.gameObject);
             return;
-        } else {
+        }
+        else {
             loadScreenInstance = this;
         }
         DontDestroyOnLoad(this.gameObject);
@@ -33,19 +42,23 @@ public class LoadingScreen : MonoBehaviour {
     void Start() {
         loadingText = GameObject.Find("LoadText").GetComponent<TextMeshProUGUI>();
         loadCamera.enabled = false;
+        loadingText.text = defaultText;
     }
 
     void Update() {
         // If the new scene has started loading...
         if (async != null) {
             // ...then pulse the transparency of the loading text to let the player know that the computer is still working.
-            loadingText.color = new Color(loadingText.color.r, loadingText.color.g, loadingText.color.b, Mathf.PingPong(Time.time, 1));
-            // Unity loads to 90% and then activates stuff, so it gets "stuck" at 90%, nothing to do about it
             progressBar.value = Mathf.Clamp01(async.progress / 0.9f);
-            if (progressBar.value > 0.9f) {
+            if (progressBar.value > 0.9f && !clickTextAdded) {
                 progressFill.color = doneColor;
+                loadingText.text += "<i>Press the Left Mouse Button to continue.</i>";
+                clickTextAdded = true;
             }
             percentText.text = $"{progressBar.value * 100}%";
+            if (Input.GetMouseButtonDown(0)) {
+                async.allowSceneActivation = true;
+            }
         }
     }
 
@@ -66,6 +79,19 @@ public class LoadingScreen : MonoBehaviour {
         progressBar.value = 0;
         progressFill.color = loadingColor;
         async = SceneManager.LoadSceneAsync(nextScene);
+        switch (StateManager.selectedDungeon) {
+            case DungeonTypeEnum.Temple:
+                async.allowSceneActivation = false;
+                loadingText.text = templeStory;
+                break;
+            case DungeonTypeEnum.Mine:
+                async.allowSceneActivation = false;
+                loadingText.text = mineStory;
+                break;
+            default:
+                loadingText.text = defaultText;
+                break;
+        }
 
         while (!async.isDone) {
             yield return null;
@@ -73,5 +99,7 @@ public class LoadingScreen : MonoBehaviour {
 
         async = null;
         loadCamera.enabled = false;
+        loadingText.text = defaultText;
+        clickTextAdded = false;
     }
 }

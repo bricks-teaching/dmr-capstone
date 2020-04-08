@@ -18,6 +18,7 @@ public class PlayerShoot : MonoBehaviour {
     private bool rest = false;
     private float screenX;
     private float screenY;
+    public bool loadAfterHolster = true;
     private WeaponStats currentWeaponStats;
     private FeedbackController feed;
     public LayerMask missileHomingTargetLayer;
@@ -32,9 +33,13 @@ public class PlayerShoot : MonoBehaviour {
         LoadWeapon();
     }
 
+    public void resetFeed(){
+        feed = GameObject.FindGameObjectWithTag("HUD").GetComponent<FeedbackController>();
+    }
+
     public void Update() {
         // Change weapon
-        if (Input.GetKeyDown(Settings.weaponOneKey) && StateManager.purchasedHose) {
+        if (Input.GetKeyDown(Settings.weaponOneKey) && (StateManager.purchasedHose || StateManager.inStoryTutorial)) {
             slot = 0;
             if (weapon != null) {
                 HolsterWeapon();
@@ -42,7 +47,7 @@ public class PlayerShoot : MonoBehaviour {
                 LoadWeapon();
             }
         }
-        if (Input.GetKeyDown(Settings.weaponTwoKey) && StateManager.purchasedLauncher) {
+        if (Input.GetKeyDown(Settings.weaponTwoKey) && (StateManager.purchasedLauncher || StateManager.inStoryTutorial)) {
             slot = 1;
             if (weapon != null) {
                 HolsterWeapon();
@@ -56,7 +61,7 @@ public class PlayerShoot : MonoBehaviour {
 
         if (Time.timeScale > 0 && !weaponChanging && Input.GetMouseButton(0)) {  // Firing
             // Make sure player has enough money to fire
-            if (PlayerFinance.cashOnHand < currentWeaponStats.bulletCost) {
+            if (!StateManager.inStoryTutorial && PlayerFinance.cashOnHand < currentWeaponStats.bulletCost) {
                 if (Input.GetMouseButtonDown(0)) {  // otherwise, the sound is auto fired
                     fireSound.PlayOneShot(outOfAmmo, Settings.volume * 2f);
                 }
@@ -104,7 +109,11 @@ public class PlayerShoot : MonoBehaviour {
             if (animatedTime > 0.8f) {
                 animatedTime = 0f;
                 holsteringWeapon = false;
-                LoadWeapon();
+                if(loadAfterHolster){
+                    LoadWeapon();
+                } else {
+                    enabled = false;
+                }
             }
             animatedTime += Time.deltaTime;
         }
@@ -199,14 +208,14 @@ public class PlayerShoot : MonoBehaviour {
         }
         fireSound.PlayOneShot(fireSoundClip, Settings.volume * noise);
         PlayerFinance.cashOnHand -= currentWeaponStats.bulletCost;
-        feed.shoot(currentWeaponStats.bulletCost);
+        feed?.shoot(currentWeaponStats.bulletCost);
     }
 
     public void LoadWeapon() {
-        if (slot == 0 && !StateManager.purchasedHose) {
+        if (slot == 0 && !StateManager.purchasedHose && !StateManager.inStoryTutorial) {
             return;
         }
-        if (slot == 1 && !StateManager.purchasedLauncher) {
+        if (slot == 1 && !StateManager.purchasedLauncher && !StateManager.inStoryTutorial) {
             return;
         }
         drawingWeapon = true;
@@ -220,7 +229,7 @@ public class PlayerShoot : MonoBehaviour {
 
     public void HolsterWeapon() {
         // If weapon is already selected, do nothing
-        if (guns[slot] == weapon) {
+        if (guns[slot] == weapon && loadAfterHolster) {
             return;
         }
         holsteringWeapon = true;

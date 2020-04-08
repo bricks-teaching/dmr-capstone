@@ -57,7 +57,7 @@ public class ATMScript : MonoBehaviour {
         btnTwo.onClick.AddListener(addLoan);
         btnThr.onClick.AddListener(addSecLoan);
         btnFou.onClick.AddListener(BackClick);
-        if (!StateManager.sawTutorial) {  // implies this is the first visit to town
+        if (!StateManager.sawEntryTutorial) {  // implies this is the first visit to town
             addDebt(2000.0f, LoanType.Unsecured);
             PlayerFinance.cashOnHand = 900f;
         }

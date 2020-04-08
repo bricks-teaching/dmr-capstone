@@ -5,6 +5,8 @@ using TMPro;
 public class DungeonEntry : MonoBehaviour {
     private bool isPlayerInTriggerZone = false;
     private GameObject loadingScreen;
+    private GameObject player;
+    private GameObject camera;
     private LoadingScreen loadScript;
     public Canvas textCanvas;
     public Canvas selectionScreen;
@@ -53,6 +55,10 @@ public class DungeonEntry : MonoBehaviour {
         if (isPlayerInTriggerZone) {
             textCanvas.enabled = true;
         }
+    }
+
+    public void selectDungeonStart(int value){
+        selectDungeon(value);
     }
 
     public void selectDungeon(int value) {

@@ -49,7 +49,8 @@ public static class StateManager
     public static bool purchasedLauncher;
 
     public static DungeonTypeEnum selectedDungeon { get; set; }
-    public static bool sawTutorial = false;
+    public static bool sawEntryTutorial = false;
+    public static bool inStoryTutorial = false;
 
     public static void calcCreditScore()
     {

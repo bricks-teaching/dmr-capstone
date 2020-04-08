@@ -2,7 +2,7 @@
 
 public class DungeonTutorial : MonoBehaviour {
     void Start() {
-        if (!StateManager.sawTutorial) {
+        if (!StateManager.sawEntryTutorial) {
             // Pause game
             Settings.mutexUnlockCursorState(this);
             Time.timeScale = 0;
@@ -14,7 +14,7 @@ public class DungeonTutorial : MonoBehaviour {
     public void dismissWindow() {
         GetComponent<Canvas>().enabled = false;
         Settings.lockCursorState(this);
-        StateManager.sawTutorial = true; // TODO change to state manager when implemented
+        StateManager.sawEntryTutorial = true;
         Time.timeScale = 1;
     }
 }
