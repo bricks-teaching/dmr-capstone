@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 
 public class DungeonEntry : MonoBehaviour {
     private bool isPlayerInTriggerZone = false;
@@ -9,28 +10,17 @@ public class DungeonEntry : MonoBehaviour {
     private LoadingScreen loadScript;
     public Canvas textCanvas;
     public Canvas selectionScreen;
+    public AudioClip bummer;
+    public TextMeshProUGUI texto;
+    private string originalText;
+    private AudioSource audioSource;
 
     void Start() {
         loadingScreen = GameObject.Find("LoadingScreen");
         loadScript = (LoadingScreen)loadingScreen.GetComponent<LoadingScreen>();
         selectionScreen.enabled = false;
-
-        camera = GameObject.Find("Main Camera");
-        PlayerShoot shootScript = camera.GetComponent(typeof (PlayerShoot)) as PlayerShoot;
-        if(shootScript.tutorial){
-            PlayerFinance.cashOnHand = 1000.0f;
-            shootScript.tutorial = false;
-            shootScript.resetFeed();
-            MouseLook lookScript = camera.GetComponent(typeof (MouseLook)) as MouseLook;
-            lookScript.enabled = true;
-            player = GameObject.Find("First Person Player");
-            player.transform.position =  new Vector3(2.546f, 1f, -8.575f);
-            player.transform.rotation = Quaternion.Euler(new Vector3(0f, 91f, 0f));
-            PlayerHealth healthScript =  player.GetComponent(typeof (PlayerHealth)) as PlayerHealth;
-            healthScript.resetVignette();
-            PlayerMovement moveScript = player.GetComponent(typeof (PlayerMovement)) as PlayerMovement;
-            moveScript.enabled = true;
-        }
+        originalText = texto.text;
+        audioSource = GameObject.FindObjectOfType<AudioSource>();
     }
 
     void OnTriggerEnter(Collider col) {
@@ -42,11 +32,17 @@ public class DungeonEntry : MonoBehaviour {
     void OnTriggerExit(Collider col) {
         if (col.gameObject.tag == "Player") {
             isPlayerInTriggerZone = false;
+            texto.text = originalText;
         }
     }
 
     void FixedUpdate() {
         if (isPlayerInTriggerZone && Input.GetKeyDown(Settings.interactKey)) {
+            if(!(StateManager.purchasedHose || StateManager.purchasedLauncher) ) {
+                audioSource.PlayOneShot(bummer, Settings.volume * 3f);
+                texto.text = "It's dangerous to go out alone (and unarmed).";
+                return;
+            }
             Settings.forceUnlockCursorState();
             textCanvas.enabled = false;
             selectionScreen.enabled = true;
@@ -62,7 +58,6 @@ public class DungeonEntry : MonoBehaviour {
     }
 
     public void selectDungeonStart(int value){
-        loadScript.refreshStory();
         selectDungeon(value);
     }
 

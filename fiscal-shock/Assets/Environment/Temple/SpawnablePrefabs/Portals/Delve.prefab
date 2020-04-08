@@ -4905,7 +4905,6 @@ GameObject:
   - component: {fileID: 768399930780752127}
   - component: {fileID: 6914832937828705900}
   - component: {fileID: 6102529130990883628}
-  - component: {fileID: -5159868213195035033}
   m_Layer: 8
   m_Name: Delve
   m_TagString: Portal
@@ -5015,18 +5014,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3266a785d7d50103c98fcae3d2f3fa0b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &-5159868213195035033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6092265165582998533}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce02a5bb4a2c2bc3fbe07f3cfc648918, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1100606028023843805

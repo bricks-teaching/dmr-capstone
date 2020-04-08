@@ -773,7 +773,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 499238}
-  - component: {fileID: -1026953329569447814}
   - component: {fileID: -5829944764331011428}
   m_Layer: 8
   m_Name: FlarCar_1-1
@@ -798,18 +797,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-1026953329569447814
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 179300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce02a5bb4a2c2bc3fbe07f3cfc648918, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-5829944764331011428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -822,7 +809,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d14ccc4e83f5aec8db84560ece84405d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toBeDestroyed: 0
 --- !u!1 &179974
 GameObject:
   m_ObjectHideFlags: 0

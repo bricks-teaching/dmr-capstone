@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -27,7 +28,7 @@ public class PlayerHealth : MonoBehaviour {
 
     void OnCollisionEnter(Collision col) {
         if (col.gameObject.tag == "Enemy Projectile") {
-            BulletBehavior bullet = col.gameObject.GetComponent(typeof(BulletBehavior)) as BulletBehavior;
+            BulletBehavior bullet = col.gameObject.GetComponent<BulletBehavior>();
             takeDamage(bullet.damage);
         }
     }
@@ -44,6 +45,9 @@ public class PlayerHealth : MonoBehaviour {
         if (!invincible) {
             PlayerFinance.cashOnHand -= damage;
             StartCoroutine(showHitVignette(damage * timeMultiplier));
+        }
+        if (PlayerFinance.cashOnHand < 0){
+            SceneManager.LoadScene("LoseGame");
         }
     }
 

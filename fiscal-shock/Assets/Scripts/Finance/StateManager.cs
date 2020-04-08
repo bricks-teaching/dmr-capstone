@@ -45,9 +45,12 @@ public static class StateManager
     public static int paymentStreak { get; set; }
     public static float cashOnEntrance { get; set; }
     public static float averageIncome { get; set; }
+    public static bool purchasedHose;
+    public static bool purchasedLauncher;
 
     public static DungeonTypeEnum selectedDungeon { get; set; }
-    public static bool sawTutorial = false;
+    public static bool sawEntryTutorial = false;
+    public static bool inStoryTutorial = false;
 
     public static void calcCreditScore()
     {

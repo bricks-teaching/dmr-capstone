@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 33000011723589286}
   - component: {fileID: 23000011778243716}
   - component: {fileID: -8906438398375535559}
-  - component: {fileID: -5149643478969218766}
   - component: {fileID: 3911254638335199749}
   m_Layer: 8
   m_Name: Round Hollow 2
@@ -96,18 +95,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: e744f214e3adf274ba5fa84d728c0aee, type: 3}
---- !u!114 &-5149643478969218766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000012864534058}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce02a5bb4a2c2bc3fbe07f3cfc648918, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3911254638335199749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,4 +107,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d14ccc4e83f5aec8db84560ece84405d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toBeDestroyed: 0

@@ -363,7 +363,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4009022372631202, guid: 5ec31ae96fe47a645a19a2facf06e472, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4009022372631202, guid: 5ec31ae96fe47a645a19a2facf06e472, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1106,6 +1106,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: bot3Target
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 2d288401c75cc62498a3438862244f4a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d288401c75cc62498a3438862244f4a, type: 3}
 --- !u!1001 &297905245
@@ -1223,7 +1228,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: ffe75ffa6b8c5e94e83d473771e46962,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: ffe75ffa6b8c5e94e83d473771e46962,
         type: 3}
@@ -1259,6 +1264,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: bot2Target
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: ffe75ffa6b8c5e94e83d473771e46962,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffe75ffa6b8c5e94e83d473771e46962, type: 3}
@@ -1439,6 +1449,10 @@ PrefabInstance:
     - target: {fileID: 1090216063759184, guid: b62f6c4e046abad4e9c399cfc1cdebae, type: 3}
       propertyPath: m_Name
       value: CapShock_M_03_snaps002 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1090216063759184, guid: b62f6c4e046abad4e9c399cfc1cdebae, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4672098947930558, guid: b62f6c4e046abad4e9c399cfc1cdebae, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2489,7 +2503,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: ac2a891c4b590704f93fbbeb66fdd04d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: ac2a891c4b590704f93fbbeb66fdd04d,
         type: 3}
@@ -2525,6 +2539,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: bot1Target
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: ac2a891c4b590704f93fbbeb66fdd04d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac2a891c4b590704f93fbbeb66fdd04d, type: 3}
@@ -4016,6 +4035,10 @@ PrefabInstance:
     - target: {fileID: 1090216063759184, guid: b62f6c4e046abad4e9c399cfc1cdebae, type: 3}
       propertyPath: m_Name
       value: CapShock_M_03_snaps002
+      objectReference: {fileID: 0}
+    - target: {fileID: 1090216063759184, guid: b62f6c4e046abad4e9c399cfc1cdebae, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4672098947930558, guid: b62f6c4e046abad4e9c399cfc1cdebae, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5960,6 +5983,10 @@ PrefabInstance:
     - target: {fileID: 1090216063759184, guid: b62f6c4e046abad4e9c399cfc1cdebae, type: 3}
       propertyPath: m_Name
       value: CapShock_M_03_snaps002 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1090216063759184, guid: b62f6c4e046abad4e9c399cfc1cdebae, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4672098947930558, guid: b62f6c4e046abad4e9c399cfc1cdebae, type: 3}
       propertyPath: m_LocalPosition.x

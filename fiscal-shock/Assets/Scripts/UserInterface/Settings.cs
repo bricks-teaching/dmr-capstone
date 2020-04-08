@@ -23,13 +23,6 @@ public static class Settings {
     public static string weaponTwoKey => values.weaponTwoKey;
     public static string hidePauseMenuKey => values.hidePauseMenuKey;
 
-    // occlusion culling
-    public static int occlusionSampleDelay => values.occlusionSampleDelay;
-    public static int occlusionSamples => values.occlusionSamples;
-    public static int occlusionHideDelay => values.occlusionHideDelay;
-    public static int viewDistance => values.viewDistance;
-    public static int minOcclusionDistance => values.minOcclusionDistance;
-
     // max at 60 fps when starting from menu scene only
     public static int targetFramerate => values.targetFramerate;
     public static int vsync => values.vsyncEnabled;
@@ -142,13 +135,6 @@ public class SettingsValues {
     public string weaponOneKey = "1";
     public string weaponTwoKey = "2";
     public string hidePauseMenuKey = "backspace";
-
-    // occlusion culling
-    public int occlusionSampleDelay = 128;
-    public int occlusionSamples = 128;
-    public int occlusionHideDelay = 32;
-    public int viewDistance = 128;
-    public int minOcclusionDistance = 32;
 
     // max at 60 fps when starting from menu scene only
     public int targetFramerate = 60;

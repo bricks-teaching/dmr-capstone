@@ -56,22 +56,27 @@ public class IntroStory : MonoBehaviour {
     private Vector3 rotateFrom;
     private Vector3 rotateCameraFrom;
     private Vector3 stareAtMilkman = new Vector3(-75.06f, -4.36f, 114.66f);
+    private PlayerHealth healthScript;
+    private PlayerShoot playerShoot;
+    private MouseLook mouseLook;
 
     // Start is called before the first frame update
     void Start() {
+        StateManager.inStoryTutorial = true;
         player = Instantiate(player, stareAtMilkman, Quaternion.Euler(1.47f, -37f, 0));
         storyCamera = player.GetComponentInChildren<Camera>().gameObject;
         introStory1 = storiesTop[storyPosition];
         introStory2 = storiesBottom[storyPosition];
         Time.timeScale = 0;
-        PlayerHealth healthScript = player.GetComponent(typeof(PlayerHealth)) as PlayerHealth;
+        healthScript = player.GetComponent<PlayerHealth>();
         healthScript.enabled = false;
-        PlayerMovement moveScript = player.GetComponent(typeof(PlayerMovement)) as PlayerMovement;
+        PlayerMovement moveScript = player.GetComponent<PlayerMovement>();
         moveScript.enabled = false;
-        MouseLook lookScript = storyCamera.GetComponent(typeof(MouseLook)) as MouseLook;
-        lookScript.enabled = false;
+        mouseLook = storyCamera.GetComponent<MouseLook>();
+        mouseLook.enabled = false;
+        playerShoot = player.GetComponentInChildren<PlayerShoot>();
         foreach (GameObject target in targets) {
-            TargetBehavior behaviorScript = target.GetComponent(typeof(TargetBehavior)) as TargetBehavior;
+            TargetBehavior behaviorScript = target.GetComponent<TargetBehavior>();
             behaviorScript.story = this;
         }
     }
@@ -156,7 +161,7 @@ public class IntroStory : MonoBehaviour {
                     }
                     else if (storyPosition == 4) {
                         foreach (GameObject bot in bots) {
-                            EnemyShoot botScript = bot.GetComponent(typeof(EnemyShoot)) as EnemyShoot;
+                            EnemyShoot botScript = bot.GetComponent<EnemyShoot>();
                             botScript.enabled = false;
                         }
                         player.transform.position = stareAtMilkman;
@@ -170,6 +175,8 @@ public class IntroStory : MonoBehaviour {
                 }
                 else {
                     Destroy(player);
+                    StateManager.inStoryTutorial = false;
+                    Time.timeScale = 1;
                     SceneManager.LoadScene("Hub");
                 }
             }
@@ -178,7 +185,7 @@ public class IntroStory : MonoBehaviour {
         if (Input.GetKeyDown(Settings.weaponTwoKey)) {
             if (animationState == 4) {
                 foreach (GameObject target in targets) {
-                    TargetBehavior behaviorScript = target.GetComponent(typeof(TargetBehavior)) as TargetBehavior;
+                    TargetBehavior behaviorScript = target.GetComponent<TargetBehavior>();
                     behaviorScript.activateTarget();
                 }
                 weaponSwitched = true;
@@ -192,7 +199,6 @@ public class IntroStory : MonoBehaviour {
                 animationFrame++;
             }
             else if (animationFrame < 54) {
-                Debug.Log(animationState + " --  " + animationFrame);
                 milkman.transform.position += new Vector3(-0.25f, 0, -0.056f);
                 animationFrame++;
             }
@@ -220,12 +226,10 @@ public class IntroStory : MonoBehaviour {
             }
             else {
                 milkman.transform.rotation = Quaternion.Euler(new Vector3(9f, 216f, 0));
-                PlayerShoot shootScript = storyCamera.GetComponent(typeof(PlayerShoot)) as PlayerShoot;
-                shootScript.enabled = true;
-                MouseLook lookScript = storyCamera.GetComponent(typeof(MouseLook)) as MouseLook;
-                lookScript.enabled = true;
+                playerShoot.enabled = true;
+                mouseLook.enabled = true;
                 foreach (GameObject target in targets) {
-                    TargetBehavior behaviorScript = target.GetComponent(typeof(TargetBehavior)) as TargetBehavior;
+                    TargetBehavior behaviorScript = target.GetComponent<TargetBehavior>();
                     behaviorScript.activateTarget();
                 }
                 animationState++;
@@ -283,10 +287,10 @@ public class IntroStory : MonoBehaviour {
                 if (rotateCameraFrom.y > 180) {
                     rotateCameraFrom.y -= 360;
                 }
-                PlayerShoot shootScript = storyCamera.GetComponent(typeof(PlayerShoot)) as PlayerShoot;
-                shootScript.turnOff();
-                MouseLook lookScript = storyCamera.GetComponent(typeof(MouseLook)) as MouseLook;
-                lookScript.enabled = false;
+                mouseLook.enabled = false;
+                playerShoot.weapon.SetActive(false);
+                playerShoot.crossHair.enabled = false;
+                playerShoot.enabled = false;
             }
         }
     }

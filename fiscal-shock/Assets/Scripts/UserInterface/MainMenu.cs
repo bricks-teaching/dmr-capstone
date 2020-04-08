@@ -11,8 +11,11 @@ public class MainMenu : MonoBehaviour {
 
     void PlayClick() {
         Debug.Log("Starting game...");
-        SceneManager.LoadScene("Story");
-        Time.timeScale = 1;
+        if (StateManager.sawEntryTutorial) {
+            SceneManager.LoadScene("Hub");
+        } else {
+            SceneManager.LoadScene("Story");
+        }
     }
 
     void QuitClick() {
@@ -20,6 +23,4 @@ public class MainMenu : MonoBehaviour {
         Settings.saveSettings();
         Application.Quit();
     }
-
-    
 }
