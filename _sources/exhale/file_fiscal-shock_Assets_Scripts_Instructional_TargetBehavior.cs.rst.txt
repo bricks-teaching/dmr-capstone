@@ -1,0 +1,29 @@
+
+.. _file_fiscal-shock_Assets_Scripts_Instructional_TargetBehavior.cs:
+
+File TargetBehavior.cs
+======================
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``fiscal-shock/Assets/Scripts/Instructional/TargetBehavior.cs``)
+----------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+Classes
+-------
+
+
+- :ref:`exhale_class_classTargetBehavior`
+

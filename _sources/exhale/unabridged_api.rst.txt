@@ -313,6 +313,11 @@ Classes and Structs
 .. toctree::
    :maxdepth: 5
 
+   classIntroStory.rst
+
+.. toctree::
+   :maxdepth: 5
+
    classLoadingScreen.rst
 
 .. toctree::
@@ -409,6 +414,11 @@ Classes and Structs
    :maxdepth: 5
 
    classStateManager.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   classTargetBehavior.rst
 
 .. toctree::
    :maxdepth: 5

@@ -220,6 +220,11 @@ Files
 .. toctree::
    :maxdepth: 5
 
+   file_fiscal-shock_Assets_Scripts_Instructional_IntroStory.cs.rst
+
+.. toctree::
+   :maxdepth: 5
+
    file_fiscal-shock_Assets_Scripts_ProceduralGeneration_KillZone.cs.rst
 
 .. toctree::
@@ -341,6 +346,11 @@ Files
    :maxdepth: 5
 
    file_fiscal-shock_Assets_Scripts_Finance_StateManager.cs.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_fiscal-shock_Assets_Scripts_Instructional_TargetBehavior.cs.rst
 
 .. toctree::
    :maxdepth: 5
