@@ -19,8 +19,11 @@ public class PlayerShoot : MonoBehaviour {
     private ArrayList missiles = new ArrayList();
     private float screenX;
     private float screenY;
+    public bool loadAfterHolster = true;
     private WeaponStats currentWeaponStats;
     private FeedbackController feed;
+    public bool tutorial = true;
+
 
     public void Start() {
         feed = GameObject.FindGameObjectWithTag("HUD").GetComponent<FeedbackController>();
@@ -29,7 +32,12 @@ public class PlayerShoot : MonoBehaviour {
         crossHair = GameObject.FindGameObjectWithTag("Crosshair").GetComponentInChildren<RawImage>();
         fireSound = GetComponent<AudioSource>();
         crossHair.enabled = false;
+        Debug.Log("feed is " + feed);
         LoadWeapon();
+    }
+
+    public void resetFeed(){
+        feed = GameObject.FindGameObjectWithTag("HUD").GetComponent<FeedbackController>();
     }
 
     public void Update() {
@@ -70,12 +78,12 @@ public class PlayerShoot : MonoBehaviour {
 				}
                 if (rest) {
                     fireBullet(10 - currentWeaponStats.accuracy, currentWeaponStats.strength, currentWeaponStats.bulletPrefab, 0f, null);
-                    PlayerFinance.cashOnHand -= currentWeaponStats.bulletCost;
-                    feed.shoot(currentWeaponStats.bulletCost);
+                        PlayerFinance.cashOnHand -= currentWeaponStats.bulletCost;
+                    feed?.shoot(currentWeaponStats.bulletCost);
                 } else {
                     fireBullet(10 - currentWeaponStats.accuracy, currentWeaponStats.strength, currentWeaponStats.bulletPrefab, 0.09f, null);
                     PlayerFinance.cashOnHand -= currentWeaponStats.bulletCost;
-                    feed.shoot(currentWeaponStats.bulletCost);
+                    feed?.shoot(currentWeaponStats.bulletCost);
                 }
                 rest = !rest;
             }
@@ -94,7 +102,7 @@ public class PlayerShoot : MonoBehaviour {
                 }
                 fireBullet(10 - currentWeaponStats.accuracy, currentWeaponStats.strength, currentWeaponStats.bulletPrefab, 1, target);
                 PlayerFinance.cashOnHand -= currentWeaponStats.bulletCost;
-                feed.shoot(currentWeaponStats.bulletCost);
+                feed?.shoot(currentWeaponStats.bulletCost);
             }
         }
         // If player is currently holstering or drawing a weapon, alter weapon position to animate the process.
@@ -122,7 +130,11 @@ public class PlayerShoot : MonoBehaviour {
             if (animatedTime > 0.8f) {
                 animatedTime = 0f;
                 holsteringWeapon = false;
-                LoadWeapon();
+                if(loadAfterHolster){
+                    LoadWeapon();
+                } else {
+                    enabled = false;
+                }
             }
             animatedTime += Time.deltaTime;
         }
@@ -185,7 +197,7 @@ public class PlayerShoot : MonoBehaviour {
 
     public void HolsterWeapon() {
         // If weapon is already selected, do nothing
-        if (guns[slot] == weapon) {
+        if (guns[slot] == weapon && loadAfterHolster) {
             return;
         }
         holsteringWeapon = true;
@@ -196,4 +208,10 @@ public class PlayerShoot : MonoBehaviour {
     public void removeMissile(GameObject missile){
         missiles.Remove(missile);
     }
+
+    public void turnOff(){
+        loadAfterHolster = false;
+        HolsterWeapon();
+    }
+
 }
