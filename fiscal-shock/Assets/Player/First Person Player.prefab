@@ -128,7 +128,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 208130074384889237}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bfd0928dd05da484880f40a31a6baeea, type: 3}
   m_Name: 
@@ -153,6 +153,8 @@ MonoBehaviour:
   guns:
   - {fileID: 680203695531066187}
   - {fileID: 7563193525656378907}
+  loadAfterHolster: 1
+  tutorial: 1
 --- !u!82 &4429673032618852596
 AudioSource:
   m_ObjectHideFlags: 0
@@ -356,13 +358,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 208130074868200894}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff28d36656bbe4913865c00b668aff74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 208130074868200880}
-  ragdoll: {fileID: 0}
   speed: 11
   gravity: -50
   jumpBy: 3
@@ -382,7 +383,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 208130074868200894}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0898ccec5695ee40b02ad2f24298024, type: 3}
   m_Name: 

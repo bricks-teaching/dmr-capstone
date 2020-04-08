@@ -24,7 +24,6 @@ public class PlayerShoot : MonoBehaviour {
     private FeedbackController feed;
     public bool tutorial = true;
 
-
     public void Start() {
         feed = GameObject.FindGameObjectWithTag("HUD").GetComponent<FeedbackController>();
         screenX = Screen.width / 2;
@@ -32,7 +31,6 @@ public class PlayerShoot : MonoBehaviour {
         crossHair = GameObject.FindGameObjectWithTag("Crosshair").GetComponentInChildren<RawImage>();
         fireSound = GetComponent<AudioSource>();
         crossHair.enabled = false;
-        Debug.Log("feed is " + feed);
         LoadWeapon();
     }
 

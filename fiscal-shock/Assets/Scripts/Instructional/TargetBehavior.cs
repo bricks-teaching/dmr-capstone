@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TargetBehavior : MonoBehaviour
 {
@@ -28,7 +26,7 @@ public class TargetBehavior : MonoBehaviour
                     movingLeft = true;
                 }
                 moving = true;
-                speed = Random.value * 0.15f + .04f;
+                speed = Random.value * 0.05f + .04f;
             }
         }
         if(falling < 23){
