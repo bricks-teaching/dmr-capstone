@@ -77,7 +77,8 @@ public static class StateManager
     public static bool purchasedLauncher = DefaultState.purchasedLauncher;
 
     public static DungeonTypeEnum selectedDungeon { get; set; }
-    public static bool sawTutorial = false;
+    public static bool sawEntryTutorial = false;
+    public static bool inStoryTutorial = false;
 
     public static List<GameObject> singletons = new List<GameObject>();
     public static bool pauseAvailable = true;
@@ -176,7 +177,7 @@ public static class StateManager
         cashOnEntrance = DefaultState.cashOnEntrance;
         purchasedHose = DefaultState.purchasedHose;
         purchasedLauncher = DefaultState.purchasedLauncher;
-        sawTutorial = DefaultState.sawTutorial;
+        sawEntryTutorial = DefaultState.sawTutorial;
         singletons.Clear();
         pauseAvailable = DefaultState.pauseAvailable;
     }

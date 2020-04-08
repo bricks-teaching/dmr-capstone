@@ -2398,6 +2398,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3407069891469859235, guid: 0ac210650c364eddc80b05f53731b24d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.6999512
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ac210650c364eddc80b05f53731b24d, type: 3}
 --- !u!4 &5006512734939312490 stripped
@@ -2660,6 +2665,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7284600360118042493, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.g
+      value: 0.96640176
+      objectReference: {fileID: 0}
+    - target: {fileID: 7284600360118042493, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.b
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7284600360293930006, guid: 84799466cc8d9f321a88138ad2940097,
         type: 3}
       propertyPath: paymentSound
@@ -2672,33 +2687,33 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 3fa380f0406d07b01ab71650a7ee6d69, type: 3}
     - target: {fileID: 7284600360369221994, guid: 84799466cc8d9f321a88138ad2940097,
         type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 304.12
+      propertyPath: m_isRichText
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7284600360369221994, guid: 84799466cc8d9f321a88138ad2940097,
+    - target: {fileID: 7284600361090873456, guid: 84799466cc8d9f321a88138ad2940097,
         type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 132.56
+      propertyPath: m_Colors.m_HighlightedColor.g
+      value: 0.9647059
       objectReference: {fileID: 0}
-    - target: {fileID: 7284600360369221994, guid: 84799466cc8d9f321a88138ad2940097,
+    - target: {fileID: 7284600361090873456, guid: 84799466cc8d9f321a88138ad2940097,
         type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -569.4
+      propertyPath: m_Colors.m_HighlightedColor.b
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7284600360369221994, guid: 84799466cc8d9f321a88138ad2940097,
+    - target: {fileID: 7284600361427043572, guid: 84799466cc8d9f321a88138ad2940097,
         type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 371.3
+      propertyPath: m_isRichText
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7284600360369221995, guid: 84799466cc8d9f321a88138ad2940097,
+    - target: {fileID: 7284600361593140428, guid: 84799466cc8d9f321a88138ad2940097,
         type: 3}
-      propertyPath: m_fontSize
-      value: 60.65
+      propertyPath: m_isRichText
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7284600360369221995, guid: 84799466cc8d9f321a88138ad2940097,
+    - target: {fileID: 7284600361595241017, guid: 84799466cc8d9f321a88138ad2940097,
         type: 3}
-      propertyPath: m_textAlignment
-      value: 513
+      propertyPath: m_RichText
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84799466cc8d9f321a88138ad2940097, type: 3}

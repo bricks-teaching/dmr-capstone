@@ -14,6 +14,7 @@ public class DungeonEntry : MonoBehaviour {
     private AudioSource audioSource;
 
     void Start() {
+        Time.timeScale = 1;  // sorry but it won't restart in the hub rightly
         loadingScreen = GameObject.FindGameObjectWithTag("Loading Screen");
         loadScript = loadingScreen.GetComponent<LoadingScreen>();
         selectionScreen.enabled = false;
@@ -61,6 +62,10 @@ public class DungeonEntry : MonoBehaviour {
         if (isPlayerInTriggerZone) {
             textCanvas.enabled = true;
         }
+    }
+
+    public void selectDungeonStart(int value){
+        selectDungeon(value);
     }
 
     public void selectDungeon(int value) {

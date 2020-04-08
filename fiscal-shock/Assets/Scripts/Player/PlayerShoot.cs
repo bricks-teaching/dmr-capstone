@@ -18,8 +18,9 @@ public class PlayerShoot : MonoBehaviour {
     private int slot = 0;
     public List<GameObject> guns;
     public RawImage crossHair { get; private set; }
-    private float screenX;
-    private float screenY;
+    private float screenX => Settings.values.resolutionWidth / 2;
+    private float screenY => Settings.values.resolutionHeight / 2;
+    public bool loadAfterHolster = true;
     private WeaponStats currentWeaponStats;
     private FeedbackController feed;
     public LayerMask missileHomingTargetLayer;
@@ -28,28 +29,27 @@ public class PlayerShoot : MonoBehaviour {
 
     public void Start() {
         feed = GameObject.FindGameObjectWithTag("HUD").GetComponent<FeedbackController>();
-        screenX = Screen.width / 2;
-        screenY = Screen.height / 2;
         crossHair = GameObject.FindGameObjectWithTag("Crosshair").GetComponentInChildren<RawImage>();
         fireSound = GetComponentInChildren<AudioSource>();
         crossHair.enabled = false;
         LoadWeapon();
     }
 
+    public void resetFeed(){
+        feed = GameObject.FindGameObjectWithTag("HUD").GetComponent<FeedbackController>();
+    }
+
     public void Update() {
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Hub") {
+            return;
+        }
         if (Input.GetMouseButtonUp(0) && fireSound.isPlaying && wasFiringAuto) {
             wasFiringAuto = false;
             fireSound.Stop();
             fireSound.PlayOneShot(sprayStop);
         }
-        timeSinceLastShot += Time.deltaTime;
-        if (currentWeaponStats.showCrosshair && timeSinceLastShot >= currentWeaponStats.fireRate) {
-            crossHair.color = new Color(1f, 1f, 1f, 0.8f);
-        } else if (currentWeaponStats.showCrosshair) {
-            crossHair.color = new Color(1f, 1f, 1f, 0.2f);
-        }
         // Change weapon
-        if (Input.GetKeyDown(Settings.weaponOneKey) && StateManager.purchasedHose) {
+        if (Input.GetKeyDown(Settings.weaponOneKey) && (StateManager.purchasedHose || StateManager.inStoryTutorial)) {
             slot = 0;
             if (weapon != null) {
                 HolsterWeapon();
@@ -57,7 +57,7 @@ public class PlayerShoot : MonoBehaviour {
                 LoadWeapon();
             }
         }
-        if (Input.GetKeyDown(Settings.weaponTwoKey) && StateManager.purchasedLauncher) {
+        if (Input.GetKeyDown(Settings.weaponTwoKey) && (StateManager.purchasedLauncher || StateManager.inStoryTutorial)) {
             slot = 1;
             if (weapon != null) {
                 HolsterWeapon();
@@ -65,13 +65,26 @@ public class PlayerShoot : MonoBehaviour {
                 LoadWeapon();
             }
         }
-        if (weapon == null) {
+        if (weapon == null) {  // must check after weapon swaps
             return;
+        }
+        timeSinceLastShot += Time.deltaTime;
+        if (currentWeaponStats.showCrosshair && timeSinceLastShot >= currentWeaponStats.fireRate) {
+            crossHair.color = new Color(1f, 1f, 1f, 0.8f);
+        } else if (currentWeaponStats.showCrosshair) {
+            crossHair.color = new Color(1f, 1f, 1f, 0.2f);
+        }
+
+        timeSinceLastShot += Time.deltaTime;
+        if (currentWeaponStats.showCrosshair && timeSinceLastShot >= currentWeaponStats.fireRate) {
+            crossHair.color = new Color(1f, 1f, 1f, 0.8f);
+        } else if (currentWeaponStats.showCrosshair) {
+            crossHair.color = new Color(1f, 1f, 1f, 0.2f);
         }
 
         if (Time.timeScale > 0 && !weaponChanging && Input.GetMouseButton(0)) {  // Firing
             // Make sure player has enough money to fire
-            if (StateManager.cashOnHand < currentWeaponStats.bulletCost) {
+            if (!StateManager.inStoryTutorial && StateManager.cashOnHand < currentWeaponStats.bulletCost) {
                 if (Input.GetMouseButtonDown(0)) {  // otherwise, the sound is auto fired
                     fireSound.PlayOneShot(outOfAmmo, Settings.volume);
                 }
@@ -128,7 +141,11 @@ public class PlayerShoot : MonoBehaviour {
             if (animatedTime > 0.8f) {
                 animatedTime = 0f;
                 holsteringWeapon = false;
-                LoadWeapon();
+                if(loadAfterHolster){
+                    LoadWeapon();
+                } else {
+                    enabled = false;
+                }
             }
             animatedTime += Time.deltaTime;
         }
@@ -224,14 +241,14 @@ public class PlayerShoot : MonoBehaviour {
             }
         }
         StateManager.cashOnHand -= currentWeaponStats.bulletCost;
-        feed.shoot(currentWeaponStats.bulletCost);
+        feed?.shoot(currentWeaponStats.bulletCost);
     }
 
     public void LoadWeapon() {
-        if (slot == 0 && !StateManager.purchasedHose) {
+        if (slot == 0 && !StateManager.purchasedHose && !StateManager.inStoryTutorial) {
             return;
         }
-        if (slot == 1 && !StateManager.purchasedLauncher) {
+        if (slot == 1 && !StateManager.purchasedLauncher && !StateManager.inStoryTutorial) {
             return;
         }
         drawingWeapon = true;
@@ -245,7 +262,7 @@ public class PlayerShoot : MonoBehaviour {
 
     public void HolsterWeapon() {
         // If weapon is already selected, do nothing
-        if (guns[slot] == weapon) {
+        if (guns[slot] == weapon && loadAfterHolster) {
             return;
         }
         holsteringWeapon = true;

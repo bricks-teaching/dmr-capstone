@@ -22,7 +22,6 @@ public class EnemyHealth : MonoBehaviour {
     public GameObject stunEffect;
     private FeedbackController feed;
     private Rigidbody ragdoll;
-    private bool hitSoundPlaying;
 
     void Start() {
         feed = GameObject.FindGameObjectWithTag("HUD").GetComponent<FeedbackController>();
@@ -97,12 +96,6 @@ public class EnemyHealth : MonoBehaviour {
         explode.transform.rotation = transform.rotation;
         explode.transform.parent = gameObject.transform;
         StartCoroutine(explode.GetComponent<Explosion>().timeout());
-    }
-
-    private IEnumerable unlockHitSound() {
-        yield return new WaitForSeconds(hitSoundClip.length / 2);
-        hitSoundPlaying = false;
-        yield return null;
     }
 
     void OnCollisionEnter(Collision col) {

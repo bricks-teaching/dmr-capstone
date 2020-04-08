@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine;
@@ -10,7 +11,8 @@ using TMPro;
 public class LoadingScreen : MonoBehaviour {
     string nextScene = "Hub";
 
-    private TextMeshProUGUI loadingText;
+    public TextMeshProUGUI loadingText;
+    public TextMeshProUGUI clickText;
     public Slider progressBar;
     public static LoadingScreen loadScreenInstance { get; private set; }
     private AsyncOperation async;
@@ -21,11 +23,18 @@ public class LoadingScreen : MonoBehaviour {
     public TextMeshProUGUI percentText;
     public string previousScene { get; private set; }
 
+    private readonly string templeStory = "Hostile robots are excavating the Ruins of Tehamahouti, stealing every shiny object they can get their hands on. Clear out the robots before it becomes a total archaeological loss! Oh, and try not to die.";
+
+    private readonly string mineStory = "We have traced a cache of black market gold and gemstones to a series of mines. Naturally, BOTCORP is the culprit. Due to the CEO's affiliation and close ties with illegal markets, we believe that he is storing stolen artifacts for resale here, as well. Your job is the same as always: crush the bots. Our specialists will come in and take care of the rest.";
+
+    private readonly string defaultText = "Loading...";
+
     void Awake() {
         if (loadScreenInstance != null && loadScreenInstance != this) {
             Destroy(this.gameObject);
             return;
-        } else {
+        }
+        else {
             loadScreenInstance = this;
         }
         DontDestroyOnLoad(this.gameObject);
@@ -33,22 +42,32 @@ public class LoadingScreen : MonoBehaviour {
     }
 
     void Start() {
-        loadingText = GameObject.Find("LoadText").GetComponent<TextMeshProUGUI>();
         loadCamera.enabled = false;
+        loadingText.text = defaultText;
+        clickText.enabled = false;
     }
 
     void Update() {
         // If the new scene has started loading...
         if (async != null) {
             // ...then pulse the transparency of the loading text to let the player know that the computer is still working.
-            loadingText.color = new Color(loadingText.color.r, loadingText.color.g, loadingText.color.b, Mathf.PingPong(Time.time, 1));
-            // Unity loads to 90% and then activates stuff, so it gets "stuck" at 90%, nothing to do about it
             progressBar.value = Mathf.Clamp01(async.progress / 0.9f);
-            if (progressBar.value > 0.9f) {
+            if (progressBar.value > 0.9f && !clickText.enabled) {
                 progressFill.color = doneColor;
+                clickText.enabled = true;
             }
             percentText.text = $"{(int)(progressBar.value * 100)}%";
+            if (Input.GetMouseButtonDown(0) && async.progress > 0.8f) {
+                async.allowSceneActivation = true;
+                StartCoroutine(restartTime());
+            }
         }
+    }
+
+    private IEnumerator restartTime() {
+        yield return new WaitForSecondsRealtime(0.5f);
+        Time.timeScale = 1;
+        yield return null;
     }
 
     /// <summary>
@@ -69,7 +88,21 @@ public class LoadingScreen : MonoBehaviour {
         loadCamera.enabled = true;
         progressBar.value = 0;
         progressFill.color = loadingColor;
+        Time.timeScale = 0;
         async = SceneManager.LoadSceneAsync(nextScene);
+        switch (StateManager.selectedDungeon) {
+            case DungeonTypeEnum.Temple:
+                async.allowSceneActivation = false;
+                loadingText.text = templeStory;
+                break;
+            case DungeonTypeEnum.Mine:
+                async.allowSceneActivation = false;
+                loadingText.text = mineStory;
+                break;
+            default:
+                loadingText.text = defaultText;
+                break;
+        }
 
         while (!async.isDone) {
             yield return null;
@@ -78,5 +111,7 @@ public class LoadingScreen : MonoBehaviour {
         async = null;
         loadCamera.enabled = false;
         StateManager.pauseAvailable = true;
+        loadingText.text = defaultText;
+        clickText.enabled = false;
     }
 }
