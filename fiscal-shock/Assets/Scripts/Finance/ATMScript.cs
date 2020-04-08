@@ -157,6 +157,8 @@ public class ATMScript : MonoBehaviour {
             if (payDebt(amount, ID)) {
                 dialogText.text = "Thank you for your payment!";
                 audioS.PlayOneShot(paymentSound, Settings.volume);
+                paymentAmount.text = "";  // clear text field
+                paymentId.text = "";
             }
             else {
                 dialogText.text = "You don't have the money on you.";
@@ -176,6 +178,7 @@ public class ATMScript : MonoBehaviour {
             if (addDebt(amount, LoanType.Unsecured)) {
                 dialogText.text = "All set!";
                 audioS.PlayOneShot(paymentSound, Settings.volume);
+                textField.text = "";  // clear text field
             }
             else {
                 dialogText.text = "Hmm... I would suggest paying off previous debts first.";
@@ -194,6 +197,7 @@ public class ATMScript : MonoBehaviour {
             if (addDebt(amount, LoanType.Secured)) {
                 dialogText.text = "YOUR SOUL IS MINE! Erm, I mean... All Set!";
                 audioS.PlayOneShot(paymentSound, Settings.volume);
+                textField.text = "";  // clear text field
             }
             else {
                 dialogText.text = "Nope, declined.";

@@ -127,6 +127,8 @@ public class SharkScript : MonoBehaviour {
             if (payDebt(am, az)) {
                 dialogText.text = "'bout time.";
                 audioS.PlayOneShot(paymentSound, Settings.volume);
+                paymentAmount.text = "";  // clear text field
+                paymentId.text = "";
             }
             else {
                 dialogText.text = "Where'd you learn to count, bub?";
@@ -145,6 +147,7 @@ public class SharkScript : MonoBehaviour {
             if (addDebt(an)) {
                 dialogText.text = "I guess I could do you a favor. *snicker*";
                 audioS.PlayOneShot(paymentSound, Settings.volume);
+                textField.text = "";  // clear text field
             }
             else {
                 dialogText.text = "Do I look like an easy mark to you?";

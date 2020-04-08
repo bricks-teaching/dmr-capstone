@@ -2388,6 +2388,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3407069891469859235, guid: 0ac210650c364eddc80b05f53731b24d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.6999512
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ac210650c364eddc80b05f53731b24d, type: 3}
 --- !u!4 &5006512734939312490 stripped
@@ -2458,20 +2463,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3732291387043160752, guid: 80c269370517631b786b88b234882b1c,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4512086404360708426, guid: 80c269370517631b786b88b234882b1c,
         type: 3}
       propertyPath: m_Name
       value: Loan Shark
-      objectReference: {fileID: 0}
-    - target: {fileID: 5602420468938309236, guid: 80c269370517631b786b88b234882b1c,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80c269370517631b786b88b234882b1c, type: 3}
@@ -2560,21 +2555,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 890536646}
     m_Modifications:
-    - target: {fileID: 1975974028840901186, guid: 84799466cc8d9f321a88138ad2940097,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4251745424732073394, guid: 84799466cc8d9f321a88138ad2940097,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385689623530712043, guid: 84799466cc8d9f321a88138ad2940097,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7284600359687109890, guid: 84799466cc8d9f321a88138ad2940097,
         type: 3}
       propertyPath: m_Name
@@ -2635,35 +2615,45 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7284600360369221994, guid: 84799466cc8d9f321a88138ad2940097,
+    - target: {fileID: 7284600359696459810, guid: 84799466cc8d9f321a88138ad2940097,
         type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 304.12
+      propertyPath: m_isRichText
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7284600360369221994, guid: 84799466cc8d9f321a88138ad2940097,
+    - target: {fileID: 7284600360118042493, guid: 84799466cc8d9f321a88138ad2940097,
         type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 132.56
+      propertyPath: m_Colors.m_HighlightedColor.g
+      value: 0.96640176
       objectReference: {fileID: 0}
-    - target: {fileID: 7284600360369221994, guid: 84799466cc8d9f321a88138ad2940097,
+    - target: {fileID: 7284600360118042493, guid: 84799466cc8d9f321a88138ad2940097,
         type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -569.4
+      propertyPath: m_Colors.m_HighlightedColor.b
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7284600360369221994, guid: 84799466cc8d9f321a88138ad2940097,
+    - target: {fileID: 7284600361090873456, guid: 84799466cc8d9f321a88138ad2940097,
         type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 371.3
+      propertyPath: m_Colors.m_HighlightedColor.g
+      value: 0.9647059
       objectReference: {fileID: 0}
-    - target: {fileID: 7284600360369221995, guid: 84799466cc8d9f321a88138ad2940097,
+    - target: {fileID: 7284600361090873456, guid: 84799466cc8d9f321a88138ad2940097,
         type: 3}
-      propertyPath: m_fontSize
-      value: 60.65
+      propertyPath: m_Colors.m_HighlightedColor.b
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7284600360369221995, guid: 84799466cc8d9f321a88138ad2940097,
+    - target: {fileID: 7284600361427043572, guid: 84799466cc8d9f321a88138ad2940097,
         type: 3}
-      propertyPath: m_textAlignment
-      value: 513
+      propertyPath: m_isRichText
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7284600361593140428, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_isRichText
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7284600361595241017, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_RichText
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84799466cc8d9f321a88138ad2940097, type: 3}

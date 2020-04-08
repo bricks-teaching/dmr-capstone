@@ -116,13 +116,12 @@ public class InGameMenu : MonoBehaviour {
             return;
         }
         // Hide pause menus for screenshots
-        if (Input.GetKeyDown(Settings.hidePauseMenuKey)) {
+        if (Input.GetKeyDown(Settings.hidePauseMenuKey) && StateManager.pauseAvailable) {
             disableAllPanels();
             if (Time.timeScale > 0) {  // getting bugged in the pause menu lately
                 background.SetActive(false);
                 pauseText.text = "";
                 Settings.mutexLockCursorState(this);
-                StateManager.pauseAvailable = true;
             }
             return;
         }
