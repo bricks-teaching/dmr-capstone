@@ -19,6 +19,13 @@ public class PlayerHealth : MonoBehaviour {
         }
     }
 
+    public void resetVignette(){
+        if (hitVignette == null) {
+            hitVignette = GameObject.FindGameObjectWithTag("Player Hit Vignette");
+            hitVignette.SetActive(false);
+        }
+    }
+
     void OnCollisionEnter(Collision col) {
         if (col.gameObject.tag == "Enemy Projectile") {
             BulletBehavior bullet = col.gameObject.GetComponent<BulletBehavior>();

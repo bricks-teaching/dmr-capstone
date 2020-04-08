@@ -690,6 +690,26 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1791185677, guid: 3df1f54d1485f5354891126c61ba8d15, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1791185677, guid: 3df1f54d1485f5354891126c61ba8d15, type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1791185677, guid: 3df1f54d1485f5354891126c61ba8d15, type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1791185677, guid: 3df1f54d1485f5354891126c61ba8d15, type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1791185677, guid: 3df1f54d1485f5354891126c61ba8d15, type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8457115162114266724, guid: 3df1f54d1485f5354891126c61ba8d15,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2463,10 +2483,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3732291387043160752, guid: 80c269370517631b786b88b234882b1c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4512086404360708426, guid: 80c269370517631b786b88b234882b1c,
         type: 3}
       propertyPath: m_Name
       value: Loan Shark
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602420468938309236, guid: 80c269370517631b786b88b234882b1c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80c269370517631b786b88b234882b1c, type: 3}
@@ -2555,6 +2585,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 890536646}
     m_Modifications:
+    - target: {fileID: 1975974028840901186, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4251745424732073394, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6385689623530712043, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7284600359687109890, guid: 84799466cc8d9f321a88138ad2940097,
         type: 3}
       propertyPath: m_Name

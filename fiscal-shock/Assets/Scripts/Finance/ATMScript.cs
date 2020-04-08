@@ -46,7 +46,7 @@ public class ATMScript : MonoBehaviour {
     void Start() {
         audioS = GetComponent<AudioSource>();
         bankPanel.SetActive(false);
-        if (!StateManager.sawTutorial) {  // implies this is the first visit to town
+        if (!StateManager.sawEntryTutorial) {  // implies this is the first visit to town
             addDebt(2000.0f, LoanType.Unsecured);
             StateManager.cashOnHand = 900f;
         }

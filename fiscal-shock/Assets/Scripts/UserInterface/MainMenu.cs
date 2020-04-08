@@ -9,8 +9,11 @@ public class MainMenu : MonoBehaviour {
 
     void PlayClick() {
         Debug.Log("Starting game...");
-        SceneManager.LoadScene("Hub");
-        Time.timeScale = 1;
+        if (StateManager.sawEntryTutorial) {
+            SceneManager.LoadScene("Hub");
+        } else {
+            SceneManager.LoadScene("Story");
+        }
     }
 
     void QuitClick() {

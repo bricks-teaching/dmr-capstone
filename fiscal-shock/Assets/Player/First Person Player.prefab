@@ -143,7 +143,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 208130074384889237}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c79acededf8eca14a978f3c4b82b9a1a, type: 3}
   m_Name: 
@@ -154,6 +154,7 @@ MonoBehaviour:
   guns:
   - {fileID: 680203695531066187}
   - {fileID: 6958153899972218731}
+  loadAfterHolster: 1
   missileHomingTargetLayer:
     serializedVersion: 2
     m_Bits: 1024
@@ -474,7 +475,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6489339580941380666}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0

@@ -23,12 +23,13 @@ namespace FiscalShock.Procedural {
 
         private void OnTriggerEnter(Collider collider) {
             if (collider.gameObject.tag == "Player") {
+                StateManager.selectedDungeon = (DungeonTypeEnum)(-1);
                 GameObject player = collider.gameObject;
                 SpawnPoint spawner = GameObject.FindGameObjectWithTag("Spawn Point").GetComponent<SpawnPoint>();
 
                 // Disable shoot script, since player is entering town
                 PlayerShoot shootScript = player.GetComponentInChildren<PlayerShoot>();
-                shootScript.weapon.SetActive(false);
+                shootScript.weapon?.SetActive(false);
                 shootScript.crossHair.enabled = false;
                 shootScript.enabled = false;
                 player.GetComponentInChildren<Light>().intensity = 0;
