@@ -160,13 +160,13 @@ public class ATMScript : MonoBehaviour {
             }
             else {
                 dialogText.text = "You don't have the money on you.";
-                audioS.PlayOneShot(failureSound, Settings.volume * 2.5f);
+                audioS.PlayOneShot(failureSound, Settings.volume);
             }
         }
         catch (System.Exception e) {
             Debug.LogWarning($"{e.Message}");
             dialogText.text = "I'm afraid I don't understand what you're trying to do.";
-            audioS.PlayOneShot(failureSound, Settings.volume * 2.5f);
+            audioS.PlayOneShot(failureSound, Settings.volume);
         }
     }
 
@@ -179,13 +179,13 @@ public class ATMScript : MonoBehaviour {
             }
             else {
                 dialogText.text = "Hmm... I would suggest paying off previous debts first.";
-                audioS.PlayOneShot(failureSound, Settings.volume * 2.5f);
+                audioS.PlayOneShot(failureSound, Settings.volume);
             }
         }
         catch (System.Exception e) {
             Debug.LogWarning($"{e.Message}");
             dialogText.text = "Perhaps you meant to give me a number?";
-            audioS.PlayOneShot(failureSound, Settings.volume * 2.5f);
+            audioS.PlayOneShot(failureSound, Settings.volume);
         }
     }
     public void addSecLoan(TMP_InputField textField) {
@@ -197,13 +197,13 @@ public class ATMScript : MonoBehaviour {
             }
             else {
                 dialogText.text = "Nope, declined.";
-                audioS.PlayOneShot(failureSound, Settings.volume * 2.5f);
+                audioS.PlayOneShot(failureSound, Settings.volume);
             }
         }
         catch (System.Exception e) {
             Debug.LogWarning($"{e.Message}");
             dialogText.text = "I apologize for the confusion. I can only accept amounts in base ten.";
-            audioS.PlayOneShot(failureSound, Settings.volume * 2.5f);
+            audioS.PlayOneShot(failureSound, Settings.volume);
         }
     }
 

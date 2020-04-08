@@ -323,6 +323,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: -0.71925
       objectReference: {fileID: 0}
+    - target: {fileID: 2723047503633402695, guid: 555e6f32b7462447488a181ace1f827a,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 4fc9c819035193263b8c2bb33c2e1d16, type: 3}
     - target: {fileID: 2723047503650963889, guid: 555e6f32b7462447488a181ace1f827a,
         type: 3}
       propertyPath: m_AnchoredPosition.x

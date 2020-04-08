@@ -38,7 +38,7 @@ public class DungeonEntry : MonoBehaviour {
         if (isPlayerInTriggerZone) {
             if (Input.GetKeyDown(Settings.interactKey)) {
                 if (!(StateManager.purchasedHose || StateManager.purchasedLauncher)) {
-                    audioSource.PlayOneShot(bummer, Settings.volume * 3f);
+                    audioSource.PlayOneShot(bummer, Settings.volume);
                     texto.text = "It's dangerous to go out alone (and unarmed).";
                     return;
                 }

@@ -85,7 +85,7 @@ public class ShopScript : MonoBehaviour
             audioS.PlayOneShot(failureSound, Settings.volume);
         } else {
             dialogText.text = "You sure you have enough there, pal? I ain't running a charity here...";
-            audioS.PlayOneShot(failureSound, Settings.volume * 2.5f);
+            audioS.PlayOneShot(failureSound, Settings.volume);
         }
     }
 
@@ -96,10 +96,10 @@ public class ShopScript : MonoBehaviour
             audioS.PlayOneShot(paymentSound, Settings.volume);
         } else if (StateManager.purchasedLauncher) {
             dialogText.text = "Sorry, man, out of stock. Good ol' Mr. Popper came by earlier.";
-            audioS.PlayOneShot(failureSound, Settings.volume * 2.5f);
+            audioS.PlayOneShot(failureSound, Settings.volume);
         } else {
             dialogText.text = "I think you are a bit short today. Go scrap some bots and come back.";
-            audioS.PlayOneShot(failureSound, Settings.volume * 2.5f);
+            audioS.PlayOneShot(failureSound, Settings.volume);
         }
     }
 

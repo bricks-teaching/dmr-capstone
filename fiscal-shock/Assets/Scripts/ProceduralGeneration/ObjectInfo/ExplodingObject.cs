@@ -95,7 +95,7 @@ public class ExplodingObject : MonoBehaviour {
         Destroy(light, 1f);
 
         // Play sound
-        aso.PlayOneShot(explosionNoise, 3 * Settings.volume);
+        aso.PlayOneShot(explosionNoise, Settings.volume);
         Destroy(gameObject, 2f);
     }
 }

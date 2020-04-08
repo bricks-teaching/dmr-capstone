@@ -130,13 +130,13 @@ public class SharkScript : MonoBehaviour {
             }
             else {
                 dialogText.text = "Where'd you learn to count, bub?";
-                audioS.PlayOneShot(failureSound, Settings.volume * 2.5f);
+                audioS.PlayOneShot(failureSound, Settings.volume);
             }
         }
         catch (System.Exception e) {
             Debug.LogWarning($"{e.Message}");
             dialogText.text = "Don't waste my time with nonsense, kid.";
-            audioS.PlayOneShot(failureSound, Settings.volume * 2.5f);
+            audioS.PlayOneShot(failureSound, Settings.volume);
         }
     }
     public void addLoan(TMP_InputField textField) {
@@ -148,13 +148,13 @@ public class SharkScript : MonoBehaviour {
             }
             else {
                 dialogText.text = "Do I look like an easy mark to you?";
-                audioS.PlayOneShot(failureSound, Settings.volume * 2.5f);
+                audioS.PlayOneShot(failureSound, Settings.volume);
             }
         }
         catch (System.Exception e) {
             Debug.LogWarning($"{e.Message}");
             dialogText.text = "You some kinda wiseguy?";
-            audioS.PlayOneShot(failureSound, Settings.volume * 2.5f);
+            audioS.PlayOneShot(failureSound, Settings.volume);
         }
     }
 

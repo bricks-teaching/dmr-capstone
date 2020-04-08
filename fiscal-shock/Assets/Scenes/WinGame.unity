@@ -410,6 +410,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8173577444552128766, guid: e0cc603a2faf05e8c8647da6f8987260,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 9c116786789a03188b3768d36818827d, type: 3}
     - target: {fileID: 8173577444554745852, guid: e0cc603a2faf05e8c8647da6f8987260,
         type: 3}
       propertyPath: m_margin.x
