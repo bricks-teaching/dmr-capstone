@@ -60,7 +60,7 @@ public class IntroStory : MonoBehaviour {
     private PlayerShoot playerShoot;
     private MouseLook mouseLook;
 
-    void Awake() {
+    void Start() {
         StateManager.inStoryTutorial = true;
         player = Instantiate(player, stareAtMilkman, Quaternion.Euler(1.47f, -37f, 0));
         storyCamera = player.GetComponentInChildren<Camera>().gameObject;

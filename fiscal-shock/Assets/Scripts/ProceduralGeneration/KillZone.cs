@@ -12,6 +12,7 @@ namespace FiscalShock.Procedural {
 
         private void OnTriggerEnter(Collider collider) {
             if (collider.gameObject.tag == "Player") {
+                StateManager.playerDead = true;
                 GameObject musicPlayer = GameObject.Find("DungeonMusic");
                 Destroy(musicPlayer);
                 StateManager.startNewDay();

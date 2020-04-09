@@ -22,12 +22,25 @@ public class LoadingScreen : MonoBehaviour {
     public Image progressFill;
     public TextMeshProUGUI percentText;
     public string previousScene { get; private set; }
+    public GameObject tombstone;
 
     private readonly string templeStory = "Hostile robots are excavating the Ruins of Tehamahouti, stealing every shiny object they can get their hands on. Clear out the robots before it becomes a total archaeological loss! Oh, and try not to die.";
 
     private readonly string mineStory = "We have traced a cache of black market gold and gemstones to a series of mines. Naturally, BOTCORP is the culprit. Due to the CEO's affiliation and close ties with illegal markets, we believe that he is storing stolen artifacts for resale here, as well. Your job is the same as always: crush the bots. Our specialists will come in and take care of the rest.";
 
     private readonly string defaultText = "Loading...";
+
+    private readonly string[] eulogies = {
+        "Suffocated under a pile of loans.",
+        "peperony and chease",
+        "Couldn't pay loans with charm and good looks.",
+        "Can't pay off a payday loan if you don't get paid.",
+        "Can't pay off a payday loan if you don't survive 'til payday.",
+        "Bury me with my money!",
+        "YOU DIED",
+        "Their financial plan didn't make much cents.",
+        "Dead broke"
+    };
 
     void Awake() {
         if (loadScreenInstance != null && loadScreenInstance != this) {
@@ -60,6 +73,7 @@ public class LoadingScreen : MonoBehaviour {
             if (Input.GetMouseButtonDown(0) && async.progress > 0.8f) {
                 async.allowSceneActivation = true;
                 StartCoroutine(restartTime());
+                clickText.text = "Please wait...";
             }
         }
     }
@@ -85,6 +99,7 @@ public class LoadingScreen : MonoBehaviour {
     }
 
     private IEnumerator<WaitForSeconds> loadScene() {
+        tombstone.SetActive(false);
         loadCamera.enabled = true;
         progressBar.value = 0;
         progressFill.color = loadingColor;
@@ -103,6 +118,11 @@ public class LoadingScreen : MonoBehaviour {
                 loadingText.text = defaultText;
                 break;
         }
+        if (StateManager.playerDead) {
+            loadingText.text = "";
+            tombstone.GetComponentInChildren<TextMeshProUGUI>().text = $"{eulogies[Random.Range(0, eulogies.Length)]}";
+            tombstone.SetActive(true);
+        }
 
         while (!async.isDone) {
             yield return null;
@@ -113,5 +133,6 @@ public class LoadingScreen : MonoBehaviour {
         StateManager.pauseAvailable = true;
         loadingText.text = defaultText;
         clickText.enabled = false;
+        clickText.text = "Press the Left Mouse Button to continue.";
     }
 }

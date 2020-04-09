@@ -95,19 +95,20 @@ License: [TurboSquid Royalty Free License](https://blog.turbosquid.com/royalty-f
 # Sound
 Audio assets are spread across the project.
 
-1. [Bullet firing and impact sounds](#bullet-firing-and-impact-sounds)
+1. [Bullet firing and impact noise](#bullet-firing-and-impact-noise)
 1. [Cash payment failure](#cash-payment-failure-sound)
 1. [Cash payment succes](#cash-payment-success-sound)
-1. [Dry-firing (out of ammo)](#dry-firing)
+1. [Dry-firing](#dry-firing)
 1. [Dungeon and hub themes](#dungeon-and-hub-themes)
 1. [Explosion noise](#explosion-noise)
 1. [Main menu and win themes](#main-menu-and-win-themes)
 1. [Pause and lose themes](#pause-and-lose-themes)
+1. [Spray](#spray)
 1. [Squish (fire rate limit)](#squish)
 
 ----
 
-## Bullet firing and impact sounds
+## Bullet firing and impact noise
 *TBD*
 
 ----
@@ -170,6 +171,15 @@ License: [GDM Pro Licence](https://www.gamedevmarket.net/terms-conditions/#pro-l
 Author: Tim Beek
 
 License: [GDM Pro Licence](https://www.gamedevmarket.net/terms-conditions/#pro-licence)
+
+----
+
+## Spray
+Originals: [1](https://freesound.org/people/smokenweewALT/sounds/261454/), [2](https://freesound.org/people/smokenweewALT/sounds/261455/), [3](https://freesound.org/people/smokenweewALT/sounds/261459/)
+
+Author: smokenweewALT
+
+License: [CC-BY 3.0](http://creativecommons.org/licenses/by/3.0/)
 
 ----
 

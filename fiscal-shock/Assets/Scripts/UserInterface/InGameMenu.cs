@@ -106,6 +106,9 @@ public class InGameMenu : MonoBehaviour {
     /// Pause menu event handling.
     /// </summary>
     void Update() {
+        if (StateManager.playerDead || StateManager.playerWon) {
+            return;
+        }
         // Was the game already paused or is the background image up, implying the game should be paused, but it's running and the menu is up?
         if (Input.GetKeyDown(Settings.pauseKey) && (Time.timeScale == 0 || background.activeSelf)) {
             disableAllPanels();

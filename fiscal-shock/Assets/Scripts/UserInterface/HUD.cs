@@ -45,8 +45,8 @@ public class HUD : MonoBehaviour
     /// concern.
     /// </summary>
     void Update() {
-        pocketChange.text = "" + StateManager.cashOnHand.ToString("N2");
-        debtTracker.text = "DEBT: -" + StateManager.totalDebt.ToString("N2");
+        pocketChange.text = $"{StateManager.cashOnHand.ToString("N2")}";
+        debtTracker.text = $"DEBT: {(-StateManager.totalDebt).ToString("N2")}";
 
         if (Settings.values.showFPS && Time.timeScale > 0) {
             ticksSinceLastUpdate += Time.deltaTime;

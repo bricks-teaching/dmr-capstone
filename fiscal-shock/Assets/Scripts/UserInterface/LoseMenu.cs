@@ -12,11 +12,13 @@ public class LoseMenu : MonoBehaviour {
 
     public void RetryClick() {
         GameObject.FindGameObjectWithTag("Spawn Point").GetComponent<SpawnPoint>().resetToHubDefaults();
+        StateManager.playerDead = false;
         loadScript.startLoadingScreen("Hub");
     }
 
     public void BankruptClick() {
         Debug.Log("Quit");
+        StateManager.playerDead = false;
         Settings.quitToDesktop();
     }
 }

@@ -690,26 +690,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1791185677, guid: 3df1f54d1485f5354891126c61ba8d15, type: 3}
-      propertyPath: m_text
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1791185677, guid: 3df1f54d1485f5354891126c61ba8d15, type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1791185677, guid: 3df1f54d1485f5354891126c61ba8d15, type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1791185677, guid: 3df1f54d1485f5354891126c61ba8d15, type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1791185677, guid: 3df1f54d1485f5354891126c61ba8d15, type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8457115162114266724, guid: 3df1f54d1485f5354891126c61ba8d15,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2348,6 +2328,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 890536646}
     m_Modifications:
+    - target: {fileID: 635694700562893588, guid: 0ac210650c364eddc80b05f53731b24d,
+        type: 3}
+      propertyPath: paymentSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 1f18748db0caa0558bb6abb5b0bfe3a7, type: 3}
+    - target: {fileID: 635694700562893588, guid: 0ac210650c364eddc80b05f53731b24d,
+        type: 3}
+      propertyPath: failureSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 3fa380f0406d07b01ab71650a7ee6d69, type: 3}
     - target: {fileID: 635694700738545108, guid: 0ac210650c364eddc80b05f53731b24d,
         type: 3}
       propertyPath: m_Name
@@ -2498,6 +2488,16 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5915755872642627479, guid: 80c269370517631b786b88b234882b1c,
+        type: 3}
+      propertyPath: paymentSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 1f18748db0caa0558bb6abb5b0bfe3a7, type: 3}
+    - target: {fileID: 5915755872642627479, guid: 80c269370517631b786b88b234882b1c,
+        type: 3}
+      propertyPath: failureSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 3fa380f0406d07b01ab71650a7ee6d69, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80c269370517631b786b88b234882b1c, type: 3}
 --- !u!1001 &6129617710537223116
@@ -2576,6 +2576,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DungeonEntrance
       objectReference: {fileID: 0}
+    - target: {fileID: 6129617709850862141, guid: 95cdbefde0a2ddd2ca6a9871cfe3f6a0,
+        type: 3}
+      propertyPath: bummer
+      value: 
+      objectReference: {fileID: 8300000, guid: 3fa380f0406d07b01ab71650a7ee6d69, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95cdbefde0a2ddd2ca6a9871cfe3f6a0, type: 3}
 --- !u!1001 &7284600360293930008
@@ -2660,11 +2665,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7284600359696459810, guid: 84799466cc8d9f321a88138ad2940097,
-        type: 3}
-      propertyPath: m_isRichText
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7284600360118042493, guid: 84799466cc8d9f321a88138ad2940097,
         type: 3}
       propertyPath: m_Colors.m_HighlightedColor.g
@@ -2674,6 +2674,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Colors.m_HighlightedColor.b
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7284600360293930006, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: paymentSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 1f18748db0caa0558bb6abb5b0bfe3a7, type: 3}
+    - target: {fileID: 7284600360293930006, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: failureSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 3fa380f0406d07b01ab71650a7ee6d69, type: 3}
+    - target: {fileID: 7284600360369221994, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_isRichText
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7284600361090873456, guid: 84799466cc8d9f321a88138ad2940097,
         type: 3}

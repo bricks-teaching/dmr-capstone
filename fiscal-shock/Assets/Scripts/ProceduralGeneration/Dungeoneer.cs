@@ -397,7 +397,7 @@ namespace FiscalShock.Procedural {
                 // Give player all weapons when starting in dungeon, since that implies it's a dev starting in the editor
                 StateManager.purchasedHose = true;
                 StateManager.purchasedLauncher = true;
-                StateManager.cashOnHand = 1000f;
+                StateManager.cashOnHand = 100f;
             }
 
             // Attach any other stuff to player here

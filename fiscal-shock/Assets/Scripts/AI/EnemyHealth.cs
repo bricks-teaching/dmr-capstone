@@ -84,7 +84,6 @@ public class EnemyHealth : MonoBehaviour {
     }
 
     public void showDamageExplosion(Queue<GameObject> queue, float volumeMultiplier = 0.65f) {
-        // Debug.Log("Damage: " + bullet.damage + " points. Bot has " + totalHealth + " health points remaining");
         // Play sound effect and explosion particle system
         if (queue == null) {
             queue = bigExplosions;
