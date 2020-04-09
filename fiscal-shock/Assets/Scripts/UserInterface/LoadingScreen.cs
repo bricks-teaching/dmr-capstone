@@ -70,7 +70,7 @@ public class LoadingScreen : MonoBehaviour {
                 clickText.enabled = true;
             }
             percentText.text = $"{(int)(progressBar.value * 100)}%";
-            if (Input.GetMouseButtonDown(0) && async.progress > 0.8f) {
+            if (Input.GetMouseButtonDown(0) && (async.progress > 0.8f || nextScene != "Dungeon")) {
                 async.allowSceneActivation = true;
                 StartCoroutine(restartTime());
                 clickText.text = "Please wait...";
