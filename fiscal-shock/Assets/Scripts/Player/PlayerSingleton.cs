@@ -15,5 +15,6 @@ public class PlayerSingleton : MonoBehaviour {
              playerInstance = this;
          }
          DontDestroyOnLoad(this.gameObject);
+         StateManager.singletons.Add(this.gameObject);
      }
 }

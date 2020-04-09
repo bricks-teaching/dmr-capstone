@@ -5,8 +5,6 @@ using TMPro;
 public class DungeonEntry : MonoBehaviour {
     private bool isPlayerInTriggerZone = false;
     private GameObject loadingScreen;
-    private GameObject player;
-    private GameObject camera;
     private LoadingScreen loadScript;
     public Canvas textCanvas;
     public Canvas selectionScreen;
@@ -16,16 +14,17 @@ public class DungeonEntry : MonoBehaviour {
     private AudioSource audioSource;
 
     void Start() {
-        loadingScreen = GameObject.Find("LoadingScreen");
-        loadScript = (LoadingScreen)loadingScreen.GetComponent<LoadingScreen>();
+        Time.timeScale = 1;  // sorry but it won't restart in the hub rightly
+        loadingScreen = GameObject.FindGameObjectWithTag("Loading Screen");
+        loadScript = loadingScreen.GetComponent<LoadingScreen>();
         selectionScreen.enabled = false;
-        originalText = texto.text;
         audioSource = GameObject.FindObjectOfType<AudioSource>();
     }
 
     void OnTriggerEnter(Collider col) {
         if (col.gameObject.tag == "Player") {
             isPlayerInTriggerZone = true;
+            originalText = texto.text;
         }
     }
 
@@ -37,21 +36,29 @@ public class DungeonEntry : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        if (isPlayerInTriggerZone && Input.GetKeyDown(Settings.interactKey)) {
-            if(!(StateManager.purchasedHose || StateManager.purchasedLauncher) ) {
-                audioSource.PlayOneShot(bummer, Settings.volume * 3f);
-                texto.text = "It's dangerous to go out alone (and unarmed).";
-                return;
+        if (isPlayerInTriggerZone) {
+            if (Input.GetKeyDown(Settings.interactKey)) {
+                if (!(StateManager.purchasedHose || StateManager.purchasedLauncher)) {
+                    audioSource.PlayOneShot(bummer, Settings.volume);
+                    texto.text = "It's dangerous to go out alone (and unarmed).";
+                    return;
+                }
+                StateManager.pauseAvailable = false;
+                Settings.forceUnlockCursorState();
+                textCanvas.enabled = false;
+                selectionScreen.enabled = true;
+                StateManager.pauseAvailable = false;
             }
-            Settings.forceUnlockCursorState();
-            textCanvas.enabled = false;
-            selectionScreen.enabled = true;
+            if (Input.GetKeyDown(Settings.pauseKey)) {
+                closeSelectionScreen();
+            }
         }
     }
 
     public void closeSelectionScreen() {
         selectionScreen.enabled = false;
         Settings.mutexLockCursorState(this);
+        StateManager.pauseAvailable = true;
         if (isPlayerInTriggerZone) {
             textCanvas.enabled = true;
         }
@@ -64,9 +71,10 @@ public class DungeonEntry : MonoBehaviour {
     public void selectDungeon(int value) {
         selectionScreen.enabled = false;
         StateManager.selectedDungeon = (DungeonTypeEnum)value;
-        StateManager.cashOnEntrance = PlayerFinance.cashOnHand;
+        StateManager.cashOnEntrance = StateManager.cashOnHand;
         StateManager.timesEntered++;
         Settings.forceLockCursorState();
+        StartCoroutine(StateManager.makePauseAvailableAgain());
         loadScript.startLoadingScreen("Dungeon");
     }
 }

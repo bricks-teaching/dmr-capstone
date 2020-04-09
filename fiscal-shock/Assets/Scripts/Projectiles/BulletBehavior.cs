@@ -24,6 +24,7 @@ public class BulletBehavior : MonoBehaviour
     public PlayerShoot player { get; set; }
     public bool hitSomething { get; private set; }
     public bool grounded { get; private set; }
+    private Vector3 ricochetDirection;
 
     public void OnEnable() {
         rb.velocity = transform.forward * bulletSpeed;
@@ -44,10 +45,14 @@ public class BulletBehavior : MonoBehaviour
             return;
         } else if (col.gameObject.layer == LayerMask.NameToLayer("Ground")) {
             grounded = true;
+        } else if (col.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
+            Vector3 norm = col.GetContact(0).normal;
+            ricochetDirection = Vector3.Reflect(transform.position, norm * 20).normalized;
+            target = null;
         }
-        if (gameObject.tag != "Enemy Projectile") {  // those aren't pooled... yet
+        if (gameObject.tag == "Bullet") {
             transform.gameObject.SetActive(false);
-        } else {
+        } else if (gameObject.tag == "Enemy Projectile") {
             Destroy(gameObject);
         }
     }
@@ -61,6 +66,9 @@ public class BulletBehavior : MonoBehaviour
     void Update() {
         if (target != null && !hitSomething) {
             rb.velocity = (target.TransformPoint(localizedTarget) - transform.position).normalized * bulletSpeed;
+        }
+        if (target != null && hitSomething && !grounded) {
+            rb.velocity = ricochetDirection * bulletSpeed;
         }
     }
 }

@@ -15,5 +15,6 @@ public class SeamlessMusicPlayer : MonoBehaviour {
              musicInstance = this;
          }
          DontDestroyOnLoad(this.gameObject);
+         StateManager.singletons.Add(this.gameObject);
      }
 }

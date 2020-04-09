@@ -6,16 +6,17 @@ namespace FiscalShock.Procedural {
         private LoadingScreen loadScript;
 
         private void Start() {
-            loadingScreen = GameObject.Find("LoadingScreen");
-            loadScript = (LoadingScreen)loadingScreen.GetComponent<LoadingScreen>();
+            loadingScreen = GameObject.FindGameObjectWithTag("Loading Screen");
+            loadScript = loadingScreen.GetComponent<LoadingScreen>();
         }
 
         private void OnTriggerEnter(Collider collider) {
             if (collider.gameObject.tag == "Player") {
-                loadScript.startLoadingScreen("LoseGame");
+                StateManager.playerDead = true;
                 GameObject musicPlayer = GameObject.Find("DungeonMusic");
                 Destroy(musicPlayer);
-                PlayerFinance.startNewDay();
+                StateManager.startNewDay();
+                loadScript.startLoadingScreen("LoseGame");
             }
         }
     }

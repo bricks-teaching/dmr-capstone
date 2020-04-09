@@ -9,7 +9,7 @@ public class Cheats : MonoBehaviour {
     public string toggleGraphMesh = "f4";
     public string enableWallDestruction = "f8";
     public GameObject player;
-    public CharacterController playerController;
+    public PlayerMovement playerMovement;
 
     public bool destroyWalls;
 
@@ -17,22 +17,15 @@ public class Cheats : MonoBehaviour {
         if (Input.GetKeyDown(teleportToEscapeKey)) {
             GameObject escape = GameObject.Find("Escape Point");
             Vector3 warpPoint = escape.transform.position;
-            // Disable controller before teleportation
-            playerController.enabled = false;
-            player.transform.position = new Vector3(warpPoint.x - Random.Range(-2, 2), warpPoint.y + 4, warpPoint.z + Random.Range(-2, 2));
-            playerController.enabled = true;
-            Debug.Log($"Teleported to {warpPoint}");
+            playerMovement.teleport(new Vector3(warpPoint.x - Random.Range(-2, 2), warpPoint.y + 4, warpPoint.z + Random.Range(-2, 2)));
         }
         if (Input.GetKeyDown(teleportToDelveKey)) {
             GameObject delve = GameObject.Find("Delve Point");
             Vector3 warpPoint = delve.transform.position;
-            playerController.enabled = false;
-            player.transform.position = new Vector3(warpPoint.x - Random.Range(-2, 2), warpPoint.y + 4, warpPoint.z + Random.Range(-2, 2));
-            playerController.enabled = true;
-            Debug.Log($"Teleported to {warpPoint}");
+            playerMovement.teleport(new Vector3(warpPoint.x - Random.Range(-2, 2), warpPoint.y + 4, warpPoint.z + Random.Range(-2, 2)));
         }
         if (Input.GetKeyDown(robinHood)) {
-            PlayerFinance.cashOnHand += 500;
+            StateManager.cashOnHand += 500;
             Debug.Log("Added 500 monies");
         }
         if (Input.GetKeyDown(toggleGraphMesh)) {

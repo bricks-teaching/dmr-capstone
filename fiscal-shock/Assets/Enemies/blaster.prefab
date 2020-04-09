@@ -308,7 +308,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -353,7 +353,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -451,7 +451,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 5676983891017127546, guid: 39180d9180c94761a9d667fddf55796d,
     type: 3}
-  fireSoundClip: {fileID: 8300000, guid: c6abf3855d73e4345b8c1df9fbc40e9b, type: 3}
+  fireSoundClip: {fileID: 8300000, guid: 17d1cc09103cfafcaac9fa24c4518281, type: 3}
   botSize: 2
   botDamage: 10
   botAccuracy: 10

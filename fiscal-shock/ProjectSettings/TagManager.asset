@@ -21,6 +21,8 @@ TagManager:
   - Shoot
   - Player Hit Vignette
   - Enemy Projectile
+  - Spawn Point
+  - Loading Screen
   layers:
   - Default
   - TransparentFX

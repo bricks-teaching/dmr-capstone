@@ -390,23 +390,20 @@ namespace FiscalShock.Procedural {
             do {  // Don't spawn the player on portals. Warning: infinite loop if there are only 1-2 cells
                 spawnPoint = masterDt.vertices[mt.Next(masterDt.vertices.Count-1)];
             } while (spawnPoint.cell.hasPortal);
-            player = GameObject.FindGameObjectWithTag("Player");
-            if (player == null) {
-                player = Instantiate(playerPrefab, playerPrefab.transform.position, playerPrefab.transform.rotation);
+            SpawnPoint spawner = GameObject.FindGameObjectWithTag("Spawn Point").GetComponent<SpawnPoint>();
+            spawner.transform.position = spawnPoint.toVector3AtHeight(currentDungeonType.wallHeight * 0.8f);
+            player = spawner.spawnPlayer();
+            if (!StateManager.purchasedHose && !StateManager.purchasedLauncher) {  // implies started from dungeon scene
                 // Give player all weapons when starting in dungeon, since that implies it's a dev starting in the editor
                 StateManager.purchasedHose = true;
                 StateManager.purchasedLauncher = true;
-                PlayerFinance.cashOnHand = 1000f;
+                StateManager.cashOnHand = 100f;
             }
-            CharacterController playerController = player.GetComponentInChildren<CharacterController>();
-            playerController.enabled = false;
-            player.transform.position = spawnPoint.toVector3AtHeight(currentDungeonType.wallHeight * 0.8f);
-            playerController.enabled = true;
 
             // Attach any other stuff to player here
             Cheats cheater = GameObject.FindObjectOfType<Cheats>();
             cheater.player = player;
-            cheater.playerController = player.GetComponentInChildren<CharacterController>();
+            cheater.playerMovement = player.GetComponentInChildren<PlayerMovement>();
             InGameMenu menu = GameObject.FindObjectOfType<InGameMenu>();
             menu.player = player;
 

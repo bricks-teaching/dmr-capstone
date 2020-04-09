@@ -42,12 +42,14 @@ public class PlayerHealth : MonoBehaviour {
     }
 
     public void takeDamage(float damage) {
-        if (!invincible) {
-            PlayerFinance.cashOnHand -= damage;
+        if (!invincible && !StateManager.playerDead) {
+            StateManager.cashOnHand -= damage;
             StartCoroutine(showHitVignette(damage * timeMultiplier));
         }
-        if (PlayerFinance.cashOnHand < 0){
-            SceneManager.LoadScene("LoseGame");
+        if (StateManager.cashOnHand < 0) {
+            hitVignette.SetActive(false);
+            StateManager.playerDead = true;
+            GameObject.FindGameObjectWithTag("Loading Screen").GetComponent<LoadingScreen>().startLoadingScreen("LoseGame");
         }
     }
 

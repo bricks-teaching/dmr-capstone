@@ -60,7 +60,6 @@ public class IntroStory : MonoBehaviour {
     private PlayerShoot playerShoot;
     private MouseLook mouseLook;
 
-    // Start is called before the first frame update
     void Start() {
         StateManager.inStoryTutorial = true;
         player = Instantiate(player, stareAtMilkman, Quaternion.Euler(1.47f, -37f, 0));
@@ -75,6 +74,7 @@ public class IntroStory : MonoBehaviour {
         mouseLook = storyCamera.GetComponent<MouseLook>();
         mouseLook.enabled = false;
         playerShoot = player.GetComponentInChildren<PlayerShoot>();
+        playerShoot.enabled = false;
         foreach (GameObject target in targets) {
             TargetBehavior behaviorScript = target.GetComponent<TargetBehavior>();
             behaviorScript.story = this;
@@ -227,6 +227,7 @@ public class IntroStory : MonoBehaviour {
             else {
                 milkman.transform.rotation = Quaternion.Euler(new Vector3(9f, 216f, 0));
                 playerShoot.enabled = true;
+                player.GetComponentInChildren<Light>().intensity = 0.5f;
                 mouseLook.enabled = true;
                 foreach (GameObject target in targets) {
                     TargetBehavior behaviorScript = target.GetComponent<TargetBehavior>();

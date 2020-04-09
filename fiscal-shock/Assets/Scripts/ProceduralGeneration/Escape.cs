@@ -7,8 +7,8 @@ namespace FiscalShock.Procedural {
         private LoadingScreen loadScript;
 
         private void Start() {
-            loadingScreen = GameObject.Find("LoadingScreen");
-            loadScript = (LoadingScreen)loadingScreen.GetComponent<LoadingScreen>();
+            loadingScreen = GameObject.FindGameObjectWithTag("Loading Screen");
+            loadScript = loadingScreen.GetComponent<LoadingScreen>();
             // Play the arrow spinning animation
             anim = gameObject.GetComponentInChildren<Animation>();
             anim["Spin"].speed = 0.3f;
@@ -25,7 +25,7 @@ namespace FiscalShock.Procedural {
             if (collider.gameObject.tag == "Player") {
                 StateManager.selectedDungeon = (DungeonTypeEnum)(-1);
                 GameObject player = collider.gameObject;
-                CharacterController playerController = player.GetComponentInChildren<CharacterController>();
+                SpawnPoint spawner = GameObject.FindGameObjectWithTag("Spawn Point").GetComponent<SpawnPoint>();
 
                 // Disable shoot script, since player is entering town
                 PlayerShoot shootScript = player.GetComponentInChildren<PlayerShoot>();
@@ -35,12 +35,10 @@ namespace FiscalShock.Procedural {
                 player.GetComponentInChildren<Light>().intensity = 0;
 
                 // Set player at the dungeon door
-                playerController.enabled = false;
-                player.transform.position = new Vector3(28, 1, -9);
-                // Face player away from the door
-                player.transform.LookAt(new Vector3(6, 1, -9));
-                playerController.enabled = true;
-                loadScript.startLoadingScreen("Hub");
+                spawner.transform.position = new Vector3(28, 1, -9);
+                spawner.transform.LookAt(new Vector3(6, 1, -9));
+                spawner.autoSpawn = false;
+                spawner.spawnPlayer();
 
                 // Manually kill the music box, since it isn't destroyed naturally
                 GameObject musicPlayer = GameObject.Find("DungeonMusic");
@@ -48,7 +46,8 @@ namespace FiscalShock.Procedural {
                 GameObject.Find("HUD").GetComponentInChildren<HUD>().escapeHatch = null;
 
                 // Apply interest
-                PlayerFinance.startNewDay();
+                StateManager.startNewDay();
+                loadScript.startLoadingScreen("Hub");
             }
         }
     }

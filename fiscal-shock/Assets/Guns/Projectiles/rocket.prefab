@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3649659470863544758}
-  - component: {fileID: 5149515553373539373}
   - component: {fileID: 347600986700985391}
   - component: {fileID: 3240223035097015125}
   - component: {fileID: 3891701454824073723}
@@ -36,21 +35,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!111 &5149515553373539373
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 359558080635126693}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 0}
-  m_Animations: []
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!114 &347600986700985391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,14 +48,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 50
-  bulletSpeed: 60
+  bulletSpeed: 10
   rb: {fileID: 3240223035097015125}
   bulletLifetime: 10
-  poolProjectiles: 0
   poolSize: 1
-  hasParent: 0
-  target: {fileID: 0}
-  fireFrom: {fileID: 0}
 --- !u!54 &3240223035097015125
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -143,7 +123,6 @@ GameObject:
   - component: {fileID: 2010478728669507074}
   - component: {fileID: 3695121021416464810}
   - component: {fileID: 6945442403188356476}
-  - component: {fileID: 4043476301582628812}
   m_Layer: 10
   m_Name: Cylinder.002
   m_TagString: Untagged
@@ -214,19 +193,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!54 &4043476301582628812
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9054733185502767915}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 3

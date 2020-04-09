@@ -1,12 +1,12 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 /// <summary>
 /// Global settings used across many files
 /// </summary>
 public static class Settings {
-    public static MonoBehaviour cursorStateMutexOwner { get; private set; }
     public static SettingsValues values = new SettingsValues();
-    private static bool alreadyLoadedSettings = false;
+    public static MonoBehaviour cursorStateMutexOwner { get; private set; }
     public static float volume {
         get => values.volume;
         set => values.volume = value;
@@ -23,10 +23,6 @@ public static class Settings {
     public static string weaponTwoKey => values.weaponTwoKey;
     public static string hidePauseMenuKey => values.hidePauseMenuKey;
 
-    // max at 60 fps when starting from menu scene only
-    public static int targetFramerate => values.targetFramerate;
-    public static int vsync => values.vsyncEnabled;
-
     private static readonly string settingsFilename = Application.persistentDataPath + "/settings.json";
 
     public static void saveSettings() {
@@ -34,7 +30,84 @@ public static class Settings {
     }
 
     public static void loadSettings() {
-        alreadyLoadedSettings = Utils.loadFromJson(values, settingsFilename, alreadyLoadedSettings);
+        Utils.loadFromJson(values, settingsFilename);
+        updateCurrentSettings();
+    }
+
+    public static void updateCurrentSettings() {
+        Debug.Log("Updating all game settings...");
+        // Apply default quality level settings first
+        QualitySettings.SetQualityLevel(values.currentQuality, true);
+        Application.targetFrameRate = values.targetFramerate;
+        Screen.SetResolution(values.resolutionWidth, values.resolutionHeight, values.fullscreen);
+
+        if (values.overrideQualitySettings) {
+            QualitySettings.vSyncCount = values.vsyncCount;
+
+            // Texture quality
+            QualitySettings.anisotropicFiltering = values.anisotropicTextures;
+            QualitySettings.antiAliasing = values.antialiasingSamples;
+
+            // Lighting
+            QualitySettings.pixelLightCount = values.pixelLightCount;
+            QualitySettings.shadowDistance = values.shadowDistance;
+            QualitySettings.shadowResolution = values.shadowResolution;
+        } else {
+            QualitySettings.vSyncCount = qualityPreset.vsyncCount;
+
+            // Texture quality
+            QualitySettings.anisotropicFiltering = qualityPreset.anisotropicTextures;
+            QualitySettings.antiAliasing = qualityPreset.antialiasingSamples;
+
+            // Lighting
+            QualitySettings.pixelLightCount = qualityPreset.pixelLightCount;
+            QualitySettings.shadowDistance = qualityPreset.shadowDistance;
+            QualitySettings.shadowResolution = qualityPreset.shadowResolution;
+        }
+    }
+
+    public static void resetToCurrentQualityDefaults() {
+        values.overrideQualitySettings = false;
+        updateCurrentSettings();
+
+        // Frame rate
+        values.vsyncCount = QualitySettings.vSyncCount;
+        values.targetFramerate = Application.targetFrameRate;
+
+        // Texture quality
+        values.anisotropicTextures = QualitySettings.anisotropicFiltering;
+        values.antialiasingSamples = QualitySettings.antiAliasing;
+
+        // Lighting
+        values.pixelLightCount = QualitySettings.pixelLightCount;
+        values.shadowDistance = QualitySettings.shadowDistance;
+        values.shadowResolution = QualitySettings.shadowResolution;
+    }
+
+    public static void quitToDesktop() {
+        saveSettings();
+        Application.Quit();
+    }
+
+    public static void quitToMainMenu() {
+        LoadingScreen loading = GameObject.FindGameObjectWithTag("Loading Screen")?.GetComponentInChildren<LoadingScreen>();
+
+        // Destroy singletons; tracked by StateManager
+        // Caution: don't add the load camera to the list!
+        foreach (GameObject go in StateManager.singletons) {
+            if (go != null) {  // just in case somebody else destroyed it...
+                UnityEngine.Object.Destroy(go);
+            }
+        }
+        saveSettings();
+        StateManager.resetToDefaultState();
+
+        // Load the right scene, using the loading screen if it is available
+        if (loading != null) {
+            loading.startLoadingScreen("Menu");
+        } else {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
+        }
     }
 
     /// <summary>
@@ -119,6 +192,152 @@ public static class Settings {
         cursorStateMutexOwner = null;
         Cursor.lockState = CursorLockMode.Locked;
     }
+
+    public static QualityPreset qualityPreset = DefaultQualitySettings.Default;
+
+    /* stringified */
+    public static string[] shadowResNames = {
+        "Off", // warning: special case
+        "Low",
+        "Medium",
+        "High",
+        "Very High"
+    };
+
+    public static string[] anisotropicNames = {
+        "Disabled",
+        "Enabled",
+        "Force Enabled"
+    };
+
+    public static string[] pixelQualityNames = {
+        "None",
+        "Low",
+        "Medium",
+        "High",
+        "Ultra"
+    };
+
+    public static string[] vsyncCountNames = {
+        "Disabled",
+        "Every",
+        "Every Other"
+    };
+
+    public static string[] antialiasingNames = {
+        "Disabled",
+        "2x MSAA",
+        "4x MSAA",
+        "8x MSAA"
+    };
+
+    public static Resolution getResolutionByIndex(int i) {
+        return Screen.resolutions[i];
+    }
+
+    public static List<string> getSupportedResolutions() {
+        List<string> res = new List<string>();
+        foreach (Resolution r in Screen.resolutions) {
+            res.Add($"{r.width}x{r.height}");
+        }
+        return res;
+    }
+}
+
+/// <summary>
+/// Unity has no concept of "reset to the default of this quality preset,"
+/// so here we go...
+/// </summary>
+public static class DefaultQualitySettings {
+    public static QualityPreset VeryLow = new QualityPreset {
+        vsyncCount = 0,
+        anisotropicTextures = AnisotropicFiltering.Disable,
+        antialiasingSamples = 0,
+        pixelLightCount = 0,
+        shadowDistance = 0,
+        shadowResolution = ShadowResolution.Low
+    };
+    public static QualityPreset Low = new QualityPreset {
+        vsyncCount = 0,
+        anisotropicTextures = AnisotropicFiltering.Disable,
+        antialiasingSamples = 0,
+        pixelLightCount = 1,
+        shadowDistance = 0,
+        shadowResolution = ShadowResolution.Low
+    };
+    public static QualityPreset Medium = new QualityPreset {
+        vsyncCount = 0,
+        anisotropicTextures = AnisotropicFiltering.Enable,
+        antialiasingSamples = 0,
+        pixelLightCount = 1,
+        shadowDistance = 20,
+        shadowResolution = ShadowResolution.Low
+    };
+    public static QualityPreset Default = new QualityPreset {
+        vsyncCount = 1,
+        anisotropicTextures = AnisotropicFiltering.Enable,
+        antialiasingSamples = 2,
+        pixelLightCount = 1,
+        shadowDistance = 40,
+        shadowResolution = ShadowResolution.Low
+    };
+    public static QualityPreset High = new QualityPreset {
+        vsyncCount = 1,
+        anisotropicTextures = AnisotropicFiltering.Enable,
+        antialiasingSamples = 2,
+        pixelLightCount = 2,
+        shadowDistance = 40,
+        shadowResolution = ShadowResolution.Medium
+    };
+    public static QualityPreset VeryHigh = new QualityPreset {
+        vsyncCount = 1,
+        anisotropicTextures = AnisotropicFiltering.Enable,
+        antialiasingSamples = 4,
+        pixelLightCount = 3,
+        shadowDistance = 70,
+        shadowResolution = ShadowResolution.High
+    };
+    public static QualityPreset Ultra = new QualityPreset {
+        vsyncCount = 1,
+        anisotropicTextures = AnisotropicFiltering.Enable,
+        antialiasingSamples = 4,
+        pixelLightCount = 4,
+        shadowDistance = 128,
+        shadowResolution = ShadowResolution.VeryHigh
+    };
+
+    public static QualityPreset getPresetByIndex(int i) {
+        switch (i) {
+            case 0:
+                return VeryLow;
+            case 1:
+                return Low;
+            case 2:
+                return Medium;
+            case 3:
+                return Default;
+            case 4:
+                return High;
+            case 5:
+                return VeryHigh;
+            default:
+                return Ultra;
+        }
+    }
+}
+
+/// <summary>
+/// Holds values of quality preset defaults. Unity does not make
+/// quality preset values available at runtime, and any manually
+/// modified settings are never reset.
+/// </summary>
+public struct QualityPreset {
+    public int vsyncCount;
+    public AnisotropicFiltering anisotropicTextures;
+    public int antialiasingSamples;
+    public int pixelLightCount;
+    public float shadowDistance;
+    public ShadowResolution shadowResolution;
 }
 
 /// <summary>
@@ -136,7 +355,26 @@ public class SettingsValues {
     public string weaponTwoKey = "2";
     public string hidePauseMenuKey = "backspace";
 
-    // max at 60 fps when starting from menu scene only
-    public int targetFramerate = 60;
-    public int vsyncEnabled = 0;
+    public bool showFPS = false;
+
+    // --- configurable graphics ---
+    public bool overrideQualitySettings = false;
+    public int targetFramerate = 60;  // requires vsyncCount = 0
+    public int resolutionWidth = 1920;
+    public int resolutionHeight = 1080;
+    public bool fullscreen = false;
+    public int vsyncCount = 1;  // 0, 1, 2, 3, 4
+    public AnisotropicFiltering anisotropicTextures = AnisotropicFiltering.Disable;  // Disable, Enable, ForceEnable
+    public int antialiasingSamples = 2;  // 0, 2, 4, 8 only supported
+    public int pixelLightCount = 1;  // 0, 1, 2, 3, 4; 0 = dark, no pixel lights!
+    public float shadowDistance = 40;  // maximum distance to draw shadows at
+    public ShadowResolution shadowResolution = ShadowResolution.Low;  // Low, Medium, High, VeryHigh
+
+    /* Very Low, Low, Medium, [Default], High, Very High, Ultra */
+    /* Save the strings so they're available in the settings.json for users
+       who break stuff and want to reset to defaults.
+    */
+    public string[] qualityLevelNames = QualitySettings.names;
+    public int currentQuality = 3;
+    public string currentQualityName = "Default";
 }

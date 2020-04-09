@@ -104,10 +104,10 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4086418940951897445}
   serializedVersion: 2
-  m_Mass: 5
+  m_Mass: 3
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 100
-  bulletSpeed: 4
+  bulletSpeed: 6
   rb: {fileID: 524058797535383146}
-  bulletLifetime: 6
-  poolSize: 24
+  bulletLifetime: 8
+  poolSize: 6

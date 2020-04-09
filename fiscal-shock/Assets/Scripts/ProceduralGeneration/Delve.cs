@@ -7,8 +7,8 @@ namespace FiscalShock.Procedural {
         private Animation anim;
 
         private void Start() {
-            loadingScreen = GameObject.Find("LoadingScreen");
-            loadScript = (LoadingScreen)loadingScreen.GetComponent<LoadingScreen>();
+            loadingScreen = GameObject.FindGameObjectWithTag("Loading Screen");
+            loadScript = loadingScreen.GetComponent<LoadingScreen>();
             // Play the arrow spinning animation
             anim = gameObject.GetComponentInChildren<Animation>();
             anim["Delve"].speed = 0.8f;

@@ -21,8 +21,8 @@ namespace PlayModeTests {
             // click the play button
             TestUtils.ClickButton("PlayButton");
             // should load the hub within 10s
-            yield return TestUtils.AssertSceneLoaded("Hub");
-            Assert.AreEqual("Hub", SceneManager.GetActiveScene().name);
+            yield return TestUtils.AssertSceneLoaded("Story");
+            Assert.AreEqual("Story", SceneManager.GetActiveScene().name);
         }
 
         /*[Test]

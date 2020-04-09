@@ -4,28 +4,23 @@ using UnityEngine.UI;
 using TMPro;
 using System.Linq;
 using System.Globalization;
+using System.Collections.Generic;
 
-public class SharkScript : MonoBehaviour
-{
+public class SharkScript : MonoBehaviour {
     public AudioClip paymentSound;
     public AudioClip failureSound;
-    public static bool sharkDue { get; set; } = false;
     private bool playerIsInTriggerZone = false;
     private AudioSource audioS;
-    public TextMeshProUGUI dialogText;
+    public TextMeshProUGUI dialogText, rateText;
     public GameObject sharkPanel;
-    public Button payButton;
-    public Button newLoan;
-    public Button backButton;
-    public InputField payAmount;
-    public InputField payID;
-    public InputField loanInput;
-    public Text id1, id2, id3, type1, type2, type3, amount1, amount2, amount3;
-    public static float sharkInterestRate { get; set; } = 0.155f;
-    public static float sharkMaxLoan { get; set; } = 4000.0f;
+    public TMP_InputField paymentId, paymentAmount;
+    public List<LoanEntry> loanEntries;
+    public static float sharkMaxLoan { get; set; } = 20000.0f;
+    public static float sharkInterestRate { get; set; } = 0.3333f;
     public static int sharkThreatLevel { get; set; } = 3;
-    public static float sharkTotal { get; set; }
-    private int loanCount = 0;
+    private static List<Loan> sharkLoans => StateManager.loanList.Where(l => l.source == LoanType.Payday).ToList();
+    public int loanCount => sharkLoans.Count;
+    public static float sharkTotal => sharkLoans.Sum(l => l.total);
 
     void OnTriggerEnter(Collider col) {
         if (col.gameObject.tag == "Player") {
@@ -42,145 +37,150 @@ public class SharkScript : MonoBehaviour
     void Start() {
         audioS = GetComponent<AudioSource>();
         sharkPanel.SetActive(false);
-        Button btnOne = payButton.GetComponent<Button>();
-        Button btnTwo = newLoan.GetComponent<Button>();
-        Button btnThr = backButton.GetComponent<Button>();
-        btnOne.onClick.AddListener(payLoan);
-        btnTwo.onClick.AddListener(addLoan);
-        btnThr.onClick.AddListener(BackClick);
+        updateFields();
+        rateText.text = $"Fantastic rates as low as {sharkInterestRate * 100}% available today!";
     }
 
     void Update() {
-        if (playerIsInTriggerZone && Input.GetKeyDown(Settings.interactKey)) {
-            Settings.forceUnlockCursorState();
-            sharkPanel.SetActive(true);
+        if (playerIsInTriggerZone) {
+            if (Input.GetKeyDown(Settings.interactKey)) {
+                Settings.forceUnlockCursorState();
+                updateFields();
+                sharkPanel.SetActive(true);
+                StateManager.pauseAvailable = false;
+            }
+            if (Input.GetKeyDown(Settings.pauseKey)) {
+                BackClick();
+            }
         }
     }
-    public bool addDebt(float amount){
-        if (sharkThreatLevel < 5 && sharkMaxLoan > (sharkTotal + amount) && loanCount < 3){
+
+    public bool addDebt(float amount) {
+        if (amount < 0.0f) {
+            return false;
+        }
+        if (sharkThreatLevel < 5 && sharkMaxLoan >= (sharkTotal + amount) && loanCount < 3) {
             //shark threat is below 5 and is below max total debt
-            Loan newLoan = new Loan(StateManager.nextID, amount, sharkInterestRate, true);
+            Loan newLoan = new Loan(StateManager.nextID, amount, sharkInterestRate, LoanType.Payday);
             StateManager.loanList.AddLast(newLoan);
-            PlayerFinance.cashOnHand += amount;
+            StateManager.cashOnHand += amount;
             StateManager.nextID++;
-            StateManager.totalLoans++;
-            sharkTotal += amount;
-            loanCount++;
-            StateManager.calcDebtTotals();
             updateFields();
             return true;
         }
         return false;
     }
 
-    public bool payDebt(float amount, int loanNum){
-        if (PlayerFinance.cashOnHand < amount){//amount is more than money on hand
+    public bool payDebt(float amount, int loanNum) {
+        Loan selectedLoan = sharkLoans.First(l => l.ID == loanNum);
+        if (StateManager.cashOnHand < amount) {//amount is more than money on hand
             return false;
-        } else if (sharkTotal <= amount){ //amount is more than the debt
-            Loan selectedLoan = StateManager.loanList.Where(l => l.ID == loanNum).First();
+        }
+        else if (sharkTotal <= amount) { //amount is more than the debt
+            StateManager.cashOnHand -= sharkTotal;
             StateManager.loanList.Remove(selectedLoan);
-            PlayerFinance.cashOnHand -= sharkTotal;
-            sharkDue = false;
-            StateManager.totalLoans--;
-            sharkTotal = 0.0f;
-            loanCount--;
-            StateManager.calcDebtTotals();
+            checkWin();
             updateFields();
             return true;
-        } else { //none of the above
+        }
+        else { //none of the above
             //reduce debt and money by amount
-            Loan selectedLoan = StateManager.loanList.Where(l => l.ID == loanNum).First();
             selectedLoan.total -= amount;
-            PlayerFinance.cashOnHand -= amount;
-            sharkDue = false;
-            sharkTotal -= amount;
-            StateManager.calcDebtTotals();
+            StateManager.cashOnHand -= amount;
             updateFields();
             return true;
         }
     }
 
-    public static void sharkUnpaid()
-    {
+    public void checkWin() {
+        if (StateManager.loanList.Count == 0) {
+            StateManager.playerWon = true;
+            GameObject.FindGameObjectWithTag("Loading Screen").GetComponent<LoadingScreen>().startLoadingScreen("WinGame");
+        }
+    }
+
+    public static void sharkUnpaid() {
         bool paid = true;
-        foreach (Loan item in StateManager.loanList)
-        {
-            if(!item.paid && item.source)
-            {
+        foreach (Loan item in sharkLoans) {
+            if (!item.paid) {
                 sharkThreatLevel++;
                 StateManager.paymentStreak = 0;
                 paid = false;
             }
         }
-        if(paid){
+        if (paid) {
             StateManager.paymentStreak++;
             sharkThreatLevel--;
         }
     }
 
-    public static void sharkInterest()
-    {
-        float tempTot = 0.0f;
-        float tempAdd;
-        foreach (Loan item in StateManager.loanList)
-        {
-            if(item.source)
-            {
-                item.paid = false;
-                tempAdd = item.total * item.rate;
-                item.total += tempAdd;
-                tempTot += item.total;
+    public static void sharkInterest() {
+        foreach (Loan item in sharkLoans) {
+            item.paid = false;
+            item.total += item.rate * item.total;
+        }
+    }
+
+    public void payLoan() {
+        try {
+            float am = float.Parse(paymentAmount.text, CultureInfo.InvariantCulture.NumberFormat);
+            int az = int.Parse(paymentId.text);
+            if (payDebt(am, az)) {
+                dialogText.text = "'bout time.";
+                audioS.PlayOneShot(paymentSound, Settings.volume);
+                paymentAmount.text = "";  // clear text field
+                paymentId.text = "";
+            }
+            else {
+                dialogText.text = "Where'd you learn to count, bub?";
+                audioS.PlayOneShot(failureSound, Settings.volume);
             }
         }
-        sharkTotal = tempTot;
-    }
-    void payLoan(){
-        float am = float.Parse(payAmount.text, CultureInfo.InvariantCulture.NumberFormat);
-        int az = int.Parse(payID.text);
-        bool z = payDebt(am, az);
-        if(z){
-            dialogText.text = "Thank you for your payment!";
-            audioS.PlayOneShot(paymentSound, Settings.volume);
-        } else {
-            dialogText.text = "You don't have the money on you.";
-            audioS.PlayOneShot(failureSound, Settings.volume * 2.5f);
+        catch (System.Exception e) {
+            Debug.LogWarning($"{e.Message}");
+            dialogText.text = "Don't waste my time with nonsense, kid.";
+            audioS.PlayOneShot(failureSound, Settings.volume);
         }
     }
-    void addLoan(){
-        float an = float.Parse(loanInput.text, CultureInfo.InvariantCulture.NumberFormat);
-        bool y = addDebt(an);
-        if(y){
-            dialogText.text = "I guess I could do you a favor. *snicker*";
-            audioS.PlayOneShot(paymentSound, Settings.volume);
-        } else {
-            dialogText.text = "Do I look like an easy mark to you?";
-            audioS.PlayOneShot(failureSound, Settings.volume * 2.5f);
+    public void addLoan(TMP_InputField textField) {
+        try {
+            float an = float.Parse(textField.text, CultureInfo.InvariantCulture.NumberFormat);
+            if (addDebt(an)) {
+                dialogText.text = "I guess I could do you a favor. *snicker*";
+                audioS.PlayOneShot(paymentSound, Settings.volume);
+                textField.text = "";  // clear text field
+            }
+            else {
+                dialogText.text = "Do I look like an easy mark to you?";
+                audioS.PlayOneShot(failureSound, Settings.volume);
+            }
         }
-    }
-
-    void updateFields(){
-        Loan[] item = StateManager.loanList.Where(l => l.source).ToArray();
-        if(item.Length > 0){
-            id1.text = item[0].ID.ToString();
-            amount1.text = item[0].total.ToString();
-            type1.text = "Payday";
-        }
-        if (item.Length > 1) {
-            id2.text = item[1].ID.ToString();
-            amount2.text = item[1].total.ToString();
-            type2.text = "Payday";
-        }
-        if(item.Length > 2){
-            id3.text = item[2].ID.ToString();
-            amount3.text = item[2].total.ToString();
-            type3.text = "Payday";
+        catch (System.Exception e) {
+            Debug.LogWarning($"{e.Message}");
+            dialogText.text = "You some kinda wiseguy?";
+            audioS.PlayOneShot(failureSound, Settings.volume);
         }
     }
 
-    public void BackClick()
-    {
+    void updateFields() {
+        for (int i = 0; i < loanEntries.Count; ++i) {
+            if (i >= sharkLoans.Count) {
+                loanEntries[i].id.text = "";
+                loanEntries[i].amount.text = "";
+                loanEntries[i].type.text = "";
+            }
+            else {
+                loanEntries[i].id.text = sharkLoans[i].ID.ToString();
+                loanEntries[i].amount.text = sharkLoans[i].total.ToString("N2");
+                loanEntries[i].type.text = "Payday";
+            }
+        }
+    }
+
+    public void BackClick() {
         dialogText.text = "I'll make you an offer you can't refuse.";
         sharkPanel.SetActive(false);
         Settings.forceLockCursorState();
+        StartCoroutine(StateManager.makePauseAvailableAgain());
     }
 }

@@ -11,24 +11,26 @@ public class PlayerShoot : MonoBehaviour {
     private AudioSource fireSound;
     public AudioClip fireSoundClip;
     public AudioClip outOfAmmo;
+    public AudioClip fireRateSound;
+    public AudioClip sprayStart;
+    public AudioClip sprayStop;
     public GameObject weapon { get; private set; }
     private int slot = 0;
     public List<GameObject> guns;
     public RawImage crossHair { get; private set; }
-    private bool rest = false;
-    private float screenX;
-    private float screenY;
+    private float screenX => Settings.values.resolutionWidth / 2;
+    private float screenY => Settings.values.resolutionHeight / 2;
     public bool loadAfterHolster = true;
     private WeaponStats currentWeaponStats;
     private FeedbackController feed;
     public LayerMask missileHomingTargetLayer;
+    private float timeSinceLastShot;
+    private bool wasFiringAuto;
 
     public void Start() {
         feed = GameObject.FindGameObjectWithTag("HUD").GetComponent<FeedbackController>();
-        screenX = Screen.width / 2;
-        screenY = Screen.height / 2;
         crossHair = GameObject.FindGameObjectWithTag("Crosshair").GetComponentInChildren<RawImage>();
-        fireSound = GetComponent<AudioSource>();
+        fireSound = GetComponentInChildren<AudioSource>();
         crossHair.enabled = false;
         LoadWeapon();
     }
@@ -38,6 +40,16 @@ public class PlayerShoot : MonoBehaviour {
     }
 
     public void Update() {
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Hub" || StateManager.playerDead || StateManager.playerWon) {
+            wasFiringAuto = false;
+            fireSound.Stop();
+            return;
+        }
+        if (StateManager.playerDead || (Input.GetMouseButtonUp(0) && fireSound.isPlaying && wasFiringAuto)) {
+            wasFiringAuto = false;
+            fireSound.Stop();
+            fireSound.PlayOneShot(sprayStop);
+        }
         // Change weapon
         if (Input.GetKeyDown(Settings.weaponOneKey) && (StateManager.purchasedHose || StateManager.inStoryTutorial)) {
             slot = 0;
@@ -55,32 +67,54 @@ public class PlayerShoot : MonoBehaviour {
                 LoadWeapon();
             }
         }
-        if (weapon == null) {
+        if (weapon == null) {  // must check after weapon swaps
             return;
+        }
+        timeSinceLastShot += Time.deltaTime;
+        if (currentWeaponStats.showCrosshair && timeSinceLastShot >= currentWeaponStats.fireRate) {
+            crossHair.color = new Color(1f, 1f, 1f, 0.8f);
+        } else if (currentWeaponStats.showCrosshair) {
+            crossHair.color = new Color(1f, 1f, 1f, 0.2f);
+        }
+
+        timeSinceLastShot += Time.deltaTime;
+        if (currentWeaponStats.showCrosshair && timeSinceLastShot >= currentWeaponStats.fireRate) {
+            crossHair.color = new Color(1f, 1f, 1f, 0.8f);
+        } else if (currentWeaponStats.showCrosshair) {
+            crossHair.color = new Color(1f, 1f, 1f, 0.2f);
         }
 
         if (Time.timeScale > 0 && !weaponChanging && Input.GetMouseButton(0)) {  // Firing
             // Make sure player has enough money to fire
-            if (!StateManager.inStoryTutorial && PlayerFinance.cashOnHand < currentWeaponStats.bulletCost) {
+            if (!StateManager.inStoryTutorial && StateManager.cashOnHand < currentWeaponStats.bulletCost) {
                 if (Input.GetMouseButtonDown(0)) {  // otherwise, the sound is auto fired
-                    fireSound.PlayOneShot(outOfAmmo, Settings.volume * 2f);
+                    fireSound.PlayOneShot(outOfAmmo, Settings.volume);
                 }
                 return;
             }
-            switch (currentWeaponStats.action) {
-                case FirearmAction.Automatic:
-                    fireAutomatic();
-                    break;
+            if (timeSinceLastShot < currentWeaponStats.fireRate && currentWeaponStats.action != FirearmAction.Automatic) {  // auto weapons should fire as fast as they can
+                if (Input.GetMouseButtonDown(0)) {  // otherwise, the sound is auto fired
+                    fireSound.PlayOneShot(fireRateSound, Settings.volume);
+                }
+                return;
+            }
+            if (timeSinceLastShot >= currentWeaponStats.fireRate) {
+                switch (currentWeaponStats.action) {
+                    case FirearmAction.Automatic:
+                        fireAutomatic();
+                        break;
 
-                case FirearmAction.Semiautomatic:
-                    fireSemiautomatic();
-                    break;
+                    case FirearmAction.Semiautomatic:
+                        fireSemiautomatic();
+                        break;
 
-                case FirearmAction.SingleShot:
-                    // ... would require manual reload action, not implemented.
-                    break;
-                default:
-                    break;
+                    case FirearmAction.SingleShot:
+                        // ... would require manual reload action, not implemented.
+                        break;
+                    default:
+                        break;
+                }
+                timeSinceLastShot = 0;
             }
         }
 
@@ -124,12 +158,13 @@ public class PlayerShoot : MonoBehaviour {
     /// </summary>
     private void fireAutomatic() {
         HomingTargets targets = getHomingTargets();
-        if (rest) {
-            fireBullet(10 - currentWeaponStats.accuracy, currentWeaponStats.strength, 0f, targets);
-        } else {
-            fireBullet(10 - currentWeaponStats.accuracy, currentWeaponStats.strength, 0.09f, targets);
+        if (!fireSound.isPlaying) {
+            fireSound.volume = Settings.volume;
+            fireSound.PlayOneShot(sprayStart);
+            fireSound.PlayScheduled(AudioSettings.dspTime + sprayStart.length);
         }
-        rest = !rest;
+        fireBullet(10 - currentWeaponStats.accuracy, currentWeaponStats.strength, targets);
+        wasFiringAuto = true;
     }
 
     /// <summary>
@@ -137,8 +172,9 @@ public class PlayerShoot : MonoBehaviour {
     /// </summary>
     private void fireSemiautomatic() {
         if (Input.GetMouseButtonDown(0)) {
-            fireBullet(10 - currentWeaponStats.accuracy, currentWeaponStats.strength, 1, getHomingTargets());
+            fireBullet(10 - currentWeaponStats.accuracy, currentWeaponStats.strength, getHomingTargets());
         }
+        fireSound.PlayOneShot(fireSoundClip);
     }
 
     /// <summary>
@@ -164,7 +200,7 @@ public class PlayerShoot : MonoBehaviour {
     /// <param name="damage"></param>
     /// <param name="noise">modifier on sound effect volume</param>
     /// <param name="target"></param>
-    private void fireBullet(float accuracy, int damage, float noise, HomingTargets target) {
+    private void fireBullet(float accuracy, int damage, HomingTargets target) {
         GameObject bullet;
         Vector3 bulletPosition = currentWeaponStats.projectileSpawnPoint.position;
         if (currentWeaponStats.bulletPool.Count < 2) {
@@ -206,8 +242,7 @@ public class PlayerShoot : MonoBehaviour {
                 currentWeaponStats.bulletPool.Enqueue(bullet);
             }
         }
-        fireSound.PlayOneShot(fireSoundClip, Settings.volume * noise);
-        PlayerFinance.cashOnHand -= currentWeaponStats.bulletCost;
+        StateManager.cashOnHand -= currentWeaponStats.bulletCost;
         feed?.shoot(currentWeaponStats.bulletCost);
     }
 

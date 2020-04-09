@@ -292,7 +292,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 359558080635126693, guid: 9b3daae907e8463958dbcd8b4c040516,
     type: 3}
-  fireSoundClip: {fileID: 8300000, guid: c6abf3855d73e4345b8c1df9fbc40e9b, type: 3}
+  fireSoundClip: {fileID: 8300000, guid: 17d1cc09103cfafcaac9fa24c4518281, type: 3}
   botSize: 2
   botDamage: 10
   botAccuracy: 10
@@ -358,7 +358,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

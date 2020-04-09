@@ -11,6 +11,12 @@ public class DungeonTutorial : MonoBehaviour {
         }
     }
 
+    public void Update() {
+        if (Input.GetKeyDown(Settings.pauseKey)) {
+            dismissWindow();
+        }
+    }
+
     public void dismissWindow() {
         GetComponent<Canvas>().enabled = false;
         Settings.lockCursorState(this);
