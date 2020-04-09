@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f983db07ce059b819a1233337a76582b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionNoise: {fileID: 8300000, guid: 0f57a738254b1e26aa5cb78520d610c0, type: 3}
+  explosionNoise: {fileID: 8300000, guid: 4b5b29e999838fe959363961fa428fb9, type: 3}
   explosionEffect: {fileID: 4856741112863513470, guid: c4dccf8958d42ac48a60fefb19d80fb9,
     type: 3}
   explosionRadius: 9

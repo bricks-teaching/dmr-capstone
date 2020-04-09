@@ -40,10 +40,12 @@ public class PlayerShoot : MonoBehaviour {
     }
 
     public void Update() {
-        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Hub") {
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Hub" || StateManager.playerDead || StateManager.playerWon) {
+            wasFiringAuto = false;
+            fireSound.Stop();
             return;
         }
-        if (Input.GetMouseButtonUp(0) && fireSound.isPlaying && wasFiringAuto) {
+        if (StateManager.playerDead || (Input.GetMouseButtonUp(0) && fireSound.isPlaying && wasFiringAuto)) {
             wasFiringAuto = false;
             fireSound.Stop();
             fireSound.PlayOneShot(sprayStop);

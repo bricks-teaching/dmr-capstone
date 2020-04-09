@@ -94,6 +94,7 @@ public class SharkScript : MonoBehaviour {
 
     public void checkWin() {
         if (StateManager.loanList.Count == 0) {
+            StateManager.playerWon = true;
             GameObject.FindGameObjectWithTag("Loading Screen").GetComponent<LoadingScreen>().startLoadingScreen("WinGame");
         }
     }

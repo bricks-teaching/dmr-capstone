@@ -57,11 +57,13 @@ public class ExplodingObject : MonoBehaviour {
             }
             if (layerHit == ENEMY) {
                 EnemyHealth eh = hit.gameObject.GetComponentInChildren<EnemyHealth>();
-                hit.attachedRigidbody.isKinematic = false;
-                hit.attachedRigidbody.AddExplosionForce(randomizedDamage*10, transform.position + Vector3.up, explosionRadius, 3f);
-                eh.takeDamage(randomizedDamage);
-                eh.showDamageExplosion(null, 0f);
-                eh.stun(3f);
+                if (eh != null) {
+                    hit.attachedRigidbody.isKinematic = false;
+                    hit.attachedRigidbody.AddExplosionForce(randomizedDamage*10, transform.position + Vector3.up, explosionRadius, 3f);
+                    eh?.takeDamage(randomizedDamage);
+                    eh?.showDamageExplosion(null, 0f);
+                    eh?.stun(3f);
+                }
             }
             if (layerHit == EXPLOSIVE) {
                 ExplodingObject boom = hit.gameObject.GetComponentInChildren<ExplodingObject>();

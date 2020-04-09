@@ -82,6 +82,8 @@ public static class StateManager
 
     public static List<GameObject> singletons = new List<GameObject>();
     public static bool pauseAvailable = true;
+    public static bool playerDead = false;
+    public static bool playerWon = false;
 
     /// <summary>
     /// Hitting "esc" to exit GUIs sometimes hits the pause code too,
@@ -180,6 +182,8 @@ public static class StateManager
         sawEntryTutorial = DefaultState.sawTutorial;
         singletons.Clear();
         pauseAvailable = DefaultState.pauseAvailable;
+        playerDead = DefaultState.playerDead;
+        playerWon = DefaultState.playerWon;
     }
 }
 
@@ -202,4 +206,6 @@ public static class DefaultState {
     public readonly static bool purchasedLauncher = false;
     public readonly static bool sawTutorial = false;
     public readonly static bool pauseAvailable = true;
+    public readonly static bool playerDead = false;
+    public readonly static bool playerWon = false;
 }

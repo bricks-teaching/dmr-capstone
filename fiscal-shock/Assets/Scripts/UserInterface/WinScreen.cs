@@ -13,11 +13,13 @@ public class WinScreen : MonoBehaviour {
 
     public void QuitClick() {
         Debug.Log("Quit by win game.");
+        StateManager.playerWon = false;
         Settings.quitToDesktop();
     }
 
     public void GoBack() {
         GameObject.FindGameObjectWithTag("Spawn Point").GetComponent<SpawnPoint>().resetToHubDefaults();
+        StateManager.playerWon = false;
         loadScript.startLoadingScreen("Hub");
     }
 }
