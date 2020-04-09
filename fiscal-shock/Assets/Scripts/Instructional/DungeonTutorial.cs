@@ -12,6 +12,9 @@ public class DungeonTutorial : MonoBehaviour {
     }
 
     public void Update() {
+        if (!StateManager.sawEntryTutorial) {
+            Time.timeScale = 0;  // failsafe due to async in load screen
+        }
         if (Input.GetKeyDown(Settings.pauseKey)) {
             dismissWindow();
         }

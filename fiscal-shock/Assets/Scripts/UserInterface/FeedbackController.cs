@@ -43,7 +43,7 @@ public class FeedbackController : MonoBehaviour
     public void profit(float amount) {
         TextMeshProUGUI clone = earns.Dequeue();
         clone.text = "+" + (amount.ToString("F0"));
-        clone.transform.localPosition = new Vector3(Screen.width*0.5f, 0, 0);
+        clone.transform.localPosition = new Vector3(Screen.width*0.4f, 0, 0);
         clone.transform.Translate(Random.Range(Screen.width*-0.1f, Screen.width*0.1f), Random.Range(-20f, 20f), Random.Range(Screen.height*-0.2f, Screen.height*0.2f), Space.Self);
         clone.enabled = true;
         earns.Enqueue(clone);
