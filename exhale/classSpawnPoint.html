@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Class DungeonTutorial &mdash; Fiscal Shock  documentation</title>
+  <title>Class SpawnPoint &mdash; Fiscal Shock  documentation</title>
   
 
   
@@ -85,7 +85,7 @@
             
               <!-- Local TOC -->
               <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">Class DungeonTutorial</a><ul>
+<li><a class="reference internal" href="#">Class SpawnPoint</a><ul>
 <li><a class="reference internal" href="#inheritance-relationships">Inheritance Relationships</a><ul>
 <li><a class="reference internal" href="#base-type">Base Type</a></li>
 </ul>
@@ -138,13 +138,13 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Class DungeonTutorial</li>
+      <li>Class SpawnPoint</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/exhale/classDungeonTutorial.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/exhale/classSpawnPoint.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -157,10 +157,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="class-dungeontutorial">
-<span id="exhale-class-classdungeontutorial"></span><h1>Class DungeonTutorial<a class="headerlink" href="#class-dungeontutorial" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="class-spawnpoint">
+<span id="exhale-class-classspawnpoint"></span><h1>Class SpawnPoint<a class="headerlink" href="#class-spawnpoint" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><p>Defined in <a class="reference internal" href="file_fiscal-shock_Assets_Scripts_Instructional_DungeonTutorial.cs.html#file-fiscal-shock-assets-scripts-instructional-dungeontutorial-cs"><span class="std std-ref">File DungeonTutorial.cs</span></a></p></li>
+<li><p>Defined in <a class="reference internal" href="file_fiscal-shock_Assets_Scripts_Player_SpawnPoint.cs.html#file-fiscal-shock-assets-scripts-player-spawnpoint-cs"><span class="std std-ref">File SpawnPoint.cs</span></a></p></li>
 </ul>
 <div class="section" id="inheritance-relationships">
 <h2>Inheritance Relationships<a class="headerlink" href="#inheritance-relationships" title="Permalink to this headline">¶</a></h2>
@@ -174,18 +174,36 @@
 <div class="section" id="class-documentation">
 <h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="_CPPv415DungeonTutorial">
-<span id="_CPPv315DungeonTutorial"></span><span id="_CPPv215DungeonTutorial"></span><span id="DungeonTutorial"></span><span class="target" id="classDungeonTutorial"></span><em class="property">class </em><code class="sig-name descname">DungeonTutorial</code> : <em class="property">public</em> MonoBehaviour<a class="headerlink" href="#_CPPv415DungeonTutorial" title="Permalink to this definition">¶</a><br /></dt>
+<dt id="_CPPv410SpawnPoint">
+<span id="_CPPv310SpawnPoint"></span><span id="_CPPv210SpawnPoint"></span><span id="SpawnPoint"></span><span class="target" id="classSpawnPoint"></span><em class="property">class </em><code class="sig-name descname">SpawnPoint</code> : <em class="property">public</em> MonoBehaviour<a class="headerlink" href="#_CPPv410SpawnPoint" title="Permalink to this definition">¶</a><br /></dt>
 <dd><div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Functions</p>
 <dl class="function">
 <dt>
-<span class="target" id="classDungeonTutorial_1ae3da8b68ca3e0fddc732353fc893856d"></span><code class="sig-name descname">void DungeonTutorial.Update()</code></dt>
+<span class="target" id="classSpawnPoint_1aac6ecf11479b8451514ed2aa346b01ee"></span><code class="sig-name descname">void SpawnPoint.resetToHubDefaults()</code></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt>
-<span class="target" id="classDungeonTutorial_1ad543db5e612b357c8cb5a545a457bea1"></span><code class="sig-name descname">void DungeonTutorial.dismissWindow()</code></dt>
+<span class="target" id="classSpawnPoint_1aad871e9a38fa9db1766b9b2f21647562"></span><code class="sig-name descname">GameObject SpawnPoint.spawnNewPlayer()</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classSpawnPoint_1a60745947475a0f4c278ac32b46f71b13"></span><code class="sig-name descname">GameObject SpawnPoint.spawnPlayer()</code></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Members</p>
+<dl class="member">
+<dt>
+<span class="target" id="classSpawnPoint_1ac36ec1f11e287dc5da050c92a12fd714"></span><code class="sig-name descname">bool SpawnPoint.autoSpawn = true</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classSpawnPoint_1a3d49bf7324b45e411d08334316aa0172"></span><code class="sig-name descname">GameObject SpawnPoint.playerPrefab</code></dt>
 <dd></dd></dl>
 
 </div>
@@ -193,7 +211,48 @@
 <p class="breathe-sectiondef-title rubric">Private Functions</p>
 <dl class="function">
 <dt>
-<span class="target" id="classDungeonTutorial_1abeed5656225b5426d37c0eb43ac9058c"></span><code class="sig-name descname">void DungeonTutorial.Start()</code></dt>
+<span class="target" id="classSpawnPoint_1a462c47af0a7e59f1a1c49605c74fdfc0"></span><code class="sig-name descname">void SpawnPoint.Awake()</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classSpawnPoint_1a412e6056b4ecdf4df3532e0f177f80d3"></span><code class="sig-name descname">void SpawnPoint.OnEnable()</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classSpawnPoint_1a134141414df4cc36bf4508acb235b6ba"></span><code class="sig-name descname">void SpawnPoint.OnDisable()</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classSpawnPoint_1a0a36fd009f4cbb43691b0a5194bbcf2f"></span><code class="sig-name descname">void SpawnPoint.onSceneLoad(Scene s, LoadSceneMode ss)</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classSpawnPoint_1a23898bfc7c2ab54bb6df63ceb61d40f8"></span><code class="sig-name descname">void SpawnPoint.Start()</code></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Private Members</p>
+<dl class="member">
+<dt>
+<span class="target" id="classSpawnPoint_1a5a5e62fb5649fccb7c55c82123e5ba3b"></span><code class="sig-name descname">Vector3 SpawnPoint.defaultHubPos = new Vector3(3.117362f, 1.2f, -7.210602f)</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classSpawnPoint_1a8cc7abd031038feaabcb4e07f2a0ff7a"></span><code class="sig-name descname">Quaternion SpawnPoint.defaultHubRotation = Quaternion.Euler(0, 90, 0)</code></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Private Static Attributes</p>
+<dl class="member">
+<dt>
+<span class="target" id="classSpawnPoint_1a6b7bbbd176e3b09193340016ebfbebae"></span><code class="sig-name descname">SpawnPoint SpawnPoint.spawnPointInstance</code></dt>
 <dd></dd></dl>
 
 </div>

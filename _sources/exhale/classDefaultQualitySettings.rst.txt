@@ -1,0 +1,17 @@
+.. _exhale_class_classDefaultQualitySettings:
+
+Class DefaultQualitySettings
+============================
+
+- Defined in :ref:`file_fiscal-shock_Assets_Scripts_UserInterface_Settings.cs`
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: DefaultQualitySettings
+   :members:
+   :protected-members:
+   :private-members:
+   :undoc-members:

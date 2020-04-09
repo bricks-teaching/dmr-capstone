@@ -190,6 +190,21 @@
 
 <dl class="function">
 <dt>
+<span class="target" id="classSharkScript_1a23d2eadcb3dd938e5030446ed989b79d"></span><code class="sig-name descname">void SharkScript.checkWin()</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classSharkScript_1a5ab46190348252db004dd0fd4ee81f7f"></span><code class="sig-name descname">void SharkScript.payLoan()</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classSharkScript_1a34f787537eaed24ed77535c571eb5e63"></span><code class="sig-name descname">void SharkScript.addLoan(TMP_InputField textField)</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
 <span class="target" id="classSharkScript_1abedc01661fdb78cf820d7b510af753fe"></span><code class="sig-name descname">void SharkScript.BackClick()</code></dt>
 <dd></dd></dl>
 
@@ -218,37 +233,17 @@
 
 <dl class="member">
 <dt>
-<span class="target" id="classSharkScript_1a4910f3da5e0b6fc19cfb67282007e91d"></span><code class="sig-name descname">Button SharkScript.payButton</code></dt>
+<span class="target" id="classSharkScript_1a4978c2f13fed497c8cf2e4c41bb1b2ff"></span><code class="sig-name descname">TMP_InputField SharkScript.paymentId</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classSharkScript_1a100e13cad63baebbfd34e0640de22e4d"></span><code class="sig-name descname">Button SharkScript.newLoan</code></dt>
+<span class="target" id="classSharkScript_1a6724fa7d6c897ed2b36c0e35b079d1d7"></span><code class="sig-name descname">List&lt;LoanEntry&gt; SharkScript.loanEntries</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classSharkScript_1a96f3991c9c7e0cf4839176e447b3a1ee"></span><code class="sig-name descname">Button SharkScript.backButton</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
-<span class="target" id="classSharkScript_1a340aa4b71aa79101159e2be3d48a3962"></span><code class="sig-name descname">InputField SharkScript.payAmount</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
-<span class="target" id="classSharkScript_1ae8cde943fc0e0d571621cdd9ae080929"></span><code class="sig-name descname">InputField SharkScript.payID</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
-<span class="target" id="classSharkScript_1afa10a6dd7ac7e61bd0988f329ab4dad7"></span><code class="sig-name descname">InputField SharkScript.loanInput</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
-<span class="target" id="classSharkScript_1a33b7fae108f3f405eb22c7216b555e9c"></span><code class="sig-name descname">Text SharkScript.id1</code></dt>
+<span class="target" id="classSharkScript_1aae61db070d6a11c574d8289f70ed15dc"></span><code class="sig-name descname">int SharkScript.loanCount =&gt; sharkLoans.Count</code></dt>
 <dd></dd></dl>
 
 </div>
@@ -256,7 +251,7 @@
 <p class="breathe-sectiondef-title rubric">Property</p>
 <dl class="member">
 <dt>
-<span class="target" id="classSharkScript_1a3b6258fa907f51b6a7aab76db2f02cbf"></span><em class="property">property </em><code class="sig-name descname">SharkScript::sharkDue</code></dt>
+<span class="target" id="classSharkScript_1a828ff38814c5e4cbf4424bbde3907921"></span><em class="property">property </em><code class="sig-name descname">SharkScript::sharkMaxLoan</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
@@ -266,17 +261,7 @@
 
 <dl class="member">
 <dt>
-<span class="target" id="classSharkScript_1a828ff38814c5e4cbf4424bbde3907921"></span><em class="property">property </em><code class="sig-name descname">SharkScript::sharkMaxLoan</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
 <span class="target" id="classSharkScript_1a2263e2a0b2505800284c7c7a964f309f"></span><em class="property">property </em><code class="sig-name descname">SharkScript::sharkThreatLevel</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
-<span class="target" id="classSharkScript_1ab1fc8f08c7d677da252c63018f0e8182"></span><em class="property">property </em><code class="sig-name descname">SharkScript::sharkTotal</code></dt>
 <dd></dd></dl>
 
 </div>
@@ -290,6 +275,14 @@
 <dl class="function">
 <dt>
 <span class="target" id="classSharkScript_1a48eeb5837c04d4920eadaa7b25b8aac3"></span><code class="sig-name descname">static void SharkScript.sharkInterest()</code></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Static Attributes</p>
+<dl class="member">
+<dt>
+<span class="target" id="classSharkScript_1ab1fc8f08c7d677da252c63018f0e8182"></span><code class="sig-name descname">float SharkScript.sharkTotal =&gt; sharkLoans.Sum(l =&gt; l.total)</code></dt>
 <dd></dd></dl>
 
 </div>
@@ -317,16 +310,6 @@
 
 <dl class="function">
 <dt>
-<span class="target" id="classSharkScript_1a5ab46190348252db004dd0fd4ee81f7f"></span><code class="sig-name descname">void SharkScript.payLoan()</code></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt>
-<span class="target" id="classSharkScript_1a472b0f0006465f5c9930406243621d6f"></span><code class="sig-name descname">void SharkScript.addLoan()</code></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt>
 <span class="target" id="classSharkScript_1a3cbeb1071e83ff34b9a178dd65f2a80a"></span><code class="sig-name descname">void SharkScript.updateFields()</code></dt>
 <dd></dd></dl>
 
@@ -345,47 +328,20 @@
 
 <dl class="member">
 <dt>
-<span class="target" id="classSharkScript_1a6e5486d6090a4025126b6c689326edba"></span><code class="sig-name descname">Text SharkScript.id2</code></dt>
+<span class="target" id="classSharkScript_1a97819a226f151c1cd6d4d10a27afdb78"></span><code class="sig-name descname">TextMeshProUGUI SharkScript.rateText</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classSharkScript_1a2a20ca21b6fcd169f63a437f50225d42"></span><code class="sig-name descname">Text SharkScript.id3</code></dt>
+<span class="target" id="classSharkScript_1a63a7550dd6f701d8a37649bdbd8ac0d3"></span><code class="sig-name descname">TMP_InputField SharkScript.paymentAmount</code></dt>
 <dd></dd></dl>
 
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Private Static Attributes</p>
 <dl class="member">
 <dt>
-<span class="target" id="classSharkScript_1a11515459bb690d354bc9bb450e528cd3"></span><code class="sig-name descname">Text SharkScript.type1</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
-<span class="target" id="classSharkScript_1a59684ac1262e57335365b5e4fbdbfddc"></span><code class="sig-name descname">Text SharkScript.type2</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
-<span class="target" id="classSharkScript_1a2d836dadb1fda582e4cb27f4e331861b"></span><code class="sig-name descname">Text SharkScript.type3</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
-<span class="target" id="classSharkScript_1a1f7f0e1427718d8f6ed722a69658be88"></span><code class="sig-name descname">Text SharkScript.amount1</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
-<span class="target" id="classSharkScript_1a8d73bcdf5e357c5103060271275f04ed"></span><code class="sig-name descname">Text SharkScript.amount2</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
-<span class="target" id="classSharkScript_1ac225356c2aa3af33c1ce4a4758d60ff5"></span><code class="sig-name descname">Text SharkScript.amount3</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
-<span class="target" id="classSharkScript_1aae61db070d6a11c574d8289f70ed15dc"></span><code class="sig-name descname">int SharkScript.loanCount = 0</code></dt>
+<span class="target" id="classSharkScript_1a5b22df944831b95cdfde5f95e839c015"></span><code class="sig-name descname">List&lt;Loan&gt; SharkScript.sharkLoans =&gt; StateManager.loanList.Where(l =&gt; l.source == LoanType.Payday).ToList()</code></dt>
 <dd></dd></dl>
 
 </div>

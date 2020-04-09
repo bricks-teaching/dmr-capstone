@@ -1,0 +1,17 @@
+.. _exhale_class_classDefaultState:
+
+Class DefaultState
+==================
+
+- Defined in :ref:`file_fiscal-shock_Assets_Scripts_Finance_StateManager.cs`
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: DefaultState
+   :members:
+   :protected-members:
+   :private-members:
+   :undoc-members:

@@ -25,5 +25,7 @@ Classes
 -------
 
 
+- :ref:`exhale_class_classGraphicsWidgets`
+
 - :ref:`exhale_class_classInGameMenu`
 

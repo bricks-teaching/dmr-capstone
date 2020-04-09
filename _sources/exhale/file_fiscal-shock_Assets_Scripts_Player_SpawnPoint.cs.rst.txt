@@ -1,0 +1,29 @@
+
+.. _file_fiscal-shock_Assets_Scripts_Player_SpawnPoint.cs:
+
+File SpawnPoint.cs
+==================
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``fiscal-shock/Assets/Scripts/Player/SpawnPoint.cs``)
+-----------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+Classes
+-------
+
+
+- :ref:`exhale_class_classSpawnPoint`
+

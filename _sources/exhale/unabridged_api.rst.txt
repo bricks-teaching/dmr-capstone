@@ -113,6 +113,11 @@ Classes and Structs
 .. toctree::
    :maxdepth: 5
 
+   structQualityPreset.rst
+
+.. toctree::
+   :maxdepth: 5
+
    classAnimationCategory.rst
 
 .. toctree::
@@ -134,6 +139,16 @@ Classes and Structs
    :maxdepth: 5
 
    classCheats.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   classDefaultQualitySettings.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   classDefaultState.rst
 
 .. toctree::
    :maxdepth: 5
@@ -298,17 +313,22 @@ Classes and Structs
 .. toctree::
    :maxdepth: 5
 
+   classGraphicsWidgets.rst
+
+.. toctree::
+   :maxdepth: 5
+
    classHUD.rst
 
 .. toctree::
    :maxdepth: 5
 
-   classHUDSingleton.rst
+   classInGameMenu.rst
 
 .. toctree::
    :maxdepth: 5
 
-   classInGameMenu.rst
+   classInputFieldEvents.rst
 
 .. toctree::
    :maxdepth: 5
@@ -328,6 +348,11 @@ Classes and Structs
 .. toctree::
    :maxdepth: 5
 
+   classLoanEntry.rst
+
+.. toctree::
+   :maxdepth: 5
+
    classLoseMenu.rst
 
 .. toctree::
@@ -338,17 +363,7 @@ Classes and Structs
 .. toctree::
    :maxdepth: 5
 
-   classMenuSingleton.rst
-
-.. toctree::
-   :maxdepth: 5
-
    classMouseLook.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   classPlayerFinance.rst
 
 .. toctree::
    :maxdepth: 5
@@ -409,6 +424,11 @@ Classes and Structs
    :maxdepth: 5
 
    classSpawnableObject.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   classSpawnPoint.rst
 
 .. toctree::
    :maxdepth: 5
@@ -478,6 +498,11 @@ Enums
    :maxdepth: 5
 
    enum_WeaponStats_8cs_1a6632920782fdcfb50d09c28a324a5042.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   enum_StateManager_8cs_1a66200156421a053a37d5351369f606aa.rst
 
 .. toctree::
    :maxdepth: 5

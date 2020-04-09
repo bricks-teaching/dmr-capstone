@@ -26,8 +26,8 @@ File Hierarchy
 - :ref:`file_fiscal-shock_Assets_Scripts_Player_GameController.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_Graphs_Graph.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_UserInterface_HUD.cs`
-- :ref:`file_fiscal-shock_Assets_Scripts_UserInterface_HUDSingleton.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_UserInterface_InGameMenu.cs`
+- :ref:`file_fiscal-shock_Assets_Scripts_Finance_InputFieldEvents.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_Instructional_IntroStory.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_ProceduralGeneration_KillZone.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_ThirdParty_ListExtensions.cs`
@@ -35,11 +35,9 @@ File Hierarchy
 - :ref:`file_fiscal-shock_Assets_Scripts_UserInterface_LoseMenu.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_UserInterface_MainMenu.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_Graphs_Mathy.cs`
-- :ref:`file_fiscal-shock_Assets_Scripts_UserInterface_MenuSingleton.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_ThirdParty_MersenneTwister.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_Player_MouseLook.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_ProceduralGeneration_ObjectInfo_ObjectInfo.cs`
-- :ref:`file_fiscal-shock_Assets_Scripts_Player_PlayerFinance.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_Player_PlayerHealth.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_Player_PlayerMovement.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_Player_PlayerShoot.cs`
@@ -53,6 +51,7 @@ File Hierarchy
 - :ref:`file_fiscal-shock_Assets_Scripts_Finance_ShopScript.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_Instructional_Sign.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_ProceduralGeneration_SpawnableObject.cs`
+- :ref:`file_fiscal-shock_Assets_Scripts_Player_SpawnPoint.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_Finance_StateManager.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_Instructional_TargetBehavior.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_Utility_Utils.cs`

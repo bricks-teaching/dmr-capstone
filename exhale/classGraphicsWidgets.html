@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Class MenuSingleton &mdash; Fiscal Shock  documentation</title>
+  <title>Class GraphicsWidgets &mdash; Fiscal Shock  documentation</title>
   
 
   
@@ -85,11 +85,7 @@
             
               <!-- Local TOC -->
               <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">Class MenuSingleton</a><ul>
-<li><a class="reference internal" href="#inheritance-relationships">Inheritance Relationships</a><ul>
-<li><a class="reference internal" href="#base-type">Base Type</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#">Class GraphicsWidgets</a><ul>
 <li><a class="reference internal" href="#class-documentation">Class Documentation</a></li>
 </ul>
 </li>
@@ -138,13 +134,13 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Class MenuSingleton</li>
+      <li>Class GraphicsWidgets</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/exhale/classMenuSingleton.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/exhale/classGraphicsWidgets.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -157,39 +153,77 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="class-menusingleton">
-<span id="exhale-class-classmenusingleton"></span><h1>Class MenuSingleton<a class="headerlink" href="#class-menusingleton" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="class-graphicswidgets">
+<span id="exhale-class-classgraphicswidgets"></span><h1>Class GraphicsWidgets<a class="headerlink" href="#class-graphicswidgets" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><p>Defined in <a class="reference internal" href="file_fiscal-shock_Assets_Scripts_UserInterface_MenuSingleton.cs.html#file-fiscal-shock-assets-scripts-userinterface-menusingleton-cs"><span class="std std-ref">File MenuSingleton.cs</span></a></p></li>
+<li><p>Defined in <a class="reference internal" href="file_fiscal-shock_Assets_Scripts_UserInterface_InGameMenu.cs.html#file-fiscal-shock-assets-scripts-userinterface-ingamemenu-cs"><span class="std std-ref">File InGameMenu.cs</span></a></p></li>
 </ul>
-<div class="section" id="inheritance-relationships">
-<h2>Inheritance Relationships<a class="headerlink" href="#inheritance-relationships" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="base-type">
-<h3>Base Type<a class="headerlink" href="#base-type" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">MonoBehaviour</span></code></p></li>
-</ul>
-</div>
-</div>
 <div class="section" id="class-documentation">
 <h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="_CPPv413MenuSingleton">
-<span id="_CPPv313MenuSingleton"></span><span id="_CPPv213MenuSingleton"></span><span id="MenuSingleton"></span><span class="target" id="classMenuSingleton"></span><em class="property">class </em><code class="sig-name descname">MenuSingleton</code> : <em class="property">public</em> MonoBehaviour<a class="headerlink" href="#_CPPv413MenuSingleton" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Singleton that prevents things from being destroyed on scene changes. Must be manually destroyed if it needs to go away. </p>
+<dt id="_CPPv415GraphicsWidgets">
+<span id="_CPPv315GraphicsWidgets"></span><span id="_CPPv215GraphicsWidgets"></span><span id="GraphicsWidgets"></span><span class="target" id="classGraphicsWidgets"></span><em class="property">class </em><code class="sig-name descname">GraphicsWidgets</code><a class="headerlink" href="#_CPPv415GraphicsWidgets" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Data class to hold a bunch of stuff in inspector view without clogging up the script view. </p>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Property</p>
+<p class="breathe-sectiondef-title rubric">Public Members</p>
 <dl class="member">
 <dt>
-<span class="target" id="classMenuSingleton_1a618b8be0ffd12b7112aadc3dae380ec6"></span><em class="property">property </em><code class="sig-name descname">MenuSingleton::menuInstance</code></dt>
+<span class="target" id="classGraphicsWidgets_1adccf7233197848189a775baeffd11952"></span><code class="sig-name descname">TextMeshProUGUI GraphicsWidgets.qualityText</code></dt>
 <dd></dd></dl>
 
-</div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Private Functions</p>
-<dl class="function">
+<dl class="member">
 <dt>
-<span class="target" id="classMenuSingleton_1a8b37ae9e831addc1e39e6927952dfe44"></span><code class="sig-name descname">void MenuSingleton.Awake()</code></dt>
+<span class="target" id="classGraphicsWidgets_1a494d6355bbde2f911cfb13beffa0faf3"></span><code class="sig-name descname">Toggle GraphicsWidgets.overrideToggle</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classGraphicsWidgets_1a8c2062c99fa65f13daa8daf7940b9fad"></span><code class="sig-name descname">Toggle GraphicsWidgets.showFPSToggle</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classGraphicsWidgets_1a2894deb1001dc852e6f9de875d383440"></span><code class="sig-name descname">Toggle GraphicsWidgets.fullscreenToggle</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classGraphicsWidgets_1a0ef7d40e92f80a28e7066c9ea68f0e41"></span><code class="sig-name descname">Slider GraphicsWidgets.shadowDistance</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classGraphicsWidgets_1a3e1a7cce903aca118cf1098c27201d36"></span><code class="sig-name descname">TMP_Dropdown GraphicsWidgets.qualityDropdown</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classGraphicsWidgets_1ac7a922016c8804599223713f2f28624f"></span><code class="sig-name descname">TMP_Dropdown GraphicsWidgets.vsyncDropdown</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classGraphicsWidgets_1ad0d6f530ce620eee96d470c643bd627d"></span><code class="sig-name descname">TMP_Dropdown GraphicsWidgets.pixelLighting</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classGraphicsWidgets_1a58ef092c765f429f24d95086e569f589"></span><code class="sig-name descname">TMP_Dropdown GraphicsWidgets.shadowRes</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classGraphicsWidgets_1a6a30122af20198f2b9756dc354318091"></span><code class="sig-name descname">TMP_Dropdown GraphicsWidgets.anisotropic</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classGraphicsWidgets_1a378fe1b967cce52ca3ead355cea73696"></span><code class="sig-name descname">TMP_Dropdown GraphicsWidgets.antialiasing</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classGraphicsWidgets_1a768b1376c56dc39d0f3235b45ed74165"></span><code class="sig-name descname">TMP_Dropdown GraphicsWidgets.resolution</code></dt>
 <dd></dd></dl>
 
 </div>

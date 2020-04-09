@@ -1,9 +1,9 @@
-.. _exhale_class_classMenuSingleton:
+.. _exhale_class_classSpawnPoint:
 
-Class MenuSingleton
-===================
+Class SpawnPoint
+================
 
-- Defined in :ref:`file_fiscal-shock_Assets_Scripts_UserInterface_MenuSingleton.cs`
+- Defined in :ref:`file_fiscal-shock_Assets_Scripts_Player_SpawnPoint.cs`
 
 
 Inheritance Relationships
@@ -19,7 +19,7 @@ Class Documentation
 -------------------
 
 
-.. doxygenclass:: MenuSingleton
+.. doxygenclass:: SpawnPoint
    :members:
    :protected-members:
    :private-members:

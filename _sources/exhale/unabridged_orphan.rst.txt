@@ -210,12 +210,12 @@ Files
 .. toctree::
    :maxdepth: 5
 
-   file_fiscal-shock_Assets_Scripts_UserInterface_HUDSingleton.cs.rst
+   file_fiscal-shock_Assets_Scripts_UserInterface_InGameMenu.cs.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file_fiscal-shock_Assets_Scripts_UserInterface_InGameMenu.cs.rst
+   file_fiscal-shock_Assets_Scripts_Finance_InputFieldEvents.cs.rst
 
 .. toctree::
    :maxdepth: 5
@@ -255,11 +255,6 @@ Files
 .. toctree::
    :maxdepth: 5
 
-   file_fiscal-shock_Assets_Scripts_UserInterface_MenuSingleton.cs.rst
-
-.. toctree::
-   :maxdepth: 5
-
    file_fiscal-shock_Assets_Scripts_ThirdParty_MersenneTwister.cs.rst
 
 .. toctree::
@@ -271,11 +266,6 @@ Files
    :maxdepth: 5
 
    file_fiscal-shock_Assets_Scripts_ProceduralGeneration_ObjectInfo_ObjectInfo.cs.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   file_fiscal-shock_Assets_Scripts_Player_PlayerFinance.cs.rst
 
 .. toctree::
    :maxdepth: 5
@@ -341,6 +331,11 @@ Files
    :maxdepth: 5
 
    file_fiscal-shock_Assets_Scripts_ProceduralGeneration_SpawnableObject.cs.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_fiscal-shock_Assets_Scripts_Player_SpawnPoint.cs.rst
 
 .. toctree::
    :maxdepth: 5

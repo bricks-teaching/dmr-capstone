@@ -196,6 +196,26 @@
 
 <dl class="function">
 <dt>
+<span class="target" id="classSettings_1abf13cd66c753d39c123d201eb09d2a6b"></span><code class="sig-name descname">static void Settings.updateCurrentSettings()</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classSettings_1a0731be1388593fca471086e63872c2a3"></span><code class="sig-name descname">static void Settings.resetToCurrentQualityDefaults()</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classSettings_1a8d1ee6a9fc33614b9a3c38594d6d9197"></span><code class="sig-name descname">static void Settings.quitToDesktop()</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classSettings_1a48b002077e65d033aea39cda703526b9"></span><code class="sig-name descname">static void Settings.quitToMainMenu()</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
 <span class="target" id="classSettings_1a50f5324935039b75d82047d9945fadf0"></span><code class="sig-name descname">static bool Settings.mutexLockCursorState(MonoBehaviour caller)</code></dt>
 <dd><p>Get the mutex on the cursor state while locking the cursor </p>
 <p>Remember to free it with unlockCursorState so the mutex is released!</p>
@@ -270,6 +290,16 @@
 <p>Do not use except when you NEED to impolitely alter controls, i.e., changing scenes.</p>
 </dd></dl>
 
+<dl class="function">
+<dt>
+<span class="target" id="classSettings_1aba1395d06b2e015adbcb5c5010d7fd1e"></span><code class="sig-name descname">static Resolution Settings.getResolutionByIndex(int i)</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classSettings_1a75a59a14f5520e7ed06625c97d833b45"></span><code class="sig-name descname">static List&lt;string&gt; Settings.getSupportedResolutions()</code></dt>
+<dd></dd></dl>
+
 </div>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Static Attributes</p>
@@ -305,22 +335,37 @@
 
 <dl class="member">
 <dt>
-<span class="target" id="classSettings_1a12949e5a2ed37b8a7e899fe60b61b986"></span><code class="sig-name descname">int Settings.targetFramerate =&gt; values.targetFramerate</code></dt>
+<span class="target" id="classSettings_1a1a02a0e1ec099399f9da6713ea71c341"></span><code class="sig-name descname">QualityPreset Settings.qualityPreset = DefaultQualitySettings.Default</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classSettings_1af6f938c0e892696c650a4fd13c6cbfde"></span><code class="sig-name descname">int Settings.vsync =&gt; values.vsyncEnabled</code></dt>
+<span class="target" id="classSettings_1abd7bc4357397067cc43a4b810995cc2a"></span><code class="sig-name descname">string [] Settings.shadowResNames= {        &quot;Off&quot;,         &quot;Low&quot;,        &quot;Medium&quot;,        &quot;High&quot;,        &quot;Very High&quot;    }</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classSettings_1a6f74e6c3f6635319b9397f83e2de7907"></span><code class="sig-name descname">string [] Settings.anisotropicNames= {        &quot;Disabled&quot;,        &quot;Enabled&quot;,        &quot;Force Enabled&quot;    }</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classSettings_1af11ddd30cfa93648e78ea120d0fcb960"></span><code class="sig-name descname">string [] Settings.pixelQualityNames= {        &quot;None&quot;,        &quot;Low&quot;,        &quot;Medium&quot;,        &quot;High&quot;,        &quot;Ultra&quot;    }</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classSettings_1a1b07b763a82a1f40218e8393ae2f236d"></span><code class="sig-name descname">string [] Settings.vsyncCountNames= {        &quot;Disabled&quot;,        &quot;Every&quot;,        &quot;Every Other&quot;    }</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classSettings_1afa3489fb3b1c979dbf6b5cfa6a610dbf"></span><code class="sig-name descname">string [] Settings.antialiasingNames= {        &quot;Disabled&quot;,        &quot;2x MSAA&quot;,        &quot;4x MSAA&quot;,        &quot;8x MSAA&quot;    }</code></dt>
 <dd></dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Private Static Attributes</p>
-<dl class="member">
-<dt>
-<span class="target" id="classSettings_1a707caf962e09606bf6e5c8be71af4534"></span><code class="sig-name descname">bool Settings.alreadyLoadedSettings = false</code></dt>
-<dd></dd></dl>
-
 <dl class="member">
 <dt>
 <span class="target" id="classSettings_1a9d80293a60c24069a58cc0537fd86730"></span><code class="sig-name descname">readonly string Settings.settingsFilename = Application.persistentDataPath + &quot;/settings.json&quot;</code></dt>

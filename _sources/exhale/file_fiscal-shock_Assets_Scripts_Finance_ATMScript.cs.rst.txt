@@ -40,3 +40,5 @@ Classes
 
 - :ref:`exhale_class_classATMScript`
 
+- :ref:`exhale_class_classLoanEntry`
+

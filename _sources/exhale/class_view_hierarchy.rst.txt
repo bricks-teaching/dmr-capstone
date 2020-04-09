@@ -35,11 +35,14 @@ Class Hierarchy
         - :ref:`exhale_class_classThirdParty_1_1Delaunator_1_1Triangulation`
     - :ref:`exhale_class_classThirdParty_1_1MersenneTwister`
 - :ref:`exhale_struct_structHomingTargets`
+- :ref:`exhale_struct_structQualityPreset`
 - :ref:`exhale_class_classAnimationCategory`
 - :ref:`exhale_class_classAnimationManager`
 - :ref:`exhale_class_classATMScript`
 - :ref:`exhale_class_classBulletBehavior`
 - :ref:`exhale_class_classCheats`
+- :ref:`exhale_class_classDefaultQualitySettings`
+- :ref:`exhale_class_classDefaultState`
 - :ref:`exhale_class_classDungeonEntry`
 - :ref:`exhale_class_classDungeonTutorial`
 - :ref:`exhale_class_classEnemyHealth`
@@ -49,17 +52,17 @@ Class Hierarchy
 - :ref:`exhale_class_classExplosion`
 - :ref:`exhale_class_classFeedbackController`
 - :ref:`exhale_class_classGameController`
+- :ref:`exhale_class_classGraphicsWidgets`
 - :ref:`exhale_class_classHUD`
-- :ref:`exhale_class_classHUDSingleton`
 - :ref:`exhale_class_classInGameMenu`
+- :ref:`exhale_class_classInputFieldEvents`
 - :ref:`exhale_class_classIntroStory`
 - :ref:`exhale_class_classLoadingScreen`
 - :ref:`exhale_class_classLoan`
+- :ref:`exhale_class_classLoanEntry`
 - :ref:`exhale_class_classLoseMenu`
 - :ref:`exhale_class_classMainMenu`
-- :ref:`exhale_class_classMenuSingleton`
 - :ref:`exhale_class_classMouseLook`
-- :ref:`exhale_class_classPlayerFinance`
 - :ref:`exhale_class_classPlayerHealth`
 - :ref:`exhale_class_classPlayerMovement`
 - :ref:`exhale_class_classPlayerShoot`
@@ -72,6 +75,7 @@ Class Hierarchy
 - :ref:`exhale_class_classSign`
 - :ref:`exhale_class_classSpawnableEnemy`
 - :ref:`exhale_class_classSpawnableObject`
+- :ref:`exhale_class_classSpawnPoint`
 - :ref:`exhale_class_classStateManager`
 - :ref:`exhale_class_classTargetBehavior`
 - :ref:`exhale_class_classUtils`
@@ -82,6 +86,7 @@ Class Hierarchy
 - :ref:`exhale_enum_AnimationManager_8cs_1a2c62c8325defaa3537c7de457e51d9e9`
 - :ref:`exhale_enum_StateManager_8cs_1a85b5d3c8a7ff99f7195c8c75a359d277`
 - :ref:`exhale_enum_WeaponStats_8cs_1a6632920782fdcfb50d09c28a324a5042`
+- :ref:`exhale_enum_StateManager_8cs_1a66200156421a053a37d5351369f606aa`
 - :ref:`exhale_enum_WeaponStats_8cs_1a7af6aebb429588b2abecb84a3c01625e`
 
 

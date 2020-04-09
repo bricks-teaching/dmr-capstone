@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Class MouseLook &mdash; Fiscal Shock  documentation</title>
+  <title>Class DefaultState &mdash; Fiscal Shock  documentation</title>
   
 
   
@@ -85,11 +85,7 @@
             
               <!-- Local TOC -->
               <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">Class MouseLook</a><ul>
-<li><a class="reference internal" href="#inheritance-relationships">Inheritance Relationships</a><ul>
-<li><a class="reference internal" href="#base-type">Base Type</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#">Class DefaultState</a><ul>
 <li><a class="reference internal" href="#class-documentation">Class Documentation</a></li>
 </ul>
 </li>
@@ -138,13 +134,13 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Class MouseLook</li>
+      <li>Class DefaultState</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/exhale/classMouseLook.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/exhale/classDefaultState.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -157,84 +153,87 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="class-mouselook">
-<span id="exhale-class-classmouselook"></span><h1>Class MouseLook<a class="headerlink" href="#class-mouselook" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="class-defaultstate">
+<span id="exhale-class-classdefaultstate"></span><h1>Class DefaultState<a class="headerlink" href="#class-defaultstate" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><p>Defined in <a class="reference internal" href="file_fiscal-shock_Assets_Scripts_Player_MouseLook.cs.html#file-fiscal-shock-assets-scripts-player-mouselook-cs"><span class="std std-ref">File MouseLook.cs</span></a></p></li>
+<li><p>Defined in <a class="reference internal" href="file_fiscal-shock_Assets_Scripts_Finance_StateManager.cs.html#file-fiscal-shock-assets-scripts-finance-statemanager-cs"><span class="std std-ref">File StateManager.cs</span></a></p></li>
 </ul>
-<div class="section" id="inheritance-relationships">
-<h2>Inheritance Relationships<a class="headerlink" href="#inheritance-relationships" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="base-type">
-<h3>Base Type<a class="headerlink" href="#base-type" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">MonoBehaviour</span></code></p></li>
-</ul>
-</div>
-</div>
 <div class="section" id="class-documentation">
 <h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="_CPPv49MouseLook">
-<span id="_CPPv39MouseLook"></span><span id="_CPPv29MouseLook"></span><span id="MouseLook"></span><span class="target" id="classMouseLook"></span><em class="property">class </em><code class="sig-name descname">MouseLook</code> : <em class="property">public</em> MonoBehaviour<a class="headerlink" href="#_CPPv49MouseLook" title="Permalink to this definition">¶</a><br /></dt>
-<dd><div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Functions</p>
-<dl class="function">
-<dt>
-<span class="target" id="classMouseLook_1adbe4a40eadd089cc9279af502155a732"></span><code class="sig-name descname">void MouseLook.Start()</code></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt>
-<span class="target" id="classMouseLook_1a74aea4a5377c9adfdfbfce2f8c11dd3b"></span><code class="sig-name descname">void MouseLook.Update()</code></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt>
-<span class="target" id="classMouseLook_1a0b2ee400613ad482cb097e6da087d81c"></span><code class="sig-name descname">void MouseLook.OnApplicationFocus(bool focused)</code></dt>
-<dd><p>Release cursor and freeze time when the game is no longer in focus. </p>
-<p><dl>
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist">
-<li><code class="docutils literal notranslate"><span class="pre">focused</span></code></li>
-</ul>
-</dd>
-</dl>
-</p>
-</dd></dl>
-
-</div>
+<dt id="_CPPv412DefaultState">
+<span id="_CPPv312DefaultState"></span><span id="_CPPv212DefaultState"></span><span id="DefaultState"></span><span class="target" id="classDefaultState"></span><em class="property">class </em><code class="sig-name descname">DefaultState</code><a class="headerlink" href="#_CPPv412DefaultState" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Default <a class="reference internal" href="classStateManager.html#classStateManager"><span class="std std-ref">StateManager</span></a> values. Value types only! Reference types (lists, gameobjects, etc.) must be cleared inside the reset function. </p>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Members</p>
+<p class="breathe-sectiondef-title rubric">Public Static Attributes</p>
 <dl class="member">
 <dt>
-<span class="target" id="classMouseLook_1af0c031f08783f694f178d17d4163f6d6"></span><code class="sig-name descname">bool MouseLook.lockCursorToGame = true</code></dt>
+<span class="target" id="classDefaultState_1a06e8e881f67c575820aa71513f061901"></span><code class="sig-name descname">readonly float DefaultState.cashOnHand = 0.0f</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classMouseLook_1a5087bc0feb365dfacd2cbafb9c0c70a9"></span><code class="sig-name descname">float MouseLook.clampMinimum = -90f</code></dt>
+<span class="target" id="classDefaultState_1a05e39ced7b4aa50d404162f67028a44a"></span><code class="sig-name descname">readonly int DefaultState.nextID = 0</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classMouseLook_1a51ef7528fba6e863463e58b9f19f5d78"></span><code class="sig-name descname">float MouseLook.clampMaximum = 90f</code></dt>
+<span class="target" id="classDefaultState_1a8fcbe98226527a11cca05ab6b09e691e"></span><code class="sig-name descname">readonly int DefaultState.timesEntered = 0</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classMouseLook_1ae265d05ac12f7a682219186553b23ab5"></span><code class="sig-name descname">Transform MouseLook.body</code></dt>
-<dd></dd></dl>
-
-</div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Private Members</p>
-<dl class="member">
-<dt>
-<span class="target" id="classMouseLook_1aee64ea4c4b337ec782f6adcf23b4cf11"></span><code class="sig-name descname">float MouseLook.xRotation = 0f</code></dt>
+<span class="target" id="classDefaultState_1acd08423d179db97fa659940f9abb5bee"></span><code class="sig-name descname">readonly int DefaultState.currentFloor = 0</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classMouseLook_1aba483c5ed7cf71620e035ba4af3416e8"></span><code class="sig-name descname">CursorLockMode MouseLook.lastCursorLockState</code></dt>
+<span class="target" id="classDefaultState_1a3bb7d31e603c37cc1d5848d6fde329b8"></span><code class="sig-name descname">readonly int DefaultState.change = 5</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classDefaultState_1aa6aadfcff8a3cb5556e9893b90d97252"></span><code class="sig-name descname">readonly int DefaultState.creditScore = 0</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classDefaultState_1a71c81d3576a2a820fbd4d973a866df02"></span><code class="sig-name descname">readonly int DefaultState.paymentStreak = 0</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classDefaultState_1a05e62dcac1c317a256b1bf3dd9693f28"></span><code class="sig-name descname">readonly float DefaultState.cashOnEntrance = 0.0f</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classDefaultState_1a7b0f144b2798f370de8ba944786d9eb9"></span><code class="sig-name descname">readonly bool DefaultState.purchasedHose = false</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classDefaultState_1a26def973293f3436baad9fd4e4d836f2"></span><code class="sig-name descname">readonly bool DefaultState.purchasedLauncher = false</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classDefaultState_1a54c77853f6c5ef37e304e7cc87397f0f"></span><code class="sig-name descname">readonly bool DefaultState.sawTutorial = false</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classDefaultState_1a6e884a6de159ea1b0fceaa414aadb967"></span><code class="sig-name descname">readonly bool DefaultState.pauseAvailable = true</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classDefaultState_1ac49716f29bb4c069d46c8385bc352a0d"></span><code class="sig-name descname">readonly bool DefaultState.playerDead = false</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classDefaultState_1a3c9a8bde11afcede87824fcbcbee8e81"></span><code class="sig-name descname">readonly bool DefaultState.playerWon = false</code></dt>
 <dd></dd></dl>
 
 </div>

@@ -208,6 +208,11 @@
 <span class="target" id="classHUD_1a13aa21dfbf4bb88075844a78f7cd21eb"></span><code class="sig-name descname">TextMeshProUGUI HUD.earn</code></dt>
 <dd></dd></dl>
 
+<dl class="member">
+<dt>
+<span class="target" id="classHUD_1a567d810d5edde9dcfcf6367ad5d0a750"></span><code class="sig-name descname">TextMeshProUGUI HUD.fps</code></dt>
+<dd></dd></dl>
+
 </div>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Property</p>
@@ -221,9 +226,19 @@
 <span class="target" id="classHUD_1af465544349af259338eff0e01ad8a6de"></span><em class="property">property </em><code class="sig-name descname">HUD::escapeHatch</code></dt>
 <dd></dd></dl>
 
+<dl class="member">
+<dt>
+<span class="target" id="classHUD_1a1a56fd872584efc32e136dafd31faeb6"></span><em class="property">property </em><code class="sig-name descname">HUD::hudInstance</code></dt>
+<dd></dd></dl>
+
 </div>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Private Functions</p>
+<dl class="function">
+<dt>
+<span class="target" id="classHUD_1af32f52b69b84416c84f986ff77c39722"></span><code class="sig-name descname">void HUD.Awake()</code></dt>
+<dd></dd></dl>
+
 <dl class="function">
 <dt>
 <span class="target" id="classHUD_1a1e2faac9f0c730bf40c617a12d34f745"></span><code class="sig-name descname">void HUD.Start()</code></dt>
@@ -234,6 +249,29 @@
 <span class="target" id="classHUD_1aec49aa4c47ed8f991d5c9c475d913f16"></span><code class="sig-name descname">void HUD.Update()</code></dt>
 <dd><p>Currently updates every frame, could also instead just be asked to update by functions that change the <a class="reference internal" href="#classHUD"><span class="std std-ref">HUD</span></a> if that is a performance concern. </p>
 </dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Private Members</p>
+<dl class="member">
+<dt>
+<span class="target" id="classHUD_1a16022e2c381c82749c9539a25af79f24"></span><code class="sig-name descname">float HUD.fpsUpdateRate = 1f</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classHUD_1abf1c7606458409f9c5baa67f4231d2a6"></span><code class="sig-name descname">float HUD.accumulatedFps</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classHUD_1a28b7f0d7d9b726ed0045d404ed683187"></span><code class="sig-name descname">float HUD.ticksSinceLastUpdate</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classHUD_1a808bacf26bdb373b01335244754eabd8"></span><code class="sig-name descname">int HUD.numTicksSinceLast</code></dt>
+<dd></dd></dl>
 
 </div>
 </dd></dl>

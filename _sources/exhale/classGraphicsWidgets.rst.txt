@@ -1,0 +1,17 @@
+.. _exhale_class_classGraphicsWidgets:
+
+Class GraphicsWidgets
+=====================
+
+- Defined in :ref:`file_fiscal-shock_Assets_Scripts_UserInterface_InGameMenu.cs`
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: GraphicsWidgets
+   :members:
+   :protected-members:
+   :private-members:
+   :undoc-members:

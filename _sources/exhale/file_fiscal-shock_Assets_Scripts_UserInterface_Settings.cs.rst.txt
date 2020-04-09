@@ -25,6 +25,10 @@ Classes
 -------
 
 
+- :ref:`exhale_struct_structQualityPreset`
+
+- :ref:`exhale_class_classDefaultQualitySettings`
+
 - :ref:`exhale_class_classSettings`
 
 - :ref:`exhale_class_classSettingsValues`

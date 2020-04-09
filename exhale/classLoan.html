@@ -163,11 +163,12 @@
 <dl class="class">
 <dt id="_CPPv44Loan">
 <span id="_CPPv34Loan"></span><span id="_CPPv24Loan"></span><span id="Loan"></span><span class="target" id="classLoan"></span><em class="property">class </em><code class="sig-name descname">Loan</code><a class="headerlink" href="#_CPPv44Loan" title="Permalink to this definition">¶</a><br /></dt>
-<dd><div class="breathe-sectiondef docutils container">
+<dd><p>Represents a single loan. </p>
+<div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Functions</p>
 <dl class="function">
 <dt>
-<span class="target" id="classLoan_1af4d630f6fe596cd41ee4b0453310407f"></span><code class="sig-name descname">Loan.Loan(int num, float tot, float rat, bool shark)</code></dt>
+<span class="target" id="classLoan_1a48bb95dbb327abc8aaac15d565cb3f9d"></span><code class="sig-name descname">Loan.Loan(int num, float tot, float rat, LoanType type)</code></dt>
 <dd></dd></dl>
 
 </div>
@@ -175,32 +176,45 @@
 <p class="breathe-sectiondef-title rubric">Public Members</p>
 <dl class="member">
 <dt>
-<span class="target" id="classLoan_1a55d22170f8571a4f6224c06d40ec3380"></span><code class="sig-name descname">int Loan.ID</code></dt>
+<span class="target" id="classLoan_1a67db5e25982332500428149c822f074e"></span><code class="sig-name descname">float Loan.collateral =&gt; (source == LoanType.Secured)? originalAmount - (originalAmount / ATMScript.securedAmount) : 0</code></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Property</p>
+<dl class="member">
+<dt>
+<span class="target" id="classLoan_1a55d22170f8571a4f6224c06d40ec3380"></span><em class="property">property </em><code class="sig-name descname">Loan::ID</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classLoan_1a3264bf0176be41f96ba83cebe93af684"></span><code class="sig-name descname">float Loan.total</code></dt>
+<span class="target" id="classLoan_1a3264bf0176be41f96ba83cebe93af684"></span><em class="property">property </em><code class="sig-name descname">Loan::total</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classLoan_1a7e8fca622a4644532997d26b1d581e7b"></span><code class="sig-name descname">float Loan.rate</code></dt>
+<span class="target" id="classLoan_1a7e8fca622a4644532997d26b1d581e7b"></span><em class="property">property </em><code class="sig-name descname">Loan::rate</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classLoan_1a65226ef510007c6206fd1f5896989e70"></span><code class="sig-name descname">bool Loan.paid</code></dt>
+<span class="target" id="classLoan_1a65226ef510007c6206fd1f5896989e70"></span><em class="property">property </em><code class="sig-name descname">Loan::paid</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classLoan_1af4f5bb8073b539d467c6b02b393448eb"></span><code class="sig-name descname">bool Loan.source</code></dt>
+<span class="target" id="classLoan_1ae07be558592aaf3b12b1a5d787fc28d4"></span><em class="property">property </em><code class="sig-name descname">Loan::source</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classLoan_1a41448cfa6b92db28b9f3d113b7eaae2d"></span><code class="sig-name descname">int Loan.age</code></dt>
+<span class="target" id="classLoan_1a41448cfa6b92db28b9f3d113b7eaae2d"></span><em class="property">property </em><code class="sig-name descname">Loan::age</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classLoan_1a0acfefcc71618ae64103b187b17475ea"></span><em class="property">property </em><code class="sig-name descname">Loan::originalAmount</code></dt>
 <dd></dd></dl>
 
 </div>
