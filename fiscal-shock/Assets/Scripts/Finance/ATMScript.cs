@@ -15,8 +15,8 @@ public class ATMScript : MonoBehaviour {
     public GameObject bankPanel;
     public TMP_InputField paymentId, paymentAmount;
     public List<LoanEntry> loanEntries;
-    private static List<Loan> bankLoans => StateManager.loanList.Where(l => l.source != LoanType.Payday).ToList();
-    private int loanCount => bankLoans.Count;
+    public static List<Loan> bankLoans => StateManager.loanList.Where(l => l.source != LoanType.Payday).ToList();
+    public int loanCount => bankLoans.Count;
     public static float bankTotal => bankLoans.Sum(l => l.total);
     /// <summary>
     /// Bank will loan more based on how many times you've been in dungeon.
@@ -233,9 +233,4 @@ public class ATMScript : MonoBehaviour {
         Settings.forceLockCursorState();
         StartCoroutine(StateManager.makePauseAvailableAgain());
     }
-}
-
-[System.Serializable]
-public class LoanEntry {
-    public TextMeshProUGUI id, type, amount;
 }

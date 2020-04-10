@@ -18,7 +18,7 @@ public class SharkScript : MonoBehaviour {
     public static float sharkMaxLoan { get; set; } = 20000.0f;
     public static float sharkInterestRate { get; set; } = 0.3333f;
     public static int sharkThreatLevel { get; set; } = 3;
-    private static List<Loan> sharkLoans => StateManager.loanList.Where(l => l.source == LoanType.Payday).ToList();
+    public static List<Loan> sharkLoans => StateManager.loanList.Where(l => l.source == LoanType.Payday).ToList();
     public int loanCount => sharkLoans.Count;
     public static float sharkTotal => sharkLoans.Sum(l => l.total);
 
@@ -99,6 +99,11 @@ public class SharkScript : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Determines whether or not any shark loans havent been paid
+    /// and increases threat when that is the case
+    /// </summary>
+    /// <returns></returns>
     public static void sharkUnpaid() {
         bool paid = true;
         foreach (Loan item in sharkLoans) {
@@ -114,6 +119,10 @@ public class SharkScript : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Applies interest to shark loans
+    /// </summary>
+    /// <returns></returns>
     public static void sharkInterest() {
         foreach (Loan item in sharkLoans) {
             item.paid = false;
