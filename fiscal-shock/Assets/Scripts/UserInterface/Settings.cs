@@ -345,6 +345,7 @@ public struct QualityPreset {
 /// </summary>
 [System.Serializable]
 public class SettingsValues {
+    public bool sawStoryTutorial = false;
     public float volume = 0.5f;
     public float mouseSensitivity = 100f;
 

@@ -21,7 +21,8 @@ public class PlayerMovement : MonoBehaviour
 
     //Reference to ground layer
     public LayerMask groundMask;
-    public LayerMask wallMask;
+    public LayerMask obstacleMask;
+    public LayerMask decorationMask;
 
     public Vector3 velocity;
     bool isGrounded;
@@ -30,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         //Creates sphere around object to check if it has collided with a ground layer
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance,groundMask | wallMask);
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance,groundMask | obstacleMask | decorationMask);
         //Resets velocity, so it doesnt go down forever
         if(isGrounded && velocity.y < 0)
         {

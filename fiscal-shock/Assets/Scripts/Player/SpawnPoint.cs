@@ -44,8 +44,6 @@ public class SpawnPoint : MonoBehaviour {
         autoSpawn = true;
         GameObject.FindGameObjectWithTag("Player Flashlight").GetComponent<Light>().intensity = 0;
         PlayerShoot shootScript = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerShoot>();
-        shootScript.weapon?.SetActive(false);
-        shootScript.crossHair.enabled = false;
         shootScript.enabled = false;
     }
 

@@ -9,7 +9,7 @@ public class MainMenu : MonoBehaviour {
 
     void PlayClick() {
         Debug.Log("Starting game...");
-        if (StateManager.sawEntryTutorial) {
+        if (Settings.values.sawStoryTutorial) {
             SceneManager.LoadScene("Hub");
         } else {
             SceneManager.LoadScene("Story");

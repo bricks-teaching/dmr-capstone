@@ -16,7 +16,7 @@ public class LoadingScreen : MonoBehaviour {
     public Slider progressBar;
     public static LoadingScreen loadScreenInstance { get; private set; }
     private AsyncOperation async;
-    public Camera loadCamera;
+    public Canvas loadCanvas;
     public Color loadingColor;
     public Color doneColor;
     public Image progressFill;
@@ -31,14 +31,22 @@ public class LoadingScreen : MonoBehaviour {
     private readonly string defaultText = "Loading...";
 
     private readonly string[] eulogies = {
-        "Suffocated under a pile of loans.",
+        "Suffocated under a pile of loans",
         "peperony and chease",
-        "Couldn't pay loans with charm and good looks.",
+        "Couldn't pay loans with charm and good looks",
         "Can't pay off a payday loan if you don't get paid.",
         "Can't pay off a payday loan if you don't survive 'til payday.",
         "Bury me with my money!",
         "YOU DIED",
-        "Their financial plan didn't make much cents.",
+        "That financial plan didn't make much cents.",
+        "That wasn't a wise investment.",
+        "Bought the farm with all those loans",
+        "Paid more than an arm and a leg",
+        "Deadbeat",
+        "Derailed the gravy train",
+        "Really in the hole now",
+        "Couldn't make a living",
+        "Paid the piper",
         "Dead broke"
     };
 
@@ -55,7 +63,7 @@ public class LoadingScreen : MonoBehaviour {
     }
 
     void Start() {
-        loadCamera.enabled = false;
+        loadCanvas.enabled = false;
         loadingText.text = defaultText;
         clickText.enabled = false;
     }
@@ -100,28 +108,34 @@ public class LoadingScreen : MonoBehaviour {
 
     private IEnumerator<WaitForSeconds> loadScene() {
         tombstone.SetActive(false);
-        loadCamera.enabled = true;
+        loadCanvas.enabled = true;
         progressBar.value = 0;
         progressFill.color = loadingColor;
         Time.timeScale = 0;
         async = SceneManager.LoadSceneAsync(nextScene);
-        switch (StateManager.selectedDungeon) {
-            case DungeonTypeEnum.Temple:
-                async.allowSceneActivation = false;
-                loadingText.text = templeStory;
-                break;
-            case DungeonTypeEnum.Mine:
-                async.allowSceneActivation = false;
-                loadingText.text = mineStory;
-                break;
-            default:
-                loadingText.text = defaultText;
-                break;
+        if (nextScene == "Dungeon") {
+            switch (StateManager.selectedDungeon) {
+                case DungeonTypeEnum.Temple:
+                    async.allowSceneActivation = false;
+                    loadingText.text = templeStory;
+                    break;
+                case DungeonTypeEnum.Mine:
+                    async.allowSceneActivation = false;
+                    loadingText.text = mineStory;
+                    break;
+                default:
+                    loadingText.text = defaultText;
+                    break;
+            }
+        } else {
+            loadingText.text = defaultText;
+            async.allowSceneActivation = true;
         }
         if (StateManager.playerDead) {
             loadingText.text = "";
             tombstone.GetComponentInChildren<TextMeshProUGUI>().text = $"{eulogies[Random.Range(0, eulogies.Length)]}";
             tombstone.SetActive(true);
+            async.allowSceneActivation = false;
         }
 
         while (!async.isDone) {
@@ -129,7 +143,7 @@ public class LoadingScreen : MonoBehaviour {
         }
 
         async = null;
-        loadCamera.enabled = false;
+        loadCanvas.enabled = false;
         StateManager.pauseAvailable = true;
         loadingText.text = defaultText;
         clickText.enabled = false;

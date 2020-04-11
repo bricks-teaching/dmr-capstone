@@ -29,8 +29,6 @@ namespace FiscalShock.Procedural {
 
                 // Disable shoot script, since player is entering town
                 PlayerShoot shootScript = player.GetComponentInChildren<PlayerShoot>();
-                shootScript.weapon?.SetActive(false);
-                shootScript.crossHair.enabled = false;
                 shootScript.enabled = false;
                 player.GetComponentInChildren<Light>().intensity = 0;
 

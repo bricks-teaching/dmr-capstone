@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,22 +31,55 @@ public class PlayerShoot : MonoBehaviour {
         crossHair = GameObject.FindGameObjectWithTag("Crosshair").GetComponentInChildren<RawImage>();
         fireSound = GetComponentInChildren<AudioSource>();
         crossHair.enabled = false;
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "Dungeon") {
+            this.enabled = false;
+        }
         LoadWeapon();
     }
 
-    public void resetFeed(){
+    public void resetFeed() {
         feed = GameObject.FindGameObjectWithTag("HUD").GetComponent<FeedbackController>();
+    }
+
+    void OnDisable() {
+        stopFiringAuto();
+        hideWeapon();
+    }
+
+    void OnEnable() {
+        // try to pick the first open slot if there was no weapon assigned
+        if (weapon == null) {
+            if (StateManager.purchasedHose) {
+                slot = 0;
+            } else if (StateManager.purchasedLauncher) {
+                slot = 1;
+            }
+        }
+        LoadWeapon();
+    }
+
+    private void hideWeapon() {
+        if (weapon != null) {
+            weapon.SetActive(false);
+            // sometimes, it's null, strangely
+            if (crossHair != null) {
+                crossHair.enabled = false;
+            }
+        }
+    }
+
+    private void stopFiringAuto() {
+        wasFiringAuto = false;
+        fireSound?.Stop();
     }
 
     public void Update() {
         if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Hub" || StateManager.playerDead || StateManager.playerWon) {
-            wasFiringAuto = false;
-            fireSound.Stop();
+            stopFiringAuto();
             return;
         }
         if (StateManager.playerDead || (Input.GetMouseButtonUp(0) && fireSound.isPlaying && wasFiringAuto)) {
-            wasFiringAuto = false;
-            fireSound.Stop();
+            stopFiringAuto();
             fireSound.PlayOneShot(sprayStop);
         }
         // Change weapon
@@ -198,7 +230,6 @@ public class PlayerShoot : MonoBehaviour {
     /// </summary>
     /// <param name="accuracy"></param>
     /// <param name="damage"></param>
-    /// <param name="noise">modifier on sound effect volume</param>
     /// <param name="target"></param>
     private void fireBullet(float accuracy, int damage, HomingTargets target) {
         GameObject bullet;
