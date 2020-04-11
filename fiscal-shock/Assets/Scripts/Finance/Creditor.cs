@@ -5,6 +5,7 @@ using TMPro;
 using System.Linq;
 using System.Globalization;
 using System.Collections.Generic;
+using System;
 
 public class Creditor : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class Creditor : MonoBehaviour
     public GameObject creditorPanel;
     public TMP_InputField paymentId, paymentAmount;
     public List<LoanEntry> loanEntries;
+    public static menuType menu { get; set; }
     public static float sharkMaxLoan { get; set; } = 20000.0f;
     /// <summary>
     /// Bank will loan more based on how many times you've been in dungeon.
@@ -62,6 +64,10 @@ public class Creditor : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Attempts to add a loan of the specified amount of money, failure conditions
+    /// included and will affect the dialog
+    /// </summary>
     public bool addDebt(float amount, LoanType loanType) {
         if (amount < 0.0f) {
             return false;
@@ -81,7 +87,11 @@ public class Creditor : MonoBehaviour
             StateManager.loanList.AddLast(newLoan);
             StateManager.cashOnHand += amount;
             StateManager.nextID++;
-            updateFields();
+            if(menu == menuType.Bank){
+                updateBankFields();
+            } else {
+                updateSharkFields();
+            }
             return true;
         } else if (sharkThreatLevel < 5 && sharkMaxLoan >= (sharkTotal + amount) && sharkLoans.Count < 3 && loanType == LoanType.Payday) {
             //shark threat is below 5 and is below max total debt
@@ -89,13 +99,20 @@ public class Creditor : MonoBehaviour
             StateManager.loanList.AddLast(newLoan);
             StateManager.cashOnHand += amount;
             StateManager.nextID++;
-            updateFields();
+            if(menu == menuType.Bank){
+                updateBankFields();
+            } else {
+                updateSharkFields();
+            }
             return true;
         } else {
             return false;
         }
     }
-
+    /// <summary>
+    /// Pays the selected loan by the specified amount.
+    /// If the player pays it off the win condition is triggered.
+    /// </summary>
     public bool payDebt(float amount, int loanNum){
         Loan selectedLoan = StateManager.loanList.First(l => l.ID == loanNum);
         if (amount < 0.0f || selectedLoan.Equals(null)) {
@@ -110,18 +127,29 @@ public class Creditor : MonoBehaviour
             StateManager.cashOnHand += selectedLoan.collateral;  // get back extra amount paid on secured loans
             StateManager.loanList.Remove(selectedLoan);
             checkWin();
-            updateFields();
+            if(menu == menuType.Bank){
+                updateBankFields();
+            } else {
+                updateSharkFields();
+            }
             return true;
         }
         else { // none of the above
             // reduce debt and money by amount
             selectedLoan.total -= amount;
             StateManager.cashOnHand -= amount;
-            updateFields();
+            if(menu == menuType.Bank){
+                updateBankFields();
+            } else {
+                updateSharkFields();
+            }
             return true;
         }
     }
-
+    /// <summary>
+    /// Determines if the loans have been paid regularly.
+    /// There are consequences to falling behind and slight rewards for keeping up
+    /// </summary>
     public static void isUnpaid(){
         bool paidShark = true;
         bool paidBank = true;
@@ -147,17 +175,56 @@ public class Creditor : MonoBehaviour
         }
     }
 
-    void updateFields(){
-        //not sure how to implement this
-    }
-
-    public static void applyInterest(){
-        foreach (Loan item in StateManager.loanList) {
-            item.paid = false;
-            item.total += item.rate * item.total;
+    /// <summary>
+    /// Updates data in the Bank's manu
+    /// </summary>
+    void updateBankFields(){
+        for (int i = 0; i < loanEntries.Count; ++i) {
+            if (i >= bankLoans.Count) {
+                loanEntries[i].id.text = "";
+                loanEntries[i].amount.text = "";
+                loanEntries[i].type.text = "";
+            }
+            else {
+                loanEntries[i].id.text = bankLoans[i].ID.ToString();
+                loanEntries[i].amount.text = bankLoans[i].total.ToString("N2");
+                loanEntries[i].type.text = $"{(bankLoans[i].source == LoanType.Secured ? $"Secured ({bankLoans[i].collateral.ToString("N2")})" : "Unsecured")}";
+            }
         }
     }
 
+    /// <summary>
+    /// updates data in the Shark's menu
+    /// </summary>
+    void updateSharkFields(){
+        for (int i = 0; i < loanEntries.Count; ++i) {
+            if (i >= sharkLoans.Count) {
+                loanEntries[i].id.text = "";
+                loanEntries[i].amount.text = "";
+                loanEntries[i].type.text = "";
+            }
+            else {
+                loanEntries[i].id.text = sharkLoans[i].ID.ToString();
+                loanEntries[i].amount.text = sharkLoans[i].total.ToString("N2");
+                loanEntries[i].type.text = "Payday";
+            }
+        }
+    }
+
+    /// <summary>
+    /// Applies interest to every loan in the main list
+    /// </summary>
+    public static void applyInterest(){
+        foreach (Loan item in StateManager.loanList) {
+            item.paid = false;
+            item.total += (float)Math.Round(item.rate * item.total, 2);
+        }
+    }
+
+    /// <summary>
+    /// Determines if the player has won the game, called after any loan is
+    /// fully paid off
+    /// </summary>
     public void checkWin() {
         if (StateManager.loanList.Count == 0) {
             StateManager.playerWon = true;
@@ -165,6 +232,9 @@ public class Creditor : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Turns off the panel and allows full movement/pause control
+    /// </summary>
     public void BackClick() {
         dialogText.text = ""; //figure this out in a bit
         creditorPanel.SetActive(false);
@@ -173,7 +243,18 @@ public class Creditor : MonoBehaviour
     }
 }
 
+/// <summary>
+/// Loan Entries are helper objects 
+/// </summary>
 [System.Serializable]
 public class LoanEntry {
     public TextMeshProUGUI id, type, amount;
+}
+/// <summary>
+/// Valid Menu Types, used to determine which
+/// loans the script should specifically look at.
+/// </summary>
+public enum menuType {
+    Bank,
+    Shark
 }
