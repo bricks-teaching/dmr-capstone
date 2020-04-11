@@ -884,10 +884,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1581547770, guid: 22803500f7f8dce7cbccc1cfdb03d990, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -25.699951
-      objectReference: {fileID: 0}
     - target: {fileID: 5090732085443060687, guid: 22803500f7f8dce7cbccc1cfdb03d990,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -2398,6 +2394,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2936045178266865170, guid: 0ac210650c364eddc80b05f53731b24d,
+        type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3407069891469859235, guid: 0ac210650c364eddc80b05f53731b24d,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2483,6 +2484,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Loan Shark
       objectReference: {fileID: 0}
+    - target: {fileID: 5602052160280962990, guid: 80c269370517631b786b88b234882b1c,
+        type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5602420468938309236, guid: 80c269370517631b786b88b234882b1c,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -2507,15 +2513,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1241356568, guid: 95cdbefde0a2ddd2ca6a9871cfe3f6a0, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 445696694885214890, guid: 95cdbefde0a2ddd2ca6a9871cfe3f6a0,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6129617709047379577, guid: 95cdbefde0a2ddd2ca6a9871cfe3f6a0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2576,11 +2573,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: DungeonEntrance
       objectReference: {fileID: 0}
-    - target: {fileID: 6129617709850862141, guid: 95cdbefde0a2ddd2ca6a9871cfe3f6a0,
-        type: 3}
-      propertyPath: bummer
-      value: 
-      objectReference: {fileID: 8300000, guid: 3fa380f0406d07b01ab71650a7ee6d69, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95cdbefde0a2ddd2ca6a9871cfe3f6a0, type: 3}
 --- !u!1001 &7284600360293930008
@@ -2599,6 +2591,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5004770291591194796, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6385689623530712043, guid: 84799466cc8d9f321a88138ad2940097,
         type: 3}
@@ -2714,6 +2711,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RichText
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285045287301750620, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84799466cc8d9f321a88138ad2940097, type: 3}

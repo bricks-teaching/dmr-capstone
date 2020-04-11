@@ -269,9 +269,12 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 256
-  wallMask:
+  obstacleMask:
     serializedVersion: 2
-    m_Bits: 4096
+    m_Bits: 32768
+  decorationMask:
+    serializedVersion: 2
+    m_Bits: 512
   velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &8789662076828674309
 MonoBehaviour:

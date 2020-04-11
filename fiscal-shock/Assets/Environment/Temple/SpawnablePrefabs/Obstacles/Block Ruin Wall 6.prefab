@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -7412200933168249765}
   - component: {fileID: -264537125299676043}
   - component: {fileID: 2958108541112945938}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Block Ruin Wall 6
   m_TagString: Obstacle
   m_Icon: {fileID: 0}

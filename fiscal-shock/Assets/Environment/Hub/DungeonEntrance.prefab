@@ -1219,7 +1219,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textCanvas: {fileID: 3001503181965773661}
   selectionScreen: {fileID: 1241356569}
-  bummer: {fileID: 8300000, guid: 164f927125682d2da9eed62993dc4e1f, type: 3}
+  bummer: {fileID: 8300000, guid: 3fa380f0406d07b01ab71650a7ee6d69, type: 3}
   texto: {fileID: 3401061451703801454}
 --- !u!1001 &6129617710725120754
 PrefabInstance:

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 33000013999087800}
   - component: {fileID: 23000011197209720}
   - component: {fileID: 1821916206703394189}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: Wall Lantern
   m_TagString: Untagged
   m_Icon: {fileID: 0}

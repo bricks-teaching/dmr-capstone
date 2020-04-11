@@ -64,7 +64,7 @@ MonoBehaviour:
   explosionNoise: {fileID: 8300000, guid: 4b5b29e999838fe959363961fa428fb9, type: 3}
   explosionEffect: {fileID: 2325299992133255240, guid: e5b7d650597f4c3458a6cf6e4f10702e,
     type: 3}
-  explosionRadius: 24
+  explosionRadius: 18
   explosionDamage: 60
 --- !u!65 &6303656464094340483
 BoxCollider:

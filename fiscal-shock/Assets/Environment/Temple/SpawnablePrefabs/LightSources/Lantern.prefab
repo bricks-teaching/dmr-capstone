@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 236403767190801735}
   - component: {fileID: 5490393845226271605}
   - component: {fileID: 7561976637234071186}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Lantern
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -132,7 +132,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2603475586903091329}
   - component: {fileID: 5659100173215004709}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}

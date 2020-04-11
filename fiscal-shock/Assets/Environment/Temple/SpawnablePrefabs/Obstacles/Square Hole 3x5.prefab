@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 23000011545654324}
   - component: {fileID: -8600783103403774868}
   - component: {fileID: -7994500144375012514}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Square Hole 3x5
   m_TagString: Obstacle
   m_Icon: {fileID: 0}

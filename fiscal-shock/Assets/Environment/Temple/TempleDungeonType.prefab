@@ -1217,12 +1217,12 @@ PrefabInstance:
     - target: {fileID: 8032028084769514502, guid: 4bfc7ba460738530a8495f9edf06b48f,
         type: 3}
       propertyPath: minimumDistanceBetweenMasterPoints
-      value: 48
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 8032028084769514502, guid: 4bfc7ba460738530a8495f9edf06b48f,
         type: 3}
       propertyPath: hallWidth
-      value: 12
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8032028084769514502, guid: 4bfc7ba460738530a8495f9edf06b48f,
         type: 3}
@@ -1382,7 +1382,22 @@ PrefabInstance:
     - target: {fileID: 8032028084769514502, guid: 4bfc7ba460738530a8495f9edf06b48f,
         type: 3}
       propertyPath: roomGrowthRadius
-      value: 1
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8032028084769514502, guid: 4bfc7ba460738530a8495f9edf06b48f,
+        type: 3}
+      propertyPath: minimumPoissonDistance
+      value: 9.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8032028084769514502, guid: 4bfc7ba460738530a8495f9edf06b48f,
+        type: 3}
+      propertyPath: width
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 8032028084769514502, guid: 4bfc7ba460738530a8495f9edf06b48f,
+        type: 3}
+      propertyPath: height
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 8032028084769514503, guid: 4bfc7ba460738530a8495f9edf06b48f,
         type: 3}
