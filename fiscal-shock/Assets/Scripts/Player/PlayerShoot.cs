@@ -31,7 +31,7 @@ public class PlayerShoot : MonoBehaviour {
         crossHair = GameObject.FindGameObjectWithTag("Crosshair").GetComponentInChildren<RawImage>();
         fireSound = GetComponentInChildren<AudioSource>();
         crossHair.enabled = false;
-        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "Dungeon") {
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "Dungeon" && !StateManager.inStoryTutorial) {
             this.enabled = false;
         }
         LoadWeapon();
