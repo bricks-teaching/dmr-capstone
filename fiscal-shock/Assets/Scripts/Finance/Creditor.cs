@@ -17,7 +17,7 @@ public class Creditor : MonoBehaviour
     public GameObject creditorPanel;
     public TMP_InputField paymentId, paymentAmount;
     public List<LoanEntry> loanEntries;
-    public static menuType menu { get; set; }
+    public List<ValidLoan> validLoans;
     public static float sharkMaxLoan { get; set; } = 20000.0f;
     /// <summary>
     /// Bank will loan more based on how many times you've been in dungeon.
@@ -33,8 +33,8 @@ public class Creditor : MonoBehaviour
     public static int bankThreatLevel { get; set; } = 0;
     public static float securedAmount { get; set; } = 1.15f;
     public static float rateReducer { get; set; } = 0.75f;
-    public static List<Loan> sharkLoans => StateManager.loanList.Where(l => l.source == LoanType.Payday).ToList();
-    public static List<Loan> bankLoans => StateManager.loanList.Where(l => l.source != LoanType.Payday).ToList();
+    public static List<Loan> sharkLoans => StateManager.loanList.Where(l => l.type == LoanType.Payday).ToList();
+    public static List<Loan> bankLoans => StateManager.loanList.Where(l => l.type != LoanType.Payday).ToList();
     public int sharkLoanCount => sharkLoans.Count;
     public int bankLoanCount => bankLoans.Count;
     public static float sharkTotal => sharkLoans.Sum(l => l.total);
@@ -55,13 +55,13 @@ public class Creditor : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        //derp
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        //herp
     }
 
     /// <summary>
@@ -87,11 +87,7 @@ public class Creditor : MonoBehaviour
             StateManager.loanList.AddLast(newLoan);
             StateManager.cashOnHand += amount;
             StateManager.nextID++;
-            if(menu == menuType.Bank){
-                updateBankFields();
-            } else {
-                updateSharkFields();
-            }
+            updateBankFields();
             return true;
         } else if (sharkThreatLevel < 5 && sharkMaxLoan >= (sharkTotal + amount) && sharkLoans.Count < 3 && loanType == LoanType.Payday) {
             //shark threat is below 5 and is below max total debt
@@ -99,11 +95,7 @@ public class Creditor : MonoBehaviour
             StateManager.loanList.AddLast(newLoan);
             StateManager.cashOnHand += amount;
             StateManager.nextID++;
-            if(menu == menuType.Bank){
-                updateBankFields();
-            } else {
-                updateSharkFields();
-            }
+            updateSharkFields();
             return true;
         } else {
             return false;
@@ -127,9 +119,9 @@ public class Creditor : MonoBehaviour
             StateManager.cashOnHand += selectedLoan.collateral;  // get back extra amount paid on secured loans
             StateManager.loanList.Remove(selectedLoan);
             checkWin();
-            if(menu == menuType.Bank){
+            if(selectedLoan.type != LoanType.Payday){
                 updateBankFields();
-            } else {
+            } else if(selectedLoan.type == LoanType.Payday){
                 updateSharkFields();
             }
             return true;
@@ -138,9 +130,9 @@ public class Creditor : MonoBehaviour
             // reduce debt and money by amount
             selectedLoan.total -= amount;
             StateManager.cashOnHand -= amount;
-            if(menu == menuType.Bank){
+            if(selectedLoan.type != LoanType.Payday){
                 updateBankFields();
-            } else {
+            } else if(selectedLoan.type == LoanType.Payday){
                 updateSharkFields();
             }
             return true;
@@ -155,7 +147,7 @@ public class Creditor : MonoBehaviour
         bool paidBank = true;
         foreach (Loan item in StateManager.loanList) {
             if (!item.paid) {
-                if(item.source == LoanType.Payday){
+                if(item.type == LoanType.Payday){
                     sharkThreatLevel++;
                     paidShark = false;
                 } else {
@@ -188,7 +180,7 @@ public class Creditor : MonoBehaviour
             else {
                 loanEntries[i].id.text = bankLoans[i].ID.ToString();
                 loanEntries[i].amount.text = bankLoans[i].total.ToString("N2");
-                loanEntries[i].type.text = $"{(bankLoans[i].source == LoanType.Secured ? $"Secured ({bankLoans[i].collateral.ToString("N2")})" : "Unsecured")}";
+                loanEntries[i].type.text = $"{(bankLoans[i].type == LoanType.Secured ? $"Secured ({bankLoans[i].collateral.ToString("N2")})" : "Unsecured")}";
             }
         }
     }
@@ -249,12 +241,4 @@ public class Creditor : MonoBehaviour
 [System.Serializable]
 public class LoanEntry {
     public TextMeshProUGUI id, type, amount;
-}
-/// <summary>
-/// Valid Menu Types, used to determine which
-/// loans the script should specifically look at.
-/// </summary>
-public enum menuType {
-    Bank,
-    Shark
 }

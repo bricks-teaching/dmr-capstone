@@ -15,7 +15,7 @@ public class ATMScript : MonoBehaviour {
     public GameObject bankPanel;
     public TMP_InputField paymentId, paymentAmount;
     public List<LoanEntry> loanEntries;
-    public static List<Loan> bankLoans => StateManager.loanList.Where(l => l.source != LoanType.Payday).ToList();
+    public static List<Loan> bankLoans => StateManager.loanList.Where(l => l.type != LoanType.Payday).ToList();
     public int loanCount => bankLoans.Count;
     public static float bankTotal => bankLoans.Sum(l => l.total);
     /// <summary>
@@ -222,7 +222,7 @@ public class ATMScript : MonoBehaviour {
             else {
                 loanEntries[i].id.text = bankLoans[i].ID.ToString();
                 loanEntries[i].amount.text = bankLoans[i].total.ToString("N2");
-                loanEntries[i].type.text = $"{(bankLoans[i].source == LoanType.Secured ? $"Secured ({bankLoans[i].collateral.ToString("N2")})" : "Unsecured")}";
+                loanEntries[i].type.text = $"{(bankLoans[i].type == LoanType.Secured ? $"Secured ({bankLoans[i].collateral.ToString("N2")})" : "Unsecured")}";
             }
         }
     }

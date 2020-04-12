@@ -13,18 +13,18 @@ public class Loan
     public float total { get; set; }
     public float rate { get; set; }
     public bool paid { get; set; }
-    public LoanType source { get; set; }
+    public LoanType type { get; set; }
     public int age { get; set; }
     public float originalAmount { get; private set; }
-    public float collateral => (source == LoanType.Secured)? originalAmount - (originalAmount / ATMScript.securedAmount) : 0;
+    public float collateral => (type == LoanType.Secured)? originalAmount - (originalAmount / ATMScript.securedAmount) : 0;
 
-    public Loan(int num, float tot, float rat, LoanType type)
+    public Loan(int num, float tot, float rat, LoanType t)
     {
         ID = num;
         total = tot;
         rate = rat;
         paid = true;
-        source = type;
+        type = t;
         age = 0;
         originalAmount = tot;
     }
@@ -135,7 +135,7 @@ public static class StateManager
             if(item.age > oldestLoan){
                 oldestLoan = item.age;
             }
-            if(item.source == LoanType.Payday){
+            if(item.type == LoanType.Payday){
                 sharkPen++;
             }
         }

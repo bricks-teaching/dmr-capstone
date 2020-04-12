@@ -18,7 +18,7 @@ public class SharkScript : MonoBehaviour {
     public static float sharkMaxLoan { get; set; } = 20000.0f;
     public static float sharkInterestRate { get; set; } = 0.3333f;
     public static int sharkThreatLevel { get; set; } = 3;
-    public static List<Loan> sharkLoans => StateManager.loanList.Where(l => l.source == LoanType.Payday).ToList();
+    public static List<Loan> sharkLoans => StateManager.loanList.Where(l => l.type == LoanType.Payday).ToList();
     public int loanCount => sharkLoans.Count;
     public static float sharkTotal => sharkLoans.Sum(l => l.total);
 
