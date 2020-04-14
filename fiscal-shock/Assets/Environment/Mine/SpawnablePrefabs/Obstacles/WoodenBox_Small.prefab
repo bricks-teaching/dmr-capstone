@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4647100058521984}
   - component: {fileID: 675612010885091956}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: WoodenBox_Small
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 23431322524715278}
   - component: {fileID: 65757969093675726}
   - component: {fileID: 3974720890618008868}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Object001
   m_TagString: Untagged
   m_Icon: {fileID: 0}

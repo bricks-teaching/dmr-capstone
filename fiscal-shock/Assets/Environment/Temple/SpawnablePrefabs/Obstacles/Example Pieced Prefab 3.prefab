@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4000010570957600}
   - component: {fileID: 33000014099892204}
   - component: {fileID: 23000011366054172}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Plant 6 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 33000013166328838}
   - component: {fileID: 23000013186071304}
   - component: {fileID: 282546774142715043}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Single Cube 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,7 +186,7 @@ GameObject:
   - component: {fileID: 33000010174076152}
   - component: {fileID: 23000010348086440}
   - component: {fileID: 3210989593364837742}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Single Cube 14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -279,7 +279,7 @@ GameObject:
   - component: {fileID: 4000013949279532}
   - component: {fileID: 33000012014251494}
   - component: {fileID: 23000012114894882}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Plant 6 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -358,7 +358,7 @@ GameObject:
   - component: {fileID: 4000010761498764}
   - component: {fileID: 33000014134175470}
   - component: {fileID: 23000010761529212}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Plant 6 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -437,7 +437,7 @@ GameObject:
   - component: {fileID: 4000011445911314}
   - component: {fileID: 33000014175916908}
   - component: {fileID: 23000011423960212}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Plant 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -518,7 +518,7 @@ GameObject:
   - component: {fileID: 23000011572719428}
   - component: {fileID: 8473224347411382980}
   - component: {fileID: 2588814145570090978}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Block 1x3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -625,7 +625,7 @@ GameObject:
   - component: {fileID: 33000010854880842}
   - component: {fileID: 23000010806970318}
   - component: {fileID: 7411392442559816361}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Block 1x2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -717,7 +717,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4000010542303642}
   - component: {fileID: 2817940277608184486}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Example Pieced Prefab 3
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -770,7 +770,7 @@ GameObject:
   - component: {fileID: 4000011511673686}
   - component: {fileID: 33000010681584948}
   - component: {fileID: 23000011226969094}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Plant 6 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -849,7 +849,7 @@ GameObject:
   - component: {fileID: 4000012581538644}
   - component: {fileID: 33000012814444184}
   - component: {fileID: 23000012801210838}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Plant 6 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

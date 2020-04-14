@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 23000012465621732}
   - component: {fileID: -8898243213142986405}
   - component: {fileID: -5934236337729226256}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Round Pineapple 2
   m_TagString: Obstacle
   m_Icon: {fileID: 0}

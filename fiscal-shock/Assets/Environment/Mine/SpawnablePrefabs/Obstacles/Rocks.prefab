@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 33096875648933448}
   - component: {fileID: 23914698128062366}
   - component: {fileID: 1337696564571475842}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Rock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 4206569857688332}
   - component: {fileID: 136581310789405114}
   - component: {fileID: 6875280532194746460}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Rocks
   m_TagString: Obstacle
   m_Icon: {fileID: 0}

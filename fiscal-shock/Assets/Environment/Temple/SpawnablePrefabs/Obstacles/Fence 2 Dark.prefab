@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5118981208834571968}
   - component: {fileID: 1585278242886503211}
   - component: {fileID: 3956460653018031366}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Fence 2 Dark
   m_TagString: Obstacle
   m_Icon: {fileID: 0}

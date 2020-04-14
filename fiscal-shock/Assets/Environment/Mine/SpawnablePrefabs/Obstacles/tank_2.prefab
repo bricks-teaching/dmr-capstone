@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 413914}
   - component: {fileID: -1381875837340988279}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: tank_2
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 774870092976584711}
   - component: {fileID: 7052159622785448918}
   - component: {fileID: 8099740471983243586}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}

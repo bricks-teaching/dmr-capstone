@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 23000013076205410}
   - component: {fileID: 9038396107522811142}
   - component: {fileID: -5022381743996037042}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Platform Fence 1x7x13
   m_TagString: Obstacle
   m_Icon: {fileID: 0}

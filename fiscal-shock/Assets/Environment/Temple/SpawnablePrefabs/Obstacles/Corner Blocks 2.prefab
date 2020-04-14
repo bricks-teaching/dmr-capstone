@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4629496008563861465}
   - component: {fileID: 948577954068286889}
   - component: {fileID: 7301410116696451742}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Corner Blocks 2
   m_TagString: Obstacle
   m_Icon: {fileID: 0}

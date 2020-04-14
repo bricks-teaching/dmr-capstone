@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4029294248975508}
   - component: {fileID: 6530171806438814154}
   - component: {fileID: 171224387880319660}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: MetalBarrier
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 23460941984370984}
   - component: {fileID: 65388427712575680}
   - component: {fileID: 7846590837176205323}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: MetalBarrier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 203483786020326149}
   - component: {fileID: 7114679660815621898}
   - component: {fileID: 4900065783265406840}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: MetalBarrier (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

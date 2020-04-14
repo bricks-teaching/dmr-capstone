@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4678776176899634}
   - component: {fileID: 4599654883708586113}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: WoodBox_Large
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 23553385453737770}
   - component: {fileID: 65543232760841842}
   - component: {fileID: 5397887808968699756}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Box005
   m_TagString: Untagged
   m_Icon: {fileID: 0}

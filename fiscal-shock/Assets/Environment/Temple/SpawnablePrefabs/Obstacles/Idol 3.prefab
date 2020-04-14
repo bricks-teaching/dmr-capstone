@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 23000013115015950}
   - component: {fileID: -1854317888996817931}
   - component: {fileID: -1825633778012375599}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Idol 3
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
