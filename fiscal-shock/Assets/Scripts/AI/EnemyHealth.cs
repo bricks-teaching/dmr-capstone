@@ -11,25 +11,76 @@ public class EnemyHealth : MonoBehaviour {
     public AudioClip hitSoundClip;
     public AudioSource hitSound;
     public float pointValue = 20;
-    private float totalHealth;
+
+    /// <summary>
+    /// Current health
+    /// </summary>
+    private float currentHealth;
+
+    /// <summary>
+    /// Last object that hit this bot. Disables "piercing" effect of bullets
+    /// where they keep hurting while in the enemy's hitbox.
+    /// </summary>
     private GameObject lastBulletCollision;
+
+    [Tooltip("Reference to this bot's own animation manager script")]
     public AnimationManager animationManager;
+
+    /// <summary>
+    /// Whether this bot is dead, to prevent things from continuing or re-dying
+    /// </summary>
     private bool dead;
+
+    /// <summary>
+    /// Queue for object pooling
+    /// </summary>
     private Queue<GameObject> explosions = new Queue<GameObject>();
+
+    /// <summary>
+    /// Number of explosions to pool to avoid garbage collection spikes
+    /// </summary>
     private readonly int smallExplosionLimit = 12;
+
+    /// <summary>
+    /// Queue for object pooling
+    /// </summary>
     private Queue<GameObject> bigExplosions = new Queue<GameObject>();
+
+    /// <summary>
+    /// Number of explosions to pool to avoid garbage collection spikes
+    /// </summary>
     private readonly int bigExplosionLimit = 6;
+
+    [Tooltip("Reference to this bot's stun effect object")]
     public GameObject stunEffect;
+
+    /// <summary>
+    /// Reference to the visual feedback controller
+    /// </summary>
     private FeedbackController feed;
+
+    /// <summary>
+    /// Reference to this bot's rigidbody, used for explosives
+    /// </summary>
     private Rigidbody ragdoll;
+
+    /// <summary>
+    /// Counter checked against max enmity duration
+    /// </summary>
     private float enmityCounter;
+
+    [Tooltip("Whether the bot is actively pursuing the player.")]
     public bool enmityActive;
+
+    [Tooltip("How long after being ambushed should this bot try to find the player?")]
     public float maxEnmityDuration;
+
+    [Tooltip("When ambushed, the enemy will try to alert other enemies willing to assist within this radius.")]
     public float cryForHelpRadius;
 
     void Start() {
         feed = GameObject.FindGameObjectWithTag("HUD").GetComponent<FeedbackController>();
-        totalHealth = startingHealth;
+        currentHealth = startingHealth;
         ragdoll = gameObject.GetComponent<Rigidbody>();
 
         for (int i = 0; i < smallExplosionLimit; ++i) {
@@ -79,10 +130,10 @@ public class EnemyHealth : MonoBehaviour {
     }
 
     public void takeDamage(float damage, int paybackMultiplier=0) {
-        float prevHealth = totalHealth;
-        totalHealth -= damage;
+        float prevHealth = currentHealth;
+        currentHealth -= damage;
 
-        if (totalHealth <= 0 && !dead) {
+        if (currentHealth <= 0 && !dead) {
             // Get up to half the original health as payback, adjusted due to fish cannon scoring too much cash because it OHKOs right now
             float profit = pointValue + (Mathf.Clamp(prevHealth, 1, startingHealth/2) * paybackMultiplier);
             StateManager.cashOnHand += profit;

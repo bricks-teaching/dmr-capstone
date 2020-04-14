@@ -1290,16 +1290,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 0}
   fireSoundClip: {fileID: 8300000, guid: 17d1cc09103cfafcaac9fa24c4518281, type: 3}
-  botDamage: 75
-  botAccuracy: 0
-  botRange: 2
-  botRate: 0.5
   enemyMovement: {fileID: 911901237148917044}
-  spottedPlayer: 0
   animationManager: {fileID: 3266909794282578669}
   projectileSpawnPoint: {fileID: 2177070282882914195}
+  attackDamage: 77
+  aimJitter: 0
+  attackRange: 3
+  attackDelay: 1.7
   attackAnimationDelay: 0.2
   runAndGun: 0
+  spottedPlayer: 0
 --- !u!114 &3266909794282578669
 MonoBehaviour:
   m_ObjectHideFlags: 0

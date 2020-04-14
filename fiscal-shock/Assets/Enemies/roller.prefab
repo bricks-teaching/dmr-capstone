@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f68e720f3aa4cc14195f091adebae93f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 64
+  startingHealth: 96
   explosion: {fileID: 4856741112863513470, guid: c4dccf8958d42ac48a60fefb19d80fb9,
     type: 3}
   bigExplosion: {fileID: 2325299992133255240, guid: e5b7d650597f4c3458a6cf6e4f10702e,
@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c64bbc05ea943e09aa804bca2778a088, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 3
+  movementSpeed: 8
   rotationSpeed: 14
   safeRadiusMin: 6
   safeRadiusMax: 10
@@ -147,16 +147,16 @@ MonoBehaviour:
   bulletPrefab: {fileID: 359558080635126693, guid: 9b3daae907e8463958dbcd8b4c040516,
     type: 3}
   fireSoundClip: {fileID: 8300000, guid: 17d1cc09103cfafcaac9fa24c4518281, type: 3}
-  botDamage: 80
-  botAccuracy: 15
-  botRange: 10
-  botRate: 1.7
   enemyMovement: {fileID: -8395686905635004328}
-  spottedPlayer: 0
   animationManager: {fileID: 7462560434329066073}
   projectileSpawnPoint: {fileID: 2309648195466355122}
-  attackAnimationDelay: 0.9
+  attackDamage: 67
+  aimJitter: 5
+  attackRange: 10
+  attackDelay: 1.7
+  attackAnimationDelay: 0.8
   runAndGun: 0
+  spottedPlayer: 0
 --- !u!82 &-3819037365239113399
 AudioSource:
   m_ObjectHideFlags: 0
