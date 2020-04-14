@@ -55,13 +55,32 @@ public class Creditor : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //derp
+        audioS = GetComponent<AudioSource>();
+        creditorPanel.SetActive(false);
+        if (!StateManager.sawEntryTutorial) {  // implies this is the first visit to town
+            addDebt(2000.0f, LoanType.Unsecured);
+            StateManager.cashOnHand = 900f;
+        }
+        updateBankFields();
+        updateSharkFields();
+        rateText.text = $"Our flexible loan options are always backed by the UDIC.\nUnsecured: {bankInterestRate * 100}%\nSecured: {bankInterestRate * rateReducer * 100}% + {(securedAmount-1)*100}% of amount";
     }
 
     // Update is called once per frame
     void Update()
     {
-        //herp
+        if (playerIsInTriggerZone) {
+            if (Input.GetKeyDown(Settings.interactKey)) {
+                Settings.forceUnlockCursorState();
+                updateBankFields();
+                updateSharkFields();
+                creditorPanel.SetActive(true);
+                StateManager.pauseAvailable = false;
+            }
+            if (Input.GetKeyDown(Settings.pauseKey)) {
+                BackClick();
+            }
+        }
     }
 
     /// <summary>

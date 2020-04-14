@@ -2663,6 +2663,11 @@ PrefabInstance:
       propertyPath: failureSound
       value: 
       objectReference: {fileID: 8300000, guid: 3fa380f0406d07b01ab71650a7ee6d69, type: 3}
+    - target: {fileID: 5915755872642627479, guid: 80c269370517631b786b88b234882b1c,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80c269370517631b786b88b234882b1c, type: 3}
 --- !u!4 &5602420469146460724 stripped
@@ -3067,6 +3072,11 @@ PrefabInstance:
       propertyPath: failureSound
       value: 
       objectReference: {fileID: 8300000, guid: 3fa380f0406d07b01ab71650a7ee6d69, type: 3}
+    - target: {fileID: 7284600360293930006, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7284600360369221994, guid: 84799466cc8d9f321a88138ad2940097,
         type: 3}
       propertyPath: m_isRichText
