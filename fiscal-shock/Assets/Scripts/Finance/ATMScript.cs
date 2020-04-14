@@ -31,6 +31,7 @@ public class ATMScript : MonoBehaviour {
     public static float securedAmount { get; set; } = 1.15f;
     public static float rateReducer { get; set; } = 0.75f;
 
+/* shut up, unity compiler!
     void OnTriggerEnter(Collider col) {
         if (col.gameObject.tag == "Player") {
             playerIsInTriggerZone = true;
@@ -233,4 +234,5 @@ public class ATMScript : MonoBehaviour {
         Settings.forceLockCursorState();
         StartCoroutine(StateManager.makePauseAvailableAgain());
     }
+    */
 }

@@ -22,6 +22,7 @@ public class SharkScript : MonoBehaviour {
     public int loanCount => sharkLoans.Count;
     public static float sharkTotal => sharkLoans.Sum(l => l.total);
 
+/* shtu up unity
     void OnTriggerEnter(Collider col) {
         if (col.gameObject.tag == "Player") {
             playerIsInTriggerZone = true;
@@ -192,4 +193,5 @@ public class SharkScript : MonoBehaviour {
         Settings.forceLockCursorState();
         StartCoroutine(StateManager.makePauseAvailableAgain());
     }
+    */
 }

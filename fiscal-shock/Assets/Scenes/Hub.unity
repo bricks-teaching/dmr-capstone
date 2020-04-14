@@ -326,9 +326,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb95e2939aae0ae429f94eea105d0a4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  creditorID: Universal
   loanType: 2
-  interestRate: 0
+  interestRate: 0.0325
   collateralAmountPercent: 0.15
   collateralRateReduction: 0.75
   successText: YOUR SOUL IS MINE! Erm, I mean... All Set!
@@ -1312,9 +1311,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb95e2939aae0ae429f94eea105d0a4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  creditorID: Universal
   loanType: 1
-  interestRate: 0
+  interestRate: 0.0325
   collateralAmountPercent: 0
   collateralRateReduction: 1
   successText: All set!
@@ -2217,9 +2215,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb95e2939aae0ae429f94eea105d0a4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  creditorID: Shark
   loanType: 0
-  interestRate: 0
+  interestRate: 0.3333
   collateralAmountPercent: 0
   collateralRateReduction: 1
   successText: I guess I could do you a favor. *snicker*
@@ -2648,10 +2645,100 @@ PrefabInstance:
       propertyPath: m_Name
       value: Loan Shark
       objectReference: {fileID: 0}
+    - target: {fileID: 5602420468483403035, guid: 80c269370517631b786b88b234882b1c,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5602420469146460741}
+    - target: {fileID: 5602420468483403035, guid: 80c269370517631b786b88b234882b1c,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: addDebt
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602420468483403035, guid: 80c269370517631b786b88b234882b1c,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 1865353493}
+    - target: {fileID: 5602420468483403035, guid: 80c269370517631b786b88b234882b1c,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: ValidLoan, ScriptsAssembly
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602420468921925710, guid: 80c269370517631b786b88b234882b1c,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5602420469146460741}
+    - target: {fileID: 5602420468921925711, guid: 80c269370517631b786b88b234882b1c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 715.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602420468921925711, guid: 80c269370517631b786b88b234882b1c,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 46.73
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602420468921925711, guid: 80c269370517631b786b88b234882b1c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 371.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602420468921925711, guid: 80c269370517631b786b88b234882b1c,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 41.11
+      objectReference: {fileID: 0}
     - target: {fileID: 5602420468938309236, guid: 80c269370517631b786b88b234882b1c,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602420469001312815, guid: 80c269370517631b786b88b234882b1c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602420469001312815, guid: 80c269370517631b786b88b234882b1c,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602420469001312815, guid: 80c269370517631b786b88b234882b1c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602420469001312815, guid: 80c269370517631b786b88b234882b1c,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602420469482299178, guid: 80c269370517631b786b88b234882b1c,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5602420469146460741}
+    - target: {fileID: 5602420469482299178, guid: 80c269370517631b786b88b234882b1c,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: payDebt
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602420469482299178, guid: 80c269370517631b786b88b234882b1c,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602420469482299178, guid: 80c269370517631b786b88b234882b1c,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602420469482299178, guid: 80c269370517631b786b88b234882b1c,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5915755872642627479, guid: 80c269370517631b786b88b234882b1c,
         type: 3}
@@ -2887,6 +2974,14 @@ MonoBehaviour:
     amount: {fileID: 5602420469146460726}
   validLoans:
   - {fileID: 1865353493}
+  maxLoanAmount: 20000
+  threatThreshold: 5
+  creditorId: Shark
+  baseThreatLevel: 3
+  initiallyIndebted: 1
+  initialDebtAmount: 200
+  initialDebtType: {fileID: 1865353493}
+  initialRemainingCash: 0
 --- !u!1001 &6129617710537223116
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2992,6 +3087,51 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6385689623997277668, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 373.78
+      objectReference: {fileID: 0}
+    - target: {fileID: 6385689623997277668, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 35.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 6385689623997277668, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 715.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 6385689623997277668, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 39.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 6385689623997277669, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7284600360293930027}
+    - target: {fileID: 6385689624176543468, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6385689624176543468, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6385689624176543468, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6385689624176543468, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7284600359687109890, guid: 84799466cc8d9f321a88138ad2940097,
         type: 3}
       propertyPath: m_Name
@@ -3051,6 +3191,56 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7284600359884006459, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7284600360293930027}
+    - target: {fileID: 7284600359884006459, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: payDebt
+      objectReference: {fileID: 0}
+    - target: {fileID: 7284600360002392518, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7284600360293930027}
+    - target: {fileID: 7284600360002392518, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: addDebt
+      objectReference: {fileID: 0}
+    - target: {fileID: 7284600360002392518, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 1234683364}
+    - target: {fileID: 7284600360002392518, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: ValidLoan, ScriptsAssembly
+      objectReference: {fileID: 0}
+    - target: {fileID: 7284600360097404278, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7284600360293930027}
+    - target: {fileID: 7284600360097404278, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: addDebt
+      objectReference: {fileID: 0}
+    - target: {fileID: 7284600360097404278, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 319045051}
+    - target: {fileID: 7284600360097404278, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: ValidLoan, ScriptsAssembly
       objectReference: {fileID: 0}
     - target: {fileID: 7284600360118042493, guid: 84799466cc8d9f321a88138ad2940097,
         type: 3}
@@ -3339,6 +3529,14 @@ MonoBehaviour:
   validLoans:
   - {fileID: 319045051}
   - {fileID: 1234683364}
+  maxLoanAmount: 3000
+  threatThreshold: 3
+  creditorId: Universal
+  baseThreatLevel: 0
+  initiallyIndebted: 1
+  initialDebtAmount: 2000
+  initialDebtType: {fileID: 1234683364}
+  initialRemainingCash: 900
 --- !u!1001 &7378086568286334699
 PrefabInstance:
   m_ObjectHideFlags: 0

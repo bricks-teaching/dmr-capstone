@@ -1,14 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
+﻿using UnityEngine;
 using TMPro;
 
 [System.Serializable]
 public class ValidLoan : MonoBehaviour
 {
-    [Tooltip("Lender ID")]
-    public String creditorID;
     [Tooltip("Type of loan")]
     public LoanType loanType;
 
@@ -24,17 +19,17 @@ public class ValidLoan : MonoBehaviour
     [Range(0, 1)]
     public float collateralRateReduction = 1;  // it's a multiplier on interestRate so 1 = no effect
     [Tooltip("Dialog on success when adding a loan")]
-    public String successText;
+    public string successText;
     [Tooltip("Dialog on failure when adding a loan")]
-    public String failureText;
+    public string failureText;
     [Tooltip("Dialog on error when adding a loan")]
-    public String errorText;
+    public string errorText;
     [Tooltip("Dialog on success when paying")]
-    public String successPaidText;
+    public string successPaidText;
     [Tooltip("Dialog on failure when paying")]
-    public String failurePaidText;
+    public string failurePaidText;
     [Tooltip("Dialog on error when paying")]
-    public String errorPaidText;
+    public string errorPaidText;
     [Tooltip("Input for adding loan of this type")]
     public TMP_InputField addLoanInput;
 }

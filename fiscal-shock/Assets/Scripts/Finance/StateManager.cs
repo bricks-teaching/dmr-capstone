@@ -9,16 +9,17 @@ using System;
 /// </summary>
 public class Loan
 {
-    public int ID { get; set; }
+    public int ID { get; }
     public float total { get; set; }
-    public float rate { get; set; }
+    public float rate { get; }
     public bool paid { get; set; }
-    public LoanType type { get; set; }
+    public LoanType type { get; }
     public int age { get; set; }
-    public float originalAmount { get; private set; }
-    public float collateral => (type == LoanType.Secured)? originalAmount - (originalAmount / ATMScript.securedAmount) : 0;
+    public float originalAmount { get; }
+    public string lender { get; }
+    public float collateral { get; }
 
-    public Loan(int num, float tot, float rat, LoanType t)
+    public Loan(int num, float tot, float rat, LoanType t, float securityDeposit, string creditorId)
     {
         ID = num;
         total = tot;
@@ -27,6 +28,8 @@ public class Loan
         type = t;
         age = 0;
         originalAmount = tot;
+        collateral = securityDeposit;
+        lender = creditorId;
     }
 }
 
@@ -49,6 +52,11 @@ public enum DungeonTypeEnum {
     Mine
 }
 
+public struct CreditorData {
+    public bool paid;
+    public int threatLevel;
+}
+
 /// <summary>
 /// Represents a play session. Consider this the player's
 /// "save data." Save games could be implemented by serializing
@@ -63,6 +71,12 @@ public static class StateManager
     //Total debt of the player updated whenever a loan is drawn out, paid or interest is applied
     //used to calculate average income
     public static LinkedList<float> income = new LinkedList<float>();
+
+    /// <summary>
+    /// List of creditor IDs, so state manager can handle processing of
+    /// due amounts. The boolean value is whether they've been paid.
+    /// </summary>
+    public static Dictionary<string, CreditorData> lenders = new Dictionary<string, CreditorData>();
     public static float totalDebt => loanList.Sum(l => l.total);
     public static int nextID { get; set; } = DefaultState.nextID;
     public static int totalLoans => loanList.Count;
@@ -106,7 +120,10 @@ public static class StateManager
     /// <returns></returns>
     public static bool startNewDay() {
         Debug.Log($"Accumulating interest for day {StateManager.timesEntered}");
+        // in case cash precision got fudged in the dungeon
+        cashOnHand = (float)Math.Round(cashOnHand, 2);
 
+        /*
         //If unpaid debts present up threat level
         SharkScript.sharkUnpaid();
         //activates interest method in sharkscript also sets paid to false
@@ -115,12 +132,77 @@ public static class StateManager
         ATMScript.bankUnpaid();
         //activates interest method in atmscript also sets paid to false
         ATMScript.bankInterest();
+        */
+        processDueInvoices();
 
         income.AddLast(cashOnHand - cashOnEntrance);
         calcCreditScore();
         Debug.Log($"New debt total: {totalDebt}");
         return true;
     }
+
+    /// <summary>
+    /// Determines if the loans have been paid regularly.
+    /// There are consequences to falling behind and slight rewards for keeping up
+    /// </summary>
+    private static void processDueInvoices() {
+        // go through all loans and raise the threat level if nothing was paid on them
+        // while you're at it, apply interest
+        foreach (Loan l in loanList) {
+            CreditorData cd = lenders[l.lender];
+            if (!l.paid) {
+                cd.paid = false;
+                cd.threatLevel++;
+                paymentStreak = 0;
+            }
+            l.paid = false;
+            l.total += (float)Math.Round(l.rate * l.total, 2);
+        }
+
+        // update creditor threat levels if their loans were paid
+        foreach (KeyValuePair<string, CreditorData> entry in lenders) {
+            CreditorData cd = entry.Value;
+            if (cd.paid) {
+                paymentStreak++;
+                cd.threatLevel--;
+            }
+        }
+
+        /*
+        foreach (Loan item in loanList) {
+            if (!item.paid) {
+                if(item.type == LoanType.Payday){
+                    sharkThreatLevel++;
+                    paidShark = false;
+                } else {
+                    bankThreatLevel++;
+                    paidBank = false;
+                }
+                paymentStreak = 0;
+            }
+        }
+        if (paidShark) {
+            StateManager.paymentStreak++;
+            sharkThreatLevel--;
+        }
+        if (paidBank) {
+            StateManager.paymentStreak++;
+            bankThreatLevel--;
+        }
+        */
+    }
+
+    /* moved inside processdueinvoices
+    /// <summary>
+    /// Applies interest to every loan in the main list
+    /// </summary>
+    public void applyInterest(){
+        foreach (Loan item in StateManager.loanList) {
+            item.paid = false;
+            item.total += (float)Math.Round(item.rate * item.total, 2);
+        }
+    }
+    */
 
     /// <summary>
     /// Calculates the player's credit score. Not currently used.
@@ -184,6 +266,7 @@ public static class StateManager
         pauseAvailable = DefaultState.pauseAvailable;
         playerDead = DefaultState.playerDead;
         playerWon = DefaultState.playerWon;
+        lenders.Clear();
     }
 }
 
