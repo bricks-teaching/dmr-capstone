@@ -304,8 +304,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c64bbc05ea943e09aa804bca2778a088, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 3
-  rotationSpeed: 12
+  movementSpeed: 8
+  rotationSpeed: 5
   safeRadiusMin: 6
   safeRadiusMax: 10
   visionRadius: 35
@@ -332,7 +332,7 @@ MonoBehaviour:
   projectileSpawnPoint: {fileID: 519250767402555019}
   attackDamage: 76
   aimJitter: 4
-  attackRange: 6
+  attackRange: 12
   attackDelay: 1.7
   attackAnimationDelay: 0.8
   runAndGun: 0
