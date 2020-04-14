@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6508976483058773318}
   m_Layer: 31
   m_Name: mine_ceiling
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967294

@@ -78,10 +78,14 @@ public class LoadingScreen : MonoBehaviour {
                 clickText.enabled = true;
             }
             percentText.text = $"{(int)(progressBar.value * 100)}%";
-            if (Input.GetMouseButtonDown(0) && (async.progress > 0.8f || nextScene != "Dungeon")) {
+            if (Input.GetMouseButtonDown(0) || (async.progress > 0.8f && nextScene != "Dungeon" && nextScene != "LoseGame")) {
+                Debug.Log("Allowing scene activation");
                 async.allowSceneActivation = true;
-                StartCoroutine(restartTime());
                 clickText.text = "Please wait...";
+            }
+            if (async.allowSceneActivation && nextScene == "Dungeon") {
+                Debug.Log("Starting time");
+                StartCoroutine(restartTime());
             }
         }
     }
@@ -107,6 +111,7 @@ public class LoadingScreen : MonoBehaviour {
     }
 
     private IEnumerator<WaitForSeconds> loadScene() {
+        Debug.Log("Scene load starting");
         tombstone.SetActive(false);
         loadCanvas.enabled = true;
         progressBar.value = 0;
@@ -127,11 +132,10 @@ public class LoadingScreen : MonoBehaviour {
                     loadingText.text = defaultText;
                     break;
             }
-        } else {
+        } else if (!StateManager.playerDead) {
             loadingText.text = defaultText;
             async.allowSceneActivation = true;
-        }
-        if (StateManager.playerDead) {
+        } else {  // Dead
             loadingText.text = "";
             tombstone.GetComponentInChildren<TextMeshProUGUI>().text = $"{eulogies[Random.Range(0, eulogies.Length)]}";
             tombstone.SetActive(true);
@@ -141,6 +145,7 @@ public class LoadingScreen : MonoBehaviour {
         while (!async.isDone) {
             yield return null;
         }
+        Debug.Log("Scene load is done");
 
         async = null;
         loadCanvas.enabled = false;
