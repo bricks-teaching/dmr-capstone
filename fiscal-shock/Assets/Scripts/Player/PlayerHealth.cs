@@ -49,6 +49,7 @@ public class PlayerHealth : MonoBehaviour {
         if (StateManager.cashOnHand < 0) {
             hitVignette.SetActive(false);
             StateManager.playerDead = true;
+            Destroy(GameObject.Find("DungeonMusic"));
             GameObject.FindGameObjectWithTag("Loading Screen").GetComponent<LoadingScreen>().startLoadingScreen("LoseGame");
         }
     }

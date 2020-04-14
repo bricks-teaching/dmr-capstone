@@ -25,6 +25,7 @@ public class AnimationManager : MonoBehaviour {
     private List<AnimationClip> idle => animations.Where(a => a.category == AnimationEnum.idle).Select(a => a.clips).First();
 
     public bool isReady { get; private set; }
+    public float attackAnimationLength => attack.First().length;
 
     public float playDeathAnimation() {
         if (!isReady) {

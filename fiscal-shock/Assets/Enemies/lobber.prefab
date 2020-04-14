@@ -613,6 +613,36 @@ Transform:
   m_Father: {fileID: 8967736131357984658}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3018539682749074896
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 927439332775753943}
+  m_Layer: 10
+  m_Name: Projectile Spawn Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &927439332775753943
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3018539682749074896}
+  m_LocalRotation: {x: -0.7112734, y: -0.21365242, z: -0.027273225, w: 0.6691032}
+  m_LocalPosition: {x: -0.00050219306, y: 0.108888805, z: 0.0012156218}
+  m_LocalScale: {x: 0.014712506, y: 0.014712506, z: 0.01471251}
+  m_Children: []
+  m_Father: {fileID: 2957151917176616884}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: -74.469, y: -112.65001, z: 92.84901}
 --- !u!1 &3065124355648765370
 GameObject:
   m_ObjectHideFlags: 0
@@ -1077,7 +1107,8 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0.014631997, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 927439332775753943}
   m_Father: {fileID: 4276640109164022493}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1192,7 +1223,7 @@ GameObject:
   - component: {fileID: 2869479373799560796}
   m_Layer: 10
   m_Name: lobber
-  m_TagString: Lobber
+  m_TagString: Assistant
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1259,15 +1290,16 @@ MonoBehaviour:
   bulletPrefab: {fileID: 359558080635126693, guid: 9b3daae907e8463958dbcd8b4c040516,
     type: 3}
   fireSoundClip: {fileID: 8300000, guid: 17d1cc09103cfafcaac9fa24c4518281, type: 3}
-  botSize: 2
-  botDamage: 4
-  botAccuracy: 10
-  botRange: 12
-  botRate: 1.7
-  gunHeight: 1
+  botDamage: 75
+  botAccuracy: 1
+  botRange: 45
+  botRate: 2
   enemyMovement: {fileID: 3929117163501158486}
   spottedPlayer: 0
   animationManager: {fileID: 492897800208874195}
+  projectileSpawnPoint: {fileID: 927439332775753943}
+  attackAnimationDelay: 1
+  runAndGun: 0
 --- !u!114 &2208916561352228204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1280,16 +1312,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f68e720f3aa4cc14195f091adebae93f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 30
+  startingHealth: 50
   explosion: {fileID: 4856741112863513470, guid: c4dccf8958d42ac48a60fefb19d80fb9,
     type: 3}
   bigExplosion: {fileID: 2325299992133255240, guid: e5b7d650597f4c3458a6cf6e4f10702e,
     type: 3}
   hitSoundClip: {fileID: 8300000, guid: 861e537fb624418428af6d6d55c73dfb, type: 3}
   hitSound: {fileID: 4690766611385609486}
-  pointValue: 20
+  pointValue: 45
   animationManager: {fileID: 492897800208874195}
   stunEffect: {fileID: 7766734876536927829}
+  enmityActive: 0
+  maxEnmityDuration: 10
+  cryForHelpRadius: 25
 --- !u!114 &3929117163501158486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1302,12 +1337,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c64bbc05ea943e09aa804bca2778a088, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 5
-  rotationSpeed: 7
-  safeRadiusMin: 4
-  safeRadiusMax: 5
+  movementSpeed: 6
+  rotationSpeed: 4
+  safeRadiusMin: 10
+  safeRadiusMax: 30
   visionRadius: 35
   player: {fileID: 0}
+  health: {fileID: 2208916561352228204}
   animationManager: {fileID: 492897800208874195}
 --- !u!82 &4690766611385609486
 AudioSource:

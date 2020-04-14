@@ -22,6 +22,10 @@ public class EnemyHealth : MonoBehaviour {
     public GameObject stunEffect;
     private FeedbackController feed;
     private Rigidbody ragdoll;
+    private float enmityCounter;
+    public bool enmityActive;
+    public float maxEnmityDuration;
+    public float cryForHelpRadius;
 
     void Start() {
         feed = GameObject.FindGameObjectWithTag("HUD").GetComponent<FeedbackController>();
@@ -40,6 +44,15 @@ public class EnemyHealth : MonoBehaviour {
             splode.transform.parent = transform;
             splode.SetActive(false);
             bigExplosions.Enqueue(splode);
+        }
+    }
+
+    void Update() {
+        if (enmityActive) {
+            enmityCounter += Time.deltaTime;
+        }
+        if (enmityCounter >= maxEnmityDuration) {
+            enmityActive = false;
         }
     }
 
@@ -81,6 +94,28 @@ public class EnemyHealth : MonoBehaviour {
             dead = true;
             feed.profit(profit);
         }
+        if (!enmityActive) {
+            StartCoroutine(cryForHelp(transform.position));
+        }
+        enmityActive = true;
+        enmityCounter = 0;
+    }
+
+    private IEnumerator cryForHelp(Vector3 location) {
+        yield return new WaitForSeconds(1f * UnityEngine.Random.Range(1f, 3f));
+
+        if (dead) {
+            yield return null;
+        }
+
+        foreach (Collider col in Physics.OverlapSphere(location, cryForHelpRadius, (1 << gameObject.layer))) {
+            if (col.gameObject.tag == "Assistant") {
+                EnemyHealth ally = col.gameObject.GetComponent<EnemyHealth>();
+                ally.enmityCounter = 0;
+                ally.enmityActive = true;
+            }
+        }
+        yield return null;
     }
 
     public void showDamageExplosion(Queue<GameObject> queue, float volumeMultiplier = 0.65f) {
@@ -119,30 +154,6 @@ public class EnemyHealth : MonoBehaviour {
             } else if (col.gameObject.tag == "Missile") {
                 showDamageExplosion(bigExplosions, 0.65f);
             }
-
-            // Doesn't work for new bots
-            // If bot goes under 50% health, make it look damaged
-            /*
-            if (totalHealth <= startingHealth / 2 && (totalHealth + bulletDamage) > startingHealth / 2) {
-                if (gameObject.tag == "Blaster") {
-                    for (int i = 0; i < 2; i++) {
-                        Vector3 randomDirection = new Vector3(Random.value, Random.value, Random.value).normalized;
-                        gameObject.transform.GetChild(0).gameObject.
-                        transform.GetChild(0).gameObject.
-                        transform.GetChild(2).gameObject.transform.GetChild(i)
-                        .gameObject.transform.GetChild(0).gameObject.transform.rotation = Quaternion.LookRotation(randomDirection);
-                    }
-                }
-                if (gameObject.tag == "Lobber") {
-                    for (int i = 0; i < 2; i++) {
-                        gameObject.transform.GetChild(0).gameObject.
-                        transform.GetChild(0).gameObject.
-                        transform.GetChild(4).gameObject.transform.GetChild(2 * i)
-                        .gameObject.transform.position += new Vector3(0, 0.1f, 0);
-                    }
-                }
-            }
-            */
         }
     }
 }

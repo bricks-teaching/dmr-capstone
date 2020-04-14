@@ -204,7 +204,7 @@ GameObject:
   - component: {fileID: 8973920613735334368}
   m_Layer: 10
   m_Name: blaster
-  m_TagString: Blaster
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -217,7 +217,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5027433553046225462}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 4.62}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children:
   - {fileID: 495278497971842023}
@@ -270,10 +270,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 5
   rotationSpeed: 7
-  safeRadiusMin: 4
-  safeRadiusMax: 5
+  safeRadiusMin: 6
+  safeRadiusMax: 12
   visionRadius: 35
   player: {fileID: 0}
+  health: {fileID: 4302484390825140355}
   animationManager: {fileID: 1910695017394205952}
 --- !u!114 &4302484390825140355
 MonoBehaviour:
@@ -294,9 +295,12 @@ MonoBehaviour:
     type: 3}
   hitSoundClip: {fileID: 8300000, guid: 861e537fb624418428af6d6d55c73dfb, type: 3}
   hitSound: {fileID: 8808183122978752604}
-  pointValue: 30
+  pointValue: 25
   animationManager: {fileID: 1910695017394205952}
   stunEffect: {fileID: 2784873302202904049}
+  enmityActive: 0
+  maxEnmityDuration: 5
+  cryForHelpRadius: 30
 --- !u!82 &8808183122978752604
 AudioSource:
   m_ObjectHideFlags: 0
@@ -452,15 +456,16 @@ MonoBehaviour:
   bulletPrefab: {fileID: 5676983891017127546, guid: 39180d9180c94761a9d667fddf55796d,
     type: 3}
   fireSoundClip: {fileID: 8300000, guid: 17d1cc09103cfafcaac9fa24c4518281, type: 3}
-  botSize: 2
-  botDamage: 10
-  botAccuracy: 10
-  botRange: 6
+  botDamage: 25
+  botAccuracy: 7
+  botRange: 12
   botRate: 1.7
-  gunHeight: 0
   enemyMovement: {fileID: 8181510141341009021}
   spottedPlayer: 0
   animationManager: {fileID: 1910695017394205952}
+  projectileSpawnPoint: {fileID: 6516280399644456350}
+  attackAnimationDelay: 0.75
+  runAndGun: 1
 --- !u!1 &5228913154981519923
 GameObject:
   m_ObjectHideFlags: 0
@@ -614,6 +619,36 @@ Transform:
   m_Father: {fileID: 6508300351188776261}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7203251284722984486
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6516280399644456350}
+  m_Layer: 10
+  m_Name: Projectile Spawn Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6516280399644456350
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7203251284722984486}
+  m_LocalRotation: {x: 0.4583689, y: -0.5847321, z: -0.44053608, w: -0.5038991}
+  m_LocalPosition: {x: -0.018999988, y: -0.0016999748, z: -0.0027000792}
+  m_LocalScale: {x: 0.009999998, y: 0.009999998, z: 0.010000001}
+  m_Children: []
+  m_Father: {fileID: 2615458591665793216}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: -102.27599, y: -60.708008, z: 154.339}
 --- !u!1 &7837613307521299422
 GameObject:
   m_ObjectHideFlags: 0
@@ -640,7 +675,8 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0.023155127, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 6516280399644456350}
   m_Father: {fileID: 5100841943303837447}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
