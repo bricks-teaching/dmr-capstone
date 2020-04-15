@@ -40,7 +40,7 @@ public class FeedbackController : MonoBehaviour
         TextMeshProUGUI clone = shotLosses.Dequeue();
         clone.text = "-" + (cost.ToString());
         clone.transform.localPosition = new Vector3(Screen.width*-0.15f, 0, 0);
-        clone.transform.Translate(Random.Range(Screen.width*-0.1f, 0), Random.Range(-20f, 20f), Random.Range(Screen.height*-0.2f, Screen.height*0.2f), Space.Self);
+        clone.transform.Translate(Random.Range(-50f, 0), Random.Range(-50f, 50f), Random.Range(-50f, 50f), Space.Self);
         clone.enabled = true;
         shotLosses.Enqueue(clone);
 
@@ -55,7 +55,7 @@ public class FeedbackController : MonoBehaviour
         TextMeshProUGUI clone = earns.Dequeue();
         clone.text = "+" + (amount.ToString("F0"));
         clone.transform.localPosition = new Vector3(Screen.width*0.4f, 0, 0);
-        clone.transform.Translate(Random.Range(Screen.width*-0.1f, Screen.width*0.1f), Random.Range(-20f, 20f), Random.Range(Screen.height*-0.2f, Screen.height*0.2f), Space.Self);
+        clone.transform.Translate(Random.Range(-50f, 50f), Random.Range(-50f, 50f), Random.Range(-50f, 50f), Space.Self);
         clone.enabled = true;
         earns.Enqueue(clone);
 
@@ -69,7 +69,10 @@ public class FeedbackController : MonoBehaviour
     /// <param name="duration"></param>
     /// <returns></returns>
     private IEnumerator timeout(TextMeshProUGUI text, float duration) {
-        yield return new WaitForSeconds(duration);
+        for (float i = duration; i >= 0; i -= Time.deltaTime) {
+            text.color = new Color(text.color.r, text.color.g, text.color.g, i/duration);
+            yield return null;
+        }
         text.enabled = false;
         yield return null;
     }

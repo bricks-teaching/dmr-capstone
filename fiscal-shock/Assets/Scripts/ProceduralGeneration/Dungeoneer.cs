@@ -50,6 +50,7 @@ namespace FiscalShock.Procedural {
             // and pick randomly later
             currentDungeonType = dungeonThemes
                 .Where(d => d.typeEnum == StateManager.selectedDungeon)
+                //.Where(d => d.typeEnum == DungeonTypeEnum.Mine)  // uncomment to go straight to mines when testing dungeon scene
                 .Select(d => d.gameObject)
                 .First()
                 .GetComponent<DungeonType>();
@@ -82,24 +83,17 @@ namespace FiscalShock.Procedural {
             Debug.Log($"Using seed {seed}");
         }
 
-        public List<double> makeRandomPoints() {
-            // TODO Poisson disc sampling instead
-            List<double> vertices = new List<double>();
-            for (int i = 0; i < currentDungeonType.numberOfVertices*2; i += 2) {
-                vertices.Add(mt.Next(currentDungeonType.minX, currentDungeonType.maxX));
-                vertices.Add(mt.Next(currentDungeonType.minY, currentDungeonType.maxY));
-            }
-            return vertices;
-        }
-
         public void generateDelaunay() {
             Debug.Log("Generating Delaunay");
-            dt = new Delaunay(makeRandomPoints());
+            Poisson dist = new Poisson(currentDungeonType.minimumPoissonDistance, currentDungeonType.width, currentDungeonType.height);
+            dt = new Delaunay(dist.vertices);
+            Debug.Log($"Generated Delaunay with {dt.vertices.Count} vertices.");
         }
 
         public void generateVoronoi() {
             Debug.Log("Generating Voronoi");
             vd = dt.makeVoronoi();
+            Debug.Log($"Generated Voronoi with {vd.vertices.Count} vertices.");
         }
 
         public void generateRoomGraphs() {
@@ -272,7 +266,7 @@ namespace FiscalShock.Procedural {
             foreach (Cell cell in vd.cells) {
             //foreach (Cell cell in validCells) {
                 // Don't spawn things on the convex hull for now
-                if (isPointOnOrNearConvexHull(cell.site)) {
+                if (isPointOnOrNearConvexHull(cell.site) || cell.sides.All(e => e.isWall)) {
                     continue;
                 }
 
@@ -311,7 +305,7 @@ namespace FiscalShock.Procedural {
             foreach (Cell cell in vd.cells) {
             //foreach (Cell cell in validCells) {
                 // Don't spawn things on the convex hull for now
-                if (isPointOnOrNearConvexHull(cell.site)) {
+                if (isPointOnOrNearConvexHull(cell.site) || cell.sides.All(e => e.isWall)) {
                     continue;
                 }
 

@@ -176,6 +176,7 @@ public class IntroStory : MonoBehaviour {
                 else {
                     Destroy(player);
                     StateManager.inStoryTutorial = false;
+                    Settings.values.sawStoryTutorial = true;
                     Time.timeScale = 1;
                     SceneManager.LoadScene("Hub");
                 }
@@ -289,8 +290,6 @@ public class IntroStory : MonoBehaviour {
                     rotateCameraFrom.y -= 360;
                 }
                 mouseLook.enabled = false;
-                playerShoot.weapon.SetActive(false);
-                playerShoot.crossHair.enabled = false;
                 playerShoot.enabled = false;
             }
         }

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 23425067972293112}
   - component: {fileID: 65517412570799956}
   - component: {fileID: 8991225789897845629}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: WoodenWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4853076737315882}
   - component: {fileID: 8188547605978849191}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: WoodenWall
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -164,7 +164,7 @@ GameObject:
   - component: {fileID: 668232429925876927}
   - component: {fileID: 5969635936972985606}
   - component: {fileID: 3179425548629289648}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: WoodenWall (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

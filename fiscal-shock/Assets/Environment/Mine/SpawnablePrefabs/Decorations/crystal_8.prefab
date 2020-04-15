@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4411503816762559811}
   - component: {fileID: 5235665905492624433}
   - component: {fileID: -908775794015957562}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: crystal_8
   m_TagString: Decoration
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 9207836271986306612}
   - component: {fileID: 7372918276113370743}
   - component: {fileID: 7335460778856438473}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: rocks_8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -151,7 +151,7 @@ GameObject:
   - component: {fileID: 3590606952047848201}
   - component: {fileID: 2524300729555211542}
   - component: {fileID: 6251463386589573628}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: crystal_8_bevel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -242,7 +242,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8262686154393409288}
   - component: {fileID: 4395866536131951046}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -5087988827135702602}
   - component: {fileID: 6274014473578911089}
   - component: {fileID: 3953580072236222127}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Round Wide 1
   m_TagString: Decoration
   m_Icon: {fileID: 0}

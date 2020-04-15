@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4021662390221584}
   - component: {fileID: 65259649785050198}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: MineCartBottem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4373968933739490}
   - component: {fileID: -1545767356519144621}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: minecart with crystal clusters
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 4539649374240922}
   - component: {fileID: 33736420689067070}
   - component: {fileID: 23296997467790696}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Box003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,7 +179,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4594655367433796}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Minecart_Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -214,7 +214,7 @@ GameObject:
   - component: {fileID: 23531265756444716}
   - component: {fileID: 5747774768816672553}
   - component: {fileID: 600096077934624932}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: CartMetal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -321,7 +321,7 @@ GameObject:
   - component: {fileID: 3613246432715834466}
   - component: {fileID: 3603405404271136178}
   - component: {fileID: 3724508498704124950}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Gems
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -412,7 +412,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3621632098575462500}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: CrystalCluster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -446,7 +446,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3629172305855487788}
   - component: {fileID: 3733944480808710202}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -540,7 +540,7 @@ GameObject:
   - component: {fileID: 2773845447125816650}
   - component: {fileID: 5750365221509584841}
   - component: {fileID: 1663677241231898767}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Gems (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

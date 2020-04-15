@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 23191465942569560}
   - component: {fileID: 136135084652680188}
   - component: {fileID: 5916842586715613014}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Gems
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,7 +118,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4171991798874310}
   - component: {fileID: 108675887057874896}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -211,7 +211,7 @@ GameObject:
   - component: {fileID: 4867322118694586}
   - component: {fileID: 33694127764819452}
   - component: {fileID: 23198691049343198}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: CrystalStone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -289,7 +289,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4826482260062094}
   - component: {fileID: -6152245481079807310}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: CrystalCluster
   m_TagString: Decoration
   m_Icon: {fileID: 0}

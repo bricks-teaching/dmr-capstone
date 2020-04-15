@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5007037964042776175}
   - component: {fileID: 1176397975653071088}
   - component: {fileID: 9025397013618818840}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,7 +131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 405404}
   - component: {fileID: -8656297295996804302}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: flatCarkit_2
   m_TagString: Obstacle
   m_Icon: {fileID: 0}

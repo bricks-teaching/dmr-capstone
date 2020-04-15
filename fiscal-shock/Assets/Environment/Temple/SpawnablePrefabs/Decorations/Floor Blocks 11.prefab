@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2123003005720274068}
   - component: {fileID: 7698429153458344570}
   - component: {fileID: 6314638971467470307}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Floor Blocks 11
   m_TagString: Decoration
   m_Icon: {fileID: 0}

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 23000013134676274}
   - component: {fileID: 3760303816042666151}
   - component: {fileID: 7617811156935112653}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Sig Sag  Pyramid
   m_TagString: Wall
   m_Icon: {fileID: 0}

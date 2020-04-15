@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7884369755981779476}
   - component: {fileID: 5858824962256301915}
   - component: {fileID: 5753818610126920618}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Blocks And Bricks 16
   m_TagString: Obstacle
   m_Icon: {fileID: 0}

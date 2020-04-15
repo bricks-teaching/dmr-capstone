@@ -7,20 +7,14 @@ namespace FiscalShock.Procedural {
         /**********************************************************************/
         [Header("Graph Parameters")]
 
-        [Tooltip("Number of vertices to generate. A higher number will generate a finer-grained mesh.")]
-        public int numberOfVertices = 500;
+        [Tooltip("Minimum distance between any two points. The maximum number of points is found by floor(height / floor(minimumPoissonDistance/Poisson.dimensions)) * floor(width / floor(minimumPoissonDistance/Poisson.dimensions)).")]
+        public float minimumPoissonDistance = 4f;
 
-        [Tooltip("Minimum x-value of a vertex.")]
-        public int minX = -300;
+        [Tooltip("Width (2D x) of the dungeon floor.")]
+        public int width = 200;
 
-        [Tooltip("Maximum x-value of a vertex.")]
-        public int maxX = 300;
-
-        [Tooltip("Minimum y-value of a vertex.")]
-        public int minY = -300;
-
-        [Tooltip("Maximum y-value of a vertex.")]
-        public int maxY = 300;
+        [Tooltip("Height/depth (2D y) of the dungeon floor.")]
+        public int height = 200;
 
         [Tooltip("Minimum number of rooms to try to generate.")]
         public int minRooms = 10;

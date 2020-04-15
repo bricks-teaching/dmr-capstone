@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 23400477416306828}
   - component: {fileID: 4157695278102463041}
   - component: {fileID: 8843526864806412692}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Pickax
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 33566097892961078}
   - component: {fileID: 23297386968033702}
   - component: {fileID: 65957066013541266}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -211,7 +211,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4579825387947210}
   - component: {fileID: 6336531135895345357}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: PickAx
   m_TagString: Decoration
   m_Icon: {fileID: 0}

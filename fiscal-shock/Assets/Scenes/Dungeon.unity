@@ -692,7 +692,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1057395366}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -100, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 733749824481231373}
@@ -780,7 +780,7 @@ Transform:
   - {fileID: 965116059322452622}
   - {fileID: 454172647}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1613471707
 GameObject:
@@ -947,7 +947,7 @@ PrefabInstance:
     - target: {fileID: 5515966686509671713, guid: 786af2c50f0aca4ff89b38814fb5c8ef,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5515966686509671713, guid: 786af2c50f0aca4ff89b38814fb5c8ef,
         type: 3}
@@ -1286,7 +1286,7 @@ PrefabInstance:
     - target: {fileID: 5359981900636844862, guid: d9938e97a4e680252bfd757e7ccdd435,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5359981900636844862, guid: d9938e97a4e680252bfd757e7ccdd435,
         type: 3}
@@ -1316,6 +1316,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MineDungeonType
+      objectReference: {fileID: 0}
+    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
+        type: 3}
+      propertyPath: enemyRate
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 3016848092569763618, guid: 9fab72962231bdd5c88e42061619ec50,
         type: 3}
@@ -1385,6 +1390,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TempleDungeonType
+      objectReference: {fileID: 0}
+    - target: {fileID: 8117157573788985409, guid: bf0c8c2b9625c9ba29d85229184ca17f,
+        type: 3}
+      propertyPath: enemyRate
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 8117157573788985410, guid: bf0c8c2b9625c9ba29d85229184ca17f,
         type: 3}
@@ -1535,6 +1545,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LoadingScreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 8457115162116187907, guid: 3df1f54d1485f5354891126c61ba8d15,
+        type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8457115162116187907, guid: 3df1f54d1485f5354891126c61ba8d15,
+        type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3df1f54d1485f5354891126c61ba8d15, type: 3}
