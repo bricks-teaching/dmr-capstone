@@ -2755,7 +2755,8 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5915755872642627479, guid: 80c269370517631b786b88b234882b1c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 80c269370517631b786b88b234882b1c, type: 3}
 --- !u!4 &5602420469146460724 stripped
 Transform:
@@ -3297,7 +3298,8 @@ PrefabInstance:
       propertyPath: m_RichText
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7284600360293930006, guid: 84799466cc8d9f321a88138ad2940097, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 84799466cc8d9f321a88138ad2940097, type: 3}
 --- !u!4 &7284600360293930009 stripped
 Transform:

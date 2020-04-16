@@ -18,7 +18,6 @@ public class Creditor : MonoBehaviour
     public TMP_InputField paymentId, paymentAmount;
     public List<LoanEntry> loanEntries;
     public List<ValidLoan> validLoans;
-    //public static float sharkMaxLoan { get; set; } = 20000.0f;
     public float maxLoanAmount = 3000f;
     /// <summary>
     /// Bank will loan more based on how many times you've been in dungeon.
@@ -27,27 +26,14 @@ public class Creditor : MonoBehaviour
     /// because ln(n < 3) < 1
     /// </summary>
     /// <returns></returns>
-    //public static float bankMaxLoan => 2600.0f * (StateManager.timesEntered > 0? Mathf.Log(StateManager.timesEntered + 2) : 1);
-    //public static float sharkInterestRate { get; set; } = 0.3333f;
-    //public static float bankInterestRate { get; set; } = 0.035f;
-    //public static int sharkThreatLevel { get; set; } = 3;
-    //public static int bankThreatLevel { get; set; } = 0;
     [Tooltip("Lender will not lend loans anymore once their threat level has passed this")]
     public int threatThreshold;
-    //public static float securedAmount { get; set; } = 1.15f;
-    //public static float rateReducer { get; set; } = 0.75f;
     public string creditorId;
     public int baseThreatLevel;
     public int threatLevel => StateManager.lenders[creditorId].threatLevel;
     public List<Loan> myLoans => StateManager.loanList.Where(l => l.lender == creditorId).ToList();
-    //public static List<Loan> sharkLoans => StateManager.loanList.Where(l => l.type == LoanType.Payday).ToList();
-    //public static List<Loan> bankLoans => StateManager.loanList.Where(l => l.type != LoanType.Payday).ToList();
     public int numberOfLoans => myLoans.Count;
-    //public int sharkLoanCount => sharkLoans.Count;
-    //public int bankLoanCount => bankLoans.Count;
     public float loanTotal => myLoans.Sum(l => l.total);
-    //public static float sharkTotal => sharkLoans.Sum(l => l.total);
-    //public static float bankTotal => bankLoans.Sum(l => l.total);
     /// <summary>
     /// No support for scrolling loan list yet
     /// </summary>
@@ -92,8 +78,6 @@ public class Creditor : MonoBehaviour
         updateFields();
 
         Debug.Log($"{creditorId} threat: {threatLevel}, loans: {numberOfLoans}, sum: {loanTotal}");
-        //updateBankFields();
-        //updateSharkFields();
         /* TODO:
             - Add a public field for dialog above the rate listing so different creditors can have different personalities for this part
             - Edit ratetext to show loan types vs interest rates offered, just a simple listing. You need to loop over valid loans and append the appropriate text and values
@@ -108,8 +92,6 @@ public class Creditor : MonoBehaviour
             if (Input.GetKeyDown(Settings.interactKey)) {
                 Settings.forceUnlockCursorState();
                 updateFields();
-                //updateBankFields();
-                //updateSharkFields();
                 creditorPanel.SetActive(true);
                 StateManager.pauseAvailable = false;
             }
@@ -117,10 +99,6 @@ public class Creditor : MonoBehaviour
                 BackClick();
             }
         }
-    }
-
-    public bool stupid(string s) {
-        return false;
     }
 
     /// <summary>
@@ -137,7 +115,6 @@ public class Creditor : MonoBehaviour
             Debug.Log($"{creditorId}: You're supposed to borrow from *me*!");
             return;
         }
-        //if (bankThreatLevel < 3 && bankMaxLoan >= (bankTotal + amount) && bankLoans.Count < 3 && loanType != LoanType.Payday){
 
         if (
             (threatLevel < threatThreshold)
@@ -150,24 +127,10 @@ public class Creditor : MonoBehaviour
             float modifiedAmount = (float)Math.Round(collateral + amount, 2);
             Loan newLoan = new Loan(StateManager.nextID, modifiedAmount, modifiedInterest, loanType, collateral, creditorId);
             Debug.Log($"{creditorId}: adding ${modifiedAmount} loan with a  {collateral} deposit @ {modifiedInterest*100}%");
-
-            /*
-            switch (loanType) {
-                case LoanType.Unsecured:
-                    newLoan = new Loan(StateManager.nextID, amount, bankInterestRate, loanType);
-                    break;
-                case LoanType.Secured:
-                    newLoan = new Loan(StateManager.nextID, amount * securedAmount, bankInterestRate * rateReducer, loanType);
-                    break;
-                default:
-                    return false; //this shouldnt activate, false return is a failsafe measure
-            }
-            */
             StateManager.loanList.AddLast(newLoan);
             StateManager.cashOnHand += amount;
             StateManager.nextID++;
             initialDebtType.addLoanInput.text = "";
-            //updateBankFields();
             updateFields();
 
             // update tex fiel
@@ -175,18 +138,6 @@ public class Creditor : MonoBehaviour
             // audioS.PlayOneShot(clipName, Settings.volume)
             return;
         }
-        /* else if (sharkThreatLevel < 5 && sharkMaxLoan >= (sharkTotal + amount) && sharkLoans.Count < 3 && loanType == LoanType.Payday) {
-            //shark threat is below 5 and is below max total debt
-            Loan newLoan = new Loan(StateManager.nextID, amount, sharkInterestRate, LoanType.Payday);
-            StateManager.loanList.AddLast(newLoan);
-            StateManager.cashOnHand += amount;
-            StateManager.nextID++;
-            updateSharkFields();
-            return true;
-        } else {
-            return false;
-        }
-        */
         Debug.Log($"{creditorId}: Bad dog, no biscuit!");
         // update tex field??
         return;
@@ -218,13 +169,6 @@ public class Creditor : MonoBehaviour
             StateManager.loanList.Remove(selectedLoan);
             checkWin();
             updateFields();
-            /*
-            if(selectedLoan.type != LoanType.Payday){
-                updateBankFields();
-            } else if(selectedLoan.type == LoanType.Payday){
-                updateSharkFields();
-            }
-            */
             // text yo
             return;
         }
@@ -233,20 +177,12 @@ public class Creditor : MonoBehaviour
             selectedLoan.total -= amount;
             StateManager.cashOnHand -= amount;
             updateFields();
-            /*
-            if(selectedLoan.type != LoanType.Payday){
-                updateBankFields();
-            } else if(selectedLoan.type == LoanType.Payday){
-                updateSharkFields();
-            }
-            */
             // stuff
             return;
         }
     }
 
     void updateFields() {
-        //Debug.Log($"{creditorId}: updating {numberOfLoans} loans, total: {loanTotal}");
         for (int i = 0; i < loanEntries.Count; ++i) {
             if (i >= myLoans.Count) {
                 loanEntries[i].id.text = "";
@@ -272,44 +208,6 @@ public class Creditor : MonoBehaviour
             }
         }
     }
-
-/*
-    /// <summary>
-    /// Updates data in the Bank's manu
-    /// </summary>
-    void updateBankFields(){
-        for (int i = 0; i < loanEntries.Count; ++i) {
-            if (i >= bankLoans.Count) {
-                loanEntries[i].id.text = "";
-                loanEntries[i].amount.text = "";
-                loanEntries[i].type.text = "";
-            }
-            else {
-                loanEntries[i].id.text = bankLoans[i].ID.ToString();
-                loanEntries[i].amount.text = bankLoans[i].total.ToString("N2");
-                loanEntries[i].type.text = $"{(bankLoans[i].type == LoanType.Secured ? $"Secured ({bankLoans[i].collateral.ToString("N2")})" : "Unsecured")}";
-            }
-        }
-    }
-
-    /// <summary>
-    /// updates data in the Shark's menu
-    /// </summary>
-    void updateSharkFields(){
-        for (int i = 0; i < loanEntries.Count; ++i) {
-            if (i >= sharkLoans.Count) {
-                loanEntries[i].id.text = "";
-                loanEntries[i].amount.text = "";
-                loanEntries[i].type.text = "";
-            }
-            else {
-                loanEntries[i].id.text = sharkLoans[i].ID.ToString();
-                loanEntries[i].amount.text = sharkLoans[i].total.ToString("N2");
-                loanEntries[i].type.text = "Payday";
-            }
-        }
-    }
-    */
 
     /// <summary>
     /// Determines if the player has won the game, called after any loan is
