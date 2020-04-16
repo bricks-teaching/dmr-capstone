@@ -21,13 +21,6 @@ Definition (``fiscal-shock/Assets/Scripts/AI/EnemyMovement.cs``)
 
 
 
-Namespaces
-----------
-
-
-- :ref:`namespace_UnityEngine__AI`
-
-
 Classes
 -------
 

@@ -236,6 +236,21 @@
 <span class="target" id="classEnemyHealth_1aefe1570777576d407ba0ec3532f089b6"></span><code class="sig-name descname">GameObject EnemyHealth.stunEffect</code></dt>
 <dd></dd></dl>
 
+<dl class="member">
+<dt>
+<span class="target" id="classEnemyHealth_1a3aca3ee255f26bd96d1e278c19530115"></span><code class="sig-name descname">bool EnemyHealth.enmityActive</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classEnemyHealth_1a76e625baa050a1a5866063e3ab9594e5"></span><code class="sig-name descname">float EnemyHealth.maxEnmityDuration</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classEnemyHealth_1afe71dfe70b8216565421e362380d92c8"></span><code class="sig-name descname">float EnemyHealth.cryForHelpRadius</code></dt>
+<dd></dd></dl>
+
 </div>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Private Functions</p>
@@ -246,7 +261,17 @@
 
 <dl class="function">
 <dt>
+<span class="target" id="classEnemyHealth_1ae53051c82f68739b6ed749334e3c1d68"></span><code class="sig-name descname">void EnemyHealth.Update()</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
 <span class="target" id="classEnemyHealth_1a1d4cae91231ff75f338e904979a6f910"></span><code class="sig-name descname">IEnumerator EnemyHealth.stunRoutine(float duration)</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classEnemyHealth_1ad558ba59119ded4854b87562d03b6bd5"></span><code class="sig-name descname">IEnumerator EnemyHealth.cryForHelp(Vector3 location)</code></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -259,48 +284,63 @@
 <p class="breathe-sectiondef-title rubric">Private Members</p>
 <dl class="member">
 <dt>
-<span class="target" id="classEnemyHealth_1a8f07fe7b4633a52ea978b9c3e7698471"></span><code class="sig-name descname">float EnemyHealth.totalHealth</code></dt>
-<dd></dd></dl>
+<span class="target" id="classEnemyHealth_1a7909e73bd43198326e7ea8c538c1f9e5"></span><code class="sig-name descname">float EnemyHealth.currentHealth</code></dt>
+<dd><p>Current health </p>
+</dd></dl>
 
 <dl class="member">
 <dt>
 <span class="target" id="classEnemyHealth_1a4962adc6c6beb01255c4780c62340076"></span><code class="sig-name descname">GameObject EnemyHealth.lastBulletCollision</code></dt>
-<dd></dd></dl>
+<dd><p>Last object that hit this bot. Disables “piercing” effect of bullets where they keep hurting while in the enemy’s hitbox. </p>
+</dd></dl>
 
 <dl class="member">
 <dt>
 <span class="target" id="classEnemyHealth_1a27889576c1a4dc920927823de3e7691d"></span><code class="sig-name descname">bool EnemyHealth.dead</code></dt>
-<dd></dd></dl>
+<dd><p>Whether this bot is dead, to prevent things from continuing or re-dying </p>
+</dd></dl>
 
 <dl class="member">
 <dt>
 <span class="target" id="classEnemyHealth_1ab12c8d1604c8e484e88a56a010d3fcc0"></span><code class="sig-name descname">Queue&lt;GameObject&gt; EnemyHealth.explosions = new Queue&lt;GameObject&gt;()</code></dt>
-<dd></dd></dl>
+<dd><p>Queue for object pooling </p>
+</dd></dl>
 
 <dl class="member">
 <dt>
 <span class="target" id="classEnemyHealth_1aaa3638ad71ab8936cea4bd792a8d3ac7"></span><code class="sig-name descname">readonly int EnemyHealth.smallExplosionLimit = 12</code></dt>
-<dd></dd></dl>
+<dd><p>Number of explosions to pool to avoid garbage collection spikes </p>
+</dd></dl>
 
 <dl class="member">
 <dt>
 <span class="target" id="classEnemyHealth_1af5d7a97334a79683815ab28b6ad8c914"></span><code class="sig-name descname">Queue&lt;GameObject&gt; EnemyHealth.bigExplosions = new Queue&lt;GameObject&gt;()</code></dt>
-<dd></dd></dl>
+<dd><p>Queue for object pooling </p>
+</dd></dl>
 
 <dl class="member">
 <dt>
 <span class="target" id="classEnemyHealth_1aa8f940a1cd2bff14e4a4e83e3c04e2d8"></span><code class="sig-name descname">readonly int EnemyHealth.bigExplosionLimit = 6</code></dt>
-<dd></dd></dl>
+<dd><p>Number of explosions to pool to avoid garbage collection spikes </p>
+</dd></dl>
 
 <dl class="member">
 <dt>
 <span class="target" id="classEnemyHealth_1aa62803255886afb1df7809eb5e9b98f0"></span><code class="sig-name descname">FeedbackController EnemyHealth.feed</code></dt>
-<dd></dd></dl>
+<dd><p>Reference to the visual feedback controller </p>
+</dd></dl>
 
 <dl class="member">
 <dt>
 <span class="target" id="classEnemyHealth_1ac63b9f79a6f9834558ff61197aa1d441"></span><code class="sig-name descname">Rigidbody EnemyHealth.ragdoll</code></dt>
-<dd></dd></dl>
+<dd><p>Reference to this bot’s rigidbody, used for explosives </p>
+</dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classEnemyHealth_1a523d9266f0965507b011134685f702d0"></span><code class="sig-name descname">float EnemyHealth.enmityCounter</code></dt>
+<dd><p>Counter checked against max enmity duration </p>
+</dd></dl>
 
 </div>
 </dd></dl>

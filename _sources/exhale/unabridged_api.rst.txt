@@ -84,11 +84,6 @@ Namespaces
 .. toctree::
    :maxdepth: 5
 
-   namespace_UnityEngine__AI.rst
-
-.. toctree::
-   :maxdepth: 5
-
    namespace_UnityEngine__Rendering.rst
 
 .. toctree::

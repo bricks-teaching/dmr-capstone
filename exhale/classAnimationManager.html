@@ -176,27 +176,52 @@
 <dl class="class">
 <dt id="_CPPv416AnimationManager">
 <span id="_CPPv316AnimationManager"></span><span id="_CPPv216AnimationManager"></span><span id="AnimationManager"></span><span class="target" id="classAnimationManager"></span><em class="property">class </em><code class="sig-name descname">AnimationManager</code> : <em class="property">public</em> MonoBehaviour<a class="headerlink" href="#_CPPv416AnimationManager" title="Permalink to this definition">¶</a><br /></dt>
-<dd><div class="breathe-sectiondef docutils container">
+<dd><p>Manages animations for a bot. </p>
+<div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Functions</p>
 <dl class="function">
 <dt>
 <span class="target" id="classAnimationManager_1aee704c5a576693554d898d85e3880aaf"></span><code class="sig-name descname">float AnimationManager.playDeathAnimation()</code></dt>
-<dd></dd></dl>
+<dd><p>Play a random death animation and return the length of the clip played </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>length of clip played</p>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="function">
 <dt>
 <span class="target" id="classAnimationManager_1a8086868e650131a2486bcd602b1ff955"></span><code class="sig-name descname">float AnimationManager.playAttackAnimation()</code></dt>
-<dd></dd></dl>
+<dd><p>Play a random attack animation and return the length of the clip played </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>length of clip played</p>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="function">
 <dt>
 <span class="target" id="classAnimationManager_1a6fa21fd5c5de4522bab9083157295fff"></span><code class="sig-name descname">float AnimationManager.playIdleAnimation()</code></dt>
-<dd></dd></dl>
+<dd><p>Play a random idle animation and return the length of the clip played </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>length of clip played</p>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="function">
 <dt>
 <span class="target" id="classAnimationManager_1a69afc6c33cf92f10740b8d7bffe0ca96"></span><code class="sig-name descname">float AnimationManager.playMoveAnimation()</code></dt>
-<dd></dd></dl>
+<dd><p>Play a random movement animation and return the length of the clip played </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>length of clip played</p>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
@@ -217,7 +242,8 @@
 <dl class="member">
 <dt>
 <span class="target" id="classAnimationManager_1a069dec72d20bf8fa9c087afd7dd11b92"></span><em class="property">property </em><code class="sig-name descname">AnimationManager::isReady</code></dt>
-<dd></dd></dl>
+<dd><p>Whether the animation manager is set up and ready to start serving animation requests. </p>
+</dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
@@ -225,12 +251,24 @@
 <dl class="function">
 <dt>
 <span class="target" id="classAnimationManager_1a24e3383ca8d2acf1cf37211f8e9f2131"></span><code class="sig-name descname">void AnimationManager.Start()</code></dt>
-<dd></dd></dl>
+<dd><p>Set up clips based on what was set in the inspector. Generic names are needed to do things in other scripts. </p>
+</dd></dl>
 
 <dl class="function">
 <dt>
 <span class="target" id="classAnimationManager_1ab137e9a3fb041f7f257fc6f31508e26b"></span><code class="sig-name descname">float AnimationManager.getRandomAnimationAndLength(string type, List&lt; AnimationClip &gt; clips)</code></dt>
-<dd></dd></dl>
+<dd><p>Play a clip and return the length of the selected clip </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>length of clip played</p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">type</span></code>: string version of enum, used to select the clip by name (string)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">clips</span></code>: list of clips to pick from</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
@@ -238,22 +276,35 @@
 <dl class="member">
 <dt>
 <span class="target" id="classAnimationManager_1ac7018cb768f44b1baa271cd229c2f3fd"></span><code class="sig-name descname">List&lt;AnimationClip&gt; AnimationManager.move =&gt; animations.Where(a =&gt; a.category == AnimationEnum.move).Select(a =&gt; a.clips).First()</code></dt>
-<dd></dd></dl>
+<dd><p>Reference to move animations </p>
+</dd></dl>
 
 <dl class="member">
 <dt>
 <span class="target" id="classAnimationManager_1aef226663ba947ea336bd1ebfaa41cbc9"></span><code class="sig-name descname">List&lt;AnimationClip&gt; AnimationManager.die =&gt; animations.Where(a =&gt; a.category == AnimationEnum.die).Select(a =&gt; a.clips).First()</code></dt>
-<dd></dd></dl>
+<dd><p>Reference to death animations </p>
+</dd></dl>
 
 <dl class="member">
 <dt>
 <span class="target" id="classAnimationManager_1affa23c261c0429ab3e28947ae9c33b3a"></span><code class="sig-name descname">List&lt;AnimationClip&gt; AnimationManager.attack =&gt; animations.Where(a =&gt; a.category == AnimationEnum.attack).Select(a =&gt; a.clips).First()</code></dt>
-<dd></dd></dl>
+<dd><p>Reference to attack animations </p>
+</dd></dl>
 
 <dl class="member">
 <dt>
 <span class="target" id="classAnimationManager_1a2c794603c00a688f15031e07c43443d6"></span><code class="sig-name descname">List&lt;AnimationClip&gt; AnimationManager.idle =&gt; animations.Where(a =&gt; a.category == AnimationEnum.idle).Select(a =&gt; a.clips).First()</code></dt>
-<dd></dd></dl>
+<dd><p>Reference to idle animations </p>
+<p><dl>
+<dt><strong>Return</strong></dt><dd><p></p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist">
+<li><code class="docutils literal notranslate"><span class="pre">a.category</span></code></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 </div>
 </dd></dl>
