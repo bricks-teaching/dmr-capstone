@@ -775,10 +775,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9167176521063464892}
-  - component: {fileID: 6246630676884032610}
-  - component: {fileID: 4571660650812087041}
+  - component: {fileID: -26506412384238693}
+  - component: {fileID: 3926334371470251079}
+  - component: {fileID: 898236685600308749}
   - component: {fileID: 219323190981346917}
-  - component: {fileID: 2570908601649252565}
   - component: {fileID: 4924575478166366180}
   - component: {fileID: 170133694763890444}
   - component: {fileID: 2558409692379578103}
@@ -808,8 +808,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &6246630676884032610
-SphereCollider:
+--- !u!143 &-26506412384238693
+CharacterController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -819,24 +819,45 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2.8552415
-  m_Center: {x: -0.014240444, y: 3.0620623, z: -0.40780127}
---- !u!54 &4571660650812087041
-Rigidbody:
+  m_Height: 1
+  m_Radius: 3.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.25
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 3, z: 0}
+--- !u!65 &3926334371470251079
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5288074377703656879}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
   serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 3
+  m_Size: {x: 8.5, y: 6.5, z: 5}
+  m_Center: {x: 0, y: 3.25, z: -0.6}
+--- !u!114 &898236685600308749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5288074377703656879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7021c315522b8e662b4ef6c2d4e7453a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 2
+  rotationSpeed: 7
+  safeRadiusMin: 4
+  safeRadiusMax: 5
+  visionRadius: 35
+  player: {fileID: 0}
+  animationManager: {fileID: 170133694763890444}
 --- !u!114 &219323190981346917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -859,25 +880,6 @@ MonoBehaviour:
   pointValue: 20
   animationManager: {fileID: 170133694763890444}
   stunEffect: {fileID: 6481692060417253034}
---- !u!114 &2570908601649252565
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5288074377703656879}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c64bbc05ea943e09aa804bca2778a088, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementSpeed: 3
-  rotationSpeed: 7
-  safeRadiusMin: 4
-  safeRadiusMax: 5
-  visionRadius: 35
-  player: {fileID: 0}
-  animationManager: {fileID: 170133694763890444}
 --- !u!114 &4924575478166366180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -899,7 +901,8 @@ MonoBehaviour:
   botRange: 6
   botRate: 1.7
   gunHeight: 0
-  enemyMovement: {fileID: 2570908601649252565}
+  enemyMovement: {fileID: 0}
+  altMovement: {fileID: 898236685600308749}
   spottedPlayer: 0
   animationManager: {fileID: 170133694763890444}
 --- !u!114 &170133694763890444

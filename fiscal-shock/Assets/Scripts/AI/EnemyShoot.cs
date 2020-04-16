@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using FiscalShock.AI;
 
 // TODO: Change transformation values to floats.
 
@@ -24,7 +25,7 @@ public class EnemyShoot : MonoBehaviour {
     public float botRate = 1.7f;
 
     public float gunHeight = 0;
-    public EnemyMovement enemyMovement;
+    public AlternateMovement altMovement;
     public bool spottedPlayer;
     public AnimationManager animationManager;
 
@@ -36,7 +37,7 @@ public class EnemyShoot : MonoBehaviour {
     void Update() {
         if (player == null || !spottedPlayer) { return; }
 
-        float distance = enemyMovement.getDistanceFromPlayer();
+        float distance = altMovement.distanceFromPlayer3D;
 
         if (distance < botRange) {
             time += Time.deltaTime;

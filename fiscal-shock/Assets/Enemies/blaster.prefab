@@ -194,9 +194,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8331186481890963493}
-  - component: {fileID: 7406085335417626016}
-  - component: {fileID: 4059843124293172433}
-  - component: {fileID: 8181510141341009021}
+  - component: {fileID: 766107534290748880}
+  - component: {fileID: 5576197799379652252}
+  - component: {fileID: -1452332130808875316}
   - component: {fileID: 4302484390825140355}
   - component: {fileID: 8808183122978752604}
   - component: {fileID: 1910695017394205952}
@@ -227,7 +227,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &7406085335417626016
+--- !u!143 &766107534290748880
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5027433553046225462}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 14
+  m_Radius: 6
+  m_SlopeLimit: 45
+  m_StepOffset: 1
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 7, z: 2}
+--- !u!65 &5576197799379652252
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -238,25 +256,9 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.910203, y: 14.762157, z: 1}
-  m_Center: {x: -0.03305942, y: 6.881077, z: 0}
---- !u!54 &4059843124293172433
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5027433553046225462}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 3
---- !u!114 &8181510141341009021
+  m_Size: {x: 13, y: 13.25, z: 6}
+  m_Center: {x: 0, y: 7.125, z: 0.37}
+--- !u!114 &-1452332130808875316
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -265,7 +267,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5027433553046225462}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c64bbc05ea943e09aa804bca2778a088, type: 3}
+  m_Script: {fileID: 11500000, guid: 7021c315522b8e662b4ef6c2d4e7453a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 5
@@ -458,7 +460,8 @@ MonoBehaviour:
   botRange: 6
   botRate: 1.7
   gunHeight: 0
-  enemyMovement: {fileID: 8181510141341009021}
+  enemyMovement: {fileID: 0}
+  altMovement: {fileID: -1452332130808875316}
   spottedPlayer: 0
   animationManager: {fileID: 1910695017394205952}
 --- !u!1 &5228913154981519923

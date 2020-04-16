@@ -4,6 +4,8 @@ using UnityEngine;
 using FiscalShock.Graphs;
 using ThirdParty;
 using UnityEngine.Rendering;
+using FiscalShock.Pathfinding;
+using FiscalShock.AI;
 
 /// <summary>
 /// Generates a dungeon floor
@@ -18,10 +20,15 @@ namespace FiscalShock.Procedural {
 
         [Tooltip("Available dungeon themes.")]
         public List<DungeonTypeData> dungeonThemes;
+        [Tooltip("Script to create triggers around Voronoi cells.")]
+        public GameObject triggerPrefab;
+        [Tooltip("Reference to debt collector prefab to spawn.")]
+        public GameObject debtCollectorPrefab;
 
         /* Variables set during runtime */
         public DungeonType currentDungeonType { get; set; }
         public MersenneTwister mt { get; private set; }
+        public PlayerTrigger cellTrigger { get; private set; }
 
         /* Graphs */
         public Delaunay dt { get; private set; }
@@ -38,6 +45,8 @@ namespace FiscalShock.Procedural {
         public GameObject wallOrganizer { get; private set; }
         public GameObject enemyOrganizer { get; private set; }
         public GameObject thingOrganizer { get; private set; }
+        public GameObject cellColliderOrganizer { get; private set; }
+        private GameObject debtCollector;
 
         public void Start() {
             Settings.loadSettings();
@@ -58,6 +67,7 @@ namespace FiscalShock.Procedural {
             sw.Start();
             generateDelaunay();
             generateVoronoi();
+            // TODO: Need to make sure A* takes into account the walls -- change the equality operator?
             generateRoomGraphs();
             sw.Stop();
             Debug.Log($"Finished generating graphs in {sw.ElapsedMilliseconds} ms");
@@ -183,6 +193,8 @@ namespace FiscalShock.Procedural {
             thingOrganizer.transform.parent = organizer.transform;
             enemyOrganizer = new GameObject();
             enemyOrganizer.name = "Enemies";
+            cellColliderOrganizer = new GameObject();
+            cellColliderOrganizer.name = "Cell Triggers";
 
             System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
             Debug.Log("Starting floor generation");
@@ -223,6 +235,9 @@ namespace FiscalShock.Procedural {
             sw.Stop();
             Debug.Log($"Placing enemies took {sw.ElapsedMilliseconds} ms");
             sw.Reset();
+
+            Debug.Log("Going to spawn the debt collector.");
+            spawnDebtCollector();
         }
 
         /// <summary>
@@ -271,6 +286,28 @@ namespace FiscalShock.Procedural {
             Debug.Log("Randomizing and spawning environmental objects");
             foreach (Cell cell in vd.cells) {
             //foreach (Cell cell in validCells) {
+                if (cell.isClosed) {
+                    Polygon bbox = cell.getBoundingBox();
+                    float width = bbox.maxX - bbox.minX;
+                    float height = bbox.maxY - bbox.minY;
+                    float aspectRatio = width/height;
+
+                    if (aspectRatio < 5 && aspectRatio > 0.2) {
+                        Vector3 bboxCenter = new Vector3(
+                            bbox.maxX - width / 2, 1, bbox.maxY - height / 2
+                        );
+                        GameObject triggerContainer = Instantiate(triggerPrefab, bboxCenter, triggerPrefab.transform.rotation);
+                        triggerContainer.transform.localScale = new Vector3(bbox.maxX - bbox.minX, 1, bbox.maxY-bbox.minY);
+                        triggerContainer.name = $"cell {cell.id} trigger";
+
+                        triggerContainer.transform.parent = cellColliderOrganizer.transform;
+
+                        cellTrigger = triggerContainer.GetComponent<PlayerTrigger>();
+                        cellTrigger.cell = cell;
+                        cellTrigger.edges = cell.sides;
+                    }
+                }
+
                 // Don't spawn things on the convex hull for now
                 if (isPointOnOrNearConvexHull(cell.site)) {
                     continue;
@@ -324,6 +361,7 @@ namespace FiscalShock.Procedural {
                     // Position enemy on top of the object already here
                     if (cell.spawnedObject != null) {
                         enemy.transform.position += new Vector3(0, cell.spawnedObject.transform.position.y, 0);
+                        enemy.GetComponent<AlternateMovement>().spawnSite = cell;
                     }
 
                     // Randomly resize enemy +/- the variation
@@ -398,6 +436,9 @@ namespace FiscalShock.Procedural {
                 StateManager.purchasedLauncher = true;
                 PlayerFinance.cashOnHand = 1000f;
             }
+
+            player.GetComponent<PlayerMovement>().originalSpawn = spawnPoint;
+
             CharacterController playerController = player.GetComponentInChildren<CharacterController>();
             playerController.enabled = false;
             player.transform.position = spawnPoint.toVector3AtHeight(currentDungeonType.wallHeight * 0.8f);
@@ -424,6 +465,24 @@ namespace FiscalShock.Procedural {
 
             // Enable temporary player invincibility on spawn
             StartCoroutine(player.GetComponentInChildren<PlayerHealth>().enableIframes(5f));
+        }
+
+        private void spawnDebtCollector() {
+            Debug.Log("Spawning Debt Collector");
+
+            Vertex spawnPoint;
+            do {  // Don't spawn the debt collector on a portal.
+                spawnPoint = masterDt.vertices[mt.Next(masterDt.vertices.Count-1)];
+            } while (spawnPoint.cell.hasPortal);
+
+            debtCollector = GameObject.FindGameObjectWithTag("DebtCollector");
+
+            if (debtCollector == null) {
+                Debug.Log("DEBT COLLECTOR PREFAB POSITION: ");
+                debtCollector = Instantiate(debtCollectorPrefab, spawnPoint.toVector3AtHeight(currentDungeonType.wallHeight * 0.8f), debtCollectorPrefab.transform.rotation);
+            }
+
+            debtCollector.GetComponent<DebtCollectorMovement>().spawnSite = spawnPoint.cell;
         }
 
         private bool isPointOnOrNearConvexHull(Vertex point) {

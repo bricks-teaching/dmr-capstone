@@ -1,4 +1,7 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
+using FiscalShock.Graphs;
+using FiscalShock.Pathfinding;
 
 /**
 Here is the tutorial I followed:
@@ -23,7 +26,33 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask wallMask;
 
     public Vector3 velocity;
+    public Vertex originalSpawn { get; set; }
     bool isGrounded;
+
+    void Start() {
+        Hivemind hivemind = GameObject.Find("DungeonSummoner").GetComponent<Hivemind>();
+
+        foreach(Edge side in originalSpawn.cell.sides) {
+            // Check that the edge isn't a wall.
+            if (!side.isWall) {
+                // Check if the first edge coordinate is out of the ground area.
+                if (side.p.x < hivemind.bounds[0] || side.p.x > hivemind.bounds[1]
+                || side.p.y < hivemind.bounds[2] || side.p.y > hivemind.bounds[3]) {
+                    // Check the second edge coordinate.
+                    if (side.q.x < hivemind.bounds[0] || side.q.x > hivemind.bounds[1]
+                    || side.q.y < hivemind.bounds[2] || side.q.y > hivemind.bounds[3]) {
+                        continue;
+                    }
+
+                    hivemind.lastPlayerLocation = side.q;
+                    break;
+                }
+
+                hivemind.lastPlayerLocation = side.p;
+                break;
+            }
+        }
+    }
 
     // Update is called once per frame
     void Update()

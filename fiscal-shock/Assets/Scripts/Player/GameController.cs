@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using FiscalShock.AI;
 
 public static class GameController {
     public static GameObject pauseMenu;
@@ -19,7 +20,7 @@ public static class GameController {
         bots.Add(bot);
 
         //Tell the bot to go after the player
-        EnemyMovement botMovement = bot.GetComponent<EnemyMovement>();
+        AlternateMovement botMovement = bot.GetComponent<AlternateMovement>();
         botMovement.player = player;
 
         EnemyShoot botShootingScript = bot.GetComponent(typeof(EnemyShoot)) as EnemyShoot;

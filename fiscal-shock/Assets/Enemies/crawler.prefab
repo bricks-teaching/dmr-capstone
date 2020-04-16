@@ -1138,10 +1138,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5778770256655100509}
-  - component: {fileID: 8771454163507206531}
-  - component: {fileID: 1187762504336789216}
+  - component: {fileID: -8317411782712416355}
+  - component: {fileID: -8829048219311642807}
+  - component: {fileID: -3066282282508782208}
   - component: {fileID: 3170881378136757124}
-  - component: {fileID: 911901237148917044}
   - component: {fileID: 7736500099516756485}
   - component: {fileID: 3266909794282578669}
   - component: {fileID: 903893772792736534}
@@ -1171,8 +1171,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &8771454163507206531
-SphereCollider:
+--- !u!143 &-8317411782712416355
+CharacterController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1182,24 +1182,45 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2.8552415
-  m_Center: {x: -0.014240444, y: 3.0620623, z: -0.40780127}
---- !u!54 &1187762504336789216
-Rigidbody:
+  m_Height: 1
+  m_Radius: 3.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.25
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 3, z: 0}
+--- !u!65 &-8829048219311642807
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7379439594323040334}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
   serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 3
+  m_Size: {x: 8.5, y: 6.5, z: 5}
+  m_Center: {x: 0, y: 3.25, z: -0.6}
+--- !u!114 &-3066282282508782208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7379439594323040334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7021c315522b8e662b4ef6c2d4e7453a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 2
+  rotationSpeed: 7
+  safeRadiusMin: 4
+  safeRadiusMax: 5
+  visionRadius: 35
+  player: {fileID: 0}
+  animationManager: {fileID: 3266909794282578669}
 --- !u!114 &3170881378136757124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1222,25 +1243,6 @@ MonoBehaviour:
   pointValue: 20
   animationManager: {fileID: 3266909794282578669}
   stunEffect: {fileID: 2877221404637860338}
---- !u!114 &911901237148917044
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7379439594323040334}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c64bbc05ea943e09aa804bca2778a088, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementSpeed: 3
-  rotationSpeed: 7
-  safeRadiusMin: 4
-  safeRadiusMax: 5
-  visionRadius: 35
-  player: {fileID: 0}
-  animationManager: {fileID: 3266909794282578669}
 --- !u!114 &7736500099516756485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1262,7 +1264,8 @@ MonoBehaviour:
   botRange: 6
   botRate: 1.7
   gunHeight: 0
-  enemyMovement: {fileID: 911901237148917044}
+  enemyMovement: {fileID: 0}
+  altMovement: {fileID: -3066282282508782208}
   spottedPlayer: 0
   animationManager: {fileID: 3266909794282578669}
 --- !u!114 &3266909794282578669

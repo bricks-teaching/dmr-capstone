@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System;
+using FiscalShock.AI;
 
 //This script controls the health of enemy bots
 public class EnemyHealth : MonoBehaviour {
@@ -21,12 +21,10 @@ public class EnemyHealth : MonoBehaviour {
     private readonly int bigExplosionLimit = 6;
     public GameObject stunEffect;
     private FeedbackController feed;
-    private Rigidbody ragdoll;
 
     void Start() {
         feed = GameObject.FindGameObjectWithTag("HUD").GetComponent<FeedbackController>();
         totalHealth = startingHealth;
-        ragdoll = gameObject.GetComponent<Rigidbody>();
 
         for (int i = 0; i < smallExplosionLimit; ++i) {
             GameObject splode = Instantiate(explosion, gameObject.transform.position + transform.up, gameObject.transform.rotation);
@@ -52,7 +50,7 @@ public class EnemyHealth : MonoBehaviour {
     private IEnumerator stunRoutine(float duration) {
         stunEffect.SetActive(true);
         EnemyShoot es = gameObject.GetComponentInChildren<EnemyShoot>();
-        EnemyMovement em = gameObject.GetComponentInChildren<EnemyMovement>();
+        AlternateMovement em = gameObject.GetComponentInChildren<AlternateMovement>();
         es.enabled = false;
         em.stunned = true;
         yield return new WaitForSeconds(duration);
@@ -60,7 +58,6 @@ public class EnemyHealth : MonoBehaviour {
         em.enabled = true;
         em.stunned = false;
         stunEffect.SetActive(false);
-        ragdoll.isKinematic = true;
 
         yield return null;
     }
@@ -71,7 +68,7 @@ public class EnemyHealth : MonoBehaviour {
         if (totalHealth <= 0 && !dead) {
             PlayerFinance.cashOnHand += pointValue;
             float deathDuration = animationManager.playDeathAnimation();
-            GetComponent<EnemyMovement>().enabled = false;
+            GetComponent<AlternateMovement>().enabled = false;
             GetComponent<EnemyShoot>().enabled = false;
             animationManager.animator.PlayQueued("shrink");
             Destroy(gameObject, deathDuration + 0.5f);

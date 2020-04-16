@@ -259,7 +259,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 208130074384889237}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 18d262f8db7df7c6ead74923307508f0, type: 3}
   m_Name: 
@@ -271,17 +271,17 @@ MonoBehaviour:
   renderDelaunayHull: 0
   delaunayColor: {r: 1, g: 0, b: 0.9359112, a: 0}
   delaunayRenderHeight: 1.2
-  renderVoronoi: 0
+  renderVoronoi: 1
   voronoiColor: {r: 0, g: 1, b: 0.98118925, a: 0}
   voronoiRenderHeight: 1.2
   renderMasterDelaunay: 0
   masterDelaunayColor: {r: 1, g: 0, b: 0, a: 0}
   masterDelaunayRenderHeight: 1.2
-  renderMasterVertices: 1
-  renderSpanningTree: 1
+  renderMasterVertices: 0
+  renderSpanningTree: 0
   spanningTreeColor: {r: 0, g: 1, b: 0.020439148, a: 0}
   spanningTreeRenderHeight: 3
-  renderRooms: 1
+  renderRooms: 0
   roomColor: {r: 1, g: 1, b: 1, a: 1}
   roomRenderHeight: 3
   edgeMat: {fileID: 2100000, guid: 4c59fd6ae625a9500b147fcf863adeb3, type: 2}
