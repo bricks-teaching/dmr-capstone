@@ -122,17 +122,6 @@ public static class StateManager
         Debug.Log($"Accumulating interest for day {StateManager.timesEntered}");
         // in case cash precision got fudged in the dungeon
         cashOnHand = (float)Math.Round(cashOnHand, 2);
-
-        /*
-        //If unpaid debts present up threat level
-        SharkScript.sharkUnpaid();
-        //activates interest method in sharkscript also sets paid to false
-        SharkScript.sharkInterest();
-        //If unpaid debts present up threat level
-        ATMScript.bankUnpaid();
-        //activates interest method in atmscript also sets paid to false
-        ATMScript.bankInterest();
-        */
         processDueInvoices();
 
         income.AddLast(cashOnHand - cashOnEntrance);
@@ -167,42 +156,7 @@ public static class StateManager
                 cd.threatLevel--;
             }
         }
-
-        /*
-        foreach (Loan item in loanList) {
-            if (!item.paid) {
-                if(item.type == LoanType.Payday){
-                    sharkThreatLevel++;
-                    paidShark = false;
-                } else {
-                    bankThreatLevel++;
-                    paidBank = false;
-                }
-                paymentStreak = 0;
-            }
-        }
-        if (paidShark) {
-            StateManager.paymentStreak++;
-            sharkThreatLevel--;
-        }
-        if (paidBank) {
-            StateManager.paymentStreak++;
-            bankThreatLevel--;
-        }
-        */
     }
-
-    /* moved inside processdueinvoices
-    /// <summary>
-    /// Applies interest to every loan in the main list
-    /// </summary>
-    public void applyInterest(){
-        foreach (Loan item in StateManager.loanList) {
-            item.paid = false;
-            item.total += (float)Math.Round(item.rate * item.total, 2);
-        }
-    }
-    */
 
     /// <summary>
     /// Calculates the player's credit score. Not currently used.
