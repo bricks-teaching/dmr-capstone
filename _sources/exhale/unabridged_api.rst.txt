@@ -223,6 +223,11 @@ Classes and Structs
 .. toctree::
    :maxdepth: 5
 
+   classFiscalShock_1_1Graphs_1_1Poisson.rst
+
+.. toctree::
+   :maxdepth: 5
+
    classFiscalShock_1_1Graphs_1_1Polygon.rst
 
 .. toctree::

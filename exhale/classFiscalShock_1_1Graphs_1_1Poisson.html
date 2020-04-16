@@ -1,0 +1,403 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Class Poisson &mdash; Fiscal Shock  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Fiscal Shock
+          
+
+          
+            
+            <img src="../_static/dmr-icon128.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Class Poisson</a><ul>
+<li><a class="reference internal" href="#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Fiscal Shock</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Class Poisson</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/exhale/classFiscalShock_1_1Graphs_1_1Poisson.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="class-poisson">
+<span id="exhale-class-classfiscalshock-1-1graphs-1-1poisson"></span><h1>Class Poisson<a class="headerlink" href="#class-poisson" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_fiscal-shock_Assets_Scripts_Graphs_Poisson.cs.html#file-fiscal-shock-assets-scripts-graphs-poisson-cs"><span class="std std-ref">File Poisson.cs</span></a></p></li>
+</ul>
+<div class="section" id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="_CPPv4N11FiscalShock6Graphs7PoissonE">
+<span id="_CPPv3N11FiscalShock6Graphs7PoissonE"></span><span id="_CPPv2N11FiscalShock6Graphs7PoissonE"></span><span id="FiscalShock::Graphs::Poisson"></span><span class="target" id="classFiscalShock_1_1Graphs_1_1Poisson"></span><em class="property">class </em><code class="sig-name descname">Poisson</code><a class="headerlink" href="#_CPPv4N11FiscalShock6Graphs7PoissonE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><a class="reference internal" href="#classFiscalShock_1_1Graphs_1_1Poisson"><span class="std std-ref">Poisson</span></a> disc sampling based on <a class="reference external" href="https://www.cs.ubc.ca/~rbridson/docs/bridson-siggraph07-poissondisk.pdf">https://www.cs.ubc.ca/~rbridson/docs/bridson-siggraph07-poissondisk.pdf</a>. </p>
+<p>Every point generated is guaranted to be at least <code class="docutils literal notranslate"><span class="pre">r</span></code> or <code class="docutils literal notranslate"><span class="pre">minDistance</span></code> units away from any other point. </p>
+<p>Making <a class="reference internal" href="classFiscalShock_1_1Graphs_1_1Delaunay.html#classFiscalShock_1_1Graphs_1_1Delaunay"><span class="std std-ref">Delaunay</span></a> and <a class="reference internal" href="classFiscalShock_1_1Graphs_1_1Voronoi.html#classFiscalShock_1_1Graphs_1_1Voronoi"><span class="std std-ref">Voronoi</span></a> from a <a class="reference internal" href="#classFiscalShock_1_1Graphs_1_1Poisson"><span class="std std-ref">Poisson</span></a> distribution: <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Poisson</span> <span class="n">distribution</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Poisson</span><span class="p">(</span><span class="n">minDistanceBetweenSamples</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">);</span>
+<span class="n">Delaunay</span> <span class="n">poissonTriangulation</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Delaunay</span><span class="p">(</span><span class="n">distribution</span><span class="o">.</span><span class="n">vertices</span><span class="p">);</span>
+<span class="n">Voronoi</span> <span class="n">poissonVoronoi</span> <span class="o">=</span> <span class="n">poissonTriangulation</span><span class="o">.</span><span class="n">makeVoronoi</span><span class="p">();</span>
+</pre></div>
+</div>
+ </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt>
+<span class="target" id="classFiscalShock_1_1Graphs_1_1Poisson_1a317969c52ceadf8baaa9cc1757116538"></span><code class="sig-name descname">FiscalShock.Graphs.Poisson.Poisson(float minDistanceBetweenSamples, int width, int height)</code></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Members</p>
+<dl class="member">
+<dt>
+<span class="target" id="classFiscalShock_1_1Graphs_1_1Poisson_1afa6070af5c2d6ba0d482984f665b6ed4"></span><code class="sig-name descname">List&lt;Vertex&gt; FiscalShock.Graphs.Poisson.vertices =&gt; grid.Where(v =&gt; v != null).ToList()</code></dt>
+<dd><p>Public accessor for the list of vertices generated. </p>
+<p><dl>
+<dt><strong>Return</strong></dt><dd><p></p>
+</dd>
+<dt><strong>Template Parameters</strong></dt><dd><ul class="breatheparameterlist">
+<li><code class="docutils literal notranslate"><a class="reference internal" href="classFiscalShock_1_1Graphs_1_1Vertex.html#classFiscalShock_1_1Graphs_1_1Vertex"><span class="std std-ref"><span class="pre">Vertex</span></span></a></code></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Private Functions</p>
+<dl class="function">
+<dt>
+<span class="target" id="classFiscalShock_1_1Graphs_1_1Poisson_1a8fdf8ae8163e6086572a81cd1a9f094b"></span><code class="sig-name descname">int FiscalShock.Graphs.Poisson.getArrayIndex(int col, int row)</code></dt>
+<dd><p>Formula to find index in a 1D array using 2D coordinates </p>
+<p><dl>
+<dt><strong>Return</strong></dt><dd><p></p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist">
+<li><code class="docutils literal notranslate"><span class="pre">col</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">row</span></code></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classFiscalShock_1_1Graphs_1_1Poisson_1a07e6146ee6f096b5203a7d93960a122d"></span><code class="sig-name descname">int FiscalShock.Graphs.Poisson.getGridValueOf(float z)</code></dt>
+<dd><p>Finds the row or column that a given point falls within on the grid. Pass in x for column and y for row. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p></p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">z</span></code>: Vertex.x or Vertex.y</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classFiscalShock_1_1Graphs_1_1Poisson_1a70f710dff1bb31e18c901018cef45b88"></span><code class="sig-name descname">int FiscalShock.Graphs.Poisson.getIndexOfVertex(Vertex v)</code></dt>
+<dd><p>Finds the correct grid array index for a given vertex. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p></p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">v</span></code>: vertex to locate in the grid</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classFiscalShock_1_1Graphs_1_1Poisson_1a1dcff9e33c081d2dd4d5c6f641fe5ca0"></span><code class="sig-name descname">Vertex FiscalShock.Graphs.Poisson.pickRandomActivePoint()</code></dt>
+<dd><p>Grabs a random point from the active list to start sampling around. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p></p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classFiscalShock_1_1Graphs_1_1Poisson_1ab1860a847372edb87702618426afb008"></span><code class="sig-name descname">Vertex FiscalShock.Graphs.Poisson.getRandomPointAround(Vertex origin)</code></dt>
+<dd><p>Finds a random point within the spherical annulus by drawing a vector whose magnitude is between <code class="docutils literal notranslate"><span class="pre">r</span></code> and <code class="docutils literal notranslate"><span class="pre">2r</span></code> at a random angle. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>random sample</p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">origin</span></code>: donut center</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classFiscalShock_1_1Graphs_1_1Poisson_1a40c6b2ca6d034e976183d5eb78104646"></span><code class="sig-name descname">bool FiscalShock.Graphs.Poisson.isIndexWithinGrid(int x, int y)</code></dt>
+<dd><p>Helper function to validate samples. Samples can be generated out of bounds. </p>
+<p><dl>
+<dt><strong>Return</strong></dt><dd><p></p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist">
+<li><code class="docutils literal notranslate"><span class="pre">x</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">y</span></code></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Private Members</p>
+<dl class="member">
+<dt>
+<span class="target" id="classFiscalShock_1_1Graphs_1_1Poisson_1ac45163f51ca693c15987a8507eb5d270"></span><code class="sig-name descname">float FiscalShock.Graphs.Poisson.minDistance</code></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">r</span></code>: Given any point, samples are chosen from the spherical annulus, a donut whose inner radius is r and outer radius, 2r. The scalar for the outer radius could be altered. </p>
+<p>All points created by the distribution are at least this many units away from any other point.</p>
+</dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classFiscalShock_1_1Graphs_1_1Poisson_1a04b6d3d9324c8ac7550e67652e5b12fb"></span><code class="sig-name descname">float FiscalShock.Graphs.Poisson.maxDistance</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classFiscalShock_1_1Graphs_1_1Poisson_1ac9f933da05418640bae275accebacd0d"></span><code class="sig-name descname">float FiscalShock.Graphs.Poisson.cellSize</code></dt>
+<dd><p>Grid cell is size <code class="docutils literal notranslate"><span class="pre">r/sqrt(n)</span></code>, restricting each grid cell to at most one point. </p>
+</dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classFiscalShock_1_1Graphs_1_1Poisson_1a52cf1db5dfc0239b082c11c0759052d9"></span><code class="sig-name descname">Vertex [] FiscalShock.Graphs.Poisson.grid</code></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">n</span></code>-dimensional grid of points. </p>
+</dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classFiscalShock_1_1Graphs_1_1Poisson_1a5ca291313e251395403d867f5978b039"></span><code class="sig-name descname">int FiscalShock.Graphs.Poisson.rows</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classFiscalShock_1_1Graphs_1_1Poisson_1ab4c0fbccb601117840ec51a3a4d9a71b"></span><code class="sig-name descname">int FiscalShock.Graphs.Poisson.cols</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classFiscalShock_1_1Graphs_1_1Poisson_1a837989b2e6617d64e678de8fb01a016c"></span><code class="sig-name descname">List&lt;Vertex&gt; FiscalShock.Graphs.Poisson.active = new List&lt;Vertex&gt;()</code></dt>
+<dd><p>A list of points that have been added to the distribution, but have not been using as the donut point (need to search for <code class="docutils literal notranslate"><span class="pre">k</span></code> samples around this one still). </p>
+<p><dl>
+<dt><strong>Return</strong></dt><dd><p></p>
+</dd>
+<dt><strong>Template Parameters</strong></dt><dd><ul class="breatheparameterlist">
+<li><code class="docutils literal notranslate"><a class="reference internal" href="classFiscalShock_1_1Graphs_1_1Vertex.html#classFiscalShock_1_1Graphs_1_1Vertex"><span class="std std-ref"><span class="pre">Vertex</span></span></a></code></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Private Static Attributes</p>
+<dl class="member">
+<dt>
+<span class="target" id="classFiscalShock_1_1Graphs_1_1Poisson_1ac7228b44f8fee97bd1b8fd0a758a430d"></span><code class="sig-name descname">readonly int FiscalShock.Graphs.Poisson.dimensions = 2</code></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">n</span></code>, as in <code class="docutils literal notranslate"><span class="pre">R^n</span></code>. We’re only working in 2D for these points, but it could be 3D, too. </p>
+</dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classFiscalShock_1_1Graphs_1_1Poisson_1a52ae7fd99ff8aa1c2fdb0c91b192c73b"></span><code class="sig-name descname">readonly int FiscalShock.Graphs.Poisson.sampleLimit = 30</code></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">k</span></code>: Maximum number of samples to attempt per iteration. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Download Moar RAM
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

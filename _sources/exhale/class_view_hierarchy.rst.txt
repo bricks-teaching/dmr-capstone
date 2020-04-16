@@ -11,6 +11,7 @@ Class Hierarchy
         - :ref:`exhale_class_classFiscalShock_1_1Graphs_1_1Edge`
         - :ref:`exhale_class_classFiscalShock_1_1Graphs_1_1Graph`
         - :ref:`exhale_class_classFiscalShock_1_1Graphs_1_1Mathy`
+        - :ref:`exhale_class_classFiscalShock_1_1Graphs_1_1Poisson`
         - :ref:`exhale_class_classFiscalShock_1_1Graphs_1_1Polygon`
         - :ref:`exhale_class_classFiscalShock_1_1Graphs_1_1Triangle`
         - :ref:`exhale_class_classFiscalShock_1_1Graphs_1_1Vertex`
