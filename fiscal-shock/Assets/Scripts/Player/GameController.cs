@@ -23,7 +23,7 @@ public static class GameController {
         botMovement.player = player;
 
         EnemyShoot botShootingScript = bot.GetComponent(typeof(EnemyShoot)) as EnemyShoot;
-        botShootingScript.player = player;
+        //botShootingScript.player = player;
 
         //set controller to this script so bot can remove itself from the bot arraylist when it is destroyed
         Debug.Log("enemy bot added");

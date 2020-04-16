@@ -11,21 +11,76 @@ public class EnemyHealth : MonoBehaviour {
     public AudioClip hitSoundClip;
     public AudioSource hitSound;
     public float pointValue = 20;
-    private float totalHealth;
+
+    /// <summary>
+    /// Current health
+    /// </summary>
+    private float currentHealth;
+
+    /// <summary>
+    /// Last object that hit this bot. Disables "piercing" effect of bullets
+    /// where they keep hurting while in the enemy's hitbox.
+    /// </summary>
     private GameObject lastBulletCollision;
+
+    [Tooltip("Reference to this bot's own animation manager script")]
     public AnimationManager animationManager;
+
+    /// <summary>
+    /// Whether this bot is dead, to prevent things from continuing or re-dying
+    /// </summary>
     private bool dead;
+
+    /// <summary>
+    /// Queue for object pooling
+    /// </summary>
     private Queue<GameObject> explosions = new Queue<GameObject>();
+
+    /// <summary>
+    /// Number of explosions to pool to avoid garbage collection spikes
+    /// </summary>
     private readonly int smallExplosionLimit = 12;
+
+    /// <summary>
+    /// Queue for object pooling
+    /// </summary>
     private Queue<GameObject> bigExplosions = new Queue<GameObject>();
+
+    /// <summary>
+    /// Number of explosions to pool to avoid garbage collection spikes
+    /// </summary>
     private readonly int bigExplosionLimit = 6;
+
+    [Tooltip("Reference to this bot's stun effect object")]
     public GameObject stunEffect;
+
+    /// <summary>
+    /// Reference to the visual feedback controller
+    /// </summary>
     private FeedbackController feed;
+
+    /// <summary>
+    /// Reference to this bot's rigidbody, used for explosives
+    /// </summary>
     private Rigidbody ragdoll;
+
+    /// <summary>
+    /// Counter checked against max enmity duration
+    /// </summary>
+    private float enmityCounter;
+
+    [Tooltip("Whether the bot is actively pursuing the player.")]
+    public bool enmityActive;
+
+    [Tooltip("How long after being ambushed should this bot try to find the player?")]
+    public float maxEnmityDuration;
+
+    [Tooltip("When ambushed, the enemy will try to alert other enemies willing to assist within this radius.")]
+    public float cryForHelpRadius;
 
     void Start() {
         feed = GameObject.FindGameObjectWithTag("HUD").GetComponent<FeedbackController>();
-        totalHealth = startingHealth;
+        currentHealth = startingHealth;
         ragdoll = gameObject.GetComponent<Rigidbody>();
 
         for (int i = 0; i < smallExplosionLimit; ++i) {
@@ -40,6 +95,15 @@ public class EnemyHealth : MonoBehaviour {
             splode.transform.parent = transform;
             splode.SetActive(false);
             bigExplosions.Enqueue(splode);
+        }
+    }
+
+    void Update() {
+        if (enmityActive) {
+            enmityCounter += Time.deltaTime;
+        }
+        if (enmityCounter >= maxEnmityDuration) {
+            enmityActive = false;
         }
     }
 
@@ -66,10 +130,10 @@ public class EnemyHealth : MonoBehaviour {
     }
 
     public void takeDamage(float damage, int paybackMultiplier=0) {
-        float prevHealth = totalHealth;
-        totalHealth -= damage;
+        float prevHealth = currentHealth;
+        currentHealth -= damage;
 
-        if (totalHealth <= 0 && !dead) {
+        if (currentHealth <= 0 && !dead) {
             // Get up to half the original health as payback, adjusted due to fish cannon scoring too much cash because it OHKOs right now
             float profit = pointValue + (Mathf.Clamp(prevHealth, 1, startingHealth/2) * paybackMultiplier);
             StateManager.cashOnHand += profit;
@@ -81,6 +145,28 @@ public class EnemyHealth : MonoBehaviour {
             dead = true;
             feed.profit(profit);
         }
+        if (!enmityActive) {
+            StartCoroutine(cryForHelp(transform.position));
+        }
+        enmityActive = true;
+        enmityCounter = 0;
+    }
+
+    private IEnumerator cryForHelp(Vector3 location) {
+        yield return new WaitForSeconds(1f * UnityEngine.Random.Range(1f, 3f));
+
+        if (dead) {
+            yield return null;
+        }
+
+        foreach (Collider col in Physics.OverlapSphere(location, cryForHelpRadius, (1 << gameObject.layer))) {
+            if (col.gameObject.tag == "Assistant") {
+                EnemyHealth ally = col.gameObject.GetComponent<EnemyHealth>();
+                ally.enmityCounter = 0;
+                ally.enmityActive = true;
+            }
+        }
+        yield return null;
     }
 
     public void showDamageExplosion(Queue<GameObject> queue, float volumeMultiplier = 0.65f) {
@@ -119,30 +205,6 @@ public class EnemyHealth : MonoBehaviour {
             } else if (col.gameObject.tag == "Missile") {
                 showDamageExplosion(bigExplosions, 0.65f);
             }
-
-            // Doesn't work for new bots
-            // If bot goes under 50% health, make it look damaged
-            /*
-            if (totalHealth <= startingHealth / 2 && (totalHealth + bulletDamage) > startingHealth / 2) {
-                if (gameObject.tag == "Blaster") {
-                    for (int i = 0; i < 2; i++) {
-                        Vector3 randomDirection = new Vector3(Random.value, Random.value, Random.value).normalized;
-                        gameObject.transform.GetChild(0).gameObject.
-                        transform.GetChild(0).gameObject.
-                        transform.GetChild(2).gameObject.transform.GetChild(i)
-                        .gameObject.transform.GetChild(0).gameObject.transform.rotation = Quaternion.LookRotation(randomDirection);
-                    }
-                }
-                if (gameObject.tag == "Lobber") {
-                    for (int i = 0; i < 2; i++) {
-                        gameObject.transform.GetChild(0).gameObject.
-                        transform.GetChild(0).gameObject.
-                        transform.GetChild(4).gameObject.transform.GetChild(2 * i)
-                        .gameObject.transform.position += new Vector3(0, 0.1f, 0);
-                    }
-                }
-            }
-            */
         }
     }
 }

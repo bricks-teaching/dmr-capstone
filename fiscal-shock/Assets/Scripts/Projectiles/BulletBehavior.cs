@@ -4,10 +4,10 @@ using System.Collections;
 public class BulletBehavior : MonoBehaviour
 {
     [Tooltip("Amount of damage this bullet deals when fired by the player.")]
-    public int damage = 10;
+    public float damage = 10;
 
     [Tooltip("How fast this bullet travels.")]
-    public int bulletSpeed = 80;
+    public float bulletSpeed = 80;
 
     [Tooltip("Reference to this bullet's rigidbody component.")]
     public Rigidbody rb;
@@ -25,6 +25,8 @@ public class BulletBehavior : MonoBehaviour
     public bool hitSomething { get; private set; }
     public bool grounded { get; private set; }
     private Vector3 ricochetDirection;
+    private float timeSinceLastAiming;
+    private float homingUpdateRate = 0.8f;
 
     public void OnEnable() {
         rb.velocity = transform.forward * bulletSpeed;
@@ -63,9 +65,18 @@ public class BulletBehavior : MonoBehaviour
         yield return null;
     }
 
-    void Update() {
+    void FixedUpdate() {
+        if (gameObject.tag == "Enemy Projectile" && target != null) {
+            timeSinceLastAiming += Time.deltaTime;
+            if (timeSinceLastAiming >= homingUpdateRate) {
+                timeSinceLastAiming = 0;
+            } else {
+                return;
+            }
+        }
         if (target != null && !hitSomething) {
             rb.velocity = (target.TransformPoint(localizedTarget) - transform.position).normalized * bulletSpeed;
+            transform.LookAt(target);
         }
         if (target != null && hitSomething && !grounded) {
             rb.velocity = ricochetDirection * bulletSpeed;
