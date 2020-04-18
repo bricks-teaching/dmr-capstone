@@ -87,6 +87,8 @@ public static class StateManager
     public static int paymentStreak { get; set; } = DefaultState.paymentStreak;
     public static float cashOnEntrance { get; set; } = DefaultState.cashOnEntrance;
     public static float averageIncome => income.Average();
+    public static float rateAdjuster = DefaultState.rateAdjuster;
+    public static float maxLoanAdjuster = DefaultState.maxLoanAdjuster;
     public static bool purchasedHose = DefaultState.purchasedHose;
     public static bool purchasedLauncher = DefaultState.purchasedLauncher;
 
@@ -125,7 +127,7 @@ public static class StateManager
         processDueInvoices();
 
         income.AddLast(cashOnHand - cashOnEntrance);
-        calcCreditScore();
+        calcCreditScore(creditScore);
         Debug.Log($"New debt total: {totalDebt}");
         return true;
     }
@@ -159,11 +161,12 @@ public static class StateManager
     }
 
     /// <summary>
-    /// Calculates the player's credit score. Not currently used.
+    /// Calculates the player's credit score.
+    /// Used to apply bonuses/penalties to interest rates and maximum loans
     /// </summary>
-    public static void calcCreditScore()
+    public static void calcCreditScore(int cred)
     {
-        int baseScore = 500, sharkPen = 0;
+        int sharkPen = 0;
         int oldestLoan = 0;
         foreach (Loan item in loanList)
         {
@@ -176,24 +179,43 @@ public static class StateManager
             }
         }
         if(oldestLoan > 10){
-            baseScore -= change * (oldestLoan - 10);
+            cred -= change * (oldestLoan - 10);
         }
-        baseScore -= sharkPen * change;
+        cred -= sharkPen * change;
         if(totalLoans > 5){
-            baseScore -= change * 2;
+            cred -= change * 2;
         }
         if(totalDebt > 10000){
-            baseScore -= change * 8;
-        } else if (totalDebt > 5000){
-            baseScore += change * 8;
+            cred -= change * 8;
+        } else if (totalDebt < 5000){
+            cred += change * 8;
         }
-        baseScore += (paymentStreak * 5);
+        cred += paymentStreak * 5;
         if(averageIncome < 0){
-            baseScore -= change * 10;
+            cred -= change * 10;
         } else if(averageIncome > totalDebt * 0.03) {
-            baseScore += change * 15;
+            cred += change * 15;
         } else {
-            baseScore += change * 5;
+            cred += change * 5;
+        }
+        //Not sure if needed or not
+        creditScore = cred;
+        //If we could do this as a ranged switch that would be nice but idk if those exist
+        if(creditScore >= 650){
+            rateAdjuster = DefaultState.rateAdjuster * 0.75f;
+            maxLoanAdjuster = DefaultState.maxLoanAdjuster * 1.6f;
+        } else if(creditScore >= 550 && creditScore < 650) {
+            rateAdjuster = DefaultState.rateAdjuster * 0.9f;
+            maxLoanAdjuster = DefaultState.maxLoanAdjuster * 1.2f;
+        } else if (creditScore < 450 && creditScore >= 350) {
+            rateAdjuster = DefaultState.rateAdjuster * 1.5f;
+            maxLoanAdjuster = DefaultState.maxLoanAdjuster * 0.75f;
+        } else if(creditScore < 350) {
+            rateAdjuster = DefaultState.rateAdjuster * 2.0f;
+            maxLoanAdjuster = DefaultState.maxLoanAdjuster * 0.5f;
+        } else {
+            rateAdjuster = DefaultState.rateAdjuster;
+            maxLoanAdjuster = DefaultState.maxLoanAdjuster;
         }
     }
 
@@ -221,6 +243,8 @@ public static class StateManager
         playerDead = DefaultState.playerDead;
         playerWon = DefaultState.playerWon;
         lenders.Clear();
+        rateAdjuster = DefaultState.rateAdjuster;
+        maxLoanAdjuster = DefaultState.maxLoanAdjuster;
     }
 }
 
@@ -235,10 +259,12 @@ public static class DefaultState {
     public readonly static int nextID = 0;
     public readonly static int timesEntered = 0;
     public readonly static int currentFloor = 0;
-    public readonly static int change = 5;
-    public readonly static int creditScore = 0;
+    public readonly static int change = 3;
+    public readonly static int creditScore = 500;
     public readonly static int paymentStreak = 0;
     public readonly static float cashOnEntrance = 0.0f;
+    public readonly static float rateAdjuster = 1.0f;
+    public readonly static float maxLoanAdjuster = 1.0f;
     public readonly static bool purchasedHose = false;
     public readonly static bool purchasedLauncher = false;
     public readonly static bool sawTutorial = false;

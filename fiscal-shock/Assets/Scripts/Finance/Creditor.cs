@@ -110,7 +110,6 @@ public class Creditor : MonoBehaviour
     /// included and will affect the dialog
     /// </summary>
     public void addDebt(ValidLoan associatedLoanData) {
-        // need try-catch here
         try{
             float amount = float.Parse(associatedLoanData.addLoanInput.text, CultureInfo.InvariantCulture.NumberFormat);
             LoanType loanType = associatedLoanData.loanType;
@@ -123,10 +122,10 @@ public class Creditor : MonoBehaviour
 
             if (
                 (threatLevel < threatThreshold)
-                && (maxLoanAmount >= (loanTotal + amount))  // secured loans bypass this a bit...
+                && ((maxLoanAmount * StateManager.maxLoanAdjuster) >= (loanTotal + amount))  // secured loans bypass this a bit...
                 && (numberOfLoans < loanHardCap)
                 ) {
-                float modifiedInterest = associatedLoanData.interestRate * associatedLoanData.collateralRateReduction;  // collateralRateReduction should always be 1 for unsecured loans
+                float modifiedInterest = associatedLoanData.interestRate * associatedLoanData.collateralRateReduction * StateManager.rateAdjuster;  // collateralRateReduction should always be 1 for unsecured loans
                 float collateral = (float)Math.Round(associatedLoanData.collateralAmountPercent * amount, 2);  // collateralAmountPercent should always be 0 for unsecured loans
                 float modifiedAmount = (float)Math.Round(collateral + amount, 2);
                 Loan newLoan = new Loan(StateManager.nextID, modifiedAmount, modifiedInterest, loanType, collateral, creditorId);
@@ -157,7 +156,6 @@ public class Creditor : MonoBehaviour
     /// If the player pays it off the win condition is triggered.
     /// </summary>
     public void payDebt() {
-        // need try-catch here
         try{
             float amount = float.Parse(paymentAmount.text, CultureInfo.InvariantCulture.NumberFormat);
             int loanNum = int.Parse(paymentId.text);
@@ -206,6 +204,10 @@ public class Creditor : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Updates the GUI so that the player can see their loans.
+    /// Allows for accurate information to be displayed.
+    /// </summary>
     void updateFields() {
         for (int i = 0; i < loanEntries.Count; ++i) {
             if (i >= myLoans.Count) {

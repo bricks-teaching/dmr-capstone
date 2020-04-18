@@ -57,6 +57,11 @@ public class ShopScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Attempts to buy a weapon from the shop.
+    /// Failure conditions are included, as well as checks to
+    /// determine if a weapon has already been purchased.
+    /// </summary>
     public bool buyWeapon(int weapon, float cost) {
         if(cost > StateManager.cashOnHand){
             return false;
@@ -75,6 +80,9 @@ public class ShopScript : MonoBehaviour
         return true;
     }
 
+    /// <summary>
+    /// Helper method to establish dialog for specific weapons
+    /// </summary>
     void buyHose() {
         bool success = buyWeapon(0, 1000.0f);
         if(success){
@@ -89,6 +97,9 @@ public class ShopScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Helper method to establish dialog for specific weapons
+    /// </summary>
     void buyFish() {
         bool success = buyWeapon(1, 1500.0f);
         if (success) {
@@ -103,6 +114,10 @@ public class ShopScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// On click this method activates, granting the user control of
+    /// the mouse and returning them to the hub.
+    /// </summary>
     public void BackClick()
     {
         dialogText.text = "What are ya buyin'?";
