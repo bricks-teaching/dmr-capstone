@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8993861906345856543}
   - component: {fileID: 9168154031204758294}
   - component: {fileID: 7095854808911313453}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Bullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -127,5 +127,4 @@ MonoBehaviour:
   bulletSpeed: 1800
   rb: {fileID: 8993861906345856543}
   bulletLifetime: 2
-  poolProjectiles: 0
   poolSize: 0

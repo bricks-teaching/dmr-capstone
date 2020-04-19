@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7074419803088112004}
   - component: {fileID: 8389421854527186424}
   - component: {fileID: 4429939660909895487}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Milk Bullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -127,8 +127,4 @@ MonoBehaviour:
   bulletSpeed: 60
   rb: {fileID: 7074419803088112004}
   bulletLifetime: 4
-  poolProjectiles: 0
   poolSize: 0
-  hasParent: 0
-  target: {fileID: 0}
-  fireFrom: {fileID: 0}

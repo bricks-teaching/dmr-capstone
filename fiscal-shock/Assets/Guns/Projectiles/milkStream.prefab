@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1202316278642466865}
   - component: {fileID: 9184963046012739205}
   - component: {fileID: 5308881954942502720}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: milkStream
   m_TagString: Bullet
   m_Icon: {fileID: 0}

@@ -47,10 +47,10 @@ namespace FiscalShock.AI {
                 // Check that the edge isn't a wall.
                 if (!side.isWall) {
                     // Check if the first edge coordinate is out of the ground area.
-                    if (!side.p.walkable || side.p.x < hivemind.bounds[0] || side.p.x > hivemind.bounds[1]
+                    if (side.p.x < hivemind.bounds[0] || side.p.x > hivemind.bounds[1]
                     || side.p.y < hivemind.bounds[2] || side.p.y > hivemind.bounds[3]) {
                         // Check the second edge coordinate.
-                        if (!side.q.walkable || side.q.x < hivemind.bounds[0] || side.q.x > hivemind.bounds[1]
+                        if (side.q.x < hivemind.bounds[0] || side.q.x > hivemind.bounds[1]
                         || side.q.y < hivemind.bounds[2] || side.q.y > hivemind.bounds[3]) {
                             continue;
                         }
@@ -66,7 +66,7 @@ namespace FiscalShock.AI {
 
             // DEBUG: Remove or set debug specific.
             // Debug.Log("SPAWN SITE: " + spawnSite.site.vector);
-            // Debug.Log("LAST VISITED NODE: " + lastVisitedNode.vector);
+            Debug.Log("LAST VISITED NODE: " + lastVisitedNode.vector);
         }
 
         void Update() {

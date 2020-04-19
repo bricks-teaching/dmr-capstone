@@ -18,7 +18,7 @@ namespace FiscalShock.Pathfinding {
                 // Get the first vertex on the first edge and call it good.
                 foreach (Edge edge in edges) {
                     if (!edge.isWall) {
-                        hivemind.lastPlayerLocation = edge.p.walkable ? edge.p : edge.q;
+                        hivemind.lastPlayerLocation = edge.p;
 
                         // DEBUG: Remove or set into debugging code.
                         Debug.Log("NEW PLAYER POSITION: " + hivemind.lastPlayerLocation.vector);

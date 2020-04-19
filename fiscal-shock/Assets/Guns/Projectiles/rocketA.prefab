@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3880703538100170061}
   - component: {fileID: 4829189131224761856}
   - component: {fileID: 3455980478199738670}
-  m_Layer: 10
+  m_Layer: 17
   m_Name: rocketA
   m_TagString: Missile
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 449085813054237920}
-  m_Layer: 10
+  m_Layer: 17
   m_Name: Hemi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 1479088384433207072}
   - component: {fileID: 4334666473969842312}
   - component: {fileID: 7999320779234028638}
-  m_Layer: 10
+  m_Layer: 17
   m_Name: Cylinder.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}

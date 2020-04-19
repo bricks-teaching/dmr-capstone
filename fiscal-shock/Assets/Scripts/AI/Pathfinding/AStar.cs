@@ -13,18 +13,18 @@ namespace FiscalShock.Pathfinding {
             navGraph = graph;
 
             // DEBUG: Remove, or set debugging code.
-            Debug.Log("AStar is working. Graph: " + navGraph);
-            StreamWriter writer = new StreamWriter("/home/ybautista/Desktop/UnityOutput/cell_vertices.txt");
+            // Debug.Log("AStar is working. Graph: " + navGraph);
+            // StreamWriter writer = new StreamWriter("/home/ybautista/Desktop/UnityOutput/cell_vertices.txt");
 
-            foreach (Cell cell in navGraph.cells) {
-                writer.Write("CELL " + cell.id + ": " + cell.site.vector + "\n");
+            // foreach (Cell cell in navGraph.cells) {
+            //     writer.Write("CELL " + cell.id + ": " + cell.site.vector + "\n");
 
-                foreach (Vertex vertex in cell.vertices) {
-                    writer.Write("\tVERTEX: " + vertex.vector + " " + vertex.walkable + "\n");
-                }
-            }
+            //     foreach (Vertex vertex in cell.vertices) {
+            //         writer.Write("\tVERTEX: " + vertex.vector + "\n");
+            //     }
+            // }
 
-            writer.Close();
+            // writer.Close();
         }
 
         // Don't need to return a list of vertex nodes because each vertex node is added with new()
@@ -35,28 +35,28 @@ namespace FiscalShock.Pathfinding {
                 return path;
             }
 
-            // Currently don't have to resort since only added first node.
+            // Add starting node to the list, and set parent to null.
             LinkedList<VertexNode> open = new LinkedList<VertexNode>();
             open.AddFirst(new VertexNode(lastVisitedNode, 0, destination.getDistanceTo(lastVisitedNode)));
             open.First.Value.setLinkToPrevious(null);
 
-            // Create the closed set with a custom comparison operator.
+            // Create the closed set.
             LinkedList<VertexNode> closed = new LinkedList<VertexNode>();
 
-            // Set current node to only element in list.
+            // Set current node to starting point.
             LinkedListNode<VertexNode> currentNode = open.Last;
 
+            // Placeholder variables for use inside while loop.
             double cost;
             LinkedListNode<VertexNode> openTemp, closedTemp;
 
-            // Approximate equality should help avoid bugs with floating point values.
+            // Add neightbors to open list if not there or better f cost than before.
             while (!currentNode.Value.associatedLocation.Equals(destination)) {
                 // DEBUG: Debugging code. Remove or refactor for debugging mode.
                 // Debug.Log("Current: " + currentNode.Value.associatedLocation.vector);
                 // Debug.Log("Desination: " + destination.vector);
 
-                // TODO: Will still need to account for when this gets done in a loop
-                // NOTE: Perhaps this accounted for already, since the smallest value should always be last?
+                // Remove the value with the smallest f cost (should be at end of list).
                 open.RemoveLast();
 
                 // TODO: Need to add check to make sure not trying to insert into empty list
@@ -70,6 +70,7 @@ namespace FiscalShock.Pathfinding {
                     // Find returns null in any case where the node doesn't exist.
                     // openTemp should never be filled at the same time as closedTemp
                     openTemp = open.Find(neighborNode);
+
                     // GCost should never be empty.
                     if (openTemp != null && openTemp.Value.gCost > cost) {
                         open.Remove(openTemp);
@@ -112,7 +113,7 @@ namespace FiscalShock.Pathfinding {
             VertexNode node = currentNode.Value;
 
             int i = 0;
-            while (node.previousOnPath != null) {
+            while (node != null) {
                 path.Push(node.associatedLocation);
                 node = node.previousOnPath;
                 i++;

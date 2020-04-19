@@ -28,7 +28,6 @@ public class EnemyMovement : MonoBehaviour {
     private bool destinationReached = true;
     private Vector2 destination;
     private Vector2 prevPlayerFlatPos;
-    private bool flatPosSet = false;
     private Rigidbody enemyRb;
     private EnemyShoot shootScript;
     public EnemyHealth health;

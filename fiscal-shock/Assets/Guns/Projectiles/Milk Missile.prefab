@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 1913154385527349369}
   - component: {fileID: 922312308819299333}
   - component: {fileID: 5033843732830107330}
-  m_Layer: 0
-  m_Name: Milk Missile 1
+  m_Layer: 17
+  m_Name: Milk Missile
   m_TagString: Missile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -127,5 +127,4 @@ MonoBehaviour:
   bulletSpeed: 30
   rb: {fileID: 1913154385527349369}
   bulletLifetime: 6
-  poolProjectiles: 0
   poolSize: 0
