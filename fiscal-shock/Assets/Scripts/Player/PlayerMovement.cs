@@ -1,4 +1,7 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
+using FiscalShock.Graphs;
+using FiscalShock.Pathfinding;
 //using UnityEngine.InputSystem;
 
 /**
@@ -25,7 +28,33 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask decorationMask;
 
     public Vector3 velocity;
+    internal Vertex originalSpawn { get; set; }
     bool isGrounded;
+
+    void Start() {
+        Hivemind hivemind = GameObject.Find("DungeonSummoner").GetComponent<Hivemind>();
+
+        foreach(Edge side in originalSpawn.cell.sides) {
+            // Check that the edge isn't a wall.
+            if (!side.isWall) {
+                // Check if the first edge coordinate is out of the ground area.
+                if (!side.p.walkable || side.p.x < hivemind.bounds[0] || side.p.x > hivemind.bounds[1]
+                || side.p.y < hivemind.bounds[2] || side.p.y > hivemind.bounds[3]) {
+                    // Check the second edge coordinate.
+                    if (!side.p.walkable || side.q.x < hivemind.bounds[0] || side.q.x > hivemind.bounds[1]
+                    || side.q.y < hivemind.bounds[2] || side.q.y > hivemind.bounds[3]) {
+                        continue;
+                    }
+
+                    hivemind.lastPlayerLocation = side.q;
+                    break;
+                }
+
+                hivemind.lastPlayerLocation = side.p;
+                break;
+            }
+        }
+    }
 
     // Update is called once per frame
     void Update()

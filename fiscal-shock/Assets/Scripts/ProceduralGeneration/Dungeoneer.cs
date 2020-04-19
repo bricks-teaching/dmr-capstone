@@ -4,6 +4,8 @@ using UnityEngine;
 using FiscalShock.Graphs;
 using ThirdParty;
 using UnityEngine.Rendering;
+using FiscalShock.AI;
+using FiscalShock.Pathfinding;
 
 /// <summary>
 /// Generates a dungeon floor
@@ -19,9 +21,16 @@ namespace FiscalShock.Procedural {
         [Tooltip("Available dungeon themes.")]
         public List<DungeonTypeData> dungeonThemes;
 
+        [Tooltip("Script to create triggers around Voronoi cells.")]
+        public GameObject triggerPrefab;
+        [Tooltip("Reference to debt collector prefab to spawn.")]
+        public GameObject debtCollectorPrefab;
+
         /* Variables set during runtime */
         public DungeonType currentDungeonType { get; set; }
         public MersenneTwister mt { get; private set; }
+        public PlayerTrigger cellTrigger { get; private set; }
+
 
         /* Graphs */
         public Delaunay dt { get; private set; }
@@ -30,6 +39,9 @@ namespace FiscalShock.Procedural {
         public List<Edge> spanningTree { get; private set; }
         public List<VoronoiRoom> roomVoronoi { get; private set; }
         public List<Cell> validCells { get; private set; }
+        public Voronoi navigableGraph { get; private set; }
+        private List<Cell> reachableCells;
+        private GameObject debtCollector;
 
         /* Scene organization */
         public List<GameObject> enemies { get; } = new List<GameObject>();
@@ -38,6 +50,7 @@ namespace FiscalShock.Procedural {
         public GameObject wallOrganizer { get; private set; }
         public GameObject enemyOrganizer { get; private set; }
         public GameObject thingOrganizer { get; private set; }
+        public GameObject cellColliderOrganizer { get; private set; }
 
         public void Start() {
             Settings.loadSettings();
@@ -177,6 +190,8 @@ namespace FiscalShock.Procedural {
             thingOrganizer.transform.parent = organizer.transform;
             enemyOrganizer = new GameObject();
             enemyOrganizer.name = "Enemies";
+            cellColliderOrganizer = new GameObject();
+            cellColliderOrganizer.name = "Cell Triggers";
 
             System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
             Debug.Log("Starting floor generation");
@@ -188,7 +203,7 @@ namespace FiscalShock.Procedural {
 
             Debug.Log("Starting wall generation");
             sw.Start();
-            Walls.setWalls(this);
+            reachableCells = Walls.setWalls(this);
             sw.Stop();
             Debug.Log($"Generating walls took {sw.ElapsedMilliseconds} ms");
             sw.Reset();
@@ -217,6 +232,13 @@ namespace FiscalShock.Procedural {
             sw.Stop();
             Debug.Log($"Placing enemies took {sw.ElapsedMilliseconds} ms");
             sw.Reset();
+
+            navigableGraph = new Voronoi(reachableCells);
+            Debug.Log("Setting player node collision triggers.");
+            setPlayerCollisions();
+
+            Debug.Log("Spawning the debt collector.");
+            spawnDebtCollector();
         }
 
         /// <summary>
@@ -318,6 +340,7 @@ namespace FiscalShock.Procedural {
                     // Position enemy on top of the object already here
                     if (cell.spawnedObject != null) {
                         enemy.transform.position += new Vector3(0, cell.spawnedObject.transform.position.y, 0);
+                        // MAYBE: enemy.GetComponent<EnemyMovement>().spawnSite = cell;
                     }
 
                     // Randomly resize enemy +/- the variation
@@ -394,6 +417,8 @@ namespace FiscalShock.Procedural {
                 StateManager.cashOnHand = 100f;
             }
 
+            player.GetComponent<PlayerMovement>().originalSpawn = spawnPoint;
+
             // Attach any other stuff to player here
             Cheats cheater = GameObject.FindObjectOfType<Cheats>();
             cheater.player = player;
@@ -415,6 +440,51 @@ namespace FiscalShock.Procedural {
 
             // Enable temporary player invincibility on spawn
             StartCoroutine(player.GetComponentInChildren<PlayerHealth>().enableIframes(5f));
+        }
+
+        private void setPlayerCollisions() {
+            foreach (Cell cell in navigableGraph.cells) {
+                if (cell.isClosed) {
+                    Polygon bbox = cell.getBoundingBox();
+                    float width = bbox.maxX - bbox.minX;
+                    float height = bbox.maxY - bbox.minY;
+                    float aspectRatio = width/height;
+
+                    if (aspectRatio < 5 && aspectRatio > 0.2) {
+                        Vector3 bboxCenter = new Vector3(
+                            bbox.maxX - width / 2, 1, bbox.maxY - height / 2
+                        );
+
+                        GameObject triggerContainer = Instantiate(triggerPrefab, bboxCenter, triggerPrefab.transform.rotation);
+                        triggerContainer.transform.localScale = new Vector3(bbox.maxX - bbox.minX, 1, bbox.maxY-bbox.minY);
+                        triggerContainer.name = $"Trigger for Cell {cell.id}";
+                        triggerContainer.transform.parent = cellColliderOrganizer.transform;
+
+                        cellTrigger = triggerContainer.GetComponent<PlayerTrigger>();
+                        cellTrigger.cell = cell;
+                        cellTrigger.edges = cell.sides;
+                    }
+                }
+            }
+        }
+
+        // NOTE: With other enemies, this code will not necessarily work. Needed for this b/c can't be trapped.
+        private void spawnDebtCollector() {
+            // Code very similar to player spawn.
+            Vertex spawnPoint;
+            do {
+                spawnPoint = masterDt.vertices[mt.Next(masterDt.vertices.Count - 1)];
+            } while (spawnPoint.cell.hasPortal);
+
+            // BUG: This code may not work with the new setup.
+            debtCollector = GameObject.FindGameObjectWithTag("Debt Collector");
+
+            if (debtCollector == null) {
+                debtCollector = Instantiate(debtCollectorPrefab, spawnPoint.toVector3AtHeight(currentDungeonType.wallHeight * 0.8f),
+                    debtCollectorPrefab.transform.rotation);
+            }
+
+            debtCollector.GetComponentInChildren<DebtCollectorMovement>().spawnSite = spawnPoint.cell;
         }
 
         private bool isPointOnOrNearConvexHull(Vertex point) {

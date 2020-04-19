@@ -70,6 +70,15 @@ namespace FiscalShock.Demo {
         [Tooltip("Material with a specific shader to color lines properly in game view. Don't change it unless you have a good reason!")]
         public Material edgeMat;
 
+        [Tooltip("Whether to render the Voronoi diagram used for A* navigation.")]
+        public bool renderNavigableGraph;
+
+        [Tooltip("Color of the navigable graph vertices.")]
+        public Color navigableGraphColor = new Color(215, 35, 187);
+
+        [Tooltip("Height at which the navigable Voronoi should render.")]
+        public float navigableRenderHeight = 2.4f;
+
         public TextMesh label { get; private set; } = new TextMesh();
         public bool alreadyDrew { get; set; }
 
@@ -200,6 +209,10 @@ namespace FiscalShock.Demo {
                 // room edges only
                 List<Edge> ext = dungen.roomVoronoi.SelectMany(c => c.exterior.sides).ToList();
                 renderEdges(ext, delaunayColor, roomRenderHeight+ 5f);
+            }
+
+            if (renderNavigableGraph && dungen.navigableGraph != null) {
+                renderEdges(dungen.navigableGraph.edges, navigableGraphColor, navigableRenderHeight);
             }
         }
 

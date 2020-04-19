@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 965116058272088903}
   - component: {fileID: 965116058272088900}
+  - component: {fileID: 2858400961614686392}
   m_Layer: 0
   m_Name: DungeonSummoner
   m_TagString: Untagged
@@ -51,3 +52,19 @@ MonoBehaviour:
     typeEnum: 0
   - gameObject: {fileID: 0}
     typeEnum: 1
+  triggerPrefab: {fileID: 50287540902432943, guid: 4292eb1d6f6e4cd78889defea75f6b3f,
+    type: 3}
+  debtCollectorPrefab: {fileID: 6021063351833058460, guid: ea6b63c3f876b444cb970334eccd44a8,
+    type: 3}
+--- !u!114 &2858400961614686392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 965116058272088901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a33fafc341139e4fcbbc570aa5c0ab22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

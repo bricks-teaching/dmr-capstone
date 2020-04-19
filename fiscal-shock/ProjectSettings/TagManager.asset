@@ -22,6 +22,7 @@ TagManager:
   - Spawn Point
   - Loading Screen
   - Assistant
+  - Debt Collector
   layers:
   - Default
   - TransparentFX
@@ -39,7 +40,7 @@ TagManager:
   - EnemyAvoidanceTrigger
   - Explosive
   - Obstacle
-  - 
+  - Enemy Movement
   - 
   - 
   - 

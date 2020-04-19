@@ -1019,6 +1019,11 @@ PrefabInstance:
       propertyPath: dungeonThemes.Array.data[1].gameObject
       value: 
       objectReference: {fileID: 427768196}
+    - target: {fileID: 965116058272088900, guid: f84aca466460e50539423ad7e6c6f6d0,
+        type: 3}
+      propertyPath: seed
+      value: 126
+      objectReference: {fileID: 0}
     - target: {fileID: 965116058272088901, guid: f84aca466460e50539423ad7e6c6f6d0,
         type: 3}
       propertyPath: m_Name
@@ -1554,6 +1559,11 @@ PrefabInstance:
     - target: {fileID: 8457115162116187907, guid: 3df1f54d1485f5354891126c61ba8d15,
         type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8457115162116188158, guid: 3df1f54d1485f5354891126c61ba8d15,
+        type: 3}
+      propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

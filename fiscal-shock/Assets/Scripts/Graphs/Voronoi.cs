@@ -36,6 +36,16 @@ namespace FiscalShock.Graphs {
         }
 
         /// <summary>
+        /// Generates a Voronoi diagram given a list of cells.
+        /// </summary>
+        /// <param name="cellList"></param>
+        public Voronoi (List<Cell> cellList) {
+            cells = cellList;
+            edges = cellList.SelectMany(c => c.sides).Distinct().ToList();
+            vertices = cellList.SelectMany(c => c.vertices).Distinct().ToList();
+        }
+
+        /// <summary>
         /// Algorithm taken from Delaunator guide.
         /// <para>https://mapbox.github.io/delaunator/</para>
         /// </summary>

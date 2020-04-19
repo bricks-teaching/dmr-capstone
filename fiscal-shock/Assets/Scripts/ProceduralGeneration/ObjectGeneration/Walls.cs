@@ -1,7 +1,8 @@
 using UnityEngine;
-using FiscalShock.Graphs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using FiscalShock.Graphs;
 
 namespace FiscalShock.Procedural {
     public static class Walls {
@@ -14,14 +15,20 @@ namespace FiscalShock.Procedural {
         /// Calls all functions to create walls in a dungeon
         /// </summary>
         /// <param name="d"></param>
-        public static void setWalls(Dungeoneer d) {
+        public static List<Cell> setWalls(Dungeoneer d) {
             constructWallsOnVoronoi(d);
             constructWallsOnRooms(d);
             List<GameObject> wallsToKeep = destroyWallsForCorridors(d);
+
+            List<Cell> reachableCells = d.vd.cells.Where(c => !c.sides.All(s => s.isWall)).ToList();
+
             destroyLagWalls(d, wallsToKeep);
             constructEnemyAvoidanceBoundingBox(d);
+
+            return reachableCells;
         }
 
+        // TODO: Actually use this?
         /// <summary>
         /// Stand up trigger zones on the bounding box of the world for
         /// enemy movement AI to detect using raycasts.

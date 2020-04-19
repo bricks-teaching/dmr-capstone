@@ -28,6 +28,7 @@ public class EnemyMovement : MonoBehaviour {
     private bool destinationReached = true;
     private Vector2 destination;
     private Vector2 prevPlayerFlatPos;
+    private bool flatPosSet = false;
     private Rigidbody enemyRb;
     private EnemyShoot shootScript;
     public EnemyHealth health;
@@ -45,6 +46,7 @@ public class EnemyMovement : MonoBehaviour {
         if (player == null) {
             player = GameObject.FindGameObjectWithTag("Player");
         }
+
         prevPlayerFlatPos = new Vector2(player.transform.position.x, player.transform.position.z);
     }
 
