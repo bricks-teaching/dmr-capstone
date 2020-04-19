@@ -82,7 +82,7 @@ public static class StateManager
     public static int totalLoans => loanList.Count;
     public static int timesEntered { get; set; } = DefaultState.timesEntered;
     public static int currentFloor { get; set; } = DefaultState.currentFloor;
-    public static int change { get; set; } = DefaultState.change;
+    public static int scoreChangeFactor { get; set; } = DefaultState.scoreChangeFactor;
     public static int creditScore { get; set; } = DefaultState.creditScore;
     public static int paymentStreak { get; set; } = DefaultState.paymentStreak;
     public static float cashOnEntrance { get; set; } = DefaultState.cashOnEntrance;
@@ -127,7 +127,7 @@ public static class StateManager
         processDueInvoices();
 
         income.AddLast(cashOnHand - cashOnEntrance);
-        calcCreditScore(creditScore);
+        calcCreditScore();
         Debug.Log($"New debt total: {totalDebt}");
         return true;
     }
@@ -164,7 +164,7 @@ public static class StateManager
     /// Calculates the player's credit score.
     /// Used to apply bonuses/penalties to interest rates and maximum loans
     /// </summary>
-    public static void calcCreditScore(int cred)
+    public static void calcCreditScore()
     {
         int sharkPen = 0;
         int oldestLoan = 0;
@@ -179,43 +179,48 @@ public static class StateManager
             }
         }
         if(oldestLoan > 10){
-            cred -= change * (oldestLoan - 10);
+            creditScore -= scoreChangeFactor * (oldestLoan - 10);
         }
-        cred -= sharkPen * change;
+        creditScore -= sharkPen * scoreChangeFactor;
         if(totalLoans > 5){
-            cred -= change * 2;
+            creditScore -= scoreChangeFactor * 2;
         }
         if(totalDebt > 10000){
-            cred -= change * 8;
+            creditScore -= scoreChangeFactor * 8;
         } else if (totalDebt < 5000){
-            cred += change * 8;
+            creditScore += scoreChangeFactor * 8;
         }
-        cred += paymentStreak * 5;
+        creditScore += paymentStreak * scoreChangeFactor;
         if(averageIncome < 0){
-            cred -= change * 10;
+            creditScore -= scoreChangeFactor * 10;
         } else if(averageIncome > totalDebt * 0.03) {
-            cred += change * 15;
+            creditScore += scoreChangeFactor * 15;
         } else {
-            cred += change * 5;
+            creditScore += scoreChangeFactor * 5;
         }
-        //Not sure if needed or not
-        creditScore = cred;
-        //If we could do this as a ranged switch that would be nice but idk if those exist
-        if(creditScore >= 650){
+        if (creditScore > 850){
+            creditScore = 850;
             rateAdjuster = DefaultState.rateAdjuster * 0.75f;
             maxLoanAdjuster = DefaultState.maxLoanAdjuster * 1.6f;
-        } else if(creditScore >= 550 && creditScore < 650) {
+        }else if (creditScore >= 650 && creditScore <= 850){
+            rateAdjuster = DefaultState.rateAdjuster * 0.75f;
+            maxLoanAdjuster = DefaultState.maxLoanAdjuster * 1.6f;
+        } else if (creditScore >= 550 && creditScore < 650) {
             rateAdjuster = DefaultState.rateAdjuster * 0.9f;
             maxLoanAdjuster = DefaultState.maxLoanAdjuster * 1.2f;
+        } else if (creditScore >= 450 && creditScore < 549) {
+            rateAdjuster = DefaultState.rateAdjuster;
+            maxLoanAdjuster = DefaultState.maxLoanAdjuster;
         } else if (creditScore < 450 && creditScore >= 350) {
             rateAdjuster = DefaultState.rateAdjuster * 1.5f;
             maxLoanAdjuster = DefaultState.maxLoanAdjuster * 0.75f;
-        } else if(creditScore < 350) {
+        } else if (creditScore < 350 && creditScore >= 300) {
             rateAdjuster = DefaultState.rateAdjuster * 2.0f;
             maxLoanAdjuster = DefaultState.maxLoanAdjuster * 0.5f;
-        } else {
-            rateAdjuster = DefaultState.rateAdjuster;
-            maxLoanAdjuster = DefaultState.maxLoanAdjuster;
+        } else if (creditScore < 300){
+            creditScore = 300;
+            rateAdjuster = DefaultState.rateAdjuster * 2.0f;
+            maxLoanAdjuster = DefaultState.maxLoanAdjuster * 0.5f;
         }
     }
 
@@ -231,7 +236,7 @@ public static class StateManager
         nextID = DefaultState.nextID;
         timesEntered = DefaultState.timesEntered;
         currentFloor = DefaultState.currentFloor;
-        change = DefaultState.change;
+        scoreChangeFactor = DefaultState.scoreChangeFactor;
         creditScore = DefaultState.creditScore;
         paymentStreak = DefaultState.paymentStreak;
         cashOnEntrance = DefaultState.cashOnEntrance;
@@ -259,7 +264,7 @@ public static class DefaultState {
     public readonly static int nextID = 0;
     public readonly static int timesEntered = 0;
     public readonly static int currentFloor = 0;
-    public readonly static int change = 3;
+    public readonly static int scoreChangeFactor = 3;
     public readonly static int creditScore = 500;
     public readonly static int paymentStreak = 0;
     public readonly static float cashOnEntrance = 0.0f;

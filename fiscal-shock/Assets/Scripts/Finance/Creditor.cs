@@ -19,13 +19,6 @@ public class Creditor : MonoBehaviour
     public List<LoanEntry> loanEntries;
     public List<ValidLoan> validLoans;
     public float maxLoanAmount = 3000f;
-    /// <summary>
-    /// Bank will loan more based on how many times you've been in dungeon.
-    /// Quick fix; can be abused if player pays off loans then just repeatedly
-    /// re-enters and the max loan keeps going up. Checks and offsets are
-    /// because ln(n < 3) < 1
-    /// </summary>
-    /// <returns></returns>
     [Tooltip("Lender will not lend loans anymore once their threat level has passed this")]
     public int threatThreshold;
     public string creditorId;
@@ -42,6 +35,7 @@ public class Creditor : MonoBehaviour
     public float initialDebtAmount;
     public ValidLoan initialDebtType;
     public float initialRemainingCash;
+    private String defaultText;
 
     void OnTriggerEnter(Collider col) {
         if (col.gameObject.tag == "Player") {
@@ -75,18 +69,20 @@ public class Creditor : MonoBehaviour
             addDebt(initialDebtType);
             StateManager.cashOnHand -= initialDebtAmount - initialRemainingCash;
         }
+        defaultText = dialogText.text;
         updateFields();
         Debug.Log($"{creditorId} threat: {threatLevel}, loans: {numberOfLoans}, sum: {loanTotal}");
-        /* TODO: I think this is done unless I misinterpreted... -ZM
-            - Add a public field for dialog above the rate listing so different creditors can have different personalities for this part
-            - Edit ratetext to show loan types vs interest rates offered, just a simple listing. You need to loop over valid loans and append the appropriate text and values
-         */
-        ValidLoan[] temp = validLoans.ToArray();
-        if(temp.Length == 1){
-            rateText.text = $"You in a tough spot? I'll have yer back. Rates are {temp[0].interestRate * 100}. Low as I can go, but I'm sure you'll pay it back quick";
-        } else if (temp.Length == 2){
-            rateText.text = $"Our flexible loan options are always backed by the UDIC.\nUnsecured: {temp[1].interestRate * 100}%\nSecured: {temp[0].interestRate * temp[0].collateralRateReduction * 100}% + {(temp[0].collateralAmountPercent-1)*100}% of amount";
+        //iterator through valid loans that changes loan text in the GUI based on type
+        foreach(ValidLoan item in validLoans){
+            if(item.loanType == LoanType.Unsecured){
+                item.loanData.text = $"Interest @ {item.interestRate * StateManager.rateAdjuster}%\n";
+            } else if (item.loanType == LoanType.Secured){
+                item.loanData.text = $"Interest @ {item.interestRate * StateManager.rateAdjuster * item.collateralRateReduction}%\nDown Payment: {item.collateralAmountPercent}";
+            } else if (item.loanType == LoanType.Payday){
+                item.loanData.text = $"Interest @ {item.interestRate * StateManager.rateAdjuster}%\n";
+            }
         }
+        rateText.text = $"Max Credit: {maxLoanAmount * StateManager.maxLoanAdjuster}\nTotal Loans: {loanTotal}";
     }
 
     // Update is called once per frame
@@ -146,7 +142,7 @@ public class Creditor : MonoBehaviour
             return;
         }
         catch(Exception e){
-            dialogText.text = "Simulation Error: PLEASE SEE DEBUG LOG";
+            dialogText.text = "Oh hi, who are you? And why do you smell like motor oil?";
             Debug.Log($"Exception found: {e}");
         }
     }
@@ -199,7 +195,7 @@ public class Creditor : MonoBehaviour
             }
         }
         catch(Exception e){
-            dialogText.text = "Simulation Error: PLEASE SEE DEBUG LOG";
+            dialogText.text = "Wait... What happened? Where am I?";
             Debug.Log($"Exception found: {e}");
         }
     }
@@ -250,7 +246,7 @@ public class Creditor : MonoBehaviour
     /// Turns off the panel and allows full movement/pause control
     /// </summary>
     public void BackClick() {
-        dialogText.text = ""; //figure this out in a bit
+        dialogText.text = defaultText; 
         creditorPanel.SetActive(false);
         Settings.forceLockCursorState();
         StartCoroutine(StateManager.makePauseAvailableAgain());

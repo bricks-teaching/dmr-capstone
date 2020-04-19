@@ -18,6 +18,8 @@ public class ValidLoan : MonoBehaviour
     [Tooltip("Multiplier on the interest rate for loans with collateral")]
     [Range(0, 1)]
     public float collateralRateReduction = 1;  // it's a multiplier on interestRate so 1 = no effect
+    [Tooltip("Displays interest rate and collateral if applicable")]
+    public TextMeshProUGUI loanData;
     [Tooltip("Dialog on success when adding a loan")]
     public string successText;
     [Tooltip("Dialog on failure when adding a loan")]
