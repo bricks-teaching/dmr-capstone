@@ -57,10 +57,7 @@ public class Creditor : MonoBehaviour
 
         // if StateManager isn't already tracking me, add me
         if (!StateManager.lenders.ContainsKey(creditorId)) {
-            CreditorData cd = new CreditorData {
-                paid = false,
-                threatLevel = baseThreatLevel
-            };
+            CreditorData cd = new CreditorData(false, baseThreatLevel);
             StateManager.lenders.Add(creditorId, cd);
         }
 
@@ -73,13 +70,18 @@ public class Creditor : MonoBehaviour
         updateFields();
         Debug.Log($"{creditorId} threat: {threatLevel}, loans: {numberOfLoans}, sum: {loanTotal}");
         //iterator through valid loans that changes loan text in the GUI based on type
+        float helperRate, helperCollateral;
         foreach(ValidLoan item in validLoans){
             if(item.loanType == LoanType.Unsecured){
-                item.loanData.text = $"Interest @ {item.interestRate * StateManager.rateAdjuster}%\n";
+                helperRate = (float)Math.Round(item.interestRate * StateManager.rateAdjuster, 2);
+                item.loanData.text = $"Interest @ {helperRate}%\n";
             } else if (item.loanType == LoanType.Secured){
-                item.loanData.text = $"Interest @ {item.interestRate * StateManager.rateAdjuster * item.collateralRateReduction}%\nDown Payment: {item.collateralAmountPercent}";
+                helperRate = (float)Math.Round(item.interestRate * StateManager.rateAdjuster * item.collateralRateReduction, 2);
+                helperCollateral = (float)Math.Round(item.collateralAmountPercent, 2);
+                item.loanData.text = $"Interest @ {helperRate}%\nDown Payment: {helperCollateral}%";
             } else if (item.loanType == LoanType.Payday){
-                item.loanData.text = $"Interest @ {item.interestRate * StateManager.rateAdjuster}%\n";
+                helperRate = (float)Math.Round(item.interestRate * StateManager.rateAdjuster, 2);
+                item.loanData.text = $"Interest @ {helperRate}%\n";
             }
         }
         rateText.text = $"Max Credit: {maxLoanAmount * StateManager.maxLoanAdjuster}\nTotal Loans: {loanTotal}";
@@ -205,6 +207,7 @@ public class Creditor : MonoBehaviour
     /// Allows for accurate information to be displayed.
     /// </summary>
     void updateFields() {
+        float tempRate;
         for (int i = 0; i < loanEntries.Count; ++i) {
             if (i >= myLoans.Count) {
                 loanEntries[i].id.text = "";
@@ -212,8 +215,9 @@ public class Creditor : MonoBehaviour
                 loanEntries[i].type.text = "";
             }
             else {
+                tempRate = (float)Math.Round(myLoans[i].rate, 2) * 100;
                 loanEntries[i].id.text = myLoans[i].ID.ToString();
-                loanEntries[i].amount.text = myLoans[i].total.ToString("N2");
+                loanEntries[i].amount.text = myLoans[i].total.ToString("N2") + $" {tempRate}%";
                 string typetext = "dummy";
                 switch (myLoans[i].type) {
                     case LoanType.Unsecured:

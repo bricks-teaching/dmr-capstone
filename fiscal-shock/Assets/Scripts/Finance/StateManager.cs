@@ -52,9 +52,13 @@ public enum DungeonTypeEnum {
     Mine
 }
 
-public struct CreditorData {
+public class CreditorData {
     public bool paid;
     public int threatLevel;
+    public CreditorData(bool beenPaid, int baseThreat) {
+        paid = beenPaid;
+        threatLevel = baseThreat;
+    }
 }
 
 /// <summary>
@@ -144,6 +148,7 @@ public static class StateManager
             if (!l.paid) {
                 cd.paid = false;
                 cd.threatLevel++;
+                Debug.Log($"{cd.threatLevel} Threat level on lack of payment SM");
                 paymentStreak = 0;
             }
             l.paid = false;
