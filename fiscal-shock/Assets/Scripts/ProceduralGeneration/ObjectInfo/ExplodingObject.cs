@@ -52,8 +52,8 @@ public class ExplodingObject : MonoBehaviour {
             }
             float randomizedDamage = explosionDamage * Random.Range(0.5f, 2f);
             int layerHit = hit.gameObject.layer;
-            if (layerHit == PLAYER) {
-                player.takeDamage(randomizedDamage);
+            if (layerHit == PLAYER) {  // Player takes extra damage. It's really easy to profit with the dumb AI. Might change it back if the smart AI doesn't clump up.
+                player.takeDamage(randomizedDamage * 2);
             }
             if (layerHit == ENEMY) {
                 EnemyHealth eh = hit.gameObject.GetComponentInChildren<EnemyHealth>();

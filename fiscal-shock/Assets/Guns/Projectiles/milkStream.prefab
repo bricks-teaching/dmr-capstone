@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
-  bulletSpeed: 30
+  bulletSpeed: 18
   rb: {fileID: 9184963046012739205}
   bulletLifetime: 2
   poolSize: 48

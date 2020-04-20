@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4366815724954802}
   - component: {fileID: 108202385265239332}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Point light (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 23060703099431774}
   - component: {fileID: 136072902283508114}
   - component: {fileID: 3554550611709683954}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Crystal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -210,7 +210,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4108851228742340}
   - component: {fileID: 108840191339879762}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Point light (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -302,7 +302,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4350853436349194}
   - component: {fileID: 7077778227514951285}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Crystal
   m_TagString: Decoration
   m_Icon: {fileID: 0}

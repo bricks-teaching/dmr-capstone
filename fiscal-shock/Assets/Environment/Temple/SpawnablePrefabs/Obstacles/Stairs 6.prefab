@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 23000012787384246}
   - component: {fileID: 1372211245662921870}
   - component: {fileID: 3118607865651819220}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Stairs 6
   m_TagString: Obstacle
   m_Icon: {fileID: 0}

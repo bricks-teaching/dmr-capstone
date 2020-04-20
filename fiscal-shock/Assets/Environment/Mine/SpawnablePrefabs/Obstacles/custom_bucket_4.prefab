@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 493488}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: bucket (blueFull)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 459016}
   - component: {fileID: 3904202098646514862}
   - component: {fileID: 6055094510401363250}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: custom_bucket_4
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 499862}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: bucket (blueFull)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 3304484}
   - component: {fileID: 2332948}
   - component: {fileID: 1808421249973475301}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -226,7 +226,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 466078}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: bucket (blueFull)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -257,7 +257,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 494960}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: bucket (blueFull)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -291,7 +291,7 @@ GameObject:
   - component: {fileID: 3378090}
   - component: {fileID: 2360452}
   - component: {fileID: 4302422416496616664}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -385,7 +385,7 @@ GameObject:
   - component: {fileID: 3316458}
   - component: {fileID: 2372164}
   - component: {fileID: 4584808507708943333}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -479,7 +479,7 @@ GameObject:
   - component: {fileID: 3337718}
   - component: {fileID: 2339238}
   - component: {fileID: 8558405635975904788}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}

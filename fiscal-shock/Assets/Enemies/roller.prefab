@@ -99,16 +99,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f68e720f3aa4cc14195f091adebae93f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 30
+  startingHealth: 96
   explosion: {fileID: 4856741112863513470, guid: c4dccf8958d42ac48a60fefb19d80fb9,
     type: 3}
   bigExplosion: {fileID: 2325299992133255240, guid: e5b7d650597f4c3458a6cf6e4f10702e,
     type: 3}
   hitSoundClip: {fileID: 8300000, guid: 861e537fb624418428af6d6d55c73dfb, type: 3}
   hitSound: {fileID: -3819037365239113399}
-  pointValue: 50
+  pointValue: 38
   animationManager: {fileID: 7462560434329066073}
   stunEffect: {fileID: 515655309773116017}
+  enmityActive: 0
+  maxEnmityDuration: 15
+  cryForHelpRadius: 15
 --- !u!114 &-8395686905635004328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,12 +124,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c64bbc05ea943e09aa804bca2778a088, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 3
-  rotationSpeed: 7
-  safeRadiusMin: 4
-  safeRadiusMax: 5
+  movementSpeed: 9
+  rotationSpeed: 6
+  safeRadiusMin: 6
+  safeRadiusMax: 10
   visionRadius: 35
   player: {fileID: 0}
+  health: {fileID: -2366510589833133467}
   animationManager: {fileID: 7462560434329066073}
 --- !u!114 &-8810678134677799025
 MonoBehaviour:
@@ -143,15 +147,16 @@ MonoBehaviour:
   bulletPrefab: {fileID: 359558080635126693, guid: 9b3daae907e8463958dbcd8b4c040516,
     type: 3}
   fireSoundClip: {fileID: 8300000, guid: 17d1cc09103cfafcaac9fa24c4518281, type: 3}
-  botSize: 2
-  botDamage: 10
-  botAccuracy: 10
-  botRange: 6
-  botRate: 1.7
-  gunHeight: 0
   enemyMovement: {fileID: -8395686905635004328}
-  spottedPlayer: 0
   animationManager: {fileID: 7462560434329066073}
+  projectileSpawnPoint: {fileID: 2309648195466355122}
+  attackDamage: 67
+  aimJitter: 5
+  attackRange: 12
+  attackDelay: 3
+  attackAnimationDelay: 0.8
+  runAndGun: 0
+  spottedPlayer: 0
 --- !u!82 &-3819037365239113399
 AudioSource:
   m_ObjectHideFlags: 0
@@ -276,6 +281,36 @@ MonoBehaviour:
     - {fileID: 7400000, guid: 1661aa0de48437086a989b45fa34ddec, type: 2}
     - {fileID: 7400000, guid: 2a4adf9efcf5c792890b748c22e92ee8, type: 2}
     - {fileID: 7400000, guid: 7cc7e995bb478f1b6a675b9d394959a5, type: 2}
+--- !u!1 &1145132245169298404
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2309648195466355122}
+  m_Layer: 10
+  m_Name: Projectile Spawn Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2309648195466355122
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1145132245169298404}
+  m_LocalRotation: {x: 4.3297806e-17, y: -0.7071068, z: -0.7071067, w: -4.32978e-17}
+  m_LocalPosition: {x: 0, y: 0.0104, z: -0.0003}
+  m_LocalScale: {x: 0.010000001, y: 0.0100000035, z: 0.0100000035}
+  m_Children: []
+  m_Father: {fileID: 4328854114503056684}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1402931959263819176
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,7 +367,8 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0.008419179, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 2309648195466355122}
   m_Father: {fileID: 7672544932503067182}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

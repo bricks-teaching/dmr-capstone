@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4000010442612372}
   - component: {fileID: 33000012138736900}
   - component: {fileID: 23000012104440870}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Light Orb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: -5818646109049996283}
   - component: {fileID: 9015218206093687681}
   - component: {fileID: 1364222418426637215}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Lantern With Orb
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -212,7 +212,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2063091125880193612}
   - component: {fileID: 4524155266199491820}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}

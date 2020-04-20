@@ -236,9 +236,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7258ca8be47462e47836452427c49b1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  strength: 3
+  strength: 5
   bulletCost: 1
   accuracy: 10
+  fireRate: 0
   rotation: 10
   action: 1
   projectileType: 0

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 23000011778243716}
   - component: {fileID: -8906438398375535559}
   - component: {fileID: 3911254638335199749}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Round Hollow 2
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
