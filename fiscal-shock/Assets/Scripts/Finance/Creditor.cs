@@ -73,14 +73,14 @@ public class Creditor : MonoBehaviour
         float helperRate, helperCollateral;
         foreach(ValidLoan item in validLoans){
             if(item.loanType == LoanType.Unsecured){
-                helperRate = (float)Math.Round(item.interestRate * StateManager.rateAdjuster, 2);
+                helperRate = (float)Math.Round(item.interestRate * StateManager.rateAdjuster, 2) * 100.0f;
                 item.loanData.text = $"Interest @ {helperRate}%\n";
             } else if (item.loanType == LoanType.Secured){
-                helperRate = (float)Math.Round(item.interestRate * StateManager.rateAdjuster * item.collateralRateReduction, 2);
-                helperCollateral = (float)Math.Round(item.collateralAmountPercent, 2);
+                helperRate = (float)Math.Round(item.interestRate * StateManager.rateAdjuster * item.collateralRateReduction, 2) * 100.0f;
+                helperCollateral = (float)Math.Round(item.collateralAmountPercent, 2) * 100.0f;
                 item.loanData.text = $"Interest @ {helperRate}%\nDown Payment: {helperCollateral}%";
             } else if (item.loanType == LoanType.Payday){
-                helperRate = (float)Math.Round(item.interestRate * StateManager.rateAdjuster, 2);
+                helperRate = (float)Math.Round(item.interestRate * StateManager.rateAdjuster, 2) * 100.0f;
                 item.loanData.text = $"Interest @ {helperRate}%\n";
             }
         }
@@ -217,17 +217,18 @@ public class Creditor : MonoBehaviour
             else {
                 tempRate = (float)Math.Round(myLoans[i].rate, 2) * 100;
                 loanEntries[i].id.text = myLoans[i].ID.ToString();
-                loanEntries[i].amount.text = myLoans[i].total.ToString("N2") + $" {tempRate}%";
+                loanEntries[i].amount.text = myLoans[i].total.ToString("N2");
                 string typetext = "dummy";
                 switch (myLoans[i].type) {
                     case LoanType.Unsecured:
-                        typetext = "Unsecured";
+                        typetext = $"Unsecured {tempRate}%";
                         break;
                     case LoanType.Payday:
-                        typetext = "Payday";
+                        typetext = $"Payday {tempRate}%";
                         break;
                     case LoanType.Secured:
-                        typetext = $"Secured ({myLoans[i].collateral.ToString("N2")})";
+                        typetext = $"Secured {tempRate}%";
+                        loanEntries[i].amount.text = $"{loanEntries[i].amount.text} ({myLoans[i].collateral.ToString("N2")})";
                         break;
                 }
                 loanEntries[i].type.text = typetext;
