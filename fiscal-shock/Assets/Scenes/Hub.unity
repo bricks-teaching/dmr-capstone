@@ -3119,6 +3119,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Loan Shark
       objectReference: {fileID: 0}
+    - target: {fileID: 5602420468078760988, guid: 80c269370517631b786b88b234882b1c,
+        type: 3}
+      propertyPath: m_text
+      value: 'Loan ID:
+
+        Rate:
+
+        Total Due: '
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602420468078760988, guid: 80c269370517631b786b88b234882b1c,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602420468078760988, guid: 80c269370517631b786b88b234882b1c,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602420468078760988, guid: 80c269370517631b786b88b234882b1c,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5602420468433745617, guid: 80c269370517631b786b88b234882b1c,
         type: 3}
       propertyPath: m_text
@@ -3180,6 +3204,54 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: ValidLoan, ScriptsAssembly
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602420468680260717, guid: 80c269370517631b786b88b234882b1c,
+        type: 3}
+      propertyPath: m_text
+      value: 'Loan ID:
+
+        Rate:
+
+        Total Due: '
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602420468680260717, guid: 80c269370517631b786b88b234882b1c,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602420468680260717, guid: 80c269370517631b786b88b234882b1c,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602420468680260717, guid: 80c269370517631b786b88b234882b1c,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602420468780089988, guid: 80c269370517631b786b88b234882b1c,
+        type: 3}
+      propertyPath: m_text
+      value: 'Loan ID:
+
+        Rate:
+
+        Total Due: '
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602420468780089988, guid: 80c269370517631b786b88b234882b1c,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602420468780089988, guid: 80c269370517631b786b88b234882b1c,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602420468780089988, guid: 80c269370517631b786b88b234882b1c,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5602420468921925710, guid: 80c269370517631b786b88b234882b1c,
         type: 3}
@@ -3726,6 +3798,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7284600359866051320, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_text
+      value: 'Loan ID:
+
+        Rate:
+
+        Total Due: '
+      objectReference: {fileID: 0}
+    - target: {fileID: 7284600359866051320, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 7284600359866051320, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7284600359866051320, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7284600359884006459, guid: 84799466cc8d9f321a88138ad2940097,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -3893,6 +3989,30 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 193
       objectReference: {fileID: 0}
+    - target: {fileID: 7284600361206260904, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_text
+      value: 'Loan ID:
+
+        Rate:
+
+        Total Due: '
+      objectReference: {fileID: 0}
+    - target: {fileID: 7284600361206260904, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 7284600361206260904, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7284600361206260904, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7284600361427043572, guid: 84799466cc8d9f321a88138ad2940097,
         type: 3}
       propertyPath: m_isRichText
@@ -3907,6 +4027,30 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RichText
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7284600361762732258, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_text
+      value: 'Loan ID:
+
+        Rate:
+
+        Total Due: '
+      objectReference: {fileID: 0}
+    - target: {fileID: 7284600361762732258, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 7284600361762732258, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7284600361762732258, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7284600360293930006, guid: 84799466cc8d9f321a88138ad2940097, type: 3}

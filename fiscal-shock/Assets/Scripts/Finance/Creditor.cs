@@ -221,14 +221,13 @@ public class Creditor : MonoBehaviour
                 string typetext = "dummy";
                 switch (myLoans[i].type) {
                     case LoanType.Unsecured:
-                        typetext = $"Unsecured {tempRate}%";
+                        typetext = $"{tempRate}%";
                         break;
                     case LoanType.Payday:
-                        typetext = $"Payday {tempRate}%";
+                        typetext = $"{tempRate}%";
                         break;
                     case LoanType.Secured:
-                        typetext = $"Secured {tempRate}%";
-                        loanEntries[i].amount.text = $"{loanEntries[i].amount.text} ({myLoans[i].collateral.ToString("N2")})";
+                        typetext = $"{tempRate}% ({myLoans[i].collateral.ToString("N2")} down)";
                         break;
                 }
                 loanEntries[i].type.text = typetext;
