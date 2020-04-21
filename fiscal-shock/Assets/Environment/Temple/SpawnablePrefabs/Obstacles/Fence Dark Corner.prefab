@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -6607705390585792289}
   - component: {fileID: 3953232259811918359}
   - component: {fileID: 8501585011087182568}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Fence Dark Corner
   m_TagString: Obstacle
   m_Icon: {fileID: 0}

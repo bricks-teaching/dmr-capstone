@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 8645812413896970740}
   m_Layer: 10
   m_Name: blasterA
-  m_TagString: Blaster
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32,7 +32,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 358738656169530444}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.7964315, y: 0, z: -21.817991}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children:
   - {fileID: 5179390179959176605}
@@ -83,12 +83,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c64bbc05ea943e09aa804bca2778a088, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 5
-  rotationSpeed: 7
-  safeRadiusMin: 4
-  safeRadiusMax: 5
+  movementSpeed: 4
+  rotationSpeed: 4
+  safeRadiusMin: 6
+  safeRadiusMax: 12
   visionRadius: 35
   player: {fileID: 0}
+  health: {fileID: 4106496990200208738}
   animationManager: {fileID: 8645812413896970740}
 --- !u!114 &3393988917688406179
 MonoBehaviour:
@@ -105,15 +106,16 @@ MonoBehaviour:
   bulletPrefab: {fileID: 5676983891017127546, guid: 39180d9180c94761a9d667fddf55796d,
     type: 3}
   fireSoundClip: {fileID: 8300000, guid: 17d1cc09103cfafcaac9fa24c4518281, type: 3}
-  botSize: 2
-  botDamage: 3
-  botAccuracy: 10
-  botRange: 6
-  botRate: 1.7
-  gunHeight: 0
   enemyMovement: {fileID: 7639448774427610925}
-  spottedPlayer: 0
   animationManager: {fileID: 8645812413896970740}
+  projectileSpawnPoint: {fileID: 7485264644024775806}
+  attackDamage: 25
+  aimJitter: 10
+  attackRange: 14
+  attackDelay: 1.7
+  attackAnimationDelay: 0.75
+  runAndGun: 1
+  spottedPlayer: 0
 --- !u!114 &4106496990200208738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,9 +135,12 @@ MonoBehaviour:
     type: 3}
   hitSoundClip: {fileID: 8300000, guid: 861e537fb624418428af6d6d55c73dfb, type: 3}
   hitSound: {fileID: 1787231721965500831}
-  pointValue: 30
+  pointValue: 25
   animationManager: {fileID: 8645812413896970740}
   stunEffect: {fileID: 7765021918565417023}
+  enmityActive: 0
+  maxEnmityDuration: 5
+  cryForHelpRadius: 30
 --- !u!111 &4661802102344205313
 Animation:
   m_ObjectHideFlags: 0
@@ -270,7 +275,7 @@ MonoBehaviour:
     - {fileID: 7400000, guid: 1f5781de663850e44a3f2a8baafb1033, type: 2}
   - category: 2
     clips:
-    - {fileID: 7400000, guid: 68b861e731df832dbb26fd1016d15556, type: 2}
+    - {fileID: 7400000, guid: 1caaa582e61f334fcace3bf4c3ccba7b, type: 2}
   - category: 3
     clips:
     - {fileID: 7400000, guid: 27446eda311e117db967810bb3842a16, type: 2}
@@ -833,7 +838,8 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0.023155127, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 7485264644024775806}
   m_Father: {fileID: 396985090846978869}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -959,6 +965,36 @@ Transform:
   m_Father: {fileID: 1460513896011905797}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -76.881355, y: 0.49276733, z: -23.613358}
+--- !u!1 &8500913971396941535
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7485264644024775806}
+  m_Layer: 10
+  m_Name: Projectile Spawn Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7485264644024775806
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8500913971396941535}
+  m_LocalRotation: {x: -0.4677628, y: -0.5763452, z: -0.45145294, w: 0.4951913}
+  m_LocalPosition: {x: 0.019699987, y: -0.00039999746, z: -0.0031000022}
+  m_LocalScale: {x: 0.009999998, y: 0.01, z: 0.010000002}
+  m_Children: []
+  m_Father: {fileID: 7584233490792214250}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: -100.375, y: 55.520996, z: -149.252}
 --- !u!1 &8670909727286554098
 GameObject:
   m_ObjectHideFlags: 0

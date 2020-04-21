@@ -12,6 +12,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DungeonSign
       objectReference: {fileID: 0}
+    - target: {fileID: 2336415473710041298, guid: 3395cbf80724fe25cb8e7a086d60de00,
+        type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4323044025641301952, guid: 3395cbf80724fe25cb8e7a086d60de00,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -65,6 +70,11 @@ PrefabInstance:
     - target: {fileID: 4323044025641301952, guid: 3395cbf80724fe25cb8e7a086d60de00,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780488652066786764, guid: 3395cbf80724fe25cb8e7a086d60de00,
+        type: 3}
+      propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8576176504304873736, guid: 3395cbf80724fe25cb8e7a086d60de00,

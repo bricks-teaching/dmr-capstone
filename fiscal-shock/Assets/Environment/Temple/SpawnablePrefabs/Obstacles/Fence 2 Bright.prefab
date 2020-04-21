@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8181188386349800147}
   - component: {fileID: 909283894486924715}
   - component: {fileID: 6175729478804097987}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Fence 2 Bright
   m_TagString: Obstacle
   m_Icon: {fileID: 0}

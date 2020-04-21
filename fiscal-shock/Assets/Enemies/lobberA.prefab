@@ -782,7 +782,8 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0.014631997, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1833894786810335014}
   m_Father: {fileID: 6616777413007772421}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -897,7 +898,7 @@ GameObject:
   - component: {fileID: 5140962548776097668}
   m_Layer: 10
   m_Name: lobberA
-  m_TagString: Lobber
+  m_TagString: Assistant
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -964,15 +965,16 @@ MonoBehaviour:
   bulletPrefab: {fileID: 836834897132771975, guid: 002f0f27243a8ac78a54a921b503e4a3,
     type: 3}
   fireSoundClip: {fileID: 8300000, guid: 17d1cc09103cfafcaac9fa24c4518281, type: 3}
-  botSize: 2
-  botDamage: 4
-  botAccuracy: 10
-  botRange: 12
-  botRate: 1.7
-  gunHeight: 1
   enemyMovement: {fileID: 6200657636638081422}
-  spottedPlayer: 0
   animationManager: {fileID: 7376106236208855819}
+  projectileSpawnPoint: {fileID: 1833894786810335014}
+  attackDamage: 10
+  aimJitter: 10
+  attackRange: 40
+  attackDelay: 1.7
+  attackAnimationDelay: 1
+  runAndGun: 0
+  spottedPlayer: 0
 --- !u!114 &9092076683911019700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -985,16 +987,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f68e720f3aa4cc14195f091adebae93f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 30
+  startingHealth: 50
   explosion: {fileID: 4856741112863513470, guid: c4dccf8958d42ac48a60fefb19d80fb9,
     type: 3}
   bigExplosion: {fileID: 2325299992133255240, guid: e5b7d650597f4c3458a6cf6e4f10702e,
     type: 3}
   hitSoundClip: {fileID: 8300000, guid: 861e537fb624418428af6d6d55c73dfb, type: 3}
   hitSound: {fileID: -6804132974990840618}
-  pointValue: 20
+  pointValue: 45
   animationManager: {fileID: 7376106236208855819}
   stunEffect: {fileID: 2831081528224280656}
+  enmityActive: 0
+  maxEnmityDuration: 10
+  cryForHelpRadius: 25
 --- !u!114 &6200657636638081422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1007,12 +1012,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c64bbc05ea943e09aa804bca2778a088, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 5
+  movementSpeed: 3
   rotationSpeed: 7
-  safeRadiusMin: 4
-  safeRadiusMax: 5
+  safeRadiusMin: 10
+  safeRadiusMax: 30
   visionRadius: 35
   player: {fileID: 0}
+  health: {fileID: 9092076683911019700}
   animationManager: {fileID: 7376106236208855819}
 --- !u!82 &-6804132974990840618
 AudioSource:
@@ -2051,6 +2057,36 @@ Transform:
   m_Father: {fileID: 9009284207050501095}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7253173609941983807
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1833894786810335014}
+  m_Layer: 10
+  m_Name: Projectile Spawn Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1833894786810335014
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7253173609941983807}
+  m_LocalRotation: {x: -0.7047449, y: -0.21390708, z: -0.025198027, w: 0.67597586}
+  m_LocalPosition: {x: -0.0017, y: 0.11, z: 0.0016}
+  m_LocalScale: {x: 0.014712506, y: 0.014712506, z: 0.01471251}
+  m_Children: []
+  m_Father: {fileID: 5297293619092108908}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: -74.485, y: -108.493004, z: 88.843}
 --- !u!1 &7272596429270800010
 GameObject:
   m_ObjectHideFlags: 0

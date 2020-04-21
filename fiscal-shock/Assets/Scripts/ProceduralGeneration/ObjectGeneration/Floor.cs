@@ -32,23 +32,24 @@ namespace FiscalShock.Procedural {
         /// <param name="d"></param>
         /// <param name="p"></param>
         public static void constructFloorUnderPolygon(Dungeoneer d, Polygon p) {
-            float actualWidth = Mathf.Max(Mathf.Abs(p.minX), Mathf.Abs(p.maxX)) * 2.5f;
-            float actualHeight = Mathf.Max(Mathf.Abs(p.minY), Mathf.Abs(p.maxY)) * 2.5f;
+            Vector2 center = new Vector2(d.currentDungeonType.width/2, d.currentDungeonType.height/2);
+            float actualWidth = d.currentDungeonType.width * 1.1f;
+            float actualHeight = d.currentDungeonType.width * 1.1f;
             // fudge factor on ground cube y to make it line up more nicely
-            GameObject flo = stretchCube(d.currentDungeonType.ground.prefab, actualWidth, actualHeight, -0.2f);
+            GameObject flo = stretchCube(d.currentDungeonType.ground.prefab, actualWidth, actualHeight, -0.2f, center);
             flo.transform.parent = d.organizer.transform;
             flo.name = "Ground";
 
             // add optional ceiling
             if (d.currentDungeonType.ceiling != null) {
-                GameObject ceiling = stretchCube(d.currentDungeonType.ceiling.prefab, actualWidth, actualHeight, d.currentDungeonType.wallHeight);
+                GameObject ceiling = stretchCube(d.currentDungeonType.ceiling.prefab, actualWidth, actualHeight, d.currentDungeonType.wallHeight, center);
                 ceiling.transform.parent = d.organizer.transform;
                 ceiling.name = "Ceiling";
             }
         }
 
-        private static GameObject stretchCube(GameObject prefab, float width, float height, float yPosition) {
-            GameObject qb = UnityEngine.Object.Instantiate(prefab, new Vector3(0, yPosition, 0), prefab.transform.rotation);
+        private static GameObject stretchCube(GameObject prefab, float width, float height, float yPosition, Vector2 center) {
+            GameObject qb = UnityEngine.Object.Instantiate(prefab, new Vector3(center.x, yPosition, center.y), prefab.transform.rotation);
 
             qb.transform.localScale = new Vector3(
                 width,

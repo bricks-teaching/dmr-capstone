@@ -33,6 +33,11 @@ public class PlayerHealth : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// When called, enables the the HUD item to show damage for the passed amount of time.
+    /// </summary>
+    /// <param name="duration"></param>
+    /// <returns></returns>
     private IEnumerator showHitVignette(float duration) {
         hitVignette.SetActive(true);
         yield return new WaitForSeconds(duration);
@@ -49,6 +54,7 @@ public class PlayerHealth : MonoBehaviour {
         if (StateManager.cashOnHand < 0) {
             hitVignette.SetActive(false);
             StateManager.playerDead = true;
+            Destroy(GameObject.Find("DungeonMusic"));
             GameObject.FindGameObjectWithTag("Loading Screen").GetComponent<LoadingScreen>().startLoadingScreen("LoseGame");
         }
     }

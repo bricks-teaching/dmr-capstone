@@ -175,17 +175,17 @@ MonoBehaviour:
   pointPrefab: {fileID: 3024218742173863289, guid: 6661f652006d0b97190e1a60269e5c2f,
     type: 3}
   renderDelaunay: 0
-  renderDelaunayVertices: 1
+  renderDelaunayVertices: 0
   renderDelaunayHull: 0
   delaunayColor: {r: 1, g: 0, b: 0.9359112, a: 0}
   delaunayRenderHeight: 1.2
-  renderVoronoi: 0
+  renderVoronoi: 1
   voronoiColor: {r: 0, g: 1, b: 0.98118925, a: 0}
   voronoiRenderHeight: 1.2
   renderMasterDelaunay: 0
   masterDelaunayColor: {r: 1, g: 0, b: 0, a: 0}
   masterDelaunayRenderHeight: 1.2
-  renderMasterVertices: 1
+  renderMasterVertices: 0
   renderSpanningTree: 1
   spanningTreeColor: {r: 0, g: 1, b: 0.020439148, a: 0}
   spanningTreeRenderHeight: 3
@@ -269,9 +269,12 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 256
-  wallMask:
+  obstacleMask:
     serializedVersion: 2
-    m_Bits: 4096
+    m_Bits: 32768
+  decorationMask:
+    serializedVersion: 2
+    m_Bits: 512
   velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &8789662076828674309
 MonoBehaviour:

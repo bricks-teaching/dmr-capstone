@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 483150}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: bucket (greenFull)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 3388834}
   - component: {fileID: 2367408}
   - component: {fileID: 2333852550744895990}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,7 +134,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 486402}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: bucket (greenFull)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -165,7 +165,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 427606}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: bucket (greenFull)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,7 +199,7 @@ GameObject:
   - component: {fileID: 3379532}
   - component: {fileID: 2339170}
   - component: {fileID: 1648966660978639665}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -293,7 +293,7 @@ GameObject:
   - component: {fileID: 3379904}
   - component: {fileID: 2323850}
   - component: {fileID: 1287102503574776937}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -384,7 +384,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 432036}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: bucket (greenFull)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -418,7 +418,7 @@ GameObject:
   - component: {fileID: 3328606}
   - component: {fileID: 2358178}
   - component: {fileID: 5286225015298019333}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -511,7 +511,7 @@ GameObject:
   - component: {fileID: 477940}
   - component: {fileID: -7793915737608720320}
   - component: {fileID: 3885774484795099667}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: custom_bucket_8
   m_TagString: Obstacle
   m_Icon: {fileID: 0}

@@ -4,6 +4,9 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
+/// <summary>
+/// A script the was made to manage creating the clone objects for feedback.
+/// </summary>
 public class FeedbackController : MonoBehaviour
 {
     private Queue<TextMeshProUGUI> shotLosses { get; } = new Queue<TextMeshProUGUI>();
@@ -29,30 +32,47 @@ public class FeedbackController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Creates the feedback on the screen for money lost when shooting.
+    /// </summary>
+    /// <param name="cost"></param>
     public void shoot(int cost) {
         TextMeshProUGUI clone = shotLosses.Dequeue();
         clone.text = "-" + (cost.ToString());
         clone.transform.localPosition = new Vector3(Screen.width*-0.15f, 0, 0);
-        clone.transform.Translate(Random.Range(Screen.width*-0.1f, 0), Random.Range(-20f, 20f), Random.Range(Screen.height*-0.2f, Screen.height*0.2f), Space.Self);
+        clone.transform.Translate(Random.Range(-50f, 0), Random.Range(-50f, 50f), Random.Range(-50f, 50f), Space.Self);
         clone.enabled = true;
         shotLosses.Enqueue(clone);
 
         StartCoroutine(timeout(clone, 2f));
     }
 
+    /// <summary>
+    /// Creates the feedback on the screen for money gained from killing enemies.
+    /// </summary>
+    /// <param name="amount"></param>
     public void profit(float amount) {
         TextMeshProUGUI clone = earns.Dequeue();
         clone.text = "+" + (amount.ToString("F0"));
         clone.transform.localPosition = new Vector3(Screen.width*0.4f, 0, 0);
-        clone.transform.Translate(Random.Range(Screen.width*-0.1f, Screen.width*0.1f), Random.Range(-20f, 20f), Random.Range(Screen.height*-0.2f, Screen.height*0.2f), Space.Self);
+        clone.transform.Translate(Random.Range(-50f, 50f), Random.Range(-50f, 50f), Random.Range(-50f, 50f), Space.Self);
         clone.enabled = true;
         earns.Enqueue(clone);
 
         StartCoroutine(timeout(clone, 2f));
     }
 
+    /// <summary>
+    /// Coroutine to time out the created clones.
+    /// </summary>
+    /// <param name="text"></param>
+    /// <param name="duration"></param>
+    /// <returns></returns>
     private IEnumerator timeout(TextMeshProUGUI text, float duration) {
-        yield return new WaitForSeconds(duration);
+        for (float i = duration; i >= 0; i -= Time.deltaTime) {
+            text.color = new Color(text.color.r, text.color.g, text.color.g, i/duration);
+            yield return null;
+        }
         text.enabled = false;
         yield return null;
     }

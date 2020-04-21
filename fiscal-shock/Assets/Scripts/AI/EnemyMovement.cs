@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
-using UnityEngine.AI;
-using System.Collections.Generic;
-using FiscalShock.Procedural;
+using System;
+using System.Collections;
 
 public class EnemyMovement : MonoBehaviour {
     [Tooltip("The speed at which the object moves.")]
@@ -31,7 +30,9 @@ public class EnemyMovement : MonoBehaviour {
     private Vector2 prevPlayerFlatPos;
     private Rigidbody enemyRb;
     private EnemyShoot shootScript;
+    public EnemyHealth health;
     public AnimationManager animationManager;
+    private bool reactingToPlayer;
 
     void Start() {
         enemyRb = GetComponent<Rigidbody>();
@@ -47,17 +48,26 @@ public class EnemyMovement : MonoBehaviour {
         prevPlayerFlatPos = new Vector2(player.transform.position.x, player.transform.position.z);
     }
 
+    private IEnumerator reactToNearbyPlayer() {
+        // Reaction time
+        reactingToPlayer = true;
+        yield return new WaitForSeconds(1f * UnityEngine.Random.Range(1f, 3f));
+        shootScript.spottedPlayer = true;
+        reactingToPlayer = false;
+        yield return null;
+    }
+
     void FixedUpdate() {
-        if (player == null || (Vector3.Distance(player.transform.position, gameObject.transform.position) > visionRadius) || stunned) {
-            // TODO drunkard's walk
+        if ((player == null || (Vector3.Distance(player.transform.position, gameObject.transform.position) > visionRadius) || stunned) && !health.enmityActive) {
             animationManager.playIdleAnimation();
             shootScript.spottedPlayer = false;
             return;
         }
-        shootScript.spottedPlayer = true;
-
+        if (!shootScript.spottedPlayer && !health.enmityActive && !reactingToPlayer) {
+            StartCoroutine(reactToNearbyPlayer());
+        }
         // Don't interrupt other animations to play movement
-        if (!animationManager.animator.isPlaying) {
+        if (!animationManager.animator.isPlaying || animationManager.animator.IsPlaying("idle0")) {
             animationManager.playMoveAnimation();
         }
 
@@ -121,7 +131,7 @@ public class EnemyMovement : MonoBehaviour {
     }
 
     private Vector2 getRandomCircularCoordinate() {
-        float angle = Random.Range(0.0f, 2 * Mathf.PI);
+        float angle = UnityEngine.Random.Range(0.0f, 2 * Mathf.PI);
         return new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
     }
 
