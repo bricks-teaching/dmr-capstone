@@ -46,8 +46,8 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 tdm = (transform.right * movement.x) + (transform.forward * movement.y);
-        controller.Move(tdm * speed * Time.deltaTime);
+        // not implemented new input system
+        //Vector3 tdm = (transform.right * movement.x) + (transform.forward * movement.y);
 
         //Creates sphere around object to check if it has collided with a ground layer
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance,groundMask | obstacleMask | decorationMask);
@@ -56,6 +56,16 @@ public class PlayerMovement : MonoBehaviour
         {
             velocity.y = -2f;
         }
+
+        //Gets input from user
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
+
+        //Creates direction where user wants to move
+        Vector3 move = transform.right * x + transform.forward * z;
+
+        //Moves the player using move, speed and Time.deltaTime(Frame Rate independent)
+        controller.Move(move * speed * Time.deltaTime);
 
         //Only Jump if player is grounded, velocity.y brings player down
         //if(Input.GetButtonDown("Jump") && isGrounded)
