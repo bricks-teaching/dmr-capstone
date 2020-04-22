@@ -139,6 +139,9 @@ public class InGameMenu : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Exits the pause menu and resumes gameplay.
+    /// </summary>
     public void PlayClick() {
         Settings.lockCursorState(this);
         disableAllPanels();
