@@ -2499,28 +2499,115 @@ PrefabInstance:
       propertyPath: m_Name
       value: Loan Shark
       objectReference: {fileID: 0}
-    - target: {fileID: 5602052160280962990, guid: 80c269370517631b786b88b234882b1c,
-        type: 3}
-      propertyPath: m_UiScaleMode
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5602420468938309236, guid: 80c269370517631b786b88b234882b1c,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5915755872642627479, guid: 80c269370517631b786b88b234882b1c,
-        type: 3}
-      propertyPath: paymentSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 1f18748db0caa0558bb6abb5b0bfe3a7, type: 3}
-    - target: {fileID: 5915755872642627479, guid: 80c269370517631b786b88b234882b1c,
-        type: 3}
-      propertyPath: failureSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 3fa380f0406d07b01ab71650a7ee6d69, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80c269370517631b786b88b234882b1c, type: 3}
+--- !u!1 &5602420469146460740 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6951079281507740335, guid: 80c269370517631b786b88b234882b1c,
+    type: 3}
+  m_PrefabInstance: {fileID: 5602420469146460723}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &5602420469146460741
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5602420469146460740}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &6129617710537223116
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2616,11 +2703,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5004770291591194796, guid: 84799466cc8d9f321a88138ad2940097,
-        type: 3}
-      propertyPath: m_UiScaleMode
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6385689623530712043, guid: 84799466cc8d9f321a88138ad2940097,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -2685,61 +2767,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7284600360118042493, guid: 84799466cc8d9f321a88138ad2940097,
-        type: 3}
-      propertyPath: m_Colors.m_HighlightedColor.g
-      value: 0.96640176
-      objectReference: {fileID: 0}
-    - target: {fileID: 7284600360118042493, guid: 84799466cc8d9f321a88138ad2940097,
-        type: 3}
-      propertyPath: m_Colors.m_HighlightedColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7284600360293930006, guid: 84799466cc8d9f321a88138ad2940097,
-        type: 3}
-      propertyPath: paymentSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 1f18748db0caa0558bb6abb5b0bfe3a7, type: 3}
-    - target: {fileID: 7284600360293930006, guid: 84799466cc8d9f321a88138ad2940097,
-        type: 3}
-      propertyPath: failureSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 3fa380f0406d07b01ab71650a7ee6d69, type: 3}
-    - target: {fileID: 7284600360369221994, guid: 84799466cc8d9f321a88138ad2940097,
-        type: 3}
-      propertyPath: m_isRichText
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7284600361090873456, guid: 84799466cc8d9f321a88138ad2940097,
-        type: 3}
-      propertyPath: m_Colors.m_HighlightedColor.g
-      value: 0.9647059
-      objectReference: {fileID: 0}
-    - target: {fileID: 7284600361090873456, guid: 84799466cc8d9f321a88138ad2940097,
-        type: 3}
-      propertyPath: m_Colors.m_HighlightedColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7284600361427043572, guid: 84799466cc8d9f321a88138ad2940097,
-        type: 3}
-      propertyPath: m_isRichText
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7284600361593140428, guid: 84799466cc8d9f321a88138ad2940097,
-        type: 3}
-      propertyPath: m_isRichText
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7284600361595241017, guid: 84799466cc8d9f321a88138ad2940097,
-        type: 3}
-      propertyPath: m_RichText
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7285045287301750620, guid: 84799466cc8d9f321a88138ad2940097,
-        type: 3}
-      propertyPath: m_UiScaleMode
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84799466cc8d9f321a88138ad2940097, type: 3}
