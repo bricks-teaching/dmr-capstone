@@ -39,9 +39,10 @@ Class Hierarchy
 - :ref:`exhale_struct_structQualityPreset`
 - :ref:`exhale_class_classAnimationCategory`
 - :ref:`exhale_class_classAnimationManager`
-- :ref:`exhale_class_classATMScript`
 - :ref:`exhale_class_classBulletBehavior`
 - :ref:`exhale_class_classCheats`
+- :ref:`exhale_class_classCreditor`
+- :ref:`exhale_class_classCreditorData`
 - :ref:`exhale_class_classDefaultQualitySettings`
 - :ref:`exhale_class_classDefaultState`
 - :ref:`exhale_class_classDungeonEntry`
@@ -71,7 +72,6 @@ Class Hierarchy
 - :ref:`exhale_class_classSeamlessMusicPlayer`
 - :ref:`exhale_class_classSettings`
 - :ref:`exhale_class_classSettingsValues`
-- :ref:`exhale_class_classSharkScript`
 - :ref:`exhale_class_classShopScript`
 - :ref:`exhale_class_classSign`
 - :ref:`exhale_class_classSpawnableEnemy`
@@ -80,6 +80,7 @@ Class Hierarchy
 - :ref:`exhale_class_classStateManager`
 - :ref:`exhale_class_classTargetBehavior`
 - :ref:`exhale_class_classUtils`
+- :ref:`exhale_class_classValidLoan`
 - :ref:`exhale_class_classVolumeController`
 - :ref:`exhale_class_classWeaponDemo`
 - :ref:`exhale_class_classWeaponStats`

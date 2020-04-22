@@ -1,9 +1,9 @@
-.. _exhale_class_classSharkScript:
+.. _exhale_class_classCreditor:
 
-Class SharkScript
-=================
+Class Creditor
+==============
 
-- Defined in :ref:`file_fiscal-shock_Assets_Scripts_Finance_SharkScript.cs`
+- Defined in :ref:`file_fiscal-shock_Assets_Scripts_Finance_Creditor.cs`
 
 
 Inheritance Relationships
@@ -19,7 +19,7 @@ Class Documentation
 -------------------
 
 
-.. doxygenclass:: SharkScript
+.. doxygenclass:: Creditor
    :members:
    :protected-members:
    :private-members:

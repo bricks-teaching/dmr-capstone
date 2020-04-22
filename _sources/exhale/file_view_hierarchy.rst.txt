@@ -3,9 +3,9 @@ File Hierarchy
 --------------
 
 - :ref:`file_fiscal-shock_Assets_Scripts_AI_AnimationManager.cs`
-- :ref:`file_fiscal-shock_Assets_Scripts_Finance_ATMScript.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_Projectiles_BulletBehavior.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_Player_Cheats.cs`
+- :ref:`file_fiscal-shock_Assets_Scripts_Finance_Creditor.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_ThirdParty_Delaunator.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_Graphs_Delaunay.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_ProceduralGeneration_Delve.cs`
@@ -48,7 +48,6 @@ File Hierarchy
 - :ref:`file_fiscal-shock_Assets_Scripts_ProceduralGeneration_ProceduralMeshRenderer.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_UserInterface_SeamlessMusicPlayer.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_UserInterface_Settings.cs`
-- :ref:`file_fiscal-shock_Assets_Scripts_Finance_SharkScript.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_Finance_ShopScript.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_Instructional_Sign.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_ProceduralGeneration_SpawnableObject.cs`
@@ -56,6 +55,7 @@ File Hierarchy
 - :ref:`file_fiscal-shock_Assets_Scripts_Finance_StateManager.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_Instructional_TargetBehavior.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_Utility_Utils.cs`
+- :ref:`file_fiscal-shock_Assets_Scripts_Finance_ValidLoan.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_Graphs_Vertex.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_UserInterface_VolumeController.cs`
 - :ref:`file_fiscal-shock_Assets_Scripts_Graphs_Voronoi.cs`

@@ -1,9 +1,9 @@
-.. _exhale_class_classATMScript:
+.. _exhale_class_classValidLoan:
 
-Class ATMScript
+Class ValidLoan
 ===============
 
-- Defined in :ref:`file_fiscal-shock_Assets_Scripts_Finance_ATMScript.cs`
+- Defined in :ref:`file_fiscal-shock_Assets_Scripts_Finance_ValidLoan.cs`
 
 
 Inheritance Relationships
@@ -19,7 +19,7 @@ Class Documentation
 -------------------
 
 
-.. doxygenclass:: ATMScript
+.. doxygenclass:: ValidLoan
    :members:
    :protected-members:
    :private-members:

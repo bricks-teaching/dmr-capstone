@@ -168,15 +168,7 @@
 <p class="breathe-sectiondef-title rubric">Public Functions</p>
 <dl class="function">
 <dt>
-<span class="target" id="classLoan_1a48bb95dbb327abc8aaac15d565cb3f9d"></span><code class="sig-name descname">Loan.Loan(int num, float tot, float rat, LoanType type)</code></dt>
-<dd></dd></dl>
-
-</div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Members</p>
-<dl class="member">
-<dt>
-<span class="target" id="classLoan_1a67db5e25982332500428149c822f074e"></span><code class="sig-name descname">float Loan.collateral =&gt; (source == LoanType.Secured)? originalAmount - (originalAmount / ATMScript.securedAmount) : 0</code></dt>
+<span class="target" id="classLoan_1ae5f8c2b1661bbe7b6520f5546472ed6f"></span><code class="sig-name descname">Loan.Loan(int num, float tot, float rat, LoanType t, float securityDeposit, string creditorId)</code></dt>
 <dd></dd></dl>
 
 </div>
@@ -204,7 +196,7 @@
 
 <dl class="member">
 <dt>
-<span class="target" id="classLoan_1ae07be558592aaf3b12b1a5d787fc28d4"></span><em class="property">property </em><code class="sig-name descname">Loan::source</code></dt>
+<span class="target" id="classLoan_1a5be8fe0674508199eb1c889e309a409a"></span><em class="property">property </em><code class="sig-name descname">Loan::type</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
@@ -215,6 +207,21 @@
 <dl class="member">
 <dt>
 <span class="target" id="classLoan_1a0acfefcc71618ae64103b187b17475ea"></span><em class="property">property </em><code class="sig-name descname">Loan::originalAmount</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classLoan_1acd31bdf0ff6daac3d7a24bab7092045d"></span><em class="property">property </em><code class="sig-name descname">Loan::lender</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classLoan_1a67db5e25982332500428149c822f074e"></span><em class="property">property </em><code class="sig-name descname">Loan::collateral</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classLoan_1aefe32d2ff72662764afe9d50982df213"></span><em class="property">property </em><code class="sig-name descname">Loan::inGracePeriod</code></dt>
 <dd></dd></dl>
 
 </div>

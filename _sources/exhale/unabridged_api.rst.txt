@@ -123,17 +123,22 @@ Classes and Structs
 .. toctree::
    :maxdepth: 5
 
-   classATMScript.rst
-
-.. toctree::
-   :maxdepth: 5
-
    classBulletBehavior.rst
 
 .. toctree::
    :maxdepth: 5
 
    classCheats.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   classCreditor.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   classCreditorData.rst
 
 .. toctree::
    :maxdepth: 5
@@ -403,11 +408,6 @@ Classes and Structs
 .. toctree::
    :maxdepth: 5
 
-   classSharkScript.rst
-
-.. toctree::
-   :maxdepth: 5
-
    classShopScript.rst
 
 .. toctree::
@@ -459,6 +459,11 @@ Classes and Structs
    :maxdepth: 5
 
    classUtils.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   classValidLoan.rst
 
 .. toctree::
    :maxdepth: 5

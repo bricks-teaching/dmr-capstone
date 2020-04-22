@@ -188,7 +188,7 @@
 
 <dl class="member">
 <dt>
-<span class="target" id="classStateManager_1a4c02fbbc0b19dcbcbe2eeec35ed73b39"></span><em class="property">property </em><code class="sig-name descname">StateManager::change</code></dt>
+<span class="target" id="classStateManager_1a73f63f6b9e1d690c5eda786a17661736"></span><em class="property">property </em><code class="sig-name descname">StateManager::scoreChangeFactor</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
@@ -239,7 +239,7 @@
 <dl class="function">
 <dt>
 <span class="target" id="classStateManager_1aa40c6b75570312220b8402ec436aef57"></span><code class="sig-name descname">static void StateManager.calcCreditScore()</code></dt>
-<dd><p>Calculates the player’s credit score. Not currently used. </p>
+<dd><p>Calculates the player’s credit score. Used to apply bonuses/penalties to interest rates and maximum loans </p>
 </dd></dl>
 
 <dl class="function">
@@ -253,13 +253,19 @@
 <p class="breathe-sectiondef-title rubric">Public Static Attributes</p>
 <dl class="member">
 <dt>
-<span class="target" id="classStateManager_1a843559a08b28173f33ec25738d5112b1"></span><code class="sig-name descname">LinkedList&lt;Loan&gt; StateManager.loanList = new LinkedList&lt;Loan&gt;()</code></dt>
+<span class="target" id="classStateManager_1afdaed3a58aa3e111e04b75b21d5da1e3"></span><code class="sig-name descname">List&lt;Loan&gt; StateManager.loanList = new List&lt;Loan&gt;()</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classStateManager_1a4e71aefd6d74173f947ff8ceca1e2118"></span><code class="sig-name descname">LinkedList&lt;float&gt; StateManager.income = new LinkedList&lt;float&gt;()</code></dt>
+<span class="target" id="classStateManager_1a94942436b1105c9b3f45304a82ddd030"></span><code class="sig-name descname">List&lt;float&gt; StateManager.income = new List&lt;float&gt;()</code></dt>
 <dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classStateManager_1a21eca8ec7186d58c7480c0ef03742c18"></span><code class="sig-name descname">Dictionary&lt;string, CreditorData&gt; StateManager.lenders = new Dictionary&lt;string, CreditorData&gt;()</code></dt>
+<dd><p>List of creditor IDs, so state manager can handle processing of due amounts. The boolean value is whether they’ve been paid. </p>
+</dd></dl>
 
 <dl class="member">
 <dt>
@@ -274,6 +280,16 @@
 <dl class="member">
 <dt>
 <span class="target" id="classStateManager_1ad4c2ed0f11c18d792a958948a674b72c"></span><code class="sig-name descname">float StateManager.averageIncome =&gt; income.Average()</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classStateManager_1a14974da3b1ff7169b9a80923fb7d9be5"></span><code class="sig-name descname">float StateManager.rateAdjuster = DefaultState.rateAdjuster</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classStateManager_1a10b759bcdfd8675dc0aa775cbb28e8be"></span><code class="sig-name descname">float StateManager.maxLoanAdjuster = DefaultState.maxLoanAdjuster</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
@@ -315,6 +331,20 @@
 <dt>
 <span class="target" id="classStateManager_1aae95b46abdb932a8ad2d4853188de02c"></span><code class="sig-name descname">bool StateManager.playerWon = false</code></dt>
 <dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classStateManager_1a3240b319b5186822a8d00e6eb487a913"></span><code class="sig-name descname">int StateManager.lastCreditScore = DefaultState.creditScore</code></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Private Static Functions</p>
+<dl class="function">
+<dt>
+<span class="target" id="classStateManager_1a3f5a596ebdbc78488f22e813f4d0aa78"></span><code class="sig-name descname">static void StateManager.processDueInvoices()</code></dt>
+<dd><p>Determines if the loans have been paid regularly. There are consequences to falling behind and slight rewards for keeping up </p>
+</dd></dl>
 
 </div>
 </dd></dl>

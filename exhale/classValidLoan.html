@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Class DefaultState &mdash; Fiscal Shock  documentation</title>
+  <title>Class ValidLoan &mdash; Fiscal Shock  documentation</title>
   
 
   
@@ -85,7 +85,11 @@
             
               <!-- Local TOC -->
               <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">Class DefaultState</a><ul>
+<li><a class="reference internal" href="#">Class ValidLoan</a><ul>
+<li><a class="reference internal" href="#inheritance-relationships">Inheritance Relationships</a><ul>
+<li><a class="reference internal" href="#base-type">Base Type</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#class-documentation">Class Documentation</a></li>
 </ul>
 </li>
@@ -134,13 +138,13 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Class DefaultState</li>
+      <li>Class ValidLoan</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/exhale/classDefaultState.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/exhale/classValidLoan.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -153,97 +157,85 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="class-defaultstate">
-<span id="exhale-class-classdefaultstate"></span><h1>Class DefaultState<a class="headerlink" href="#class-defaultstate" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="class-validloan">
+<span id="exhale-class-classvalidloan"></span><h1>Class ValidLoan<a class="headerlink" href="#class-validloan" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><p>Defined in <a class="reference internal" href="file_fiscal-shock_Assets_Scripts_Finance_StateManager.cs.html#file-fiscal-shock-assets-scripts-finance-statemanager-cs"><span class="std std-ref">File StateManager.cs</span></a></p></li>
+<li><p>Defined in <a class="reference internal" href="file_fiscal-shock_Assets_Scripts_Finance_ValidLoan.cs.html#file-fiscal-shock-assets-scripts-finance-validloan-cs"><span class="std std-ref">File ValidLoan.cs</span></a></p></li>
 </ul>
+<div class="section" id="inheritance-relationships">
+<h2>Inheritance Relationships<a class="headerlink" href="#inheritance-relationships" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="base-type">
+<h3>Base Type<a class="headerlink" href="#base-type" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">MonoBehaviour</span></code></p></li>
+</ul>
+</div>
+</div>
 <div class="section" id="class-documentation">
 <h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="_CPPv412DefaultState">
-<span id="_CPPv312DefaultState"></span><span id="_CPPv212DefaultState"></span><span id="DefaultState"></span><span class="target" id="classDefaultState"></span><em class="property">class </em><code class="sig-name descname">DefaultState</code><a class="headerlink" href="#_CPPv412DefaultState" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Default <a class="reference internal" href="classStateManager.html#classStateManager"><span class="std std-ref">StateManager</span></a> values. Value types only! Reference types (lists, gameobjects, etc.) must be cleared inside the reset function. </p>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Static Attributes</p>
+<dt id="_CPPv49ValidLoan">
+<span id="_CPPv39ValidLoan"></span><span id="_CPPv29ValidLoan"></span><span id="ValidLoan"></span><span class="target" id="classValidLoan"></span><em class="property">class </em><code class="sig-name descname">ValidLoan</code> : <em class="property">public</em> MonoBehaviour<a class="headerlink" href="#_CPPv49ValidLoan" title="Permalink to this definition">¶</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Members</p>
 <dl class="member">
 <dt>
-<span class="target" id="classDefaultState_1a06e8e881f67c575820aa71513f061901"></span><code class="sig-name descname">readonly float DefaultState.cashOnHand = 0.0f</code></dt>
+<span class="target" id="classValidLoan_1adc93f698ec189a8a914872da796c56bd"></span><code class="sig-name descname">LoanType ValidLoan.loanType</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classDefaultState_1a05e39ced7b4aa50d404162f67028a44a"></span><code class="sig-name descname">readonly int DefaultState.nextID = 0</code></dt>
+<span class="target" id="classValidLoan_1aa17eda4d528eee5f252aa1e3140dfa10"></span><code class="sig-name descname">float ValidLoan.interestRate</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classDefaultState_1a8fcbe98226527a11cca05ab6b09e691e"></span><code class="sig-name descname">readonly int DefaultState.timesEntered = 0</code></dt>
+<span class="target" id="classValidLoan_1afb4f954ec688b4fb66c33a85b3bc08f8"></span><code class="sig-name descname">float ValidLoan.collateralAmountPercent = 0</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classDefaultState_1acd08423d179db97fa659940f9abb5bee"></span><code class="sig-name descname">readonly int DefaultState.currentFloor = 0</code></dt>
+<span class="target" id="classValidLoan_1ae7fbf3747a4716d3a6c219b17186983b"></span><code class="sig-name descname">float ValidLoan.collateralRateReduction = 1</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classDefaultState_1a7f36d90429a9ad460b0175437b55edab"></span><code class="sig-name descname">readonly int DefaultState.scoreChangeFactor = 3</code></dt>
+<span class="target" id="classValidLoan_1a280dc8ef2c8e27f0ff43e08a04e853ee"></span><code class="sig-name descname">TextMeshProUGUI ValidLoan.loanData</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classDefaultState_1aa6aadfcff8a3cb5556e9893b90d97252"></span><code class="sig-name descname">readonly int DefaultState.creditScore = 500</code></dt>
+<span class="target" id="classValidLoan_1ac6cc2318b3d99624870b04d20c5a0013"></span><code class="sig-name descname">string ValidLoan.successText</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classDefaultState_1a71c81d3576a2a820fbd4d973a866df02"></span><code class="sig-name descname">readonly int DefaultState.paymentStreak = 0</code></dt>
+<span class="target" id="classValidLoan_1a09d68f26b813a480c7600015d4c33f31"></span><code class="sig-name descname">string ValidLoan.failureText</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classDefaultState_1a05e62dcac1c317a256b1bf3dd9693f28"></span><code class="sig-name descname">readonly float DefaultState.cashOnEntrance = 0.0f</code></dt>
+<span class="target" id="classValidLoan_1ab9053c96bbec2eb5061c42c68227234f"></span><code class="sig-name descname">string ValidLoan.errorText</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classDefaultState_1a22bd9067abda374a797d155b5917c979"></span><code class="sig-name descname">readonly float DefaultState.rateAdjuster = 1.0f</code></dt>
+<span class="target" id="classValidLoan_1a82bf2c33a5dc823282c2e2af312c052e"></span><code class="sig-name descname">string ValidLoan.successPaidText</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classDefaultState_1a4d2b1c08fb3b88cc14ae0939cb6dc378"></span><code class="sig-name descname">readonly float DefaultState.maxLoanAdjuster = 1.0f</code></dt>
+<span class="target" id="classValidLoan_1a62d9ddfbcd21dbbad21ca816bbb107b0"></span><code class="sig-name descname">string ValidLoan.failurePaidText</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classDefaultState_1a7b0f144b2798f370de8ba944786d9eb9"></span><code class="sig-name descname">readonly bool DefaultState.purchasedHose = false</code></dt>
+<span class="target" id="classValidLoan_1a3030a028aeb4d410f66da57ed899ed2b"></span><code class="sig-name descname">string ValidLoan.errorPaidText</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classDefaultState_1a26def973293f3436baad9fd4e4d836f2"></span><code class="sig-name descname">readonly bool DefaultState.purchasedLauncher = false</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
-<span class="target" id="classDefaultState_1a54c77853f6c5ef37e304e7cc87397f0f"></span><code class="sig-name descname">readonly bool DefaultState.sawTutorial = false</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
-<span class="target" id="classDefaultState_1a6e884a6de159ea1b0fceaa414aadb967"></span><code class="sig-name descname">readonly bool DefaultState.pauseAvailable = true</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
-<span class="target" id="classDefaultState_1ac49716f29bb4c069d46c8385bc352a0d"></span><code class="sig-name descname">readonly bool DefaultState.playerDead = false</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
-<span class="target" id="classDefaultState_1a3c9a8bde11afcede87824fcbcbee8e81"></span><code class="sig-name descname">readonly bool DefaultState.playerWon = false</code></dt>
+<span class="target" id="classValidLoan_1a1c7b8463c9a89f4febeb8d544c40fe5a"></span><code class="sig-name descname">TMP_InputField ValidLoan.addLoanInput</code></dt>
 <dd></dd></dl>
 
 </div>

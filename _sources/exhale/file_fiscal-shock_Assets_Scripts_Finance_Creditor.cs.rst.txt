@@ -1,15 +1,15 @@
 
-.. _file_fiscal-shock_Assets_Scripts_Finance_ATMScript.cs:
+.. _file_fiscal-shock_Assets_Scripts_Finance_Creditor.cs:
 
-File ATMScript.cs
-=================
+File Creditor.cs
+================
 
 .. contents:: Contents
    :local:
    :backlinks: none
 
-Definition (``fiscal-shock/Assets/Scripts/Finance/ATMScript.cs``)
------------------------------------------------------------------
+Definition (``fiscal-shock/Assets/Scripts/Finance/Creditor.cs``)
+----------------------------------------------------------------
 
 
 
@@ -38,7 +38,7 @@ Classes
 -------
 
 
-- :ref:`exhale_class_classATMScript`
+- :ref:`exhale_class_classCreditor`
 
 - :ref:`exhale_class_classLoanEntry`
 
