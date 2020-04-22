@@ -10,7 +10,9 @@ public class TargetBehavior : MonoBehaviour {
     private bool moving = false;
     private bool movingLeft = false;
 
-    // Update is called once per frame
+    /// <summary>
+    /// Target will move back and forth until it is hit
+    /// </summary>
     void Update() {
         if (rising < 23) {
             transform.position += new Vector3(0, 0.1f, 0);

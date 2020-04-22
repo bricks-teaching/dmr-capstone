@@ -277,6 +277,9 @@ public class PlayerShoot : MonoBehaviour {
         feed?.shoot(currentWeaponStats.bulletCost);
     }
 
+    /// <summary>
+    /// Updates weapon slot and enables weapon object
+    /// </summary>
     public void LoadWeapon() {
         if (slot == 0 && !StateManager.purchasedHose && !StateManager.inStoryTutorial) {
             return;
@@ -285,7 +288,6 @@ public class PlayerShoot : MonoBehaviour {
             return;
         }
         drawingWeapon = true;
-        // Update weapon slot and enable weapon object
         weapon?.SetActive(false);
         weapon = guns[slot];
         weapon?.SetActive(true);
