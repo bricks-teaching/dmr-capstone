@@ -1312,7 +1312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f68e720f3aa4cc14195f091adebae93f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 50
+  startingHealth: 40
   explosion: {fileID: 4856741112863513470, guid: c4dccf8958d42ac48a60fefb19d80fb9,
     type: 3}
   bigExplosion: {fileID: 2325299992133255240, guid: e5b7d650597f4c3458a6cf6e4f10702e,
@@ -1338,7 +1338,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 3
-  rotationSpeed: 7
+  rotationSpeed: 5
   safeRadiusMin: 10
   safeRadiusMax: 30
   visionRadius: 35

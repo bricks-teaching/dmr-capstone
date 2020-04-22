@@ -1,0 +1,86 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &472331690609137580
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1865584234548786046, guid: c2bcbfa154ecee14eb04333c46100297,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1865584234548786046, guid: c2bcbfa154ecee14eb04333c46100297,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1865584234548786046, guid: c2bcbfa154ecee14eb04333c46100297,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1865584234548786046, guid: c2bcbfa154ecee14eb04333c46100297,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1865584234548786046, guid: c2bcbfa154ecee14eb04333c46100297,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1865584234548786046, guid: c2bcbfa154ecee14eb04333c46100297,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1865584234548786046, guid: c2bcbfa154ecee14eb04333c46100297,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1865584234548786046, guid: c2bcbfa154ecee14eb04333c46100297,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1865584234548786046, guid: c2bcbfa154ecee14eb04333c46100297,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1865584234548786046, guid: c2bcbfa154ecee14eb04333c46100297,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1865584234548786046, guid: c2bcbfa154ecee14eb04333c46100297,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3491859656693934754, guid: c2bcbfa154ecee14eb04333c46100297,
+        type: 3}
+      propertyPath: m_Name
+      value: LauncherWeaponPosition Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 6100890681935123577, guid: c2bcbfa154ecee14eb04333c46100297,
+        type: 3}
+      propertyPath: aimJitter
+      value: 94
+      objectReference: {fileID: 0}
+    - target: {fileID: 6100890681935123577, guid: c2bcbfa154ecee14eb04333c46100297,
+        type: 3}
+      propertyPath: weaponName
+      value: Hylian Loach
+      objectReference: {fileID: 0}
+    - target: {fileID: 6100890681935123577, guid: c2bcbfa154ecee14eb04333c46100297,
+        type: 3}
+      propertyPath: fireDelay
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c2bcbfa154ecee14eb04333c46100297, type: 3}
