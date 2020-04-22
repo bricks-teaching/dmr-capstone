@@ -134,7 +134,7 @@ public class EnemyHealth : MonoBehaviour {
         currentHealth -= damage;
 
         if (currentHealth <= 0 && !dead) {
-            // Get up to half the original health as payback, adjusted due to fish cannon scoring too much cash because it OHKOs right now
+            // Get up to half the original health as payback
             float profit = pointValue + (Mathf.Clamp(prevHealth, 1, startingHealth/2) * paybackMultiplier);
             StateManager.cashOnHand += profit;
             float deathDuration = animationManager.playDeathAnimation();
@@ -195,9 +195,6 @@ public class EnemyHealth : MonoBehaviour {
             BulletBehavior bullet = col.gameObject.GetComponent<BulletBehavior>();
             if (bullet == null) {  // try checking parents
                 bullet = col.gameObject.GetComponentInParent<BulletBehavior>();
-            }
-            if (bullet.grounded) {  // only airborne projectiles should hit for now
-                return;
             }
             takeDamage(bullet.damage, 1);
             if (col.gameObject.tag == "Bullet") {

@@ -94,11 +94,7 @@ public static class Settings {
 
         // Destroy singletons; tracked by StateManager
         // Caution: don't add the load camera to the list!
-        foreach (GameObject go in StateManager.singletons) {
-            if (go != null) {  // just in case somebody else destroyed it...
-                UnityEngine.Object.Destroy(go);
-            }
-        }
+        StateManager.destroyAllSingletons();
         saveSettings();
         StateManager.resetToDefaultState();
 
@@ -346,6 +342,8 @@ public struct QualityPreset {
 [System.Serializable]
 public class SettingsValues {
     public bool sawStoryTutorial = false;
+    public bool sawLoanTutorial = false;
+    public bool sawShopTutorial = false;
     public float volume = 0.5f;
     public float mouseSensitivity = 100f;
 

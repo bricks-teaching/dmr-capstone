@@ -1,25 +1,60 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
-using System.Collections;
+using System.Collections.Generic;
+using FiscalShock.Procedural;
+using FiscalShock.GUI;
 
 public class ShopScript : MonoBehaviour
 {
+    public GameObject tutorial;
+    public GameObject debugMenu;
     private AudioSource audioS;
     public AudioClip paymentSound;
     public AudioClip failureSound;
     public TextMeshProUGUI dialogText;
     public GameObject shopPanel;
-    public Button hoseButton;
-    public Button fishButton;
-    public Button backButton;
-    private bool playerIsInTriggerZone = false;
+    private WeaponGenerator genny;
+    public List<ShopInventorySlot> inventorySlots;
+    public bool playerIsInTriggerZone { get; private set; } = false;
+    private List<GameObject> inventory = new List<GameObject>();
+    private PlayerShoot playerShoot;
+    private Inventory playerInventory;
+    private readonly int MAX_GUNS = 9;
+    private readonly string[] purchaseDialogs = {
+        "Alright, here ya go, try not to get yourself kilt. No, really, I mean kilt, not killed, but don't do that either.",
+        "Pretty weird that the only way to make money around here is scrapping robots, innit?"
+    };
+    private readonly string[] brokeDialogs = {
+        "You sure you have enough there, pal? I ain't running a charity here...",
+        "I think you are a bit short today. Go scrap some bots and come back."
+    };
+    private readonly string[] fullInventoryDialogs = {
+        "Greedy, aren'cha? Why don't you lend me some of your stock?",
+        "I don't think you could fit another in your extra-dimensional satchel.",
+        "I'll pay more than anybody for your leftovers. 10% is still more than 0%!"
+    };
+
+    private string getRandomDialog(string[] dialogs) {
+        int val = Random.Range(0, dialogs.Length);
+        return dialogs[val];
+    }
 
     void OnTriggerEnter(Collider col) {
         if (col.gameObject.tag == "Player") {
             playerIsInTriggerZone = true;
+            if (!Settings.values.sawShopTutorial) {
+                Time.timeScale = 0;
+                Settings.forceUnlockCursorState();
+                tutorial.SetActive(true);
+                Settings.values.sawShopTutorial = true;
+            }
         }
+    }
+
+    public void dismissTutorial() {
+        tutorial.SetActive(false);
+        Time.timeScale = 1;
     }
 
     void OnTriggerExit(Collider col) {
@@ -27,87 +62,149 @@ public class ShopScript : MonoBehaviour
             playerIsInTriggerZone = false;
         }
     }
+
     void Start() {
         audioS = GetComponent<AudioSource>();
         shopPanel.SetActive(false);
-        Button btnOne = hoseButton.GetComponent<Button>();
-        Button btnTwo = fishButton.GetComponent<Button>();
-        Button btnThr = backButton.GetComponent<Button>();
-		btnOne.onClick.AddListener(buyHose);
-        btnTwo.onClick.AddListener(buyFish);
-        btnThr.onClick.AddListener(BackClick);
+        playerShoot = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerShoot>();
+        playerInventory = GameObject.FindGameObjectWithTag("Player Inventory").GetComponentInChildren<Inventory>();
+        genny = GetComponent<WeaponGenerator>();
+        do {
+            generateNewWeapons();
+        } while (!affordableWeaponsDayZero());
+    }
+
+    /// <summary>
+    /// With random generation, the player could, in rare cases, be unable to
+    /// purchase any weapons on day 0 (due to loan caps). Make sure there's at
+    /// least one weapon that's a reasonable price on day 0.
+    /// </summary>
+    private bool affordableWeaponsDayZero() {
+        if (StateManager.sawEntryTutorial) {
+            return true;
+        }
+        const float maxAllowedValue = 1333f;
+        bool acceptablePrices = false;
+        foreach (GameObject weapon in inventory) {
+            WeaponStats stats = weapon.GetComponentInChildren<WeaponStats>(true);
+            if (stats.price <= maxAllowedValue) {
+                acceptablePrices = true;
+                break;
+            }
+        }
+        return acceptablePrices;
+    }
+
+    public void generateNewWeapons() {
+        Debug.Log($"Populating {inventorySlots.Count} shop slots");
+        inventory.Clear();
+        foreach (ShopInventorySlot slot in inventorySlots) {
+            GameObject ran = genny.generateRandomWeapon();
+            WeaponStats stats = ran.GetComponentInChildren<WeaponStats>(true);
+            inventory.Add(ran);
+
+            slot.buttonObject.GetComponent<Button>().image.sprite = stats.image;
+
+            slot.purchased = false;
+            slot.soldout.SetActive(false);
+            slot.buttonObject.GetComponent<Button>().interactable = true;
+            slot.name.text = stats.fullName;
+            slot.pricetag.text = stats.price.ToString("F2");
+            slot.family.text = $"{stats.actionToString()} {stats.weaponFamily}";
+            slot.stats.text = $"Projectile: {stats.projectileTypeToString()}\nStrength: {stats.strength}\nDeviation: {stats.deviation}\nDelay: {stats.fireDelay}\nPrice per Shot: {stats.bulletCost}";
+        }
+    }
+
+    public void hoverInventory(int slot) {
+        if (!inventorySlots[slot].purchased) {
+            inventorySlots[slot].infoBlock.SetActive(true);
+        }
+    }
+
+    public void blurInventory(int slot) {
+        inventorySlots[slot].infoBlock.SetActive(false);
     }
 
     void Update() {
         if (playerIsInTriggerZone) {
             if (Input.GetKeyDown(Settings.interactKey)) {
+                Time.timeScale = 0;
                 Settings.forceUnlockCursorState();
-                if (StateManager.purchasedHose) {
-                    hoseButton.interactable = false;
-                }
-                if (StateManager.purchasedLauncher) {
-                    fishButton.interactable = false;
-                }
                 shopPanel.SetActive(true);
                 StateManager.pauseAvailable = false;
             }
             if (Input.GetKeyDown(Settings.pauseKey)) {
                 BackClick();
             }
+            if (Input.GetKeyDown("f5")) {
+                debugMenu.SetActive(!debugMenu.activeSelf);
+            }
         }
     }
 
-    public bool buyWeapon(int weapon, float cost) {
-        if(cost > StateManager.cashOnHand){
-            return false;
-        }
-        if(weapon == 0 && !StateManager.purchasedHose) {
-            StateManager.purchasedHose = true;
-            StateManager.cashOnHand -= cost;
-            hoseButton.interactable = false;
-        } else if(weapon == 1 && !StateManager.purchasedLauncher) {
-            StateManager.purchasedLauncher = true;
-            StateManager.cashOnHand -= cost;
-            fishButton.interactable = false;
-        } else {
-            return false;
-        }
-        return true;
-    }
+    public void purchaseWeapon(int slot) {
+        ShopInventorySlot shopSlot = inventorySlots[slot];
+        GameObject selection = inventory[slot];
+        WeaponStats stats = selection.GetComponentInChildren<WeaponStats>(true);
 
-    void buyHose() {
-        bool success = buyWeapon(0, 1000.0f);
-        if(success){
-            dialogText.text = "Alright, here ya go, try not to get yourself kilt. No really, I mean kilt, not killed, but don't do that either.";
-            audioS.PlayOneShot(paymentSound, Settings.volume);
-        } else if (StateManager.purchasedHose) {
-            dialogText.text = "Do you really need two of those?";
+        if (stats.price > StateManager.cashOnHand) {
             audioS.PlayOneShot(failureSound, Settings.volume);
-        } else {
-            dialogText.text = "You sure you have enough there, pal? I ain't running a charity here...";
-            audioS.PlayOneShot(failureSound, Settings.volume);
+            dialogText.text = getRandomDialog(brokeDialogs);
+            return;
         }
-    }
 
-    void buyFish() {
-        bool success = buyWeapon(1, 1500.0f);
-        if (success) {
-            dialogText.text = "Pretty weird that the only way to make money around here is scrapping robots, innit?";
-            audioS.PlayOneShot(paymentSound, Settings.volume);
-        } else if (StateManager.purchasedLauncher) {
-            dialogText.text = "Sorry, man, out of stock. Good ol' Mr. Popper came by earlier.";
+        if (playerShoot.guns.Count >= MAX_GUNS) {
             audioS.PlayOneShot(failureSound, Settings.volume);
-        } else {
-            dialogText.text = "I think you are a bit short today. Go scrap some bots and come back.";
-            audioS.PlayOneShot(failureSound, Settings.volume);
+            dialogText.text = getRandomDialog(fullInventoryDialogs);
+            return;
         }
+
+        // can purchase
+        playerInventory.addWeapon(selection);
+        shopSlot.purchased = true;
+
+        // only remove cash if everything above that succeeded and the player received the gun
+        StateManager.cashOnHand -= stats.price;
+        shopSlot.buttonObject.GetComponent<Button>().interactable = false;
+        shopSlot.infoBlock.SetActive(false);
+        shopSlot.soldout.SetActive(true);
+        shopSlot.pricetag.text = "-";
+        audioS.PlayOneShot(paymentSound, Settings.volume);
+        dialogText.text = getRandomDialog(purchaseDialogs);
     }
 
     public void BackClick()
     {
         dialogText.text = "What are ya buyin'?";
         shopPanel.SetActive(false);
+        tutorial.SetActive(false);
         StateManager.pauseAvailable = true;
         Settings.forceLockCursorState();
+        Time.timeScale = 1;
     }
+
+    // Debug stuff!!!
+    public void setStateTimesEntered(TMP_InputField inp) {
+        int val = int.Parse(inp.text);
+        StateManager.timesEntered = val;
+        Debug.Log($"StateManager.timesEntered: {StateManager.timesEntered}");
+    }
+
+    public void setStateTotalFloors(TMP_InputField inp) {
+        int val = int.Parse(inp.text);
+        StateManager.totalFloorsVisited = val;
+        Debug.Log($"StateManager.timesEntered: {StateManager.totalFloorsVisited}");
+    }
+}
+
+[System.Serializable]
+public class ShopInventorySlot {
+    public GameObject buttonObject;
+    public TextMeshProUGUI pricetag;
+    public TextMeshProUGUI name;
+    public TextMeshProUGUI family;
+    public TextMeshProUGUI stats;
+    public GameObject infoBlock;
+    public GameObject soldout;
+    public bool purchased;
 }

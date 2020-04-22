@@ -10,9 +10,9 @@ using UnityEngine.UI;
 public class FeedbackController : MonoBehaviour
 {
     private Queue<TextMeshProUGUI> shotLosses { get; } = new Queue<TextMeshProUGUI>();
-    private int numLossesToDisplay = 12;
+    private int numLossesToDisplay = 60;
     private Queue<TextMeshProUGUI> earns { get; } = new Queue<TextMeshProUGUI>();
-    private int numEarnsToDisplay = 12;
+    private int numEarnsToDisplay = 16;
     public TextMeshProUGUI shotLoss;
     public TextMeshProUGUI earn;
     public Image hitVignette;
@@ -36,9 +36,10 @@ public class FeedbackController : MonoBehaviour
     /// Creates the feedback on the screen for money lost when shooting.
     /// </summary>
     /// <param name="cost"></param>
-    public void shoot(int cost) {
+    public void shoot(float cost) {
         TextMeshProUGUI clone = shotLosses.Dequeue();
-        clone.text = "-" + (cost.ToString());
+        clone.text = "-" + (cost.ToString("F0"));
+        clone.color = new Color(clone.color.r, clone.color.g, clone.color.b, 1f);
         clone.transform.localPosition = new Vector3(Screen.width*-0.15f, 0, 0);
         clone.transform.Translate(Random.Range(-50f, 0), Random.Range(-50f, 50f), Random.Range(-50f, 50f), Space.Self);
         clone.enabled = true;
@@ -54,6 +55,7 @@ public class FeedbackController : MonoBehaviour
     public void profit(float amount) {
         TextMeshProUGUI clone = earns.Dequeue();
         clone.text = "+" + (amount.ToString("F0"));
+        clone.color = new Color(clone.color.r, clone.color.g, clone.color.b, 1f);
         clone.transform.localPosition = new Vector3(Screen.width*0.4f, 0, 0);
         clone.transform.Translate(Random.Range(-50f, 50f), Random.Range(-50f, 50f), Random.Range(-50f, 50f), Space.Self);
         clone.enabled = true;
@@ -70,7 +72,7 @@ public class FeedbackController : MonoBehaviour
     /// <returns></returns>
     private IEnumerator timeout(TextMeshProUGUI text, float duration) {
         for (float i = duration; i >= 0; i -= Time.deltaTime) {
-            text.color = new Color(text.color.r, text.color.g, text.color.g, i/duration);
+            text.color = new Color(text.color.r, text.color.g, text.color.b, i/duration);
             yield return null;
         }
         text.enabled = false;

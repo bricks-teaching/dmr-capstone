@@ -13,28 +13,27 @@ public class PlayerHealth : MonoBehaviour {
 
     private void Start() {
         playerFlashlight = GameObject.FindGameObjectWithTag("Player Flashlight").GetComponent<Light>();
-        if (hitVignette == null) {
-            hitVignette = GameObject.FindGameObjectWithTag("Player Hit Vignette");
-            hitVignette.SetActive(false);
-        }
+        resetVignette();
     }
 
     public void resetVignette(){
-        if (hitVignette == null) {
-            hitVignette = GameObject.FindGameObjectWithTag("Player Hit Vignette");
-            hitVignette.SetActive(false);
-        }
+        hitVignette = GameObject.FindGameObjectWithTag("Player Hit Vignette");
+        hitVignette.SetActive(false);
     }
 
     void OnCollisionEnter(Collision col) {
         if (col.gameObject.tag == "Enemy Projectile") {
             BulletBehavior bullet = col.gameObject.GetComponent<BulletBehavior>();
+            if (bullet.hitSomething) {
+                return;
+            }
+            bullet.hitSomething = true;
             takeDamage(bullet.damage);
         }
     }
 
     /// <summary>
-    /// When called, enables the the HUD item to show damage for the passed amount of time.
+    /// When called, enables the HUD item to show damage for the passed amount of time.
     /// </summary>
     /// <param name="duration"></param>
     /// <returns></returns>
@@ -74,11 +73,14 @@ public class PlayerHealth : MonoBehaviour {
 
     private void Update() {
         // Disable invincibility:
-        // - after 2 seconds when any key is pressed (you get 2 seconds to reposition)
+        // - after 2 seconds when any key is pressed (you get 5 seconds to reposition)
         // - when LMB is pressed and time is flowing (assumed to be firing at enemy)
-        if (invincible && ((Input.anyKey && Time.timeSinceLevelLoad > 2f) || (Input.GetMouseButton(0) && Time.timeSinceLevelLoad > 0.1f))) {
+        if (invincible && ((Input.anyKey && Time.timeSinceLevelLoad > 5f) || (Input.GetMouseButton(0) && Time.timeSinceLevelLoad > 0.1f))) {
             invincible = false;
             playerFlashlight.color = Color.white;
+        }
+        if (hitVignette == null) {
+            resetVignette();
         }
     }
 }

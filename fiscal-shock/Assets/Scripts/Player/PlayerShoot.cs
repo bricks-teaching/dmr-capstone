@@ -1,38 +1,95 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
+using System.Collections;
+
+/// <summary>
+/// Mutable player firing state
+/// </summary>
+public class PlayerFiringState {
+    public bool firingAutomatic;
+    public bool alreadyFired;
+
+    public bool needToUpdateLossFeed;
+    public float nextLossCost;
+
+    public bool weaponCooling;
+    public bool holsteringWeapon;
+    public bool drawingWeapon;
+}
 
 public class PlayerShoot : MonoBehaviour {
-    private bool holsteringWeapon = false;
-    private bool drawingWeapon = false;
-    private bool weaponChanging = true;
-    private float animatedTime;
-    private AudioSource fireSound;
-    public AudioClip fireSoundClip;
     public AudioClip outOfAmmo;
     public AudioClip fireRateSound;
-    public AudioClip sprayStart;
-    public AudioClip sprayStop;
+    public List<GameObject> guns;  // TODO inaccessible in inspector
+
+    /* Assigned at runtime */
     public GameObject weapon { get; private set; }
-    private int slot = 0;
-    public List<GameObject> guns;
-    public RawImage crossHair { get; private set; }
-    private float screenX => Settings.values.resolutionWidth / 2;
-    private float screenY => Settings.values.resolutionHeight / 2;
-    public bool loadAfterHolster = true;
+    public Image crossHair { get; private set; }
+    private AudioSource gunAudioSource => currentWeaponStats?.gunAudioSource;
     private WeaponStats currentWeaponStats;
     private FeedbackController feed;
-    public LayerMask missileHomingTargetLayer;
-    private float timeSinceLastShot;
-    private bool wasFiringAuto;
+
+    /* Related to current state */
+    /// <summary>
+    /// Mutable state data to be passed to weaponstats
+    /// </summary>
+    public PlayerFiringState state = new PlayerFiringState();
+
+    /// <summary>
+    /// Currently equipped weapon slot, equal to guns[slot-1]
+    /// </summary>
+    public int slot = 0;
+
+    /// <summary>
+    /// Whether the player is currently firing, kept private here for
+    /// the input action callbacks
+    /// </summary>
+    private bool firing;
+    private float animatedTime;
+
+    public void OnFire(InputAction.CallbackContext cont) {
+        if (cont.phase == InputActionPhase.Canceled || Time.timeScale == 0) {
+            state.alreadyFired = false;
+            firing = false;
+            return;
+        }
+        firing = cont.phase == InputActionPhase.Performed || cont.phase == InputActionPhase.Started;
+        state.alreadyFired = !firing;
+    }
+
+    public void OnWeaponSwap(InputAction.CallbackContext cont) {
+        if (cont.phase != InputActionPhase.Performed || Time.timeScale == 0 || state.drawingWeapon || state.holsteringWeapon) {
+            return;
+        }
+        slot += (int)cont.ReadValue<float>();
+        if (slot >= guns.Count) {  // Wrap around after the last weapon
+            slot = 0;
+        } else if (slot < 0) {
+            slot = guns.Count-1;
+        }
+    }
+
+    public void OnWeaponSelect(InputAction.CallbackContext cont) {
+        if (state.drawingWeapon || state.holsteringWeapon) {
+            return;
+        }
+        int selectedSlot = (int)cont.ReadValue<float>();
+        if (selectedSlot > 0 && selectedSlot <= guns.Count) {
+            slot = selectedSlot - 1;
+        }
+    }
 
     public void Start() {
         feed = GameObject.FindGameObjectWithTag("HUD").GetComponent<FeedbackController>();
-        crossHair = GameObject.FindGameObjectWithTag("Crosshair").GetComponentInChildren<RawImage>();
-        fireSound = GetComponentInChildren<AudioSource>();
-        crossHair.enabled = false;
-        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "Dungeon" && !StateManager.inStoryTutorial) {
-            this.enabled = false;
+        GameObject tmp = GameObject.FindGameObjectWithTag("Crosshair");
+        if (tmp != null) {
+            crossHair = tmp.GetComponentInChildren<Image>(true);
+            crossHair.enabled = false;
+        }
+        if (guns == null || guns.Count < 1) {
+            guns = new List<GameObject>();
         }
         LoadWeapon();
     }
@@ -47,13 +104,8 @@ public class PlayerShoot : MonoBehaviour {
     }
 
     void OnEnable() {
-        // try to pick the first open slot if there was no weapon assigned
-        if (weapon == null) {
-            if (StateManager.purchasedHose) {
-                slot = 0;
-            } else if (StateManager.purchasedLauncher) {
-                slot = 1;
-            }
+        if (guns == null || guns.Count < 1) {
+            return;
         }
         LoadWeapon();
     }
@@ -69,89 +121,118 @@ public class PlayerShoot : MonoBehaviour {
     }
 
     private void stopFiringAuto() {
-        wasFiringAuto = false;
-        fireSound?.Stop();
+        state.firingAutomatic = false;
+        gunAudioSource?.Stop();
     }
 
     public void Update() {
+        /* Check to see if we need to stop automatic firing */
         if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Hub" || StateManager.playerDead || StateManager.playerWon) {
             stopFiringAuto();
             return;
         }
-        if (StateManager.playerDead || (Input.GetMouseButtonUp(0) && fireSound.isPlaying && wasFiringAuto)) {
+
+        // Released button on auto-fire weapons
+        if (state.firingAutomatic && !firing && currentWeaponStats.fireDelay < 0.03f) {
             stopFiringAuto();
-            fireSound.PlayOneShot(sprayStop);
+            gunAudioSource.PlayOneShot(currentWeaponStats.autoStop, Settings.volume);
         }
-        // Change weapon
-        if (Input.GetKeyDown(Settings.weaponOneKey) && (StateManager.purchasedHose || StateManager.inStoryTutorial)) {
-            slot = 0;
-            if (weapon != null) {
-                HolsterWeapon();
-            } else {
-                LoadWeapon();
-            }
-        }
-        if (Input.GetKeyDown(Settings.weaponTwoKey) && (StateManager.purchasedLauncher || StateManager.inStoryTutorial)) {
-            slot = 1;
-            if (weapon != null) {
-                HolsterWeapon();
-            } else {
-                LoadWeapon();
-            }
-        }
-        if (weapon == null) {  // must check after weapon swaps
+
+        // Time stopped, do nothing
+        if (Time.timeScale == 0) {
             return;
         }
-        timeSinceLastShot += Time.deltaTime;
-        if (currentWeaponStats.showCrosshair && timeSinceLastShot >= currentWeaponStats.fireRate) {
-            crossHair.color = new Color(1f, 1f, 1f, 0.8f);
-        } else if (currentWeaponStats.showCrosshair) {
-            crossHair.color = new Color(1f, 1f, 1f, 0.2f);
+
+        if (state.needToUpdateLossFeed) {
+            feed?.shoot(state.nextLossCost);
+            state.needToUpdateLossFeed = false;
         }
 
-        timeSinceLastShot += Time.deltaTime;
-        if (currentWeaponStats.showCrosshair && timeSinceLastShot >= currentWeaponStats.fireRate) {
-            crossHair.color = new Color(1f, 1f, 1f, 0.8f);
-        } else if (currentWeaponStats.showCrosshair) {
-            crossHair.color = new Color(1f, 1f, 1f, 0.2f);
+        // Start weapon swap if necessary
+        HolsterWeapon();
+        LoadWeapon();
+        playWeaponAnimation();
+
+        // Don't proceed to try firing until we're done changing weapons
+        // If we don't have a weapon by this point, we can't continue
+        if (state.drawingWeapon || state.holsteringWeapon || weapon == null) {
+            return;
         }
 
-        if (Time.timeScale > 0 && !weaponChanging && Input.GetMouseButton(0)) {  // Firing
-            // Make sure player has enough money to fire
-            if (!StateManager.inStoryTutorial && StateManager.cashOnHand < currentWeaponStats.bulletCost) {
-                if (Input.GetMouseButtonDown(0)) {  // otherwise, the sound is auto fired
-                    fireSound.PlayOneShot(outOfAmmo, Settings.volume);
-                }
-                return;
-            }
-            if (timeSinceLastShot < currentWeaponStats.fireRate && currentWeaponStats.action != FirearmAction.Automatic) {  // auto weapons should fire as fast as they can
-                if (Input.GetMouseButtonDown(0)) {  // otherwise, the sound is auto fired
-                    fireSound.PlayOneShot(fireRateSound, Settings.volume);
-                }
-                return;
-            }
-            if (timeSinceLastShot >= currentWeaponStats.fireRate) {
-                switch (currentWeaponStats.action) {
-                    case FirearmAction.Automatic:
-                        fireAutomatic();
-                        break;
+        /**********************************************************************/
 
-                    case FirearmAction.Semiautomatic:
-                        fireSemiautomatic();
-                        break;
-
-                    case FirearmAction.SingleShot:
-                        // ... would require manual reload action, not implemented.
-                        break;
-                    default:
-                        break;
-                }
-                timeSinceLastShot = 0;
-            }
+        // After this point, only continue if we're trying to fire
+        if (!firing) {
+            return;
         }
 
+        // Make sure player has enough money to fire
+        if (!StateManager.inStoryTutorial && StateManager.cashOnHand < currentWeaponStats.bulletCost) {
+            if (!state.alreadyFired) {  // otherwise, the sound is auto fired
+                stopFiringAuto();
+                gunAudioSource.PlayOneShot(outOfAmmo, Settings.volume);
+                state.alreadyFired = true;
+            }
+            return;
+        }
+
+        // Can we fire yet?
+        if (state.weaponCooling) {
+            if (!state.alreadyFired && !state.firingAutomatic) {  // otherwise, the sound is auto fired
+                gunAudioSource.PlayOneShot(fireRateSound, Settings.volume);
+                state.alreadyFired = true;
+            }
+            return;
+        }
+
+        // Finally, we can fire...
+        currentWeaponStats.fire(state);
+        StartCoroutine(firingCooldown());
+    }
+
+    /// <summary>
+    /// Fade the crosshair while we're not allowed to shoot
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator firingCooldown() {
+        if (currentWeaponStats.fireDelay <= 0 || state.weaponCooling) {
+            yield return null;
+        }
+        state.weaponCooling = true;
+
+        // Fade the crosshair if we're not allowed to shoot.
+        crossHair.color = new Color(1f, 1f, 1f, 0.3f);
+        for (float i = 0; i < currentWeaponStats.fireDelay; i += Time.deltaTime) {
+            crossHair.fillAmount = i/currentWeaponStats.fireDelay;
+            yield return null;
+        }
+
+        state.weaponCooling = false;
+        crossHair.fillAmount = 1;
+        crossHair.color = new Color(1f, 1f, 1f, 0.8f);
+        yield return null;
+    }
+
+    public void LoadWeapon() {
+        if ((guns == null || guns.Count-1 < slot) || ((weapon != null && weapon.activeSelf) && (guns[slot] == weapon || state.holsteringWeapon))) {
+            return;
+        }
+        state.drawingWeapon = true;
+        // Update weapon slot and enable weapon object
+        // Shut up roslyn, Unity doesn't like conditional access here
+        if (weapon != null) {
+            weapon.SetActive(false);
+        }
+
+        // The weapon select functions already verify the new slot is good
+        weapon = guns[slot];
+        weapon.SetActive(true);
+        currentWeaponStats = weapon.GetComponent<WeaponStats>();
+    }
+
+    private void playWeaponAnimation() {
         // If player is currently holstering or drawing a weapon, alter weapon position to animate the process.
-        if (drawingWeapon) {
+        if (state.drawingWeapon) {
             if ((weapon.transform.parent.position - weapon.transform.position).magnitude > .1) {
                 weapon.transform.position = (weapon.transform.position + weapon.transform.parent.position) / 2;
             }
@@ -159,157 +240,34 @@ public class PlayerShoot : MonoBehaviour {
             rotationVector.x += currentWeaponStats.rotation;
             weapon.transform.rotation = Quaternion.Slerp(weapon.transform.parent.rotation, Quaternion.Euler(rotationVector), Time.fixedDeltaTime * 6);
             // After animation has run set weapon changing to false
-            if (animatedTime > 0.9f) {
+            if (animatedTime >= 0.9f) {
                 animatedTime = 0f;
-                drawingWeapon = false;
-                weaponChanging = false;
+                state.drawingWeapon = false;
                 crossHair.enabled = currentWeaponStats.showCrosshair;
             }
             animatedTime += Time.deltaTime;
         // ---------------------------------------------------------------------
-        } else if (holsteringWeapon) {
+        } else if (state.holsteringWeapon) {
             weapon.transform.position -= (transform.up * 5f) + transform.forward;
             Vector3 rotationVector = transform.rotation.eulerAngles;
             weapon.transform.rotation = Quaternion.Slerp(weapon.transform.parent.rotation, Quaternion.Euler(rotationVector), Time.fixedDeltaTime * 6);
             // After animation has run, get the new weapon
-            if (animatedTime > 0.8f) {
+            if (animatedTime >= 0.8f) {
                 animatedTime = 0f;
-                holsteringWeapon = false;
-                if(loadAfterHolster){
-                    LoadWeapon();
-                } else {
-                    enabled = false;
-                }
+                state.holsteringWeapon = false;
+                LoadWeapon();
             }
             animatedTime += Time.deltaTime;
         }
     }
 
-    /// <summary>
-    /// Continuous fire while button is held down.
-    /// </summary>
-    private void fireAutomatic() {
-        HomingTargets targets = getHomingTargets();
-        if (!fireSound.isPlaying) {
-            fireSound.volume = Settings.volume;
-            fireSound.PlayOneShot(sprayStart);
-            fireSound.PlayScheduled(AudioSettings.dspTime + sprayStart.length);
-        }
-        fireBullet(10 - currentWeaponStats.accuracy, currentWeaponStats.strength, targets);
-        wasFiringAuto = true;
-    }
-
-    /// <summary>
-    /// One click, one shot, but no reload action.
-    /// </summary>
-    private void fireSemiautomatic() {
-        if (Input.GetMouseButtonDown(0)) {
-            fireBullet(10 - currentWeaponStats.accuracy, currentWeaponStats.strength, getHomingTargets());
-        }
-        fireSound.PlayOneShot(fireSoundClip);
-    }
-
-    /// <summary>
-    /// Sets up homing targets if the projectile has homing enabled.
-    /// </summary>
-    /// <returns></returns>
-    private HomingTargets getHomingTargets() {
-        Transform target = null;
-        Vector3 localTarget = Vector3.zero;
-        RaycastHit hit;
-        if (currentWeaponStats.projectileType == ProjectileType.HomingMissile && Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 128, missileHomingTargetLayer)) {
-            target = hit.collider.transform;
-            localTarget = target.InverseTransformPoint(hit.point);
-        }
-
-        return new HomingTargets(target, localTarget);
-    }
-
-    /// <summary>
-    /// Fire a bullet.
-    /// </summary>
-    /// <param name="accuracy"></param>
-    /// <param name="damage"></param>
-    /// <param name="target"></param>
-    private void fireBullet(float accuracy, int damage, HomingTargets target) {
-        GameObject bullet;
-        Vector3 bulletPosition = currentWeaponStats.projectileSpawnPoint.position;
-        if (currentWeaponStats.bulletPool.Count < 2) {
-            bullet = Instantiate(currentWeaponStats.bulletPrefab, transform.position, transform.rotation);
-        } else {
-            bullet = currentWeaponStats.bulletPool.Dequeue();
-        }
-        BulletBehavior bulletScript = bullet.GetComponent<BulletBehavior>();
-        bullet.SetActive(false);
-
-        try {
-            bullet.transform.position = bulletPosition;
-            bullet.transform.rotation = currentWeaponStats.projectileSpawnPoint.rotation;
-
-            bulletScript.damage = damage;
-            bulletScript.target = target.body;
-            bulletScript.localizedTarget = target.localizedTarget;
-            bulletScript.player = this;
-
-            if (accuracy > 0.1f) {
-                Vector3 rotationVector = bullet.transform.rotation.eulerAngles;
-                rotationVector.x += ((Random.value * 2) - 1) * accuracy;
-                rotationVector.y += ((Random.value * 2) - 1) * accuracy;
-                rotationVector.z += ((Random.value * 2) - 1) * accuracy;
-                float scatterX = screenX + Random.Range(-accuracy, accuracy);
-                float scatterY = screenY + Random.Range(-accuracy, accuracy);
-                Ray ray = Camera.main.ScreenPointToRay(new Vector3(scatterX, scatterY, 0));
-                bulletScript.rb.velocity = ray.direction * bulletScript.bulletSpeed;
-                bullet.transform.rotation = Quaternion.Euler(rotationVector);
-            }
-
-            bullet.SetActive(true);
-            currentWeaponStats.bulletPool.Enqueue(bullet);
-            StartCoroutine(bulletScript.timeout());
-        } catch (System.Exception e) {
-            // return bullet to queue in case something errored
-            Debug.LogError($"Encountered error while firing: {e}: {e.Message}");
-            if (bullet != null) {
-                currentWeaponStats.bulletPool.Enqueue(bullet);
-            }
-        }
-        StateManager.cashOnHand -= currentWeaponStats.bulletCost;
-        feed?.shoot(currentWeaponStats.bulletCost);
-    }
-
-    public void LoadWeapon() {
-        if (slot == 0 && !StateManager.purchasedHose && !StateManager.inStoryTutorial) {
-            return;
-        }
-        if (slot == 1 && !StateManager.purchasedLauncher && !StateManager.inStoryTutorial) {
-            return;
-        }
-        drawingWeapon = true;
-        // Update weapon slot and enable weapon object
-        weapon?.SetActive(false);
-        weapon = guns[slot];
-        weapon?.SetActive(true);
-        currentWeaponStats = weapon.GetComponent(typeof(WeaponStats)) as WeaponStats;
-        weaponChanging = true;
-    }
-
     public void HolsterWeapon() {
         // If weapon is already selected, do nothing
-        if (guns[slot] == weapon && loadAfterHolster) {
+        if (guns[slot] == weapon || state.drawingWeapon) {
             return;
         }
-        holsteringWeapon = true;
+        state.holsteringWeapon = true;
         // Hide crossHair while weapon is changing
         crossHair.enabled = false;
-    }
-}
-
-public struct HomingTargets {
-    public Transform body;
-    public Vector3 localizedTarget;
-
-    public HomingTargets(Transform transform, Vector3 vector) {
-        body = transform;
-        localizedTarget = vector;
     }
 }

@@ -57,6 +57,7 @@ public class ATMScript : MonoBehaviour {
     void Update() {
         if (playerIsInTriggerZone) {
             if (Input.GetKeyDown(Settings.interactKey)) {
+                Time.timeScale = 0;
                 Settings.forceUnlockCursorState();
                 updateFields();
                 bankPanel.SetActive(true);
@@ -65,6 +66,14 @@ public class ATMScript : MonoBehaviour {
             if (Input.GetKeyDown(Settings.pauseKey)) {
                 BackClick();
             }
+            /************ MOVE TO CREDITOR ****************/
+            if (!Settings.values.sawLoanTutorial) {
+                Time.timeScale = 0;
+                Settings.forceUnlockCursorState();
+                tutorial.SetActive(true);
+                Settings.values.sawLoanTutorial = true;
+            }
+            /**********************************************/
         }
     }
 
@@ -228,10 +237,20 @@ public class ATMScript : MonoBehaviour {
     }
 
     public void BackClick() {
+        Time.timeScale = 1;
         dialogText.text = "How may I help you?";
         bankPanel.SetActive(false);
+        tutorial.SetActive(false);
         Settings.forceLockCursorState();
         StartCoroutine(StateManager.makePauseAvailableAgain());
+    }
+
+    /**************** MOVE TO CREDITOR ******************/
+    public GameObject tutorial;
+
+    public void dismissTutorial() {
+        tutorial.SetActive(false);
+        Time.timeScale = 1;
     }
 }
 

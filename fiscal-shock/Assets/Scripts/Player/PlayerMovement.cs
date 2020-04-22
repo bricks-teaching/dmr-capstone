@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-//using UnityEngine.InputSystem;
+using UnityEngine.InputSystem;
 
 /**
 Here is the tutorial I followed:
@@ -26,10 +26,29 @@ public class PlayerMovement : MonoBehaviour
 
     public Vector3 velocity;
     bool isGrounded;
+    public InputActionAsset inputActions;
+
+    private Vector2 movement;
+    private bool jumping;
+
+    void Awake() {
+        gameObject.GetComponent<PlayerInput>().actions = inputActions;
+    }
+
+    public void OnMovement(InputAction.CallbackContext cont) {
+        movement = cont.ReadValue<Vector2>();
+    }
+
+    public void OnJump(InputAction.CallbackContext cont) {
+        jumping = cont.phase == InputActionPhase.Performed;
+    }
 
     // Update is called once per frame
     void Update()
     {
+        Vector3 tdm = (transform.right * movement.x) + (transform.forward * movement.y);
+        controller.Move(tdm * speed * Time.deltaTime);
+
         //Creates sphere around object to check if it has collided with a ground layer
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance,groundMask | obstacleMask | decorationMask);
         //Resets velocity, so it doesnt go down forever
@@ -37,18 +56,10 @@ public class PlayerMovement : MonoBehaviour
         {
             velocity.y = -2f;
         }
-        //Gets input from user
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
-
-        //Creates direction where user wants to move
-        Vector3 move = transform.right * x + transform.forward * z;
-
-        //Moves the player using move, speed and Time.deltaTime(Frame Rate independent)
-        controller.Move(move * speed * Time.deltaTime);
 
         //Only Jump if player is grounded, velocity.y brings player down
-        if(Input.GetButtonDown("Jump") && isGrounded)
+        //if(Input.GetButtonDown("Jump") && isGrounded)
+        if(jumping && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpBy * -2f * gravity);
         }

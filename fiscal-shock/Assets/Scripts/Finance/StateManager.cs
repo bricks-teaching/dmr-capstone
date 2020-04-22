@@ -67,23 +67,23 @@ public static class StateManager
     public static int nextID { get; set; } = DefaultState.nextID;
     public static int totalLoans => loanList.Count;
     public static int timesEntered { get; set; } = DefaultState.timesEntered;
+    public static int totalFloorsVisited { get; set; } = DefaultState.totalFloorsVisited;
     public static int currentFloor { get; set; } = DefaultState.currentFloor;
     public static int change { get; set; } = DefaultState.change;
     public static int creditScore { get; set; } = DefaultState.creditScore;
     public static int paymentStreak { get; set; } = DefaultState.paymentStreak;
     public static float cashOnEntrance { get; set; } = DefaultState.cashOnEntrance;
     public static float averageIncome => income.Average();
-    public static bool purchasedHose = DefaultState.purchasedHose;
-    public static bool purchasedLauncher = DefaultState.purchasedLauncher;
 
     public static DungeonTypeEnum selectedDungeon { get; set; }
-    public static bool sawEntryTutorial = false;
-    public static bool inStoryTutorial = false;
+    public static bool sawEntryTutorial = DefaultState.sawEntryTutorial;
+    public static bool inStoryTutorial = DefaultState.inStoryTutorial;
 
     public static List<GameObject> singletons = new List<GameObject>();
-    public static bool pauseAvailable = true;
-    public static bool playerDead = false;
-    public static bool playerWon = false;
+    public static bool pauseAvailable = DefaultState.pauseAvailable;
+    public static bool playerDead = DefaultState.playerDead;
+    public static bool playerWon = DefaultState.playerWon;
+    public static bool startedFromDungeon = DefaultState.startedFromDungeon;
 
     /// <summary>
     /// Hitting "esc" to exit GUIs sometimes hits the pause code too,
@@ -172,18 +172,29 @@ public static class StateManager
         income.Clear();
         nextID = DefaultState.nextID;
         timesEntered = DefaultState.timesEntered;
+        totalFloorsVisited = DefaultState.totalFloorsVisited;
         currentFloor = DefaultState.currentFloor;
         change = DefaultState.change;
         creditScore = DefaultState.creditScore;
         paymentStreak = DefaultState.paymentStreak;
         cashOnEntrance = DefaultState.cashOnEntrance;
-        purchasedHose = DefaultState.purchasedHose;
-        purchasedLauncher = DefaultState.purchasedLauncher;
-        sawEntryTutorial = DefaultState.sawTutorial;
-        singletons.Clear();
+        sawEntryTutorial = DefaultState.sawEntryTutorial;
+        inStoryTutorial = DefaultState.inStoryTutorial;
+        destroyAllSingletons();
         pauseAvailable = DefaultState.pauseAvailable;
         playerDead = DefaultState.playerDead;
         playerWon = DefaultState.playerWon;
+        startedFromDungeon = DefaultState.startedFromDungeon;
+    }
+
+    public static void destroyAllSingletons() {
+        foreach (GameObject go in singletons) {
+            if (go != null) {
+                Debug.Log($"Destroying {go.name} during state reset");
+                UnityEngine.Object.Destroy(go);
+            }
+        }
+        singletons.Clear();
     }
 }
 
@@ -197,15 +208,16 @@ public static class DefaultState {
     public readonly static float cashOnHand = 0.0f;
     public readonly static int nextID = 0;
     public readonly static int timesEntered = 0;
-    public readonly static int currentFloor = 0;
+    public readonly static int totalFloorsVisited = 0;
+    public readonly static int currentFloor = 1;
     public readonly static int change = 5;
     public readonly static int creditScore = 0;
     public readonly static int paymentStreak = 0;
     public readonly static float cashOnEntrance = 0.0f;
-    public readonly static bool purchasedHose = false;
-    public readonly static bool purchasedLauncher = false;
-    public readonly static bool sawTutorial = false;
+    public readonly static bool sawEntryTutorial = false;
+    public readonly static bool inStoryTutorial = false;
     public readonly static bool pauseAvailable = true;
     public readonly static bool playerDead = false;
     public readonly static bool playerWon = false;
+    public readonly static bool startedFromDungeon = true;
 }

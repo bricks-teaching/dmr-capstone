@@ -9,6 +9,7 @@ public class InGameMenu : MonoBehaviour {
     public static InGameMenu inGameMenuInstance { get; private set; }
     public GameObject background;
     public GameObject pausePanel;
+    public GameObject inventoryPanel;
     public GameObject optionsPanel;
     public GameObject quitPanel;
     public GameObject graphicsPanel;
@@ -42,6 +43,7 @@ public class InGameMenu : MonoBehaviour {
         panels.Add(optionsPanel);
         panels.Add(quitPanel);
         panels.Add(graphicsPanel);
+        panels.Add(inventoryPanel);
         disableAllPanels();
         player = GameObject.FindGameObjectWithTag("Player");
         fpsText = GameObject.FindGameObjectWithTag("HUD").transform.Find("FPS").gameObject.GetComponent<TextMeshProUGUI>();
@@ -152,6 +154,10 @@ public class InGameMenu : MonoBehaviour {
 
     public void QuitClick() {
         disableAllPanelsExcept(quitPanel);
+    }
+
+    public void inventoryClick() {
+        disableAllPanelsExcept(inventoryPanel);
     }
 
     public void RestartClick() {

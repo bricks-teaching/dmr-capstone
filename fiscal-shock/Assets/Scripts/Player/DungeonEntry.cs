@@ -18,7 +18,7 @@ public class DungeonEntry : MonoBehaviour {
         loadingScreen = GameObject.FindGameObjectWithTag("Loading Screen");
         loadScript = loadingScreen.GetComponent<LoadingScreen>();
         selectionScreen.enabled = false;
-        audioSource = GameObject.FindObjectOfType<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void OnTriggerEnter(Collider col) {
@@ -38,7 +38,7 @@ public class DungeonEntry : MonoBehaviour {
     void FixedUpdate() {
         if (isPlayerInTriggerZone) {
             if (Input.GetKeyDown(Settings.interactKey)) {
-                if (!(StateManager.purchasedHose || StateManager.purchasedLauncher)) {
+                if (GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerShoot>().guns.Count < 1) {
                     audioSource.PlayOneShot(bummer, Settings.volume);
                     texto.text = "It's dangerous to go out alone (and unarmed).";
                     return;
@@ -73,6 +73,9 @@ public class DungeonEntry : MonoBehaviour {
         StateManager.selectedDungeon = (DungeonTypeEnum)value;
         StateManager.cashOnEntrance = StateManager.cashOnHand;
         StateManager.timesEntered++;
+        StateManager.totalFloorsVisited++;
+        StateManager.currentFloor = 1;
+        StateManager.startedFromDungeon = false;
         Settings.forceLockCursorState();
         StartCoroutine(StateManager.makePauseAvailableAgain());
         loadScript.startLoadingScreen("Dungeon");
