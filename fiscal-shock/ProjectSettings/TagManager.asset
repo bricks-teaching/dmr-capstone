@@ -22,6 +22,7 @@ TagManager:
   - Spawn Point
   - Loading Screen
   - Assistant
+  - Player Inventory
   layers:
   - Default
   - TransparentFX
