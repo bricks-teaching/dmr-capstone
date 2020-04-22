@@ -18,15 +18,16 @@ public class Loan
     public float originalAmount { get; }
     public string lender { get; }
     public float collateral { get; }
+    public bool inGracePeriod { get; set; }
 
-    public Loan(int num, float tot, float rat, LoanType t, float securityDeposit, string creditorId)
-    {
+    public Loan(int num, float tot, float rat, LoanType t, float securityDeposit, string creditorId) {
         ID = num;
         total = tot;
         rate = rat;
-        paid = true;
+        paid = false;
         type = t;
         age = 0;
+        inGracePeriod = t != LoanType.Payday;
         originalAmount = tot;
         collateral = securityDeposit;
         lender = creditorId;
@@ -53,8 +54,8 @@ public enum DungeonTypeEnum {
 }
 
 public class CreditorData {
-    public bool paid;
-    public int threatLevel;
+    public bool paid = false;
+    public int threatLevel = 0;
     public CreditorData(bool beenPaid, int baseThreat) {
         paid = beenPaid;
         threatLevel = baseThreat;
@@ -71,10 +72,10 @@ public static class StateManager
 {
     public static float cashOnHand { get; set; } = DefaultState.cashOnHand;
     //list of loans that the player posesses
-    public static LinkedList<Loan> loanList = new LinkedList<Loan>();
+    public static List<Loan> loanList = new List<Loan>();
     //Total debt of the player updated whenever a loan is drawn out, paid or interest is applied
     //used to calculate average income
-    public static LinkedList<float> income = new LinkedList<float>();
+    public static List<float> income = new List<float>();
 
     /// <summary>
     /// List of creditor IDs, so state manager can handle processing of
@@ -104,6 +105,7 @@ public static class StateManager
     public static bool pauseAvailable = true;
     public static bool playerDead = false;
     public static bool playerWon = false;
+    public static int lastCreditScore = DefaultState.creditScore;
 
     /// <summary>
     /// Hitting "esc" to exit GUIs sometimes hits the pause code too,
@@ -130,7 +132,7 @@ public static class StateManager
         cashOnHand = (float)Math.Round(cashOnHand, 2);
         processDueInvoices();
 
-        income.AddLast(cashOnHand - cashOnEntrance);
+        income.Add(cashOnHand - cashOnEntrance);
         calcCreditScore();
         Debug.Log($"New debt total: {totalDebt}");
         return true;
@@ -143,16 +145,20 @@ public static class StateManager
     private static void processDueInvoices() {
         // go through all loans and raise the threat level if nothing was paid on them
         // while you're at it, apply interest
+        Debug.Log($"Processing {loanList.Count} loans");
         foreach (Loan l in loanList) {
             CreditorData cd = lenders[l.lender];
             if (!l.paid) {
                 cd.paid = false;
                 cd.threatLevel++;
-                Debug.Log($"{cd.threatLevel} Threat level on lack of payment SM");
                 paymentStreak = 0;
             }
+            l.age++;
             l.paid = false;
-            l.total += (float)Math.Round(l.rate * l.total, 2);
+            if (!l.inGracePeriod) {
+                l.total += (float)Math.Round(l.rate * l.total, 2);
+            }
+            l.inGracePeriod = false;
         }
 
         // update creditor threat levels if their loans were paid
@@ -169,64 +175,68 @@ public static class StateManager
     /// Calculates the player's credit score.
     /// Used to apply bonuses/penalties to interest rates and maximum loans
     /// </summary>
-    public static void calcCreditScore()
-    {
+    public static void calcCreditScore() {
+        lastCreditScore = creditScore;
         int sharkPen = 0;
         int oldestLoan = 0;
-        foreach (Loan item in loanList)
-        {
-            item.age++;
-            if(item.age > oldestLoan){
+        foreach (Loan item in loanList) {
+            if (item.age > oldestLoan) {
                 oldestLoan = item.age;
             }
-            if(item.type == LoanType.Payday){
+            if (item.type == LoanType.Payday) {
                 sharkPen++;
             }
         }
-        if(oldestLoan > 10){
+        if (oldestLoan > 10) {
             creditScore -= scoreChangeFactor * (oldestLoan - 10);
         }
         creditScore -= sharkPen * scoreChangeFactor;
-        if(totalLoans > 5){
+        if (totalLoans > 5) {
             creditScore -= scoreChangeFactor * 2;
         }
-        if(totalDebt > 10000){
+        if (totalDebt > 10000) {
             creditScore -= scoreChangeFactor * 8;
-        } else if (totalDebt < 5000){
+        } else if (totalDebt < 5000) {
             creditScore += scoreChangeFactor * 8;
         }
         creditScore += paymentStreak * scoreChangeFactor;
-        if(averageIncome < 0){
+        if (averageIncome <= 0) {
             creditScore -= scoreChangeFactor * 10;
-        } else if(averageIncome > totalDebt * 0.03) {
+        } else if (averageIncome > totalDebt * 0.03) {
             creditScore += scoreChangeFactor * 15;
         } else {
             creditScore += scoreChangeFactor * 5;
         }
-        if (creditScore > 850){
+        // Excellent -------------
+        if (creditScore > 850) {
             creditScore = 850;
             rateAdjuster = DefaultState.rateAdjuster * 0.75f;
             maxLoanAdjuster = DefaultState.maxLoanAdjuster * 1.6f;
-        }else if (creditScore >= 650 && creditScore <= 850){
+        } else if (creditScore >= 650 && creditScore <= 850) {
             rateAdjuster = DefaultState.rateAdjuster * 0.75f;
             maxLoanAdjuster = DefaultState.maxLoanAdjuster * 1.6f;
+        // Good ------------------
         } else if (creditScore >= 550 && creditScore < 650) {
             rateAdjuster = DefaultState.rateAdjuster * 0.9f;
             maxLoanAdjuster = DefaultState.maxLoanAdjuster * 1.2f;
+        // Fair ------------------
         } else if (creditScore >= 450 && creditScore < 549) {
             rateAdjuster = DefaultState.rateAdjuster;
             maxLoanAdjuster = DefaultState.maxLoanAdjuster;
+        // Poor ------------------
         } else if (creditScore < 450 && creditScore >= 350) {
             rateAdjuster = DefaultState.rateAdjuster * 1.5f;
             maxLoanAdjuster = DefaultState.maxLoanAdjuster * 0.75f;
+        // WTF are you doing? ----
         } else if (creditScore < 350 && creditScore >= 300) {
             rateAdjuster = DefaultState.rateAdjuster * 2.0f;
             maxLoanAdjuster = DefaultState.maxLoanAdjuster * 0.5f;
-        } else if (creditScore < 300){
+        } else if (creditScore < 300) {
             creditScore = 300;
             rateAdjuster = DefaultState.rateAdjuster * 2.0f;
             maxLoanAdjuster = DefaultState.maxLoanAdjuster * 0.5f;
         }
+        Debug.Log($"Credit score for day {timesEntered}: {creditScore}, delta: {creditScore-lastCreditScore}");
     }
 
     /// <summary>

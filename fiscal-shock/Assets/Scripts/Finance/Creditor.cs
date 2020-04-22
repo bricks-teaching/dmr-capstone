@@ -36,6 +36,11 @@ public class Creditor : MonoBehaviour
     public ValidLoan initialDebtType;
     public float initialRemainingCash;
     private String defaultText;
+    /// <summary>
+    /// Don't blow out my ears with initial loans as soon as you walk
+    /// into the hub
+    /// </summary>
+    private int debtIsLoud = 1;
 
     void OnTriggerEnter(Collider col) {
         if (col.gameObject.tag == "Player") {
@@ -53,6 +58,7 @@ public class Creditor : MonoBehaviour
     void Start()
     {
         audioS = GetComponent<AudioSource>();
+        defaultText = dialogText.text;
         creditorPanel.SetActive(false);
 
         // if StateManager isn't already tracking me, add me
@@ -62,29 +68,27 @@ public class Creditor : MonoBehaviour
         }
 
         if (!StateManager.sawEntryTutorial && StateManager.cashOnHand <= StateManager.totalDebt && initiallyIndebted) {  // implies this is the first visit to town
+            debtIsLoud = 0;
             initialDebtType.addLoanInput.text = initialDebtAmount.ToString();
             addDebt(initialDebtType);
             StateManager.cashOnHand -= initialDebtAmount - initialRemainingCash;
+            debtIsLoud = 1;
+            dialogText.text = defaultText;
         }
-        defaultText = dialogText.text;
         updateFields();
         Debug.Log($"{creditorId} threat: {threatLevel}, loans: {numberOfLoans}, sum: {loanTotal}");
         //iterator through valid loans that changes loan text in the GUI based on type
         float helperRate, helperCollateral;
         foreach(ValidLoan item in validLoans){
-            if(item.loanType == LoanType.Unsecured){
-                helperRate = (float)Math.Round(item.interestRate * StateManager.rateAdjuster, 2) * 100.0f;
-                item.loanData.text = $"Interest @ {helperRate}%\n";
-            } else if (item.loanType == LoanType.Secured){
-                helperRate = (float)Math.Round(item.interestRate * StateManager.rateAdjuster * item.collateralRateReduction, 2) * 100.0f;
-                helperCollateral = (float)Math.Round(item.collateralAmountPercent, 2) * 100.0f;
-                item.loanData.text = $"Interest @ {helperRate}%\nDown Payment: {helperCollateral}%";
-            } else if (item.loanType == LoanType.Payday){
-                helperRate = (float)Math.Round(item.interestRate * StateManager.rateAdjuster, 2) * 100.0f;
-                item.loanData.text = $"Interest @ {helperRate}%\n";
+            if (item.loanType != LoanType.Secured){
+                helperRate = (float)Math.Round(item.interestRate * StateManager.rateAdjuster * 100f, 2);
+                item.loanData.text = $"@ {helperRate.ToString("N2")}%";
+            } else {
+                helperRate = (float)Math.Round(item.interestRate * StateManager.rateAdjuster * item.collateralRateReduction * 100f, 2);
+                helperCollateral = (float)Math.Round(item.collateralAmountPercent * 100f, 2);
+                item.loanData.text = $"@ {helperRate.ToString("N2")}%\n+ {helperCollateral.ToString("N2")}%";
             }
         }
-        rateText.text = $"Max Credit: {maxLoanAmount * StateManager.maxLoanAdjuster}\nTotal Loans: {loanTotal}";
     }
 
     // Update is called once per frame
@@ -128,14 +132,14 @@ public class Creditor : MonoBehaviour
                 float modifiedAmount = (float)Math.Round(collateral + amount, 2);
                 Loan newLoan = new Loan(StateManager.nextID, modifiedAmount, modifiedInterest, loanType, collateral, creditorId);
                 Debug.Log($"{creditorId}: adding ${modifiedAmount} loan with a  {collateral} deposit @ {modifiedInterest*100}%");
-                StateManager.loanList.AddLast(newLoan);
+                StateManager.loanList.Add(newLoan);
                 StateManager.cashOnHand += amount;
                 StateManager.nextID++;
                 initialDebtType.addLoanInput.text = "";
                 updateFields();
 
                 dialogText.text = associatedLoanData.successText;
-                audioS.PlayOneShot(paymentSound, Settings.volume);
+                audioS.PlayOneShot(paymentSound, Settings.volume * debtIsLoud);
                 return;
             }
             Debug.Log($"{creditorId}: Bad dog, no biscuit!");
@@ -144,7 +148,7 @@ public class Creditor : MonoBehaviour
             return;
         }
         catch(Exception e){
-            dialogText.text = "Oh hi, who are you? And why do you smell like motor oil?";
+            dialogText.text = "Oh, hi, who are you? And why do you smell like motor oil?";
             Debug.Log($"Exception found: {e}");
         }
     }
@@ -215,24 +219,23 @@ public class Creditor : MonoBehaviour
                 loanEntries[i].type.text = "";
             }
             else {
-                tempRate = (float)Math.Round(myLoans[i].rate, 2) * 100;
+                tempRate = (float)Math.Round(myLoans[i].rate * 100f, 2);
                 loanEntries[i].id.text = myLoans[i].ID.ToString();
                 loanEntries[i].amount.text = myLoans[i].total.ToString("N2");
                 string typetext = "dummy";
                 switch (myLoans[i].type) {
                     case LoanType.Unsecured:
-                        typetext = $"{tempRate}%";
-                        break;
                     case LoanType.Payday:
-                        typetext = $"{tempRate}%";
+                        typetext = $"{tempRate.ToString("N2")}%";
                         break;
                     case LoanType.Secured:
-                        typetext = $"{tempRate}% ({myLoans[i].collateral.ToString("N2")} down)";
+                        typetext = $"{tempRate.ToString("N2")}% ({myLoans[i].collateral.ToString("N2")} down)";
                         break;
                 }
                 loanEntries[i].type.text = typetext;
             }
         }
+        rateText.text = $"Max Credit: {(maxLoanAmount * StateManager.maxLoanAdjuster).ToString("N2")}\nTotal Loans: {loanTotal.ToString("N2")}";
     }
 
     /// <summary>
@@ -250,7 +253,7 @@ public class Creditor : MonoBehaviour
     /// Turns off the panel and allows full movement/pause control
     /// </summary>
     public void BackClick() {
-        dialogText.text = defaultText; 
+        dialogText.text = defaultText;
         creditorPanel.SetActive(false);
         Settings.forceLockCursorState();
         StartCoroutine(StateManager.makePauseAvailableAgain());
