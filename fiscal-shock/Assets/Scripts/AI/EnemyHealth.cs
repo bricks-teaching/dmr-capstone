@@ -77,6 +77,7 @@ public class EnemyHealth : MonoBehaviour {
 
     [Tooltip("When ambushed, the enemy will try to alert other enemies willing to assist within this radius.")]
     public float cryForHelpRadius;
+    public float timeSinceHit = 2;
 
     void Start() {
         feed = GameObject.FindGameObjectWithTag("HUD").GetComponent<FeedbackController>();
@@ -104,6 +105,9 @@ public class EnemyHealth : MonoBehaviour {
         }
         if (enmityCounter >= maxEnmityDuration) {
             enmityActive = false;
+        }
+        if(timeSinceHit < 2){
+            timeSinceHit += Time.deltaTime;
         }
     }
 
@@ -176,7 +180,10 @@ public class EnemyHealth : MonoBehaviour {
         }
         GameObject explode = queue.Dequeue();
         explode.SetActive(true);
-        hitSound.PlayOneShot(hitSoundClip, volumeMultiplier * Settings.volume);
+        if(timeSinceHit  >= 2){
+            hitSound.PlayOneShot(hitSoundClip, 2.5f * volumeMultiplier * Settings.volume);
+            timeSinceHit = 0;
+        }
         explosions.Enqueue(explode);
         explode.transform.position = transform.position + transform.up;
         explode.transform.rotation = transform.rotation;

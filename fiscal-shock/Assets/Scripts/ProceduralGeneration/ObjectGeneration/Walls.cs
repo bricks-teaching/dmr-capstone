@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace FiscalShock.Procedural {
+
     public static class Walls {
         /// <summary>
         /// All CharacterControllers should be able to fit through hallways
@@ -17,8 +18,11 @@ namespace FiscalShock.Procedural {
         public static void setWalls(Dungeoneer d) {
             constructWallsOnVoronoi(d);
             constructWallsOnRooms(d);
-            List<GameObject> wallsToKeep = destroyWallsForCorridors(d);
-            destroyLagWalls(d, wallsToKeep);
+            destroyWallsForCorridors(d);
+        }
+
+        public static void buildWalls(Dungeoneer d){
+            buildWallsToKeep(d);
             constructEnemyAvoidanceBoundingBox(d);
         }
 
@@ -69,7 +73,7 @@ namespace FiscalShock.Procedural {
             List<Cell> roomCells = d.roomVoronoi.SelectMany(r => r.cells).ToList();
             foreach (Cell c in d.vd.cells) {
                 if (!roomCells.Contains(c)) {
-                    constructWallsOnPolygon(d, c);
+                    constructWallsOnPolygon(c);
                 }
             }
         }
@@ -80,7 +84,7 @@ namespace FiscalShock.Procedural {
         /// <param name="d"></param>
         private static void constructWallsOnRooms(Dungeoneer d) {
             foreach (VoronoiRoom r in d.roomVoronoi) {
-                constructWallsOnPolygon(d, r.exterior);
+                constructWallsOnPolygon(r.exterior);
             }
         }
 
@@ -89,9 +93,10 @@ namespace FiscalShock.Procedural {
         /// </summary>
         /// <param name="d"></param>
         /// <param name="p"></param>
-        private static void constructWallsOnPolygon(Dungeoneer d, Polygon p) {
+        private static void constructWallsOnPolygon(Polygon p) {
             foreach (Edge e in p.sides) {
-                constructWallOnEdge(d, e);
+                //constructWallOnEdge(d, e);
+                e.isWall = true;
             }
         }
 
@@ -122,8 +127,6 @@ namespace FiscalShock.Procedural {
 
             // Attach info to game object for later use
             wallObject.GetComponent<WallInfo>().associatedEdge = wall;
-            wall.isWall = true;
-
             /*
             Vector3 direction = (q-p).normalized;
             #if UNITY_EDITOR
@@ -136,84 +139,107 @@ namespace FiscalShock.Procedural {
         /// Remakes walls with a gate and corridor extending outward
         /// </summary>
         /// <param name="d"></param>
-        private static List<GameObject> destroyWallsForCorridors(Dungeoneer d) {
+        private static void destroyWallsForCorridors(Dungeoneer d) {
             LayerMask wallMask = 1 << LayerMask.NameToLayer("Wall");
-            List<GameObject> wallsToKeep = new List<GameObject>();
+            List<Edge> wallsToKeep = new List<Edge>();
             // Need to make sure we can fit through these ones
+
             List<Edge> shortDestroyedWalls = new List<Edge>();
-
-            foreach (Edge e in d.spanningTree) {
-                float len = e.length;
-
-                Vector3 p = e.p.toVector3AtHeight(1);
-                Vector3 q = e.q.toVector3AtHeight(1);
-                Vector3 direction = (q-p).normalized;
-                // uncomment to debug raycasts
-                /*
-                #if UNITY_EDITOR
-                Debug.DrawRay(p, direction * len, Color.blue, 512);
-                #endif
-                */
-
-                // Cast a ray to destroy initial set of walls. SphereCast does
-                // not always catch all walls close to the sphere center
-                List<RaycastHit> hits = new List<RaycastHit>(Physics.CapsuleCastAll(p, p + Vector3.up * d.currentDungeonType.wallHeight, d.currentDungeonType.hallWidth, direction, len, wallMask));
-                foreach (RaycastHit hit in hits) {
-                    Edge er = hit.collider.gameObject.GetComponent<WallInfo>().associatedEdge;
-                    er.isWall = false;
-                    if (er.length < FATTEST_CONTROLLER * 2) {
-                        shortDestroyedWalls.Add(er);
+            foreach( Edge vEdge in d.vd.allEdges){
+                float minDistanceToTree = 100000;
+                foreach (Edge e in d.spanningTree) {
+                    float slope = (e.p.y - e.q.y) / (e.p.x - e.q.x);
+                    float intercept = e.p.y - (slope * e.p.x);
+                    float dist = 100000;
+                    float candidate0 = vEdge.p.y - ((slope * vEdge.p.x) + intercept);
+                    if(Mathf.Abs(candidate0) < dist){
+                        dist = Mathf.Abs(candidate0);
                     }
-                    hit.collider.gameObject.name = $"Destroyed {hit.collider.gameObject.name}";
-                    UnityEngine.Object.Destroy(hit.collider.gameObject);
+                    float candidate1 = vEdge.p.x - ((vEdge.p.x - slope) / intercept);
+                    if(Mathf.Abs(candidate1) < dist){
+                        dist = Mathf.Abs(candidate1);
+                    }
+                    float candidate2 = vEdge.q.x - ((vEdge.q.x - slope) / intercept);
+                    if(Mathf.Abs(candidate2) < dist){
+                        dist = Mathf.Abs(candidate2);
+                    }
+                    float candidate3 = vEdge.q.y - ((slope * vEdge.q.x) + intercept);
+                    if(Mathf.Abs(candidate3) < dist){
+                        dist = Mathf.Abs(candidate3);
+                    }
+                    if((candidate0 > 0 && candidate3 < 0) || (candidate0 < 0 && candidate3 > 0)){
+                        dist = 0;
+                    }
+                    if(dist < minDistanceToTree){
+                        minDistanceToTree = dist;
+                    }
+                    if(minDistanceToTree < 5){
+                        break;
+                    }
                 }
 
-                // Cast a wider sphere to determine what walls to keep during cleanup
-                foreach (RaycastHit hit in Physics.SphereCastAll(p, d.currentDungeonType.hallWidth * 4, direction, len, wallMask)) {
-                    wallsToKeep.Add(hit.collider.gameObject);
+                if(minDistanceToTree < 5){
+                    removeWall(vEdge);
+                }
+            } 
+        }
+
+        private static void removeWall(Edge vEdge){
+            vEdge.isWallToKeep = false;
+            vEdge.isWall = false;
+            List<Edge> incidentWalls = vEdge.p.incidentEdges.Where(e => e.isWall).ToList();
+            if( incidentWalls.Count > 1){
+                foreach (Edge e in incidentWalls){
+                        keepWall(e);
+                }
+            } else if(incidentWalls.Count == 1){
+                removeWall(incidentWalls[0]);
+            }
+            incidentWalls = vEdge.q.incidentEdges.Where(e => e.isWall).ToList();
+            if( incidentWalls.Count > 1){
+                foreach (Edge e in incidentWalls){
+                        keepWall(e);
+                }
+            } else if(incidentWalls.Count == 1){
+                removeWall(incidentWalls[0]);
+            }
+        }
+
+        private static void keepWall(Edge vEdge){
+            bool bordersOpenCell = false;
+            foreach(Cell eCell in vEdge.cells){
+                foreach(Edge cEdge in eCell.sides){
+                    if(!cEdge.isWall){
+                        bordersOpenCell = true;
+                    }
                 }
             }
-
-            // Sometimes, only a really short wall is removed, so the player still can't fit. Probably a Unity spherecast bug
-            foreach (Edge w in shortDestroyedWalls) {
-                int pwalls = w.p.incidentEdges.Count(e => e.isWall);
-                int qwalls = w.q.incidentEdges.Count(e => e.isWall);
-                float minp = (pwalls > 0)? w.p.incidentEdges.Where(e => e.isWall).Min(e => e.length) : 0;
-                float minq = (qwalls > 0)? w.q.incidentEdges.Where(e => e.isWall).Min(e => e.length) : 0;
-                Vertex v;
-                // knock out the least-connected side
-                if (pwalls < qwalls) {
-                    v = w.p;
-                } else if (pwalls == qwalls) {
-                    if (pwalls == 0) {  // don't do anything if neither have a wall to remove...
-                        continue;
-                    }
-                    v = (minp > minq)? w.q : w.p;
+            if(bordersOpenCell){
+                vEdge.isWallToKeep = true;
+                foreach (Edge e in vEdge.p.incidentEdges.Where(e => e.isWall && !e.isWallToKeep).ToList()){
+                    keepWall(e);
+                }
+                foreach (Edge e in vEdge.q.incidentEdges.Where(e => e.isWall && !e.isWallToKeep).ToList()){
+                    keepWall(e);
+                }
+            }
+            /*
+            vEdge.isWallToKeep = true;
+            foreach (Edge e in vEdge.p.incidentEdges.Where(e => e.isWall).ToList()){
+                if(depth < 1){
+                    keepWall(e, depth + 1);
                 } else {
-                    v = w.q;
-                }
-
-                // remove the shortest edge
-                // float equality is dumb, so this is ugly
-                Edge shortestEdge = null;
-                float s = Mathf.Infinity;
-                foreach (Edge hurr in v.incidentEdges) {
-                    if (hurr.isWall && hurr.length < s) {
-                        shortestEdge = hurr;
-                        s = hurr.length;
-                    }
-                }
-                if (shortestEdge == null) {  // why does this happen?!
-                    continue;
-                }
-                shortestEdge.isWall = false;
-                foreach (GameObject wo in shortestEdge.wallObjects) {
-                    wallsToKeep.Remove(wo);
-                    UnityEngine.Object.Destroy(wo);
+                    e.isWallToKeep = true;
                 }
             }
-
-            return wallsToKeep;
+            foreach (Edge e in vEdge.p.incidentEdges.Where(e => e.isWall).ToList()){
+                if(depth < 1){
+                    keepWall(e, depth + 1);
+                } else {
+                    e.isWallToKeep = true;
+                }
+            }
+            */
         }
 
         /// <summary>
@@ -221,21 +247,48 @@ namespace FiscalShock.Procedural {
         /// </summary>
         /// <param name="d"></param>
         /// <param name="wallsToKeep"></param>
-        private static void destroyLagWalls(Dungeoneer d, List<GameObject> wallsToKeep) {
+        private static void buildWallsToKeep(Dungeoneer d) {
             foreach (VoronoiRoom r in d.roomVoronoi) {
                 foreach (Edge e in r.exterior.sides) {
-                    wallsToKeep.AddRange(e.wallObjects);
+                    if(e.isWall){
+                        e.isWallToKeep = true;
+                    }
                 }
             }
 
-            foreach (GameObject w in GameObject.FindGameObjectsWithTag("Wall")) {
-                if (w != null && !wallsToKeep.Contains(w)) {
-                    WallInfo wi = w.GetComponent<WallInfo>();
-                    if (wi != null) {
-                        wi.associatedEdge.isWall = false;
+            closeEdges(d);
+            
+            //delete extra wallsToKeep and build wall objects
+            foreach( Edge vEdge in d.vd.allEdges){
+                int pCount = vEdge.p.incidentEdges.Where(e => e.isWallToKeep).ToList().Count;
+                int qCount = vEdge.q.incidentEdges.Where(e => e.isWallToKeep).ToList().Count;
+                if ((pCount > 0 && qCount == 0) || (pCount == 0 && qCount > 0)){
+                    vEdge.isWallToKeep = false;
+                }
+                if(!vEdge.isWallToKeep){
+                    vEdge.isWall = false;
+                } else {
+                    constructWallOnEdge(d, vEdge);
+                }
+            }
+        }
+
+        private static void closeEdges(Dungeoneer d) {
+            foreach( Cell c in d.vd.cells){
+                bool edgeCell = false;
+                bool openCell = false;
+                foreach( Edge cEdge in c.sides){
+                    if(!cEdge.isWall){
+                        openCell = true;
                     }
-                    w.name = $"Destroyed {w.name}";
-                    UnityEngine.Object.Destroy(w);
+                    if(cEdge.p.x < 0 || cEdge.p.x > 500 || cEdge.p.y < 0 || cEdge.p.y > 500 || cEdge.q.x < 0 || cEdge.q.x > 500 || cEdge.q.y < 0 || cEdge.q.y > 500){
+                        edgeCell = true;
+                    }
+                }
+                if(edgeCell && openCell){
+                    foreach( Edge cEdge in c.sides){
+                        cEdge.isWallToKeep = true;
+                    }
                 }
             }
         }

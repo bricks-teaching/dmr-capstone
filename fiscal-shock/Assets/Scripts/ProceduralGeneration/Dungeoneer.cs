@@ -217,6 +217,13 @@ namespace FiscalShock.Procedural {
             sw.Stop();
             Debug.Log($"Placing enemies took {sw.ElapsedMilliseconds} ms");
             sw.Reset();
+
+            Debug.Log("Starting wall building");
+            sw.Start();
+            Walls.buildWalls(this);
+            sw.Stop();
+            Debug.Log($"Wall building took {sw.ElapsedMilliseconds} ms");
+            sw.Reset();
         }
 
         /// <summary>

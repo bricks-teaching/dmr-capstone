@@ -13,6 +13,7 @@ namespace FiscalShock.Graphs {
         public List<UnityEngine.GameObject> wallObjects = new List<UnityEngine.GameObject>();
         public float length { get; }
         public bool isWall { get; set; }
+        public bool isWallToKeep { get; set; }
 
         public Edge(Vertex a, Vertex b) {
             vertices = new List<Vertex> { a, b };
