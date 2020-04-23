@@ -89,7 +89,7 @@ public static class StateManager
     public static int totalFloorsVisited { get; set; } = DefaultState.totalFloorsVisited;
     public static int currentFloor { get; set; } = DefaultState.currentFloor;
     public static int scoreChangeFactor { get; set; } = DefaultState.scoreChangeFactor;
-    public static int creditScore { get; set; } = DefaultState.creditScore;
+    public static float creditScore { get; set; } = DefaultState.creditScore;
     public static int paymentStreak { get; set; } = DefaultState.paymentStreak;
     public static float cashOnEntrance { get; set; } = DefaultState.cashOnEntrance;
     public static float averageIncome => income.Average();
@@ -104,7 +104,8 @@ public static class StateManager
     public static bool playerDead = DefaultState.playerDead;
     public static bool playerWon = DefaultState.playerWon;
     public static bool startedFromDungeon = DefaultState.startedFromDungeon;
-    public static int lastCreditScore = DefaultState.creditScore;
+    public static float lastCreditScore = DefaultState.creditScore;
+    public static CreditRating creditBarScript;
 
     /// <summary>
     /// Hitting "esc" to exit GUIs sometimes hits the pause code too,
@@ -206,37 +207,78 @@ public static class StateManager
         } else {
             creditScore += scoreChangeFactor * 5;
         }
+
         // Excellent -------------
-        if (creditScore > 850) {
-            creditScore = 850;
-            rateAdjuster = DefaultState.rateAdjuster * 0.75f;
-            maxLoanAdjuster = DefaultState.maxLoanAdjuster * 1.6f;
-        } else if (creditScore >= 650 && creditScore <= 850) {
-            rateAdjuster = DefaultState.rateAdjuster * 0.75f;
-            maxLoanAdjuster = DefaultState.maxLoanAdjuster * 1.6f;
-        // Good ------------------
-        } else if (creditScore >= 550 && creditScore < 650) {
-            rateAdjuster = DefaultState.rateAdjuster * 0.9f;
-            maxLoanAdjuster = DefaultState.maxLoanAdjuster * 1.2f;
-        // Fair ------------------
-        } else if (creditScore >= 450 && creditScore < 549) {
-            rateAdjuster = DefaultState.rateAdjuster;
-            maxLoanAdjuster = DefaultState.maxLoanAdjuster;
-        // Poor ------------------
-        } else if (creditScore < 450 && creditScore >= 350) {
-            rateAdjuster = DefaultState.rateAdjuster * 1.5f;
-            maxLoanAdjuster = DefaultState.maxLoanAdjuster * 0.75f;
-        // WTF are you doing? ----
-        } else if (creditScore < 350 && creditScore >= 300) {
-            rateAdjuster = DefaultState.rateAdjuster * 2.0f;
-            maxLoanAdjuster = DefaultState.maxLoanAdjuster * 0.5f;
-        } else if (creditScore < 300) {
-            creditScore = 300;
-            rateAdjuster = DefaultState.rateAdjuster * 2.0f;
-            maxLoanAdjuster = DefaultState.maxLoanAdjuster * 0.5f;
+        if (creditScore > ExcellentCredit.max) {
+            creditScore = ExcellentCredit.max;
         }
+        if (creditScore >= ExcellentCredit.min && creditScore <= ExcellentCredit.max) {
+            currentRating = ExcellentCredit;
+        // Good ------------------
+        } else if (creditScore >= GoodCredit.min && creditScore < GoodCredit.max) {
+            currentRating = GoodCredit;
+        // Fair ------------------
+        } else if (creditScore >= FairCredit.min && creditScore < FairCredit.max) {
+            currentRating = FairCredit;
+        // Poor ------------------
+        } else if (creditScore < PoorCredit.max && creditScore >= PoorCredit.min) {
+            currentRating = PoorCredit;
+        // WTF are you doing? ----
+        } else if (creditScore < AbysmalCredit.max) {
+            currentRating = AbysmalCredit;
+        }
+        if (creditScore < AbysmalCredit.min) {
+            creditScore = AbysmalCredit.min;
+        }
+
+        rateAdjuster = DefaultState.rateAdjuster * currentRating.rateModifier;
+        maxLoanAdjuster = DefaultState.maxLoanAdjuster * currentRating.loanModifier;
+        creditScore = Mathf.Round(creditScore);
         Debug.Log($"Credit score for day {timesEntered}: {creditScore}, delta: {creditScore-lastCreditScore}");
+        creditBarScript.updateRatingBar();
     }
+
+    public static CreditScore AbysmalCredit = new CreditScore {
+        min = 300,
+        max = 350,
+        rating = "Abysmal",
+        rateModifier = 2.0f,
+        loanModifier = 0.5f
+    };
+
+    public static CreditScore PoorCredit = new CreditScore {
+        min = 350,
+        max = 450,
+        rating = "Poor",
+        rateModifier = 1.5f,
+        loanModifier = 0.75f
+    };
+
+    public static CreditScore FairCredit = new CreditScore {
+        min = 450,
+        max = 550,
+        rating = "Fair",
+        rateModifier = 1f,
+        loanModifier = 1f
+    };
+
+    public static CreditScore GoodCredit = new CreditScore {
+        min = 550,
+        max = 650,
+        rating = "Good",
+        rateModifier = 0.9f,
+        loanModifier = 1.2f
+    };
+
+    public static CreditScore ExcellentCredit = new CreditScore {
+        min = 650,
+        max = 850,
+        rating = "Excellent",
+        rateModifier = 0.75f,
+        loanModifier = 1.6f
+    };
+
+    public static CreditScore currentRating = FairCredit;
 
     /// <summary>
     /// Resets the StateManager to the default state. Use this when
@@ -262,6 +304,7 @@ public static class StateManager
         playerDead = DefaultState.playerDead;
         playerWon = DefaultState.playerWon;
         startedFromDungeon = DefaultState.startedFromDungeon;
+        currentRating = FairCredit;
     }
 
     public static void destroyAllSingletons() {
@@ -302,4 +345,15 @@ public static class DefaultState {
     public readonly static bool playerDead = false;
     public readonly static bool playerWon = false;
     public readonly static bool startedFromDungeon = true;
+}
+
+public struct CreditScore {
+    public int min;
+    public int max;
+    public string rating;
+
+    public float rateModifier;
+    public float loanModifier;
+
+    public int range => max - min;
 }

@@ -13,6 +13,7 @@ public class InGameMenu : MonoBehaviour {
     public GameObject optionsPanel;
     public GameObject quitPanel;
     public GameObject graphicsPanel;
+    public GameObject creditBar;
     private List<GameObject> panels { get; } = new List<GameObject>();
     public GameObject player { get; set; }
     public TextMeshProUGUI pauseText;
@@ -24,6 +25,8 @@ public class InGameMenu : MonoBehaviour {
     private TextMeshProUGUI fpsText;
     public GraphicsWidgets widgets;
 
+    private bool loadedDropdowns;
+
     void Awake() {
         if (inGameMenuInstance != null && inGameMenuInstance != this) {
             Destroy(this.gameObject);
@@ -33,7 +36,6 @@ public class InGameMenu : MonoBehaviour {
         }
         DontDestroyOnLoad(this.gameObject);
         StateManager.singletons.Add(this.gameObject);
-        populateDropdowns();
     }
 
     private void Start() {
@@ -44,10 +46,10 @@ public class InGameMenu : MonoBehaviour {
         panels.Add(quitPanel);
         panels.Add(graphicsPanel);
         panels.Add(inventoryPanel);
+        panels.Add(creditBar);
         disableAllPanels();
         player = GameObject.FindGameObjectWithTag("Player");
         fpsText = GameObject.FindGameObjectWithTag("HUD").transform.Find("FPS").gameObject.GetComponent<TextMeshProUGUI>();
-        loadAllWidgetsFromCurrentState();
     }
 
     public float volume {
@@ -137,6 +139,7 @@ public class InGameMenu : MonoBehaviour {
             pauseText.text = "PAUSED";
             Settings.forceUnlockCursorState();
             background.SetActive(true);
+            creditBar.SetActive(true);
             pausePanel.SetActive(true);
         }
     }
@@ -175,14 +178,20 @@ public class InGameMenu : MonoBehaviour {
 
     public void CancelClick() {
         disableAllPanelsExcept(pausePanel);
+        creditBar.SetActive(true);
     }
 
     public void BackClick() {
         disableAllPanelsExcept(pausePanel);
+        creditBar.SetActive(true);
     }
 
     public void GraphicsClick() {
         disableAllPanelsExcept(graphicsPanel);
+        if (!loadedDropdowns) {
+            populateDropdowns();
+            loadedDropdowns = true;
+        }
     }
 
     /* graphics stuff */
