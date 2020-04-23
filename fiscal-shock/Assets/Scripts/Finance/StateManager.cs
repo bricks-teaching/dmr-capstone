@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System;
+using TMPro;
 
 /// <summary>
 /// Represents a single loan.
@@ -104,7 +105,7 @@ public static class StateManager
     public static bool playerDead = DefaultState.playerDead;
     public static bool playerWon = DefaultState.playerWon;
     public static bool startedFromDungeon = DefaultState.startedFromDungeon;
-    public static float lastCreditScore = DefaultState.creditScore;
+    public static float lastCreditScore = 0;
     public static CreditRating creditBarScript;
 
     /// <summary>
@@ -235,6 +236,10 @@ public static class StateManager
         maxLoanAdjuster = DefaultState.maxLoanAdjuster * currentRating.loanModifier;
         creditScore = Mathf.Round(creditScore);
         Debug.Log($"Credit score for day {timesEntered}: {creditScore}, delta: {creditScore-lastCreditScore}");
+        if (creditBarScript == null) {
+            creditBarScript = GameObject.FindObjectOfType<CreditRating>();
+            Debug.Log("it was nul");
+        }
         creditBarScript.updateRatingBar();
     }
 
@@ -294,6 +299,7 @@ public static class StateManager
         totalFloorsVisited = DefaultState.totalFloorsVisited;
         currentFloor = DefaultState.currentFloor;
         scoreChangeFactor = DefaultState.scoreChangeFactor;
+        lastCreditScore = 0;
         creditScore = DefaultState.creditScore;
         paymentStreak = DefaultState.paymentStreak;
         cashOnEntrance = DefaultState.cashOnEntrance;

@@ -1,8 +1,8 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class CreditRating : MonoBehaviour {
     public Image abysmal;
@@ -11,18 +11,22 @@ public class CreditRating : MonoBehaviour {
     public Image good;
     public Image excellent;
     public TextMeshProUGUI texto;
+    public TextMeshProUGUI delta;
 
     public void Awake() {
-        StateManager.creditBarScript = this;
         Invoke("updateRatingBar", 1f);
+    }
+
+    public void OnEnable() {
+        StateManager.creditBarScript = this;
     }
 
     /// <summary>
     /// Refresh the credit rating bar on the pause menu.
     /// </summary>
     public void updateRatingBar() {
-        gameObject.GetComponent<RectTransform>().localScale = new Vector3(1, 0, 1);
-        gameObject.SetActive(true);
+        //gameObject.SetActive(true);
+        //gameObject.GetComponent<RectTransform>().localScale = new Vector3(1, 0, 1);
 
         excellent.fillAmount = Mathf.Clamp01((StateManager.creditScore - StateManager.ExcellentCredit.min) / StateManager.ExcellentCredit.range);
         good.fillAmount = Mathf.Clamp01((StateManager.creditScore - StateManager.GoodCredit.min) / StateManager.GoodCredit.range);
@@ -43,7 +47,40 @@ public class CreditRating : MonoBehaviour {
             texto.color = abysmal.color;
         }
         texto.text = StateManager.currentRating.rating;
-        gameObject.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
-        gameObject.SetActive(false);
+        //gameObject.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+        int deltint = Mathf.RoundToInt(StateManager.creditScore - StateManager.lastCreditScore);
+        delta.text = $"{(deltint > 0? "+" : "")}{deltint}";
+        if (StateManager.lastCreditScore < StateManager.AbysmalCredit.min) {
+            delta.text = "";
+        }
+        if (deltint > 0) {
+            delta.color = excellent.color;
+        } else if (deltint < 0) {
+            delta.color = abysmal.color;
+        } else {
+            delta.color = Color.white;
+        }
+        //gameObject.SetActive(false);
+        StartCoroutine(showCreditDelta(deltint));
+    }
+
+    public IEnumerator showCreditDelta(int deltint) {
+        if (StateManager.income.Count > 0) {
+            TextMeshProUGUI pt = GameObject.FindGameObjectWithTag("Player Text").GetComponent<TextMeshProUGUI>();
+            if (deltint > 0) {
+                pt.color = Color.green;
+            } else if (deltint < 0) {
+                pt.color = Color.red;
+            } else {
+                pt.color = Color.white;
+            }
+            pt.text = $"Credit score change:\n{(deltint > 0? "+" : "")}{deltint}";
+            for (float i = 2f; i >= 0; i -= Time.deltaTime) {
+                pt.color = new Color(pt.color.r, pt.color.g, pt.color.b, i/2f);
+                yield return null;
+            }
+            pt.color = new Color(pt.color.r, pt.color.g, pt.color.b, 0);
+        }
+        yield return null;
     }
 }

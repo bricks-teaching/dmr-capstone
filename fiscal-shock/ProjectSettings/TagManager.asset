@@ -23,6 +23,7 @@ TagManager:
   - Loading Screen
   - Assistant
   - Player Inventory
+  - Player Text
   layers:
   - Default
   - TransparentFX
