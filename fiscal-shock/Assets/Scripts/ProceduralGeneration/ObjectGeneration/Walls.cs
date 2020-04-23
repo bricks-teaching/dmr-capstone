@@ -223,23 +223,6 @@ namespace FiscalShock.Procedural {
                     keepWall(e);
                 }
             }
-            /*
-            vEdge.isWallToKeep = true;
-            foreach (Edge e in vEdge.p.incidentEdges.Where(e => e.isWall).ToList()){
-                if(depth < 1){
-                    keepWall(e, depth + 1);
-                } else {
-                    e.isWallToKeep = true;
-                }
-            }
-            foreach (Edge e in vEdge.p.incidentEdges.Where(e => e.isWall).ToList()){
-                if(depth < 1){
-                    keepWall(e, depth + 1);
-                } else {
-                    e.isWallToKeep = true;
-                }
-            }
-            */
         }
 
         /// <summary>
@@ -258,13 +241,8 @@ namespace FiscalShock.Procedural {
 
             closeEdges(d);
             
-            //delete extra wallsToKeep and build wall objects
+            //build wall objects
             foreach( Edge vEdge in d.vd.allEdges){
-                int pCount = vEdge.p.incidentEdges.Where(e => e.isWallToKeep).ToList().Count;
-                int qCount = vEdge.q.incidentEdges.Where(e => e.isWallToKeep).ToList().Count;
-                if ((pCount > 0 && qCount == 0) || (pCount == 0 && qCount > 0)){
-                    vEdge.isWallToKeep = false;
-                }
                 if(!vEdge.isWallToKeep){
                     vEdge.isWall = false;
                 } else {
