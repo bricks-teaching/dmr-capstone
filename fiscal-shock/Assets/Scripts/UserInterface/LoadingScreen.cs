@@ -78,10 +78,11 @@ public class LoadingScreen : MonoBehaviour {
                 clickText.enabled = true;
             }
             percentText.text = $"{(int)(progressBar.value * 100)}%";
-            if ((Input.GetMouseButtonDown(0) || (async.progress > 0.8f && nextScene != "Dungeon" && nextScene != "LoseGame")) && !async.allowSceneActivation) {
-                Debug.Log("Allowing scene activation");
+            if (((Input.GetMouseButtonDown(0) && async.progress > 0f) || (async.progress > 0.8f && nextScene != "Dungeon" && nextScene != "LoseGame")) && !async.allowSceneActivation) {
+                Debug.Log($"Allowing scene activation for {nextScene}");
                 async.allowSceneActivation = true;
                 clickText.text = "Please wait...";
+                clickText.enabled = true;
             }
             if (async.allowSceneActivation && nextScene == "Dungeon") {
                 StartCoroutine(restartTime());

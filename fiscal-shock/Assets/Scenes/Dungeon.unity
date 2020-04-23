@@ -1485,6 +1485,46 @@ PrefabInstance:
       propertyPath: enemyRate
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
+        type: 3}
+      propertyPath: obstacles.Array.data[23].weight
+      value: 0.159
+      objectReference: {fileID: 0}
+    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
+        type: 3}
+      propertyPath: obstacles.Array.data[25].weight
+      value: 0.169
+      objectReference: {fileID: 0}
+    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
+        type: 3}
+      propertyPath: obstacles.Array.data[21].weight
+      value: 0.163
+      objectReference: {fileID: 0}
+    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
+        type: 3}
+      propertyPath: obstacles.Array.data[19].weight
+      value: 0.113
+      objectReference: {fileID: 0}
+    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
+        type: 3}
+      propertyPath: obstacles.Array.data[18].weight
+      value: 0.279
+      objectReference: {fileID: 0}
+    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
+        type: 3}
+      propertyPath: obstacles.Array.data[12].weight
+      value: 0.335
+      objectReference: {fileID: 0}
+    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
+        type: 3}
+      propertyPath: obstacles.Array.data[11].weight
+      value: 0.304
+      objectReference: {fileID: 0}
+    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
+        type: 3}
+      propertyPath: obstacles.Array.data[13].weight
+      value: 0.329
+      objectReference: {fileID: 0}
     - target: {fileID: 3016848092569763618, guid: 9fab72962231bdd5c88e42061619ec50,
         type: 3}
       propertyPath: m_LocalPosition.x

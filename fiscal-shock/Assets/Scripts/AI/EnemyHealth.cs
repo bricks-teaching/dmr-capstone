@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using FiscalShock.Procedural;
 using System;
 
 //This script controls the health of enemy bots
@@ -134,8 +135,10 @@ public class EnemyHealth : MonoBehaviour {
         currentHealth -= damage;
 
         if (currentHealth <= 0 && !dead) {
-            // Get up to half the original health as payback
-            float profit = pointValue + (Mathf.Clamp(prevHealth, 1, startingHealth/2) * paybackMultiplier);
+            // Temporary boost to earnings for usability testing as we don't have time to fully adjust enemy stats and it's sometimes very hard to earn cash
+            float temporaryBonusMod = Gaussian.next(1.6f, 0.5f);
+            // Get up to half the original health as payback, adjusted due to fish cannon scoring too much cash because it OHKOs right now
+            float profit = (pointValue + Mathf.Clamp(prevHealth, 1, startingHealth * paybackMultiplier)) * temporaryBonusMod;
             StateManager.cashOnHand += profit;
             float deathDuration = animationManager.playDeathAnimation();
             GetComponent<EnemyMovement>().enabled = false;

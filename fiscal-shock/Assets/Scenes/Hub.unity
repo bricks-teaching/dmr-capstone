@@ -2497,6 +2497,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Loan Shark
       objectReference: {fileID: 0}
+    - target: {fileID: 5602052160280962990, guid: 80c269370517631b786b88b234882b1c,
+        type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5602420468938309236, guid: 80c269370517631b786b88b234882b1c,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -2678,6 +2683,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: dismissTutorial
+      objectReference: {fileID: 0}
+    - target: {fileID: 7284600361333633369, guid: 84799466cc8d9f321a88138ad2940097,
+        type: 3}
+      propertyPath: m_text
+      value: Money makes the world go 'round. Especially here, where your wallet
+        is literally your life! The only weapons you can buy here use money as ammunition.
+        To pay off your debts, you'll need to manage your finances wisely, <i>and</i>
+        be careful while hunting down the bots. You can view your credit score from
+        the pause menu. Your credit rating determines the kind of deals lenders are
+        willing to make with you.
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84799466cc8d9f321a88138ad2940097, type: 3}
