@@ -95,7 +95,8 @@ public class Creditor : MonoBehaviour {
     void Update()
     {
         if (playerIsInTriggerZone) {
-            if (Input.GetKeyDown(Settings.interactKey)) {
+            if (Input.GetKeyDown(Settings.interactKey) && !tutorial.activeSelf) {
+                Time.timeScale = 0;
                 Settings.forceUnlockCursorState();
                 updateFields();
                 creditorPanel.SetActive(true);
@@ -259,7 +260,9 @@ public class Creditor : MonoBehaviour {
     /// Turns off the panel and allows full movement/pause control
     /// </summary>
     public void BackClick() {
+        Time.timeScale = 1;
         dialogText.text = defaultText;
+        tutorial.SetActive(false);
         creditorPanel.SetActive(false);
         Settings.forceLockCursorState();
         StartCoroutine(StateManager.makePauseAvailableAgain());

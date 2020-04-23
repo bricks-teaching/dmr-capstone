@@ -289,6 +289,7 @@ public static class DefaultState {
     public readonly static int nextID = 0;
     public readonly static int timesEntered = 0;
     public readonly static int currentFloor = 0;
+    public readonly static int totalFloorsVisited = 0;
     public readonly static int scoreChangeFactor = 3;
     public readonly static int creditScore = 500;
     public readonly static int paymentStreak = 0;
