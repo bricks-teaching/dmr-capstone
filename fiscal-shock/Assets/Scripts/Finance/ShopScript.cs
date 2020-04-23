@@ -142,6 +142,11 @@ public class ShopScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Attempts to purchase a weapon and displays dialog based on the result
+    /// of the attempt.
+    /// </summary>
+    /// <param name="slot"></param>
     public void purchaseWeapon(int slot) {
         ShopInventorySlot shopSlot = inventorySlots[slot];
         GameObject selection = inventory[slot];
@@ -173,6 +178,10 @@ public class ShopScript : MonoBehaviour
         dialogText.text = getRandomDialog(purchaseDialogs);
     }
 
+    /// <summary>
+    /// On click this method activates, granting the user control of
+    /// the mouse and returning them to the hub.
+    /// </summary>
     public void BackClick()
     {
         dialogText.text = "What are ya buyin'?";

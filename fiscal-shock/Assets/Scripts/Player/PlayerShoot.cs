@@ -213,6 +213,9 @@ public class PlayerShoot : MonoBehaviour {
         yield return null;
     }
 
+    /// <summary>
+    /// Updates weapon slot and enables weapon object
+    /// </summary>
     public void LoadWeapon() {
         if ((guns == null || guns.Count-1 < slot) || ((weapon != null && weapon.activeSelf) && (guns[slot] == weapon || state.holsteringWeapon))) {
             return;
