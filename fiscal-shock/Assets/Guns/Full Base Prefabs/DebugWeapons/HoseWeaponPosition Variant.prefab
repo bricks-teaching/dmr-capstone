@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &4596527988602763106
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1791585938930561494, guid: 8ee7af87563c59148bb353469c36a34a,
+        type: 3}
+      propertyPath: aimJitter
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1791585938930561494, guid: 8ee7af87563c59148bb353469c36a34a,
+        type: 3}
+      propertyPath: weaponName
+      value: Molehill Mountain
+      objectReference: {fileID: 0}
+    - target: {fileID: 1791585938930561494, guid: 8ee7af87563c59148bb353469c36a34a,
+        type: 3}
+      propertyPath: fireSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 17d1cc09103cfafcaac9fa24c4518281, type: 3}
+    - target: {fileID: 3523152100263174595, guid: 8ee7af87563c59148bb353469c36a34a,
+        type: 3}
+      propertyPath: m_Name
+      value: HoseWeaponPosition Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 3523152100263174595, guid: 8ee7af87563c59148bb353469c36a34a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6300237158488943092, guid: 8ee7af87563c59148bb353469c36a34a,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6300237158488943092, guid: 8ee7af87563c59148bb353469c36a34a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6300237158488943092, guid: 8ee7af87563c59148bb353469c36a34a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 6300237158488943092, guid: 8ee7af87563c59148bb353469c36a34a,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6300237158488943092, guid: 8ee7af87563c59148bb353469c36a34a,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6300237158488943092, guid: 8ee7af87563c59148bb353469c36a34a,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6300237158488943092, guid: 8ee7af87563c59148bb353469c36a34a,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6300237158488943092, guid: 8ee7af87563c59148bb353469c36a34a,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6300237158488943092, guid: 8ee7af87563c59148bb353469c36a34a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6300237158488943092, guid: 8ee7af87563c59148bb353469c36a34a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6300237158488943092, guid: 8ee7af87563c59148bb353469c36a34a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8ee7af87563c59148bb353469c36a34a, type: 3}

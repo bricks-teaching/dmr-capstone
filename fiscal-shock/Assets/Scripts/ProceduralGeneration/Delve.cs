@@ -23,6 +23,8 @@ namespace FiscalShock.Procedural {
 
         private void OnTriggerEnter(Collider collider) {
             if (collider.gameObject.tag == "Player") {
+                StateManager.totalFloorsVisited++;
+                StateManager.currentFloor++;
                 loadScript.startLoadingScreen("Dungeon");
             }
         }

@@ -4,6 +4,7 @@ using UnityEngine;
 using FiscalShock.Graphs;
 using ThirdParty;
 using UnityEngine.Rendering;
+using FiscalShock.GUI;
 
 /// <summary>
 /// Generates a dungeon floor
@@ -18,6 +19,17 @@ namespace FiscalShock.Procedural {
 
         [Tooltip("Available dungeon themes.")]
         public List<DungeonTypeData> dungeonThemes;
+
+        [Header("Development/Debug")]
+        [Tooltip("List of weapons to start with when you load the game from this scene directly.")]
+        public List<GameObject> debugWeapons;
+
+        [Tooltip("Cash on hand to start at.")]
+        public float debugCash;
+        [Tooltip("Set the state manager value")]
+        public int timesEntered;
+        [Tooltip("Set the state manager value")]
+        public int currentFloor;
 
         /* Variables set during runtime */
         public DungeonType currentDungeonType { get; set; }
@@ -143,7 +155,7 @@ namespace FiscalShock.Procedural {
             spanningTree = masterDt.findSpanningTreeBFS();
 
             // add back some edges from triangulation to provide multiple routes
-            int edgesToAddBack = Mathf.CeilToInt(masterDt.edges.Count * currentDungeonType.percentageOfEdgesToAddBack);
+            int edgesToAddBack = Mathf.CeilToInt((masterDt.edges.Count - spanningTree.Count) * currentDungeonType.percentageOfEdgesToAddBack);
             for (int i = 0; i < edgesToAddBack; ++i) {
                 // randomly pick an edge
                 int t;
@@ -152,6 +164,7 @@ namespace FiscalShock.Procedural {
                     t = mt.Next(0, masterDt.edges.Count-1);
                     e = masterDt.edges[t];
                 } while (spanningTree.Contains(e));
+                spanningTree.Add(e);
             }
 
             // do voronoi blending around points using the original voronoi cells
@@ -301,9 +314,30 @@ namespace FiscalShock.Procedural {
         /// Randomize and spawn enemies.
         /// </summary>
         private void spawnEnemies() {
+            if (StateManager.startedFromDungeon) {
+                Debug.Log("Adjusting state manager");
+                StateManager.timesEntered = timesEntered;
+                StateManager.currentFloor = currentFloor;
+            }
             Debug.Log("Spawning enemies");
+            // Global flatter mod based on times entered
+            float globalModifier = Mathf.Clamp(Mathf.Log(StateManager.timesEntered+1, 3), 0.5f, Mathf.Infinity);
+
+            // Scale point value to reward going deeper. Close to double by B3F, 3x by B5F, etc. Scale enemy damage with respect to this!
+            float pointValueModifier = ((Mathf.Log(StateManager.currentFloor+1, 1.15f) * (StateManager.currentFloor+1)/32) + 1) * globalModifier;
+
+            // Flatter health mod
+            float healthModifier = Mathf.Log(StateManager.currentFloor+1, 2.7f) * globalModifier;
+
+            // Damage mod
+            float damageModifier = ((Mathf.Log(StateManager.currentFloor+1, 2) * StateManager.currentFloor/12) + 0.5f) * globalModifier;
+
+            // Not strongly recommended to alter speed. Enemies could eventually get ridiculously fast, and then it's not very fun. Would also imply we should increase animation speeds, so that would track more stuff. Must be very careful and definitely use an asymptotic function to prevent ludicrous speed
+
+            // Accuracy could be improved, but I'm not worrying about it right now
+
+            Debug.Log($"Enemy stat modifiers: global {globalModifier}, value {pointValueModifier}, health {healthModifier}, damage {damageModifier}");
             foreach (Cell cell in vd.cells) {
-            //foreach (Cell cell in validCells) {
                 // Don't spawn things on the convex hull for now
                 if (isPointOnOrNearConvexHull(cell.site) || cell.sides.All(e => e.isWall)) {
                     continue;
@@ -327,7 +361,11 @@ namespace FiscalShock.Procedural {
                     enemy.transform.localScale = new Vector3(enemy.transform.localScale.x * enemySize, enemy.transform.localScale.y * enemySize, enemy.transform.localScale.z * enemySize);
 
                     // Adjust enemy stats based on SpawnableEnemy setup
-
+                    EnemyHealth eh = enemy.GetComponent<EnemyHealth>();
+                    EnemyShoot es = enemy.GetComponent<EnemyShoot>();
+                    eh.pointValue *= pointValueModifier;
+                    eh.startingHealth *= healthModifier;
+                    es.attackDamage *= damageModifier;
                 }
             }
         }
@@ -387,12 +425,6 @@ namespace FiscalShock.Procedural {
             SpawnPoint spawner = GameObject.FindGameObjectWithTag("Spawn Point").GetComponent<SpawnPoint>();
             spawner.transform.position = spawnPoint.toVector3AtHeight(currentDungeonType.wallHeight * 0.8f);
             player = spawner.spawnPlayer();
-            if (!StateManager.purchasedHose && !StateManager.purchasedLauncher) {  // implies started from dungeon scene
-                // Give player all weapons when starting in dungeon, since that implies it's a dev starting in the editor
-                StateManager.purchasedHose = true;
-                StateManager.purchasedLauncher = true;
-                StateManager.cashOnHand = 100f;
-            }
 
             // Attach any other stuff to player here
             Cheats cheater = GameObject.FindObjectOfType<Cheats>();
@@ -411,7 +443,17 @@ namespace FiscalShock.Procedural {
             // Enable firing script (disabled in hub)
             PlayerShoot shootScript = player.GetComponentInChildren<PlayerShoot>();
             shootScript.enabled = true;
-            shootScript.Start();
+
+            if (StateManager.startedFromDungeon) {
+                // Give player weapons when starting in dungeon, since that implies it's a dev starting in the editor
+                Debug.Log("Looks like you launched this scene directly from the editor. Here's some free stuff...");
+                StateManager.cashOnHand = debugCash;
+                Inventory playerInventory = GameObject.FindGameObjectWithTag("Player Inventory").GetComponentInChildren<Inventory>();
+                foreach (GameObject weapon in debugWeapons) {
+                    GameObject realWeapon = Instantiate(weapon);
+                    playerInventory.addWeapon(realWeapon);
+                }
+            }
 
             // Enable temporary player invincibility on spawn
             StartCoroutine(player.GetComponentInChildren<PlayerHealth>().enableIframes(5f));

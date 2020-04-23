@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System;
+using TMPro;
 
 /// <summary>
 /// Represents a single loan.
@@ -86,26 +87,26 @@ public static class StateManager
     public static int nextID { get; set; } = DefaultState.nextID;
     public static int totalLoans => loanList.Count;
     public static int timesEntered { get; set; } = DefaultState.timesEntered;
+    public static int totalFloorsVisited { get; set; } = DefaultState.totalFloorsVisited;
     public static int currentFloor { get; set; } = DefaultState.currentFloor;
     public static int scoreChangeFactor { get; set; } = DefaultState.scoreChangeFactor;
-    public static int creditScore { get; set; } = DefaultState.creditScore;
+    public static float creditScore { get; set; } = DefaultState.creditScore;
     public static int paymentStreak { get; set; } = DefaultState.paymentStreak;
     public static float cashOnEntrance { get; set; } = DefaultState.cashOnEntrance;
     public static float averageIncome => income.Average();
     public static float rateAdjuster = DefaultState.rateAdjuster;
     public static float maxLoanAdjuster = DefaultState.maxLoanAdjuster;
-    public static bool purchasedHose = DefaultState.purchasedHose;
-    public static bool purchasedLauncher = DefaultState.purchasedLauncher;
-
     public static DungeonTypeEnum selectedDungeon { get; set; }
-    public static bool sawEntryTutorial = false;
-    public static bool inStoryTutorial = false;
+    public static bool sawEntryTutorial = DefaultState.sawEntryTutorial;
+    public static bool inStoryTutorial = DefaultState.inStoryTutorial;
 
     public static List<GameObject> singletons = new List<GameObject>();
-    public static bool pauseAvailable = true;
-    public static bool playerDead = false;
-    public static bool playerWon = false;
-    public static int lastCreditScore = DefaultState.creditScore;
+    public static bool pauseAvailable = DefaultState.pauseAvailable;
+    public static bool playerDead = DefaultState.playerDead;
+    public static bool playerWon = DefaultState.playerWon;
+    public static bool startedFromDungeon = DefaultState.startedFromDungeon;
+    public static float lastCreditScore = 0;
+    public static CreditRating creditBarScript;
 
     /// <summary>
     /// Hitting "esc" to exit GUIs sometimes hits the pause code too,
@@ -207,37 +208,82 @@ public static class StateManager
         } else {
             creditScore += scoreChangeFactor * 5;
         }
+
         // Excellent -------------
-        if (creditScore > 850) {
-            creditScore = 850;
-            rateAdjuster = DefaultState.rateAdjuster * 0.75f;
-            maxLoanAdjuster = DefaultState.maxLoanAdjuster * 1.6f;
-        } else if (creditScore >= 650 && creditScore <= 850) {
-            rateAdjuster = DefaultState.rateAdjuster * 0.75f;
-            maxLoanAdjuster = DefaultState.maxLoanAdjuster * 1.6f;
-        // Good ------------------
-        } else if (creditScore >= 550 && creditScore < 650) {
-            rateAdjuster = DefaultState.rateAdjuster * 0.9f;
-            maxLoanAdjuster = DefaultState.maxLoanAdjuster * 1.2f;
-        // Fair ------------------
-        } else if (creditScore >= 450 && creditScore < 549) {
-            rateAdjuster = DefaultState.rateAdjuster;
-            maxLoanAdjuster = DefaultState.maxLoanAdjuster;
-        // Poor ------------------
-        } else if (creditScore < 450 && creditScore >= 350) {
-            rateAdjuster = DefaultState.rateAdjuster * 1.5f;
-            maxLoanAdjuster = DefaultState.maxLoanAdjuster * 0.75f;
-        // WTF are you doing? ----
-        } else if (creditScore < 350 && creditScore >= 300) {
-            rateAdjuster = DefaultState.rateAdjuster * 2.0f;
-            maxLoanAdjuster = DefaultState.maxLoanAdjuster * 0.5f;
-        } else if (creditScore < 300) {
-            creditScore = 300;
-            rateAdjuster = DefaultState.rateAdjuster * 2.0f;
-            maxLoanAdjuster = DefaultState.maxLoanAdjuster * 0.5f;
+        if (creditScore > ExcellentCredit.max) {
+            creditScore = ExcellentCredit.max;
         }
+        if (creditScore >= ExcellentCredit.min && creditScore <= ExcellentCredit.max) {
+            currentRating = ExcellentCredit;
+        // Good ------------------
+        } else if (creditScore >= GoodCredit.min && creditScore < GoodCredit.max) {
+            currentRating = GoodCredit;
+        // Fair ------------------
+        } else if (creditScore >= FairCredit.min && creditScore < FairCredit.max) {
+            currentRating = FairCredit;
+        // Poor ------------------
+        } else if (creditScore < PoorCredit.max && creditScore >= PoorCredit.min) {
+            currentRating = PoorCredit;
+        // WTF are you doing? ----
+        } else if (creditScore < AbysmalCredit.max) {
+            currentRating = AbysmalCredit;
+        }
+        if (creditScore < AbysmalCredit.min) {
+            creditScore = AbysmalCredit.min;
+        }
+
+        rateAdjuster = DefaultState.rateAdjuster * currentRating.rateModifier;
+        maxLoanAdjuster = DefaultState.maxLoanAdjuster * currentRating.loanModifier;
+        creditScore = Mathf.Round(creditScore);
         Debug.Log($"Credit score for day {timesEntered}: {creditScore}, delta: {creditScore-lastCreditScore}");
+        if (creditBarScript == null) {
+            creditBarScript = GameObject.FindObjectOfType<CreditRating>();
+            Debug.Log("it was nul");
+        }
+        creditBarScript.updateRatingBar();
     }
+
+    public static CreditScore AbysmalCredit = new CreditScore {
+        min = 300,
+        max = 350,
+        rating = "Abysmal",
+        rateModifier = 2.0f,
+        loanModifier = 0.5f
+    };
+
+    public static CreditScore PoorCredit = new CreditScore {
+        min = 350,
+        max = 450,
+        rating = "Poor",
+        rateModifier = 1.5f,
+        loanModifier = 0.75f
+    };
+
+    public static CreditScore FairCredit = new CreditScore {
+        min = 450,
+        max = 550,
+        rating = "Fair",
+        rateModifier = 1f,
+        loanModifier = 1f
+    };
+
+    public static CreditScore GoodCredit = new CreditScore {
+        min = 550,
+        max = 650,
+        rating = "Good",
+        rateModifier = 0.9f,
+        loanModifier = 1.2f
+    };
+
+    public static CreditScore ExcellentCredit = new CreditScore {
+        min = 650,
+        max = 850,
+        rating = "Excellent",
+        rateModifier = 0.75f,
+        loanModifier = 1.6f
+    };
+
+    public static CreditScore currentRating = FairCredit;
 
     /// <summary>
     /// Resets the StateManager to the default state. Use this when
@@ -250,18 +296,31 @@ public static class StateManager
         income.Clear();
         nextID = DefaultState.nextID;
         timesEntered = DefaultState.timesEntered;
+        totalFloorsVisited = DefaultState.totalFloorsVisited;
         currentFloor = DefaultState.currentFloor;
         scoreChangeFactor = DefaultState.scoreChangeFactor;
+        lastCreditScore = 0;
         creditScore = DefaultState.creditScore;
         paymentStreak = DefaultState.paymentStreak;
         cashOnEntrance = DefaultState.cashOnEntrance;
-        purchasedHose = DefaultState.purchasedHose;
-        purchasedLauncher = DefaultState.purchasedLauncher;
-        sawEntryTutorial = DefaultState.sawTutorial;
-        singletons.Clear();
+        sawEntryTutorial = DefaultState.sawEntryTutorial;
+        inStoryTutorial = DefaultState.inStoryTutorial;
+        destroyAllSingletons();
         pauseAvailable = DefaultState.pauseAvailable;
         playerDead = DefaultState.playerDead;
         playerWon = DefaultState.playerWon;
+        startedFromDungeon = DefaultState.startedFromDungeon;
+        currentRating = FairCredit;
+    }
+
+    public static void destroyAllSingletons() {
+        foreach (GameObject go in singletons) {
+            if (go != null) {
+                Debug.Log($"Destroying {go.name} during state reset");
+                UnityEngine.Object.Destroy(go);
+            }
+        }
+        singletons.Clear();
         lenders.Clear();
         rateAdjuster = DefaultState.rateAdjuster;
         maxLoanAdjuster = DefaultState.maxLoanAdjuster;
@@ -279,16 +338,28 @@ public static class DefaultState {
     public readonly static int nextID = 0;
     public readonly static int timesEntered = 0;
     public readonly static int currentFloor = 0;
+    public readonly static int totalFloorsVisited = 0;
     public readonly static int scoreChangeFactor = 3;
     public readonly static int creditScore = 500;
     public readonly static int paymentStreak = 0;
     public readonly static float cashOnEntrance = 0.0f;
     public readonly static float rateAdjuster = 1.0f;
     public readonly static float maxLoanAdjuster = 1.0f;
-    public readonly static bool purchasedHose = false;
-    public readonly static bool purchasedLauncher = false;
-    public readonly static bool sawTutorial = false;
+    public readonly static bool sawEntryTutorial = false;
+    public readonly static bool inStoryTutorial = false;
     public readonly static bool pauseAvailable = true;
     public readonly static bool playerDead = false;
     public readonly static bool playerWon = false;
+    public readonly static bool startedFromDungeon = true;
+}
+
+public struct CreditScore {
+    public int min;
+    public int max;
+    public string rating;
+
+    public float rateModifier;
+    public float loanModifier;
+
+    public int range => max - min;
 }

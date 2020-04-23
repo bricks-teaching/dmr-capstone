@@ -269,7 +269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 4
-  rotationSpeed: 4
+  rotationSpeed: 2
   safeRadiusMin: 6
   safeRadiusMax: 12
   visionRadius: 35
@@ -288,14 +288,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f68e720f3aa4cc14195f091adebae93f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 45
+  startingHealth: 35
   explosion: {fileID: 4856741112863513470, guid: c4dccf8958d42ac48a60fefb19d80fb9,
     type: 3}
   bigExplosion: {fileID: 2325299992133255240, guid: e5b7d650597f4c3458a6cf6e4f10702e,
     type: 3}
   hitSoundClip: {fileID: 8300000, guid: 861e537fb624418428af6d6d55c73dfb, type: 3}
   hitSound: {fileID: 8808183122978752604}
-  pointValue: 25
+  pointValue: 35
   animationManager: {fileID: 1910695017394205952}
   stunEffect: {fileID: 2784873302202904049}
   enmityActive: 0

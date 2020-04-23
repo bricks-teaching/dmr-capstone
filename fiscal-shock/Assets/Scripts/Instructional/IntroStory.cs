@@ -1,10 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using FiscalShock.GUI;
 
 public class IntroStory : MonoBehaviour {
+    public List<GameObject> tutorialWeapons;
+    public Inventory playerInventory;
     public TextMeshProUGUI storyLine1;
     public TextMeshProUGUI storyLine2;
     public GameObject player;
@@ -41,8 +43,8 @@ public class IntroStory : MonoBehaviour {
                                 "only living human employed there.",
                                 "Follow me... I wanna test your skills.",
                                 "(You break it, you buy it!)",
-                                "<i>Press the Left Mouse Button to fire your weapon.",
-                                "<i>Press 2 and 1 to switch between weapons.",
+                                "<i>Press the Left Mouse Button to fire your weapon.</i>",
+                                "<i>Press 2 or use the scroll wheel.</i>",
                                 "so here's our deal...",
                                 "down, you can use it to get yourself out of debt.",
                                 "",
@@ -56,25 +58,26 @@ public class IntroStory : MonoBehaviour {
     private Vector3 rotateFrom;
     private Vector3 rotateCameraFrom;
     private Vector3 stareAtMilkman = new Vector3(-75.06f, -4.36f, 114.66f);
-    private PlayerHealth healthScript;
     private PlayerShoot playerShoot;
     private MouseLook mouseLook;
 
     void Start() {
+        storyCamera = GameObject.FindGameObjectWithTag("MainCamera");
+        mouseLook = storyCamera.GetComponent<MouseLook>();
+        playerShoot = player.GetComponentInChildren<PlayerShoot>();
+        player.GetComponentInChildren<PlayerMovement>().enabled = false;
+
         StateManager.inStoryTutorial = true;
-        player = Instantiate(player, stareAtMilkman, Quaternion.Euler(1.47f, -37f, 0));
-        storyCamera = player.GetComponentInChildren<Camera>().gameObject;
+
+        playerShoot.enabled = false;
         introStory1 = storiesTop[storyPosition];
         introStory2 = storiesBottom[storyPosition];
         Time.timeScale = 0;
-        healthScript = player.GetComponent<PlayerHealth>();
-        healthScript.enabled = false;
-        PlayerMovement moveScript = player.GetComponent<PlayerMovement>();
-        moveScript.enabled = false;
-        mouseLook = storyCamera.GetComponent<MouseLook>();
         mouseLook.enabled = false;
-        playerShoot = player.GetComponentInChildren<PlayerShoot>();
-        playerShoot.enabled = false;
+        foreach (GameObject weapon in tutorialWeapons) {
+            GameObject realWeapon = Instantiate(weapon);
+            playerInventory.addWeapon(realWeapon);
+        }
         foreach (GameObject target in targets) {
             TargetBehavior behaviorScript = target.GetComponent<TargetBehavior>();
             behaviorScript.story = this;
@@ -221,8 +224,7 @@ public class IntroStory : MonoBehaviour {
                     storyLine2.text = "";
                 }
                 else {
-                    Destroy(player);
-                    StateManager.inStoryTutorial = false;
+                    StateManager.resetToDefaultState();
                     Settings.values.sawStoryTutorial = true;
                     Time.timeScale = 1;
                     SceneManager.LoadScene("Hub");
@@ -230,7 +232,7 @@ public class IntroStory : MonoBehaviour {
             }
         }
 
-        if (Input.GetKeyDown(Settings.weaponTwoKey)) {
+        if (playerShoot.slot == 1) {
             if (animationState == 4) {
                 foreach (GameObject target in targets) {
                     TargetBehavior behaviorScript = target.GetComponent<TargetBehavior>();

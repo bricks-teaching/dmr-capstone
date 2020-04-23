@@ -7,8 +7,7 @@ using System.Globalization;
 using System.Collections.Generic;
 using System;
 
-public class Creditor : MonoBehaviour
-{
+public class Creditor : MonoBehaviour {
     public AudioClip paymentSound;
     public AudioClip failureSound;
     private bool playerIsInTriggerZone = false;
@@ -41,6 +40,7 @@ public class Creditor : MonoBehaviour
     /// into the hub
     /// </summary>
     private int debtIsLoud = 1;
+    public GameObject tutorial;
 
     void OnTriggerEnter(Collider col) {
         if (col.gameObject.tag == "Player") {
@@ -79,8 +79,8 @@ public class Creditor : MonoBehaviour
         Debug.Log($"{creditorId} threat: {threatLevel}, loans: {numberOfLoans}, sum: {loanTotal}");
         //iterator through valid loans that changes loan text in the GUI based on type
         float helperRate, helperCollateral;
-        foreach(ValidLoan item in validLoans){
-            if (item.loanType != LoanType.Secured){
+        foreach (ValidLoan item in validLoans) {
+            if (item.loanType != LoanType.Secured) {
                 helperRate = (float)Math.Round(item.interestRate * StateManager.rateAdjuster * 100f, 2);
                 item.loanData.text = $"@ {helperRate.ToString("N2")}%";
             } else {
@@ -95,7 +95,8 @@ public class Creditor : MonoBehaviour
     void Update()
     {
         if (playerIsInTriggerZone) {
-            if (Input.GetKeyDown(Settings.interactKey)) {
+            if (Input.GetKeyDown(Settings.interactKey) && !tutorial.activeSelf) {
+                Time.timeScale = 0;
                 Settings.forceUnlockCursorState();
                 updateFields();
                 creditorPanel.SetActive(true);
@@ -104,12 +105,18 @@ public class Creditor : MonoBehaviour
             if (Input.GetKeyDown(Settings.pauseKey)) {
                 BackClick();
             }
+            if (!Settings.values.sawLoanTutorial) {
+                Time.timeScale = 0;
+                Settings.forceUnlockCursorState();
+                tutorial.SetActive(true);
+                Settings.values.sawLoanTutorial = true;
+            }
         }
     }
 
     /// <summary>
-    /// Attempts to add a loan of the specified amount of money, failure conditions
-    /// included and will affect the dialog
+    /// Attempts to add a loan of the specified amount of money,
+    /// failure conditions included and will affect the dialog
     /// </summary>
     public void addDebt(ValidLoan associatedLoanData) {
         try{
@@ -253,10 +260,17 @@ public class Creditor : MonoBehaviour
     /// Turns off the panel and allows full movement/pause control
     /// </summary>
     public void BackClick() {
+        Time.timeScale = 1;
         dialogText.text = defaultText;
+        tutorial.SetActive(false);
         creditorPanel.SetActive(false);
         Settings.forceLockCursorState();
         StartCoroutine(StateManager.makePauseAvailableAgain());
+    }
+
+    public void dismissTutorial() {
+        tutorial.SetActive(false);
+        Time.timeScale = 1;
     }
 }
 

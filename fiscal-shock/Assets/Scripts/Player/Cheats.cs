@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using FiscalShock.Demo;
-using ThirdParty;
+using FiscalShock.GUI;
 
 public class Cheats : MonoBehaviour {
     public string teleportToEscapeKey = "f2";

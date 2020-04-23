@@ -19,53 +19,110 @@ public class BulletBehavior : MonoBehaviour
     public int poolSize = 1;
 
     /* Variables set during runtime */
+    /// <summary>
+    /// Body of the target that was hit by the raycast.
+    /// </summary>
+    /// <value></value>
     public Transform target { get; set; }
+    /// <summary>
+    /// Exact point on the body where the target was hit by the raycast.
+    /// </summary>
+    /// <value></value>
     public Vector3 localizedTarget { get; set; }
-    public PlayerShoot player { get; set; }
-    public bool hitSomething { get; private set; }
-    public bool grounded { get; private set; }
+    /// <summary>
+    /// Whether this bullet has hit something.
+    /// </summary>
+    /// <value></value>
+    public bool hitSomething { get; set; }
+    /// <summary>
+    /// Direction of ricochet for bullets that don't expire on hit.
+    /// </summary>
     private Vector3 ricochetDirection;
+    /// <summary>
+    /// How long ago did this bullet (if homing) update its trajectory?
+    /// Used for enemy homing missiles.
+    /// </summary>
     private float timeSinceLastAiming;
+    /// <summary>
+    /// Current hard-coded value for how often enemy homing missiles
+    /// update. Lower update rates make it really hard to dodge them.
+    /// </summary>
     private float homingUpdateRate = 0.8f;
+    /// <summary>
+    /// Whether this bullet has a real, live target it's seeking.
+    /// </summary>
+    /// <value></value>
+    public bool seekingTarget { get; set; }
+    /// <summary>
+    /// Whether this bullet can ricochet. Should disable for automatic weapons.
+    /// </summary>
+    /// <value></value>
+    public bool ricochetEnabled { get; set; }
 
+    /// <summary>
+    /// Set the bullet's trajectory when it's enabled (fired).
+    /// </summary>
     public void OnEnable() {
         rb.velocity = transform.forward * bulletSpeed;
     }
 
+    /// <summary>
+    /// Clean up current behavior and references when the bullet is disabled.
+    /// Disabling implies a return to the object pool, or beginning initial
+    /// setup of the bullet before firing.
+    /// </summary>
     public void OnDisable() {
         StopAllCoroutines();  // disable timeout if it's happening
         target = null;
         localizedTarget = Vector3.zero;
         hitSomething = false;
-        grounded = false;
         rb.velocity = Vector3.zero;
+        seekingTarget = false;
     }
 
+    /// <summary>
+    /// Behavior when the bullet collides with something.
+    /// </summary>
+    /// <param name="col"></param>
     void OnCollisionEnter(Collision col) {
-        hitSomething = true;
-        if (col.gameObject.tag == "Bullet" || col.gameObject.layer == LayerMask.NameToLayer("Player")) {  // doesn't help missiles!
+        if (gameObject.tag != "Enemy Projectile" && (col.gameObject.tag == "Bullet" || col.gameObject.layer == LayerMask.NameToLayer("Player"))) {
+            // Do nothing when these objects are hit
             return;
-        } else if (col.gameObject.layer == LayerMask.NameToLayer("Ground")) {
-            grounded = true;
-        } else if (col.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
+        }
+        if (gameObject.tag == "Enemy Projectile") {
+            if (col.gameObject.tag == "Bullet" || col.gameObject.tag == "Missile") {  // Allow player to disable enemy projectiles
+                hitSomething = true;
+            } else {
+                // If an enemy bullet has struck something, delete it (no ricochet)
+                Destroy(gameObject);
+            }
+        }
+        if (ricochetEnabled && !hitSomething) {  // ricochet just once
+            hitSomething = true;
+            // Apply ricochet
             Vector3 norm = col.GetContact(0).normal;
             ricochetDirection = Vector3.Reflect(transform.position, norm * 20).normalized;
             target = null;
         }
-        if (gameObject.tag == "Bullet") {
-            transform.gameObject.SetActive(false);
-        } else if (gameObject.tag == "Enemy Projectile") {
-            Destroy(gameObject);
-        }
     }
 
+    /// <summary>
+    /// Disable the bullet after its lifetime expires. Must be called by the
+    /// firing script explicitly. Only used by the player, as enemy bullets are
+    /// not currently pooled.
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator timeout() {
         yield return new WaitForSeconds(bulletLifetime);
         transform.gameObject.SetActive(false);
         yield return null;
     }
 
+    /// <summary>
+    /// Physics updates for the bullet.
+    /// </summary>
     void FixedUpdate() {
+        // Enemy projectiles don't update their trajectory every update
         if (gameObject.tag == "Enemy Projectile" && target != null) {
             timeSinceLastAiming += Time.deltaTime;
             if (timeSinceLastAiming >= homingUpdateRate) {
@@ -74,11 +131,17 @@ public class BulletBehavior : MonoBehaviour
                 return;
             }
         }
+        // Homing missiles that haven't struck something should continue seeking
         if (target != null && !hitSomething) {
             rb.velocity = (target.TransformPoint(localizedTarget) - transform.position).normalized * bulletSpeed;
             transform.LookAt(target);
+            // After the initial targeting, disable homing
+            if (!seekingTarget) {
+                target = null;
+            }
         }
-        if (target != null && hitSomething && !grounded) {
+        // Apply ricochet to bullets that have struck something
+        if (hitSomething) {
             rb.velocity = ricochetDirection * bulletSpeed;
         }
     }
