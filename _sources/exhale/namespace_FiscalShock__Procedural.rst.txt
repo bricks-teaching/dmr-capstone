@@ -35,12 +35,18 @@ Classes
 
 - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1Floor`
 
+- :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1Gaussian`
+
 - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1KillZone`
 
 - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1ObjectInfo`
+
+- :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1Poisson`
 
 - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1Portals`
 
 - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1WallInfo`
 
 - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1Walls`
+
+- :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1WeaponGenerator`

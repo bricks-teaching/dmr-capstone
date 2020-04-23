@@ -25,5 +25,7 @@ Classes
 -------
 
 
+- :ref:`exhale_class_classShopInventorySlot`
+
 - :ref:`exhale_class_classShopScript`
 

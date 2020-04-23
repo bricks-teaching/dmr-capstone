@@ -110,6 +110,11 @@ Files
 .. toctree::
    :maxdepth: 5
 
+   file_fiscal-shock_Assets_Scripts_UserInterface_CreditRating.cs.rst
+
+.. toctree::
+   :maxdepth: 5
+
    file_fiscal-shock_Assets_Scripts_ThirdParty_Delaunator.cs.rst
 
 .. toctree::
@@ -200,6 +205,11 @@ Files
 .. toctree::
    :maxdepth: 5
 
+   file_fiscal-shock_Assets_Scripts_ProceduralGeneration_Gaussian.cs.rst
+
+.. toctree::
+   :maxdepth: 5
+
    file_fiscal-shock_Assets_Scripts_Graphs_Graph.cs.rst
 
 .. toctree::
@@ -221,6 +231,11 @@ Files
    :maxdepth: 5
 
    file_fiscal-shock_Assets_Scripts_Instructional_IntroStory.cs.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_fiscal-shock_Assets_Scripts_UserInterface_Inventory.cs.rst
 
 .. toctree::
    :maxdepth: 5
@@ -290,7 +305,7 @@ Files
 .. toctree::
    :maxdepth: 5
 
-   file_fiscal-shock_Assets_Scripts_Graphs_Poisson.cs.rst
+   file_fiscal-shock_Assets_Scripts_ProceduralGeneration_Poisson.cs.rst
 
 .. toctree::
    :maxdepth: 5
@@ -386,6 +401,11 @@ Files
    :maxdepth: 5
 
    file_fiscal-shock_Assets_Scripts_Player_WeaponDemo.cs.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_fiscal-shock_Assets_Scripts_ProceduralGeneration_ObjectGeneration_WeaponGenerator.cs.rst
 
 .. toctree::
    :maxdepth: 5

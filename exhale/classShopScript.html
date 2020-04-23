@@ -180,8 +180,35 @@
 <p class="breathe-sectiondef-title rubric">Public Functions</p>
 <dl class="function">
 <dt>
-<span class="target" id="classShopScript_1a5030e67bdc161a2263090a8d6791a7ab"></span><code class="sig-name descname">bool ShopScript.buyWeapon(int weapon, float cost)</code></dt>
-<dd><p>Attempts to buy a weapon from the shop. Failure conditions are included, as well as checks to determine if a weapon has already been purchased. </p>
+<span class="target" id="classShopScript_1aea29d078aeb9876b5b3df1219dbbb477"></span><code class="sig-name descname">void ShopScript.dismissTutorial()</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classShopScript_1a7cb51e15a1369357f2858082262b39cd"></span><code class="sig-name descname">void ShopScript.generateNewWeapons()</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classShopScript_1af3c54191e8a98c24e6c5e0da24f1cc8c"></span><code class="sig-name descname">void ShopScript.hoverInventory(int slot)</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classShopScript_1a56d9cb92f2b1dd9b13410ce959dba6fb"></span><code class="sig-name descname">void ShopScript.blurInventory(int slot)</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classShopScript_1a07e87cf014d48c57eb3d946bc212bccb"></span><code class="sig-name descname">void ShopScript.purchaseWeapon(int slot)</code></dt>
+<dd><p>Attempts to purchase a weapon and displays dialog based on the result of the attempt. </p>
+<p><dl>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist">
+<li><code class="docutils literal notranslate"><span class="pre">slot</span></code></li>
+</ul>
+</dd>
+</dl>
+</p>
 </dd></dl>
 
 <dl class="function">
@@ -190,9 +217,29 @@
 <dd><p>On click this method activates, granting the user control of the mouse and returning them to the hub. </p>
 </dd></dl>
 
+<dl class="function">
+<dt>
+<span class="target" id="classShopScript_1aac4bab5ab7503d81edadb615ed8a6bcf"></span><code class="sig-name descname">void ShopScript.setStateTimesEntered(TMP_InputField inp)</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classShopScript_1a55dd60c8e96c7840b9bb115c556048fb"></span><code class="sig-name descname">void ShopScript.setStateTotalFloors(TMP_InputField inp)</code></dt>
+<dd></dd></dl>
+
 </div>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Members</p>
+<dl class="member">
+<dt>
+<span class="target" id="classShopScript_1ace65b556e8a8477cc3407de5a1184b8a"></span><code class="sig-name descname">GameObject ShopScript.tutorial</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classShopScript_1a45f45c50a078e2a2e797e023e74f8752"></span><code class="sig-name descname">GameObject ShopScript.debugMenu</code></dt>
+<dd></dd></dl>
+
 <dl class="member">
 <dt>
 <span class="target" id="classShopScript_1a3985ef3e7691992d007b7c966bc5db40"></span><code class="sig-name descname">AudioClip ShopScript.paymentSound</code></dt>
@@ -215,22 +262,25 @@
 
 <dl class="member">
 <dt>
-<span class="target" id="classShopScript_1aa768b700266120586fb113e82abc93c7"></span><code class="sig-name descname">Button ShopScript.hoseButton</code></dt>
+<span class="target" id="classShopScript_1a24811b4c3147566b397eda7fc77a7b2d"></span><code class="sig-name descname">List&lt;ShopInventorySlot&gt; ShopScript.inventorySlots</code></dt>
 <dd></dd></dl>
 
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Property</p>
 <dl class="member">
 <dt>
-<span class="target" id="classShopScript_1aac7cede732d1209f694a1dd671aa9258"></span><code class="sig-name descname">Button ShopScript.fishButton</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
-<span class="target" id="classShopScript_1a5415a307b4cf8c5a27be1d5b3359f038"></span><code class="sig-name descname">Button ShopScript.backButton</code></dt>
+<span class="target" id="classShopScript_1a8a9948a6295b4dfaeb7118b60096cddc"></span><em class="property">property </em><code class="sig-name descname">ShopScript::playerIsInTriggerZone</code></dt>
 <dd></dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Private Functions</p>
+<dl class="function">
+<dt>
+<span class="target" id="classShopScript_1af3ec32f474510eef6f8680ca07a50a99"></span><code class="sig-name descname">string ShopScript.getRandomDialog(string [] dialogs)</code></dt>
+<dd></dd></dl>
+
 <dl class="function">
 <dt>
 <span class="target" id="classShopScript_1a4afc6cce488fc7cf47c672c0758c59a4"></span><code class="sig-name descname">void ShopScript.OnTriggerEnter(Collider col)</code></dt>
@@ -248,20 +298,14 @@
 
 <dl class="function">
 <dt>
+<span class="target" id="classShopScript_1af722068d6990f96ca98a270a9ab7cfff"></span><code class="sig-name descname">bool ShopScript.affordableWeaponsDayZero()</code></dt>
+<dd><p>With random generation, the player could, in rare cases, be unable to purchase any weapons on day 0 (due to loan caps). Make sure there’s at least one weapon that’s a reasonable price on day 0. </p>
+</dd></dl>
+
+<dl class="function">
+<dt>
 <span class="target" id="classShopScript_1a899d580308e20753a83cde5a7deac761"></span><code class="sig-name descname">void ShopScript.Update()</code></dt>
 <dd></dd></dl>
-
-<dl class="function">
-<dt>
-<span class="target" id="classShopScript_1a079bf596c977f33af42f492142836b0b"></span><code class="sig-name descname">void ShopScript.buyHose()</code></dt>
-<dd><p>Helper method to establish dialog for specific weapons </p>
-</dd></dl>
-
-<dl class="function">
-<dt>
-<span class="target" id="classShopScript_1a0ca74090937143efd1e046d8e964d222"></span><code class="sig-name descname">void ShopScript.buyFish()</code></dt>
-<dd><p>Helper method to establish dialog for specific weapons </p>
-</dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
@@ -273,7 +317,42 @@
 
 <dl class="member">
 <dt>
-<span class="target" id="classShopScript_1a8a9948a6295b4dfaeb7118b60096cddc"></span><code class="sig-name descname">bool ShopScript.playerIsInTriggerZone = false</code></dt>
+<span class="target" id="classShopScript_1abb444f5cd3e09fc866d0e13a797eac21"></span><code class="sig-name descname">WeaponGenerator ShopScript.genny</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classShopScript_1a9d1270da3c4ddb1bc7d56f55121cd56c"></span><code class="sig-name descname">List&lt;GameObject&gt; ShopScript.inventory = new List&lt;GameObject&gt;()</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classShopScript_1aa16585c045878c5f495533adbc82352f"></span><code class="sig-name descname">PlayerShoot ShopScript.playerShoot</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classShopScript_1ac559aa3266ea2a793968ac15f36cb132"></span><code class="sig-name descname">Inventory ShopScript.playerInventory</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classShopScript_1a18d5b8cb6fe7dc05d1bd8c37be561f53"></span><code class="sig-name descname">readonly int ShopScript.MAX_GUNS = 9</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classShopScript_1af7a0c129b549124dbfa2fec29c3dbc8b"></span><code class="sig-name descname">readonly string [] ShopScript.purchaseDialogs= {        &quot;Alright, here ya go, try not to get yourself kilt. No, really, I mean kilt, not killed, but don't do that either.&quot;,        &quot;Pretty weird that the only way to make money around here is scrapping robots, innit?&quot;    }</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classShopScript_1a0767da182584bf97996a5a43f1c471d1"></span><code class="sig-name descname">readonly string [] ShopScript.brokeDialogs= {        &quot;You sure you have enough there, pal? I ain't running a charity here...&quot;,        &quot;I think you are a bit short today. Go scrap some bots and come back.&quot;    }</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classShopScript_1af9f95474f745f34b2c52587fd5f2e626"></span><code class="sig-name descname">readonly string [] ShopScript.fullInventoryDialogs= {        &quot;Greedy, aren'cha? Why don't you lend me some of your stock?&quot;,        &quot;I don't think you could fit another in your extra-dimensional satchel.&quot;,        &quot;I'll pay more than anybody for your leftovers. 10% is still more than 0%!&quot;    }</code></dt>
 <dd></dd></dl>
 
 </div>

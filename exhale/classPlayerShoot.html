@@ -180,6 +180,21 @@
 <p class="breathe-sectiondef-title rubric">Public Functions</p>
 <dl class="function">
 <dt>
+<span class="target" id="classPlayerShoot_1a0f4917f82477145a674886dea4cdef9c"></span><code class="sig-name descname">void PlayerShoot.OnFire(InputAction.CallbackContext cont)</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classPlayerShoot_1a2548d73c7729b863eaac9c9a4a0ad058"></span><code class="sig-name descname">void PlayerShoot.OnWeaponSwap(InputAction.CallbackContext cont)</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classPlayerShoot_1a801ca2eb85890534eeff8e6320172072"></span><code class="sig-name descname">void PlayerShoot.OnWeaponSelect(InputAction.CallbackContext cont)</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
 <span class="target" id="classPlayerShoot_1ae22662e778e4b4c02940f2607b6c5799"></span><code class="sig-name descname">void PlayerShoot.Start()</code></dt>
 <dd></dd></dl>
 
@@ -209,11 +224,6 @@
 <p class="breathe-sectiondef-title rubric">Public Members</p>
 <dl class="member">
 <dt>
-<span class="target" id="classPlayerShoot_1a039007dfd9f41274992c85bf7d89eb39"></span><code class="sig-name descname">AudioClip PlayerShoot.fireSoundClip</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
 <span class="target" id="classPlayerShoot_1a2c639df09aa78bcff7e427a889900222"></span><code class="sig-name descname">AudioClip PlayerShoot.outOfAmmo</code></dt>
 <dd></dd></dl>
 
@@ -224,28 +234,20 @@
 
 <dl class="member">
 <dt>
-<span class="target" id="classPlayerShoot_1a8e2d6c6bdc99fb6f7110ba29448bf314"></span><code class="sig-name descname">AudioClip PlayerShoot.sprayStart</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
-<span class="target" id="classPlayerShoot_1aa7e77dc09a844895a51f2671e8633eba"></span><code class="sig-name descname">AudioClip PlayerShoot.sprayStop</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
 <span class="target" id="classPlayerShoot_1aa5909cbe343f8e2809b19f461e44ec30"></span><code class="sig-name descname">List&lt;GameObject&gt; PlayerShoot.guns</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classPlayerShoot_1aadadc6ad76a82eb8f7da2f616099d4a5"></span><code class="sig-name descname">bool PlayerShoot.loadAfterHolster = true</code></dt>
-<dd></dd></dl>
+<span class="target" id="classPlayerShoot_1a1d4f303228c64fb00b5cdddec2f73f0e"></span><code class="sig-name descname">PlayerFiringState PlayerShoot.state = new PlayerFiringState()</code></dt>
+<dd><p>Mutable state data to be passed to weaponstats </p>
+</dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classPlayerShoot_1ac1f2ae051826b0aaacb3f43ea28c312d"></span><code class="sig-name descname">LayerMask PlayerShoot.missileHomingTargetLayer</code></dt>
-<dd></dd></dl>
+<span class="target" id="classPlayerShoot_1a5df1ba93ac0a6cc3af65ed2a6121b5cc"></span><code class="sig-name descname">int PlayerShoot.slot = 0</code></dt>
+<dd><p>Currently equipped weapon slot, equal to guns[slot-1] </p>
+</dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
@@ -257,7 +259,7 @@
 
 <dl class="member">
 <dt>
-<span class="target" id="classPlayerShoot_1aceb0797878830119be90045086219334"></span><em class="property">property </em><code class="sig-name descname">PlayerShoot::crossHair</code></dt>
+<span class="target" id="classPlayerShoot_1aab508d643572342edff624b0f486dccd"></span><em class="property">property </em><code class="sig-name descname">PlayerShoot::crossHair</code></dt>
 <dd></dd></dl>
 
 </div>
@@ -285,20 +287,8 @@
 
 <dl class="function">
 <dt>
-<span class="target" id="classPlayerShoot_1a22dc004e9f9954eee45ed5633e7ba935"></span><code class="sig-name descname">void PlayerShoot.fireAutomatic()</code></dt>
-<dd><p>Continuous fire while button is held down. </p>
-</dd></dl>
-
-<dl class="function">
-<dt>
-<span class="target" id="classPlayerShoot_1af0b9a6894f5b5932cc70151a4027d48e"></span><code class="sig-name descname">void PlayerShoot.fireSemiautomatic()</code></dt>
-<dd><p>One click, one shot, but no reload action. </p>
-</dd></dl>
-
-<dl class="function">
-<dt>
-<span class="target" id="classPlayerShoot_1a3fb658ae31ab068a0becae04abe303fc"></span><code class="sig-name descname">HomingTargets PlayerShoot.getHomingTargets()</code></dt>
-<dd><p>Sets up homing targets if the projectile has homing enabled. </p>
+<span class="target" id="classPlayerShoot_1a36879b88cb089623554f3fc276a4c97f"></span><code class="sig-name descname">IEnumerator PlayerShoot.firingCooldown()</code></dt>
+<dd><p>Fade the crosshair while we’re not allowed to shoot </p>
 <p><dl class="simple">
 <dt><strong>Return</strong></dt><dd><p></p>
 </dd>
@@ -308,17 +298,8 @@
 
 <dl class="function">
 <dt>
-<span class="target" id="classPlayerShoot_1a6cba6d6753c181550688fbf6fa500c9a"></span><code class="sig-name descname">void PlayerShoot.fireBullet(float accuracy, int damage, HomingTargets target)</code></dt>
-<dd><p>Fire a bullet. </p>
-<p><dl>
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist">
-<li><code class="docutils literal notranslate"><span class="pre">accuracy</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">damage</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">target</span></code></li>
-</ul>
-</dd>
-</dl>
-</p>
+<span class="target" id="classPlayerShoot_1a58a139715dbad7a69323f9c646e4fd9a"></span><code class="sig-name descname">void PlayerShoot.playWeaponAnimation()</code></dt>
+<dd><p>If player is currently holstering or drawing a weapon, alter weapon position to animate the process. </p>
 </dd></dl>
 
 </div>
@@ -326,42 +307,7 @@
 <p class="breathe-sectiondef-title rubric">Private Members</p>
 <dl class="member">
 <dt>
-<span class="target" id="classPlayerShoot_1a0b2f00eedd130e1ca2dc3adecb5f91c9"></span><code class="sig-name descname">bool PlayerShoot.holsteringWeapon = false</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
-<span class="target" id="classPlayerShoot_1a412c0040f89815ad25bb0d3b5065b298"></span><code class="sig-name descname">bool PlayerShoot.drawingWeapon = false</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
-<span class="target" id="classPlayerShoot_1a8722edb82546ea721a2d420d6f2addac"></span><code class="sig-name descname">bool PlayerShoot.weaponChanging = true</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
-<span class="target" id="classPlayerShoot_1a796069b47f17fac3d5b096250d7f7f98"></span><code class="sig-name descname">float PlayerShoot.animatedTime</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
-<span class="target" id="classPlayerShoot_1ac3fca17e8edafde5418daf9bc9ec5271"></span><code class="sig-name descname">AudioSource PlayerShoot.fireSound</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
-<span class="target" id="classPlayerShoot_1a5df1ba93ac0a6cc3af65ed2a6121b5cc"></span><code class="sig-name descname">int PlayerShoot.slot = 0</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
-<span class="target" id="classPlayerShoot_1ad296f6f233fe7095b89e76caeba47bc6"></span><code class="sig-name descname">float PlayerShoot.screenX =&gt; Settings.values.resolutionWidth / 2</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
-<span class="target" id="classPlayerShoot_1a235ef6be360c29b17e396e8d18a9facc"></span><code class="sig-name descname">float PlayerShoot.screenY =&gt; Settings.values.resolutionHeight / 2</code></dt>
+<span class="target" id="classPlayerShoot_1af94e4deb15da5fef58ad392f9d6658ac"></span><code class="sig-name descname">AudioSource PlayerShoot.gunAudioSource =&gt; currentWeaponStats?.gunAudioSource</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
@@ -376,12 +322,18 @@
 
 <dl class="member">
 <dt>
-<span class="target" id="classPlayerShoot_1ac8156cded6e52472119f38d7a8ac16e3"></span><code class="sig-name descname">float PlayerShoot.timeSinceLastShot</code></dt>
+<span class="target" id="classPlayerShoot_1a70b1a9e105741834469e54d5f06bf146"></span><code class="sig-name descname">bool PlayerShoot.firing</code></dt>
+<dd><p>Whether the player is currently firing, kept private here for the input action callbacks </p>
+</dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classPlayerShoot_1a796069b47f17fac3d5b096250d7f7f98"></span><code class="sig-name descname">float PlayerShoot.animatedTime</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classPlayerShoot_1a02c994bae84bea8c11f740ffbda89402"></span><code class="sig-name descname">bool PlayerShoot.wasFiringAuto</code></dt>
+<span class="target" id="classPlayerShoot_1a73c00320c08309bca08067ec917eb7d4"></span><code class="sig-name descname">Animation PlayerShoot.weaponAnimator</code></dt>
 <dd></dd></dl>
 
 </div>

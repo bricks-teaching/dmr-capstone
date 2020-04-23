@@ -177,30 +177,108 @@
 <dt id="_CPPv411WeaponStats">
 <span id="_CPPv311WeaponStats"></span><span id="_CPPv211WeaponStats"></span><span id="WeaponStats"></span><span class="target" id="classWeaponStats"></span><em class="property">class </em><code class="sig-name descname">WeaponStats</code> : <em class="property">public</em> MonoBehaviour<a class="headerlink" href="#_CPPv411WeaponStats" title="Permalink to this definition">¶</a><br /></dt>
 <dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt>
+<span class="target" id="classWeaponStats_1afd27824773813a9ea18d585429a78f78"></span><code class="sig-name descname">string WeaponStats.actionToString()</code></dt>
+<dd><p>Enum to string for FirearmAction </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p></p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classWeaponStats_1aedb367ba9778d568b8fbeb615f4a5e80"></span><code class="sig-name descname">string WeaponStats.projectileTypeToString()</code></dt>
+<dd><p>Enum to string for ProjectileType </p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classWeaponStats_1a8ffff04621f8404fc11238cfc275e26c"></span><code class="sig-name descname">override string WeaponStats.ToString()</code></dt>
+<dd><p>Debug string </p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classWeaponStats_1a256a1e136e2e44f0f5a14523fdda8fa0"></span><code class="sig-name descname">PlayerFiringState WeaponStats.fire(PlayerFiringState state)</code></dt>
+<dd><p>Fires a bullet based on the firearm action. Also mutates the given <a class="reference internal" href="classPlayerShoot.html#classPlayerShoot"><span class="std std-ref">PlayerShoot</span></a> state. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>updated state</p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">state</span></code>: current state of <a class="reference internal" href="classPlayerShoot.html#classPlayerShoot"><span class="std std-ref">PlayerShoot</span></a></p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Members</p>
 <dl class="member">
 <dt>
-<span class="target" id="classWeaponStats_1a1f3b9052880641b8f691d872c1e049ab"></span><code class="sig-name descname">int WeaponStats.strength = 10</code></dt>
+<span class="target" id="classWeaponStats_1a17ac42dc6a5b57a1a3a04f6b0f2e9e42"></span><code class="sig-name descname">string WeaponStats.prefix</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classWeaponStats_1ae5b8554319c996d5ec0fcc07258547f6"></span><code class="sig-name descname">int WeaponStats.bulletCost = 1</code></dt>
+<span class="target" id="classWeaponStats_1a24d86b0c810ba28e261c9b053ee1c292"></span><code class="sig-name descname">string WeaponStats.weaponName</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classWeaponStats_1ac89fc85852a4e3c4ae2863929d16e441"></span><code class="sig-name descname">float WeaponStats.accuracy = 6</code></dt>
+<span class="target" id="classWeaponStats_1a22cd78d92d8b21360c86c5a67ebefcd8"></span><code class="sig-name descname">string WeaponStats.suffix</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classWeaponStats_1a21a19ac9f63fdbeb43eb36c13eff9d80"></span><code class="sig-name descname">float WeaponStats.fireRate = 0</code></dt>
+<span class="target" id="classWeaponStats_1ad8d75b18caa6b159a5713bc8abed63a3"></span><code class="sig-name descname">string WeaponStats.weaponFamily</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classWeaponStats_1a408095796a04f729f3dbb293c644623c"></span><code class="sig-name descname">float WeaponStats.rotation = 0</code></dt>
+<span class="target" id="classWeaponStats_1a88c01cbdda6d79002b1cb4a5a2ef2606"></span><code class="sig-name descname">float WeaponStats.price</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classWeaponStats_1a409d7a47b1f63853cff375812b56e918"></span><code class="sig-name descname">float WeaponStats.buybackPrice =&gt; (float)System.Math.Round(price * 0.15f, 2)</code></dt>
+<dd><p>Buyback price is currently hardcoded to 15% of the original cost. </p>
+</dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classWeaponStats_1a567fb1ea260236b6aa59bcbf6a24f9c0"></span><code class="sig-name descname">string WeaponStats.fullName =&gt; $&quot;{prefix} {weaponName} {suffix}&quot;</code></dt>
+<dd><p>Full display name of weapon. </p>
+</dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classWeaponStats_1a17702b47e7679cc9bb192c4ce6e54618"></span><code class="sig-name descname">Sprite WeaponStats.image</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classWeaponStats_1aba7454e30ee1f6d336928490eeb77288"></span><code class="sig-name descname">float WeaponStats.strength = 10</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classWeaponStats_1afb4c5217c3c9bb93c8d21cc8d755da44"></span><code class="sig-name descname">float WeaponStats.bulletCost = 1</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classWeaponStats_1a119e56ec8d0d4011fb944c6c73cee262"></span><code class="sig-name descname">float WeaponStats.deviation = 6</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classWeaponStats_1a3065fc65fadd62141d43c0e51c02b13d"></span><code class="sig-name descname">float WeaponStats.fireDelay = 0</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
@@ -215,7 +293,7 @@
 
 <dl class="member">
 <dt>
-<span class="target" id="classWeaponStats_1a5886cba3f481513f07278e21c9e7f4b8"></span><code class="sig-name descname">GameObject WeaponStats.bulletPrefab</code></dt>
+<span class="target" id="classWeaponStats_1ae9eb40affb1caeffbf9e516f21178200"></span><code class="sig-name descname">LayerMask WeaponStats.missileHomingTargetLayer</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
@@ -225,13 +303,48 @@
 
 <dl class="member">
 <dt>
+<span class="target" id="classWeaponStats_1a5886cba3f481513f07278e21c9e7f4b8"></span><code class="sig-name descname">GameObject WeaponStats.bulletPrefab</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
 <span class="target" id="classWeaponStats_1a031f525186153c8d5729b6a25ef78b78"></span><code class="sig-name descname">Transform WeaponStats.projectileSpawnPoint</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classWeaponStats_1aed901a9a3fd2f347e26d8209f0a21ece"></span><code class="sig-name descname">Queue&lt;GameObject&gt; WeaponStats.bulletPool = new Queue&lt;GameObject&gt;()</code></dt>
+<span class="target" id="classWeaponStats_1aa2bf74c7fae27d17b5c315873d798dea"></span><code class="sig-name descname">AudioSource WeaponStats.gunAudioSource</code></dt>
 <dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classWeaponStats_1a81cd1dd4b733ab104e086cfcebb2bf65"></span><code class="sig-name descname">AudioClip WeaponStats.fireSound</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classWeaponStats_1aac006b59b2873a12a6dc6ddc0034da68"></span><code class="sig-name descname">AudioClip WeaponStats.autoStart</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classWeaponStats_1a0926e2029b9d9f595ad406d49fcbfcbd"></span><code class="sig-name descname">AudioClip WeaponStats.autoStop</code></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classWeaponStats_1aed901a9a3fd2f347e26d8209f0a21ece"></span><code class="sig-name descname">Queue&lt;GameObject&gt; WeaponStats.bulletPool = new Queue&lt;GameObject&gt;()</code></dt>
+<dd><p>Object pool for this weapon’s bullets. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Property</p>
+<dl class="member">
+<dt>
+<span class="target" id="classWeaponStats_1a7db37cf55a602e92abfceeaf2e1469ce"></span><em class="property">property </em><code class="sig-name descname">WeaponStats::bulletPoolObject</code></dt>
+<dd><p>Reference to the game object owning the bullet pool. Used to clean up all related parts of a gun when it’s sold. </p>
+</dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
@@ -240,6 +353,62 @@
 <dt>
 <span class="target" id="classWeaponStats_1a473d1d488e7ec4ec40aa33bf5da5f53b"></span><code class="sig-name descname">void WeaponStats.Start()</code></dt>
 <dd></dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classWeaponStats_1a956ea5416c64c4e7b3c7f7e73af6f9ef"></span><code class="sig-name descname">HomingTargets WeaponStats.getHomingTargets()</code></dt>
+<dd><p>Sets up homing targets if the projectile has homing enabled. WARNING: Homing missiles currently bypass accuracy checks. This raycast should really be affected by deviation. (Would probably be almost the same code as the rotation vector in fireBullet) </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p></p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classWeaponStats_1a1efa598f6d46a765c24823ebd771990c"></span><code class="sig-name descname">void WeaponStats.fireAutomatic(PlayerFiringState state)</code></dt>
+<dd><p>Continuous fire while button is held down. </p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classWeaponStats_1ab7792d2651d4a671e1d94ff5c7d1550b"></span><code class="sig-name descname">void WeaponStats.fireSemiautomatic(PlayerFiringState state)</code></dt>
+<dd><p>One click, one shot, but no reload action. </p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="classWeaponStats_1a38e47b1f82dabf7548265dcace23cc83"></span><code class="sig-name descname">void WeaponStats.fireBullet()</code></dt>
+<dd><p>Fire a bullet. Only works for weapons that emit a single bullet at a time. A shotgun or melee weapon would require a different function. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Private Members</p>
+<dl class="member">
+<dt>
+<span class="target" id="classWeaponStats_1ab02560fd433a68c1bebc78beba30fd44"></span><code class="sig-name descname">float WeaponStats.crosshairRelativeX =&gt; crosshair.rect.width / Screen.width</code></dt>
+<dd><p>Size of the crosshair, relative to the screen. </p>
+</dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classWeaponStats_1a790ce909b82fedbada7ff5573ec3d99e"></span><code class="sig-name descname">float WeaponStats.crosshairRelativeY =&gt; crosshair.rect.height / Screen.height</code></dt>
+<dd><p>Size of the crosshair, relative to the screen. </p>
+</dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classWeaponStats_1acca44890cbaebaa57c0deaf01a516a1d"></span><code class="sig-name descname">Transform WeaponStats.raycastOrigin</code></dt>
+<dd><p>Raycast origin. Should be the camera’s transform, not this weapon’s! Otherwise, the crosshair is inaccurate. </p>
+</dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classWeaponStats_1a026cda7c07011d618d88cb9b24b69de7"></span><code class="sig-name descname">RectTransform WeaponStats.crosshair</code></dt>
+<dd><p>Reference to the crosshair. Used in accuracy calculations to ensure that bullet trajectories match the crosshair size and location. </p>
+</dd></dl>
 
 </div>
 </dd></dl>

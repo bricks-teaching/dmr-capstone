@@ -181,17 +181,25 @@
 <dl class="function">
 <dt>
 <span class="target" id="classBulletBehavior_1a1655bea93189ffa12d0d0043c86bb925"></span><code class="sig-name descname">void BulletBehavior.OnEnable()</code></dt>
-<dd></dd></dl>
+<dd><p>Set the bullet’s trajectory when it’s enabled (fired). </p>
+</dd></dl>
 
 <dl class="function">
 <dt>
 <span class="target" id="classBulletBehavior_1a1fb7e6c209c22609443535ce5604d5d7"></span><code class="sig-name descname">void BulletBehavior.OnDisable()</code></dt>
-<dd></dd></dl>
+<dd><p>Clean up current behavior and references when the bullet is disabled. Disabling implies a return to the object pool, or beginning initial setup of the bullet before firing. </p>
+</dd></dl>
 
 <dl class="function">
 <dt>
 <span class="target" id="classBulletBehavior_1a72d387d1790f1a9b960c94f31b664c25"></span><code class="sig-name descname">IEnumerator BulletBehavior.timeout()</code></dt>
-<dd></dd></dl>
+<dd><p>Disable the bullet after its lifetime expires. Must be called by the firing script explicitly. Only used by the player, as enemy bullets are not currently pooled. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p></p>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
@@ -227,27 +235,32 @@
 <dl class="member">
 <dt>
 <span class="target" id="classBulletBehavior_1afeb52f2ad2841a1c32ab3c4d5f40a9ea"></span><em class="property">property </em><code class="sig-name descname">BulletBehavior::target</code></dt>
-<dd></dd></dl>
+<dd><p>Body of the target that was hit by the raycast. </p>
+</dd></dl>
 
 <dl class="member">
 <dt>
 <span class="target" id="classBulletBehavior_1a9b886dce12142b95e174176855a31fc1"></span><em class="property">property </em><code class="sig-name descname">BulletBehavior::localizedTarget</code></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt>
-<span class="target" id="classBulletBehavior_1adf17d677fd62f64356f5af0e42be2efa"></span><em class="property">property </em><code class="sig-name descname">BulletBehavior::player</code></dt>
-<dd></dd></dl>
+<dd><p>Exact point on the body where the target was hit by the raycast. </p>
+</dd></dl>
 
 <dl class="member">
 <dt>
 <span class="target" id="classBulletBehavior_1a2ba24ffa3914dd2c77f0fef89234a3cd"></span><em class="property">property </em><code class="sig-name descname">BulletBehavior::hitSomething</code></dt>
-<dd></dd></dl>
+<dd><p>Whether this bullet has hit something. </p>
+</dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classBulletBehavior_1a3db76d814744ff7cc90372a306003232"></span><em class="property">property </em><code class="sig-name descname">BulletBehavior::grounded</code></dt>
-<dd></dd></dl>
+<span class="target" id="classBulletBehavior_1a69ac16466850d346dac4c4f3749a98db"></span><em class="property">property </em><code class="sig-name descname">BulletBehavior::seekingTarget</code></dt>
+<dd><p>Whether this bullet has a real, live target it’s seeking. </p>
+</dd></dl>
+
+<dl class="member">
+<dt>
+<span class="target" id="classBulletBehavior_1ace7dc89f2aed801ead7af1bde4b768fc"></span><em class="property">property </em><code class="sig-name descname">BulletBehavior::ricochetEnabled</code></dt>
+<dd><p>Whether this bullet can ricochet. Should disable for automatic weapons. </p>
+</dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
@@ -255,12 +268,21 @@
 <dl class="function">
 <dt>
 <span class="target" id="classBulletBehavior_1aa84a38e429092f242c4baabdd7f11b8f"></span><code class="sig-name descname">void BulletBehavior.OnCollisionEnter(Collision col)</code></dt>
-<dd></dd></dl>
+<dd><p>Behavior when the bullet collides with something. </p>
+<p><dl>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist">
+<li><code class="docutils literal notranslate"><span class="pre">col</span></code></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="function">
 <dt>
 <span class="target" id="classBulletBehavior_1a739f53068f6a05b9f94f2d836319007c"></span><code class="sig-name descname">void BulletBehavior.FixedUpdate()</code></dt>
-<dd></dd></dl>
+<dd><p>Physics updates for the bullet. </p>
+</dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
@@ -268,17 +290,20 @@
 <dl class="member">
 <dt>
 <span class="target" id="classBulletBehavior_1a004e41e51b8c45e5fff4a3e957f350c6"></span><code class="sig-name descname">Vector3 BulletBehavior.ricochetDirection</code></dt>
-<dd></dd></dl>
+<dd><p>Direction of ricochet for bullets that don’t expire on hit. </p>
+</dd></dl>
 
 <dl class="member">
 <dt>
 <span class="target" id="classBulletBehavior_1a89e484267837e903898cd972d845ad57"></span><code class="sig-name descname">float BulletBehavior.timeSinceLastAiming</code></dt>
-<dd></dd></dl>
+<dd><p>How long ago did this bullet (if homing) update its trajectory? Used for enemy homing missiles. </p>
+</dd></dl>
 
 <dl class="member">
 <dt>
 <span class="target" id="classBulletBehavior_1abc82959cbac93aa71c2c28c6b0c37158"></span><code class="sig-name descname">float BulletBehavior.homingUpdateRate = 0.8f</code></dt>
-<dd></dd></dl>
+<dd><p>Current hard-coded value for how often enemy homing missiles update. Lower update rates make it really hard to dodge them. </p>
+</dd></dl>
 
 </div>
 </dd></dl>

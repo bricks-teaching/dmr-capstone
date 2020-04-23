@@ -17,6 +17,8 @@ Namespaces
 ----------
 
 
+- :ref:`namespace_UnityEngine__InputSystem`
+
 - :ref:`namespace_UnityEngine__Rendering`
 
 - :ref:`namespace_UnityEngine__SceneManagement`

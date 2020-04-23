@@ -21,4 +21,6 @@ Namespaces
 
 - :ref:`namespace_FiscalShock__Graphs`
 
+- :ref:`namespace_FiscalShock__GUI`
+
 - :ref:`namespace_FiscalShock__Procedural`

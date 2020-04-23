@@ -140,7 +140,7 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/exhale/classFiscalShock_1_1Graphs_1_1Poisson.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/exhale/classFiscalShock_1_1Procedural_1_1Poisson.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -154,18 +154,18 @@
            <div itemprop="articleBody">
             
   <div class="section" id="class-poisson">
-<span id="exhale-class-classfiscalshock-1-1graphs-1-1poisson"></span><h1>Class Poisson<a class="headerlink" href="#class-poisson" title="Permalink to this headline">¶</a></h1>
+<span id="exhale-class-classfiscalshock-1-1procedural-1-1poisson"></span><h1>Class Poisson<a class="headerlink" href="#class-poisson" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><p>Defined in <a class="reference internal" href="file_fiscal-shock_Assets_Scripts_Graphs_Poisson.cs.html#file-fiscal-shock-assets-scripts-graphs-poisson-cs"><span class="std std-ref">File Poisson.cs</span></a></p></li>
+<li><p>Defined in <a class="reference internal" href="file_fiscal-shock_Assets_Scripts_ProceduralGeneration_Poisson.cs.html#file-fiscal-shock-assets-scripts-proceduralgeneration-poisson-cs"><span class="std std-ref">File Poisson.cs</span></a></p></li>
 </ul>
 <div class="section" id="class-documentation">
 <h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="_CPPv4N11FiscalShock6Graphs7PoissonE">
-<span id="_CPPv3N11FiscalShock6Graphs7PoissonE"></span><span id="_CPPv2N11FiscalShock6Graphs7PoissonE"></span><span id="FiscalShock::Graphs::Poisson"></span><span class="target" id="classFiscalShock_1_1Graphs_1_1Poisson"></span><em class="property">class </em><code class="sig-name descname">Poisson</code><a class="headerlink" href="#_CPPv4N11FiscalShock6Graphs7PoissonE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p><a class="reference internal" href="#classFiscalShock_1_1Graphs_1_1Poisson"><span class="std std-ref">Poisson</span></a> disc sampling based on <a class="reference external" href="https://www.cs.ubc.ca/~rbridson/docs/bridson-siggraph07-poissondisk.pdf">https://www.cs.ubc.ca/~rbridson/docs/bridson-siggraph07-poissondisk.pdf</a>. </p>
+<dt id="_CPPv4N11FiscalShock10Procedural7PoissonE">
+<span id="_CPPv3N11FiscalShock10Procedural7PoissonE"></span><span id="_CPPv2N11FiscalShock10Procedural7PoissonE"></span><span id="FiscalShock::Procedural::Poisson"></span><span class="target" id="classFiscalShock_1_1Procedural_1_1Poisson"></span><em class="property">class </em><code class="sig-name descname">Poisson</code><a class="headerlink" href="#_CPPv4N11FiscalShock10Procedural7PoissonE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><a class="reference internal" href="#classFiscalShock_1_1Procedural_1_1Poisson"><span class="std std-ref">Poisson</span></a> disc sampling based on <a class="reference external" href="https://www.cs.ubc.ca/~rbridson/docs/bridson-siggraph07-poissondisk.pdf">https://www.cs.ubc.ca/~rbridson/docs/bridson-siggraph07-poissondisk.pdf</a>. </p>
 <p>Every point generated is guaranted to be at least <code class="docutils literal notranslate"><span class="pre">r</span></code> or <code class="docutils literal notranslate"><span class="pre">minDistance</span></code> units away from any other point. </p>
-<p>Making <a class="reference internal" href="classFiscalShock_1_1Graphs_1_1Delaunay.html#classFiscalShock_1_1Graphs_1_1Delaunay"><span class="std std-ref">Delaunay</span></a> and <a class="reference internal" href="classFiscalShock_1_1Graphs_1_1Voronoi.html#classFiscalShock_1_1Graphs_1_1Voronoi"><span class="std std-ref">Voronoi</span></a> from a <a class="reference internal" href="#classFiscalShock_1_1Graphs_1_1Poisson"><span class="std std-ref">Poisson</span></a> distribution: <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Poisson</span> <span class="n">distribution</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Poisson</span><span class="p">(</span><span class="n">minDistanceBetweenSamples</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">);</span>
+<p>Making Delaunay and Voronoi from a <a class="reference internal" href="#classFiscalShock_1_1Procedural_1_1Poisson"><span class="std std-ref">Poisson</span></a> distribution: <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Poisson</span> <span class="n">distribution</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Poisson</span><span class="p">(</span><span class="n">minDistanceBetweenSamples</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">);</span>
 <span class="n">Delaunay</span> <span class="n">poissonTriangulation</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Delaunay</span><span class="p">(</span><span class="n">distribution</span><span class="o">.</span><span class="n">vertices</span><span class="p">);</span>
 <span class="n">Voronoi</span> <span class="n">poissonVoronoi</span> <span class="o">=</span> <span class="n">poissonTriangulation</span><span class="o">.</span><span class="n">makeVoronoi</span><span class="p">();</span>
 </pre></div>
@@ -175,7 +175,7 @@
 <p class="breathe-sectiondef-title rubric">Public Functions</p>
 <dl class="function">
 <dt>
-<span class="target" id="classFiscalShock_1_1Graphs_1_1Poisson_1a317969c52ceadf8baaa9cc1757116538"></span><code class="sig-name descname">FiscalShock.Graphs.Poisson.Poisson(float minDistanceBetweenSamples, int width, int height)</code></dt>
+<span class="target" id="classFiscalShock_1_1Procedural_1_1Poisson_1aa9f03bcdcff9223f6869b5ec6b816df4"></span><code class="sig-name descname">FiscalShock.Procedural.Poisson.Poisson(float minDistanceBetweenSamples, int width, int height)</code></dt>
 <dd></dd></dl>
 
 </div>
@@ -183,13 +183,13 @@
 <p class="breathe-sectiondef-title rubric">Public Members</p>
 <dl class="member">
 <dt>
-<span class="target" id="classFiscalShock_1_1Graphs_1_1Poisson_1afa6070af5c2d6ba0d482984f665b6ed4"></span><code class="sig-name descname">List&lt;Vertex&gt; FiscalShock.Graphs.Poisson.vertices =&gt; grid.Where(v =&gt; v != null).ToList()</code></dt>
+<span class="target" id="classFiscalShock_1_1Procedural_1_1Poisson_1aefab3413a1603592761663a31ab1c4f3"></span><code class="sig-name descname">List&lt;Vertex&gt; FiscalShock.Procedural.Poisson.vertices =&gt; grid.Where(v =&gt; v != null).ToList()</code></dt>
 <dd><p>Public accessor for the list of vertices generated. </p>
 <p><dl>
 <dt><strong>Return</strong></dt><dd><p></p>
 </dd>
 <dt><strong>Template Parameters</strong></dt><dd><ul class="breatheparameterlist">
-<li><code class="docutils literal notranslate"><a class="reference internal" href="classFiscalShock_1_1Graphs_1_1Vertex.html#classFiscalShock_1_1Graphs_1_1Vertex"><span class="std std-ref"><span class="pre">Vertex</span></span></a></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">Vertex</span></code></li>
 </ul>
 </dd>
 </dl>
@@ -201,7 +201,7 @@
 <p class="breathe-sectiondef-title rubric">Private Functions</p>
 <dl class="function">
 <dt>
-<span class="target" id="classFiscalShock_1_1Graphs_1_1Poisson_1a8fdf8ae8163e6086572a81cd1a9f094b"></span><code class="sig-name descname">int FiscalShock.Graphs.Poisson.getArrayIndex(int col, int row)</code></dt>
+<span class="target" id="classFiscalShock_1_1Procedural_1_1Poisson_1a8296ffc7dfe5f6154328df885243ab2e"></span><code class="sig-name descname">int FiscalShock.Procedural.Poisson.getArrayIndex(int col, int row)</code></dt>
 <dd><p>Formula to find index in a 1D array using 2D coordinates </p>
 <p><dl>
 <dt><strong>Return</strong></dt><dd><p></p>
@@ -217,7 +217,7 @@
 
 <dl class="function">
 <dt>
-<span class="target" id="classFiscalShock_1_1Graphs_1_1Poisson_1a07e6146ee6f096b5203a7d93960a122d"></span><code class="sig-name descname">int FiscalShock.Graphs.Poisson.getGridValueOf(float z)</code></dt>
+<span class="target" id="classFiscalShock_1_1Procedural_1_1Poisson_1acd131a7e4afec9c1d1dad63cd1b6d207"></span><code class="sig-name descname">int FiscalShock.Procedural.Poisson.getGridValueOf(float z)</code></dt>
 <dd><p>Finds the row or column that a given point falls within on the grid. Pass in x for column and y for row. </p>
 <p><dl class="simple">
 <dt><strong>Return</strong></dt><dd><p></p>
@@ -232,7 +232,7 @@
 
 <dl class="function">
 <dt>
-<span class="target" id="classFiscalShock_1_1Graphs_1_1Poisson_1a70f710dff1bb31e18c901018cef45b88"></span><code class="sig-name descname">int FiscalShock.Graphs.Poisson.getIndexOfVertex(Vertex v)</code></dt>
+<span class="target" id="classFiscalShock_1_1Procedural_1_1Poisson_1a44a5849fd87e69c682827222b71abb06"></span><code class="sig-name descname">int FiscalShock.Procedural.Poisson.getIndexOfVertex(Vertex v)</code></dt>
 <dd><p>Finds the correct grid array index for a given vertex. </p>
 <p><dl class="simple">
 <dt><strong>Return</strong></dt><dd><p></p>
@@ -247,7 +247,7 @@
 
 <dl class="function">
 <dt>
-<span class="target" id="classFiscalShock_1_1Graphs_1_1Poisson_1a1dcff9e33c081d2dd4d5c6f641fe5ca0"></span><code class="sig-name descname">Vertex FiscalShock.Graphs.Poisson.pickRandomActivePoint()</code></dt>
+<span class="target" id="classFiscalShock_1_1Procedural_1_1Poisson_1a1eabbb799edc5714b4b98fab1f3994ff"></span><code class="sig-name descname">Vertex FiscalShock.Procedural.Poisson.pickRandomActivePoint()</code></dt>
 <dd><p>Grabs a random point from the active list to start sampling around. </p>
 <p><dl class="simple">
 <dt><strong>Return</strong></dt><dd><p></p>
@@ -258,7 +258,7 @@
 
 <dl class="function">
 <dt>
-<span class="target" id="classFiscalShock_1_1Graphs_1_1Poisson_1ab1860a847372edb87702618426afb008"></span><code class="sig-name descname">Vertex FiscalShock.Graphs.Poisson.getRandomPointAround(Vertex origin)</code></dt>
+<span class="target" id="classFiscalShock_1_1Procedural_1_1Poisson_1af7da330be185f2703f3e5a9fb0966eeb"></span><code class="sig-name descname">Vertex FiscalShock.Procedural.Poisson.getRandomPointAround(Vertex origin)</code></dt>
 <dd><p>Finds a random point within the spherical annulus by drawing a vector whose magnitude is between <code class="docutils literal notranslate"><span class="pre">r</span></code> and <code class="docutils literal notranslate"><span class="pre">2r</span></code> at a random angle. </p>
 <p><dl class="simple">
 <dt><strong>Return</strong></dt><dd><p>random sample</p>
@@ -273,7 +273,7 @@
 
 <dl class="function">
 <dt>
-<span class="target" id="classFiscalShock_1_1Graphs_1_1Poisson_1a40c6b2ca6d034e976183d5eb78104646"></span><code class="sig-name descname">bool FiscalShock.Graphs.Poisson.isIndexWithinGrid(int x, int y)</code></dt>
+<span class="target" id="classFiscalShock_1_1Procedural_1_1Poisson_1a88e1ea3807bc8480d52a2673bd3313a8"></span><code class="sig-name descname">bool FiscalShock.Procedural.Poisson.isIndexWithinGrid(int x, int y)</code></dt>
 <dd><p>Helper function to validate samples. Samples can be generated out of bounds. </p>
 <p><dl>
 <dt><strong>Return</strong></dt><dd><p></p>
@@ -292,47 +292,47 @@
 <p class="breathe-sectiondef-title rubric">Private Members</p>
 <dl class="member">
 <dt>
-<span class="target" id="classFiscalShock_1_1Graphs_1_1Poisson_1ac45163f51ca693c15987a8507eb5d270"></span><code class="sig-name descname">float FiscalShock.Graphs.Poisson.minDistance</code></dt>
+<span class="target" id="classFiscalShock_1_1Procedural_1_1Poisson_1ad62269a934259968531325f947319783"></span><code class="sig-name descname">float FiscalShock.Procedural.Poisson.minDistance</code></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">r</span></code>: Given any point, samples are chosen from the spherical annulus, a donut whose inner radius is r and outer radius, 2r. The scalar for the outer radius could be altered. </p>
 <p>All points created by the distribution are at least this many units away from any other point.</p>
 </dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classFiscalShock_1_1Graphs_1_1Poisson_1a04b6d3d9324c8ac7550e67652e5b12fb"></span><code class="sig-name descname">float FiscalShock.Graphs.Poisson.maxDistance</code></dt>
+<span class="target" id="classFiscalShock_1_1Procedural_1_1Poisson_1a59361ac7af58be7f52668f8821895d4e"></span><code class="sig-name descname">float FiscalShock.Procedural.Poisson.maxDistance</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classFiscalShock_1_1Graphs_1_1Poisson_1ac9f933da05418640bae275accebacd0d"></span><code class="sig-name descname">float FiscalShock.Graphs.Poisson.cellSize</code></dt>
+<span class="target" id="classFiscalShock_1_1Procedural_1_1Poisson_1a4e50c0bc93369179993e5127a991a0cb"></span><code class="sig-name descname">float FiscalShock.Procedural.Poisson.cellSize</code></dt>
 <dd><p>Grid cell is size <code class="docutils literal notranslate"><span class="pre">r/sqrt(n)</span></code>, restricting each grid cell to at most one point. </p>
 </dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classFiscalShock_1_1Graphs_1_1Poisson_1a52cf1db5dfc0239b082c11c0759052d9"></span><code class="sig-name descname">Vertex [] FiscalShock.Graphs.Poisson.grid</code></dt>
+<span class="target" id="classFiscalShock_1_1Procedural_1_1Poisson_1a8d7760359768d561e5969568f96a50ad"></span><code class="sig-name descname">Vertex [] FiscalShock.Procedural.Poisson.grid</code></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">n</span></code>-dimensional grid of points. </p>
 </dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classFiscalShock_1_1Graphs_1_1Poisson_1a5ca291313e251395403d867f5978b039"></span><code class="sig-name descname">int FiscalShock.Graphs.Poisson.rows</code></dt>
+<span class="target" id="classFiscalShock_1_1Procedural_1_1Poisson_1acc8f5f1cb0c6004bbfa4bdac3d2813ae"></span><code class="sig-name descname">int FiscalShock.Procedural.Poisson.rows</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classFiscalShock_1_1Graphs_1_1Poisson_1ab4c0fbccb601117840ec51a3a4d9a71b"></span><code class="sig-name descname">int FiscalShock.Graphs.Poisson.cols</code></dt>
+<span class="target" id="classFiscalShock_1_1Procedural_1_1Poisson_1a12097c69cf7279107a2cbf10676955e0"></span><code class="sig-name descname">int FiscalShock.Procedural.Poisson.cols</code></dt>
 <dd></dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classFiscalShock_1_1Graphs_1_1Poisson_1a837989b2e6617d64e678de8fb01a016c"></span><code class="sig-name descname">List&lt;Vertex&gt; FiscalShock.Graphs.Poisson.active = new List&lt;Vertex&gt;()</code></dt>
+<span class="target" id="classFiscalShock_1_1Procedural_1_1Poisson_1a1a0100de1ba669b21ba7881415d3a93b"></span><code class="sig-name descname">List&lt;Vertex&gt; FiscalShock.Procedural.Poisson.active = new List&lt;Vertex&gt;()</code></dt>
 <dd><p>A list of points that have been added to the distribution, but have not been using as the donut point (need to search for <code class="docutils literal notranslate"><span class="pre">k</span></code> samples around this one still). </p>
 <p><dl>
 <dt><strong>Return</strong></dt><dd><p></p>
 </dd>
 <dt><strong>Template Parameters</strong></dt><dd><ul class="breatheparameterlist">
-<li><code class="docutils literal notranslate"><a class="reference internal" href="classFiscalShock_1_1Graphs_1_1Vertex.html#classFiscalShock_1_1Graphs_1_1Vertex"><span class="std std-ref"><span class="pre">Vertex</span></span></a></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">Vertex</span></code></li>
 </ul>
 </dd>
 </dl>
@@ -344,13 +344,13 @@
 <p class="breathe-sectiondef-title rubric">Private Static Attributes</p>
 <dl class="member">
 <dt>
-<span class="target" id="classFiscalShock_1_1Graphs_1_1Poisson_1ac7228b44f8fee97bd1b8fd0a758a430d"></span><code class="sig-name descname">readonly int FiscalShock.Graphs.Poisson.dimensions = 2</code></dt>
+<span class="target" id="classFiscalShock_1_1Procedural_1_1Poisson_1a58c95d944a34c28cc39af6f20215ebdb"></span><code class="sig-name descname">readonly int FiscalShock.Procedural.Poisson.dimensions = 2</code></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">n</span></code>, as in <code class="docutils literal notranslate"><span class="pre">R^n</span></code>. We’re only working in 2D for these points, but it could be 3D, too. </p>
 </dd></dl>
 
 <dl class="member">
 <dt>
-<span class="target" id="classFiscalShock_1_1Graphs_1_1Poisson_1a52ae7fd99ff8aa1c2fdb0c91b192c73b"></span><code class="sig-name descname">readonly int FiscalShock.Graphs.Poisson.sampleLimit = 30</code></dt>
+<span class="target" id="classFiscalShock_1_1Procedural_1_1Poisson_1a3012a71d44feb115893e6bbf134d3546"></span><code class="sig-name descname">readonly int FiscalShock.Procedural.Poisson.sampleLimit = 30</code></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">k</span></code>: Maximum number of samples to attempt per iteration. </p>
 </dd></dl>
 

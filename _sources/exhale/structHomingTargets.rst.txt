@@ -3,7 +3,7 @@
 Struct HomingTargets
 ====================
 
-- Defined in :ref:`file_fiscal-shock_Assets_Scripts_Player_PlayerShoot.cs`
+- Defined in :ref:`file_fiscal-shock_Assets_Scripts_Player_WeaponStats.cs`
 
 
 Struct Documentation

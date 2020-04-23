@@ -1,0 +1,17 @@
+.. _exhale_class_classFiscalShock_1_1Procedural_1_1Gaussian:
+
+Class Gaussian
+==============
+
+- Defined in :ref:`file_fiscal-shock_Assets_Scripts_ProceduralGeneration_Gaussian.cs`
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: FiscalShock::Procedural::Gaussian
+   :members:
+   :protected-members:
+   :private-members:
+   :undoc-members:

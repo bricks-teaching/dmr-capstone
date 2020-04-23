@@ -11,12 +11,14 @@ Class Hierarchy
         - :ref:`exhale_class_classFiscalShock_1_1Graphs_1_1Edge`
         - :ref:`exhale_class_classFiscalShock_1_1Graphs_1_1Graph`
         - :ref:`exhale_class_classFiscalShock_1_1Graphs_1_1Mathy`
-        - :ref:`exhale_class_classFiscalShock_1_1Graphs_1_1Poisson`
         - :ref:`exhale_class_classFiscalShock_1_1Graphs_1_1Polygon`
         - :ref:`exhale_class_classFiscalShock_1_1Graphs_1_1Triangle`
         - :ref:`exhale_class_classFiscalShock_1_1Graphs_1_1Vertex`
         - :ref:`exhale_class_classFiscalShock_1_1Graphs_1_1Voronoi`
         - :ref:`exhale_class_classFiscalShock_1_1Graphs_1_1VoronoiRoom`
+    - :ref:`namespace_FiscalShock__GUI`
+        - :ref:`exhale_class_classFiscalShock_1_1GUI_1_1Inventory`
+        - :ref:`exhale_class_classFiscalShock_1_1GUI_1_1PlayerInventorySlot`
     - :ref:`namespace_FiscalShock__Procedural`
         - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1Delve`
         - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1Dungeoneer`
@@ -25,16 +27,20 @@ Class Hierarchy
         - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1Edgewise`
         - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1Escape`
         - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1Floor`
+        - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1Gaussian`
         - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1KillZone`
         - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1ObjectInfo`
+        - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1Poisson`
         - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1Portals`
         - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1WallInfo`
         - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1Walls`
+        - :ref:`exhale_class_classFiscalShock_1_1Procedural_1_1WeaponGenerator`
 - :ref:`namespace_ThirdParty`
     - :ref:`namespace_ThirdParty__Delaunator`
         - :ref:`exhale_class_classThirdParty_1_1Delaunator_1_1ListExtensions`
         - :ref:`exhale_class_classThirdParty_1_1Delaunator_1_1Triangulation`
     - :ref:`exhale_class_classThirdParty_1_1MersenneTwister`
+- :ref:`exhale_struct_structCreditScore`
 - :ref:`exhale_struct_structHomingTargets`
 - :ref:`exhale_struct_structQualityPreset`
 - :ref:`exhale_class_classAnimationCategory`
@@ -43,6 +49,7 @@ Class Hierarchy
 - :ref:`exhale_class_classCheats`
 - :ref:`exhale_class_classCreditor`
 - :ref:`exhale_class_classCreditorData`
+- :ref:`exhale_class_classCreditRating`
 - :ref:`exhale_class_classDefaultQualitySettings`
 - :ref:`exhale_class_classDefaultState`
 - :ref:`exhale_class_classDungeonEntry`
@@ -65,13 +72,17 @@ Class Hierarchy
 - :ref:`exhale_class_classLoseMenu`
 - :ref:`exhale_class_classMainMenu`
 - :ref:`exhale_class_classMouseLook`
+- :ref:`exhale_class_classPlayerFiringState`
 - :ref:`exhale_class_classPlayerHealth`
 - :ref:`exhale_class_classPlayerMovement`
 - :ref:`exhale_class_classPlayerShoot`
 - :ref:`exhale_class_classPlayerSingleton`
+- :ref:`exhale_class_classProjectileCombination`
+- :ref:`exhale_class_classRandomWeapon`
 - :ref:`exhale_class_classSeamlessMusicPlayer`
 - :ref:`exhale_class_classSettings`
 - :ref:`exhale_class_classSettingsValues`
+- :ref:`exhale_class_classShopInventorySlot`
 - :ref:`exhale_class_classShopScript`
 - :ref:`exhale_class_classSign`
 - :ref:`exhale_class_classSpawnableEnemy`

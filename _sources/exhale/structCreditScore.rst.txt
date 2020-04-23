@@ -1,0 +1,17 @@
+.. _exhale_struct_structCreditScore:
+
+Struct CreditScore
+==================
+
+- Defined in :ref:`file_fiscal-shock_Assets_Scripts_Finance_StateManager.cs`
+
+
+Struct Documentation
+--------------------
+
+
+.. doxygenstruct:: CreditScore
+   :members:
+   :protected-members:
+   :private-members:
+   :undoc-members:

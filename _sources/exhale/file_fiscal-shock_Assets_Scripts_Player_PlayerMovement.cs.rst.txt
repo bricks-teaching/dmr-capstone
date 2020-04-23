@@ -21,6 +21,13 @@ Definition (``fiscal-shock/Assets/Scripts/Player/PlayerMovement.cs``)
 
 
 
+Namespaces
+----------
+
+
+- :ref:`namespace_UnityEngine__InputSystem`
+
+
 Classes
 -------
 

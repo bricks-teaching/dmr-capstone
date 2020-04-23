@@ -1,0 +1,38 @@
+
+.. _file_fiscal-shock_Assets_Scripts_UserInterface_Inventory.cs:
+
+File Inventory.cs
+=================
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``fiscal-shock/Assets/Scripts/UserInterface/Inventory.cs``)
+-----------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+Namespaces
+----------
+
+
+- :ref:`namespace_FiscalShock__GUI`
+
+
+Classes
+-------
+
+
+- :ref:`exhale_class_classFiscalShock_1_1GUI_1_1Inventory`
+
+- :ref:`exhale_class_classFiscalShock_1_1GUI_1_1PlayerInventorySlot`
+

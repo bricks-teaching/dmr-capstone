@@ -1,0 +1,26 @@
+.. _exhale_class_classFiscalShock_1_1Procedural_1_1WeaponGenerator:
+
+Class WeaponGenerator
+=====================
+
+- Defined in :ref:`file_fiscal-shock_Assets_Scripts_ProceduralGeneration_ObjectGeneration_WeaponGenerator.cs`
+
+
+Inheritance Relationships
+-------------------------
+
+Base Type
+*********
+
+- ``public MonoBehaviour``
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: FiscalShock::Procedural::WeaponGenerator
+   :members:
+   :protected-members:
+   :private-members:
+   :undoc-members:

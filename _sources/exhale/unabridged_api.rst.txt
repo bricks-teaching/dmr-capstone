@@ -24,6 +24,11 @@ Namespaces
 .. toctree::
    :maxdepth: 5
 
+   namespace_FiscalShock__GUI.rst
+
+.. toctree::
+   :maxdepth: 5
+
    namespace_FiscalShock__Procedural.rst
 
 .. toctree::
@@ -84,6 +89,11 @@ Namespaces
 .. toctree::
    :maxdepth: 5
 
+   namespace_UnityEngine__InputSystem.rst
+
+.. toctree::
+   :maxdepth: 5
+
    namespace_UnityEngine__Rendering.rst
 
 .. toctree::
@@ -99,6 +109,11 @@ Namespaces
 Classes and Structs
 *******************
 
+
+.. toctree::
+   :maxdepth: 5
+
+   structCreditScore.rst
 
 .. toctree::
    :maxdepth: 5
@@ -139,6 +154,11 @@ Classes and Structs
    :maxdepth: 5
 
    classCreditorData.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   classCreditRating.rst
 
 .. toctree::
    :maxdepth: 5
@@ -223,11 +243,6 @@ Classes and Structs
 .. toctree::
    :maxdepth: 5
 
-   classFiscalShock_1_1Graphs_1_1Poisson.rst
-
-.. toctree::
-   :maxdepth: 5
-
    classFiscalShock_1_1Graphs_1_1Polygon.rst
 
 .. toctree::
@@ -249,6 +264,16 @@ Classes and Structs
    :maxdepth: 5
 
    classFiscalShock_1_1Graphs_1_1VoronoiRoom.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   classFiscalShock_1_1GUI_1_1Inventory.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   classFiscalShock_1_1GUI_1_1PlayerInventorySlot.rst
 
 .. toctree::
    :maxdepth: 5
@@ -288,12 +313,22 @@ Classes and Structs
 .. toctree::
    :maxdepth: 5
 
+   classFiscalShock_1_1Procedural_1_1Gaussian.rst
+
+.. toctree::
+   :maxdepth: 5
+
    classFiscalShock_1_1Procedural_1_1KillZone.rst
 
 .. toctree::
    :maxdepth: 5
 
    classFiscalShock_1_1Procedural_1_1ObjectInfo.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   classFiscalShock_1_1Procedural_1_1Poisson.rst
 
 .. toctree::
    :maxdepth: 5
@@ -309,6 +344,11 @@ Classes and Structs
    :maxdepth: 5
 
    classFiscalShock_1_1Procedural_1_1Walls.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   classFiscalShock_1_1Procedural_1_1WeaponGenerator.rst
 
 .. toctree::
    :maxdepth: 5
@@ -373,6 +413,11 @@ Classes and Structs
 .. toctree::
    :maxdepth: 5
 
+   classPlayerFiringState.rst
+
+.. toctree::
+   :maxdepth: 5
+
    classPlayerHealth.rst
 
 .. toctree::
@@ -393,6 +438,16 @@ Classes and Structs
 .. toctree::
    :maxdepth: 5
 
+   classProjectileCombination.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   classRandomWeapon.rst
+
+.. toctree::
+   :maxdepth: 5
+
    classSeamlessMusicPlayer.rst
 
 .. toctree::
@@ -404,6 +459,11 @@ Classes and Structs
    :maxdepth: 5
 
    classSettingsValues.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   classShopInventorySlot.rst
 
 .. toctree::
    :maxdepth: 5

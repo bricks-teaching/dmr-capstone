@@ -1,0 +1,17 @@
+.. _exhale_class_classPlayerFiringState:
+
+Class PlayerFiringState
+=======================
+
+- Defined in :ref:`file_fiscal-shock_Assets_Scripts_Player_PlayerShoot.cs`
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: PlayerFiringState
+   :members:
+   :protected-members:
+   :private-members:
+   :undoc-members:

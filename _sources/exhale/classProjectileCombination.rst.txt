@@ -1,0 +1,17 @@
+.. _exhale_class_classProjectileCombination:
+
+Class ProjectileCombination
+===========================
+
+- Defined in :ref:`file_fiscal-shock_Assets_Scripts_ProceduralGeneration_ObjectGeneration_WeaponGenerator.cs`
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: ProjectileCombination
+   :members:
+   :protected-members:
+   :private-members:
+   :undoc-members:
