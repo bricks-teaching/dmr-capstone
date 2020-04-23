@@ -140,50 +140,42 @@ namespace FiscalShock.Procedural {
         /// </summary>
         /// <param name="d"></param>
         private static void destroyWallsForCorridors(Dungeoneer d) {
-            LayerMask wallMask = 1 << LayerMask.NameToLayer("Wall");
-            List<Edge> wallsToKeep = new List<Edge>();
             // Need to make sure we can fit through these ones
 
-            List<Edge> shortDestroyedWalls = new List<Edge>();
-            foreach( Edge vEdge in d.vd.allEdges){
-                float minDistanceToTree = 100000;
+            //For each edge in the voronoi graph, chech if ether vertex is within the Hall Width distance to the spaning tree. If it is, remove the wall.
+            foreach( Edge vEdge in d.vd.edges){
+                float hallWidth = 5;
+                bool withinHallWidth = false;
+
                 foreach (Edge e in d.spanningTree) {
                     float slope = (e.p.y - e.q.y) / (e.p.x - e.q.x);
                     float intercept = e.p.y - (slope * e.p.x);
-                    float dist = 100000;
-                    float candidate0 = vEdge.p.y - ((slope * vEdge.p.x) + intercept);
-                    if(Mathf.Abs(candidate0) < dist){
-                        dist = Mathf.Abs(candidate0);
-                    }
-                    float candidate1 = vEdge.p.x - ((vEdge.p.x - slope) / intercept);
-                    if(Mathf.Abs(candidate1) < dist){
-                        dist = Mathf.Abs(candidate1);
-                    }
-                    float candidate2 = vEdge.q.x - ((vEdge.q.x - slope) / intercept);
-                    if(Mathf.Abs(candidate2) < dist){
-                        dist = Mathf.Abs(candidate2);
-                    }
-                    float candidate3 = vEdge.q.y - ((slope * vEdge.q.x) + intercept);
-                    if(Mathf.Abs(candidate3) < dist){
-                        dist = Mathf.Abs(candidate3);
+                    float candidate0 = vEdge.p.y - ((slope * vEdge.p.x) + intercept); //distance to spanning tree edge from vertex 1 in y direction.
+                    float candidate1 = vEdge.p.x - ((vEdge.p.x - slope) / intercept); //distance to spanning tree edge from vertex 1 in x direction.
+                    float candidate2 = vEdge.q.x - ((vEdge.q.x - slope) / intercept); //distance to spanning tree edge from vertex 2 in y direction.
+                    float candidate3 = vEdge.q.y - ((slope * vEdge.q.x) + intercept); //distance to spanning tree edge from vertex 2 in x direction.
+
+                    if(Mathf.Abs(candidate0) < hallWidth || Mathf.Abs(candidate1) < hallWidth || Mathf.Abs(candidate2) < hallWidth ||Mathf.Abs(candidate3) < hallWidth){
+                        withinHallWidth = true;
                     }
                     if((candidate0 > 0 && candidate3 < 0) || (candidate0 < 0 && candidate3 > 0)){
-                        dist = 0;
+                        withinHallWidth = true;
                     }
-                    if(dist < minDistanceToTree){
-                        minDistanceToTree = dist;
-                    }
-                    if(minDistanceToTree < 5){
+                    if(withinHallWidth){
                         break;
                     }
                 }
 
-                if(minDistanceToTree < 5){
+                if(withinHallWidth){
                     removeWall(vEdge);
                 }
             } 
         }
 
+        /// <summary>
+        /// mark the edge as not a wall and make the neighboring walls as wallsto keep.
+        /// </summary>
+        /// <param name="vEdge"></param>
         private static void removeWall(Edge vEdge){
             vEdge.isWallToKeep = false;
             vEdge.isWall = false;
@@ -205,6 +197,10 @@ namespace FiscalShock.Procedural {
             }
         }
 
+        /// <summary>
+        /// mark wall as wallToKeep and recursivley mark neighboring walls needed to close off cells
+        /// </summary>
+        /// <param name="vEdge"></param>
         private static void keepWall(Edge vEdge){
             bool bordersOpenCell = false;
             foreach(Cell eCell in vEdge.cells){
@@ -226,11 +222,11 @@ namespace FiscalShock.Procedural {
         }
 
         /// <summary>
-        /// Remove walls that don't need to exist for performance reasons
+        /// build the walls
         /// </summary>
         /// <param name="d"></param>
-        /// <param name="wallsToKeep"></param>
         private static void buildWallsToKeep(Dungeoneer d) {
+            //Add room edges to wallsToKeep
             foreach (VoronoiRoom r in d.roomVoronoi) {
                 foreach (Edge e in r.exterior.sides) {
                     if(e.isWall){
@@ -242,7 +238,7 @@ namespace FiscalShock.Procedural {
             closeEdges(d);
             
             //build wall objects
-            foreach( Edge vEdge in d.vd.allEdges){
+            foreach( Edge vEdge in d.vd.edges){
                 if(!vEdge.isWallToKeep){
                     vEdge.isWall = false;
                 } else {
@@ -251,6 +247,10 @@ namespace FiscalShock.Procedural {
             }
         }
 
+        /// <summary>
+        /// Add walls to hide the edges of the map from the player
+        /// </summary>
+        /// <param name="d"></param>
         private static void closeEdges(Dungeoneer d) {
             foreach( Cell c in d.vd.cells){
                 bool edgeCell = false;
