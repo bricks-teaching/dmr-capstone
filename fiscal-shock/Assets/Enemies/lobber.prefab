@@ -1478,9 +1478,10 @@ Animation:
   m_GameObject: {fileID: 5627192714580346066}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 0}
+  m_Animation: {fileID: 7400000, guid: 88641690a43debe7c9cd1dcbfcb2d901, type: 2}
   m_Animations:
   - {fileID: 7400000, guid: 00f94c843329ce9c2a1dabf8588005ba, type: 2}
+  - {fileID: 7400000, guid: 88641690a43debe7c9cd1dcbfcb2d901, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
@@ -2140,6 +2141,7 @@ GameObject:
   - component: {fileID: 8100579045279232098}
   - component: {fileID: 3161492417594460013}
   - component: {fileID: 7401194360406878791}
+  - component: {fileID: 3418618238232968185}
   m_Layer: 10
   m_Name: Body
   m_TagString: Untagged
@@ -2349,6 +2351,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!111 &3418618238232968185
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8793686667128476763}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 88641690a43debe7c9cd1dcbfcb2d901, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 88641690a43debe7c9cd1dcbfcb2d901, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &8985442565091484124
 GameObject:
   m_ObjectHideFlags: 0

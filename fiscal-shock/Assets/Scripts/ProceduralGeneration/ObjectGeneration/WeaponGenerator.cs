@@ -36,11 +36,13 @@ namespace FiscalShock.Procedural {
 
             // randomize stats
             // --- Strength ---
-            stats.strength = randomizeAndClamp(combo.strengthRange, getStrengthModifier());
-            float diff = stats.strength - (combo.strengthRange.z * StateManager.totalFloorsVisited);
-            if (diff > combo.strengthRange.w) {  // unusually strong
+            float strMod = getStrengthModifier();
+            stats.strength = randomizeAndClamp(combo.strengthRange, strMod);
+            float modifiedStrDev = strMod * combo.strengthRange.w * 0.5f;
+            float diff = stats.strength - (combo.strengthRange.z * strMod);
+            if (diff > modifiedStrDev) {  // unusually strong
                 stats.weaponName = getRandomString(choice.strongNames);
-            } else if (diff < -combo.strengthRange.w) {  // unusually weak
+            } else if (diff < -modifiedStrDev) {  // unusually weak
                 stats.weaponName = getRandomString(choice.weakNames);
             } else {
                 stats.weaponName = getRandomString(choice.boringNames);
@@ -56,7 +58,7 @@ namespace FiscalShock.Procedural {
                 stats.suffix = getRandomString(choice.accurateSuffixes);
             }
             // Deviation should affect the price less.
-            valueModifier *= Mathf.Clamp(combo.accuracyRange.z/((stats.deviation + 1) * 10f) * 0.25f, 0.1f, Mathf.Log(Mathf.Pow(StateManager.timesEntered, 2) + 20));
+            valueModifier *= Mathf.Clamp(combo.accuracyRange.z/((stats.deviation + 1) * 5f), 0.1f, Mathf.Log(Mathf.Pow(StateManager.timesEntered, 2) + 20));
 
             // --- Speed ---
             stats.fireDelay = randomizeAndClamp(combo.fireDelayRange);
@@ -149,7 +151,7 @@ namespace FiscalShock.Procedural {
         /// <param name="modifier"></param>
         /// <returns></returns>
         private float randomizeAndClamp(Vector4 parms, float modifier) {
-            return (float)System.Math.Round(Mathf.Clamp(Gaussian.next(parms.z * modifier, parms.w * modifier), parms.x * modifier, parms.y * modifier), 2);
+            return (float)System.Math.Round(Mathf.Clamp(Gaussian.next(parms.z * modifier, (parms.w * modifier) * 0.5f), parms.x * modifier, parms.y * modifier), 2);
         }
 
         /// <summary>
@@ -161,7 +163,7 @@ namespace FiscalShock.Procedural {
         /// </summary>
         /// <returns></returns>
         private float getStrengthModifier() {
-            float x = StateManager.totalFloorsVisited;
+            float x = StateManager.totalFloorsVisited + 1;
             return 7 + (-6/(1 + Mathf.Pow(x/32, 0.9f)));
         }
 

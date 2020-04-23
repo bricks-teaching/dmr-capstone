@@ -41,9 +41,6 @@ public class WeaponStats : MonoBehaviour {
     [Tooltip("Time, in seconds, between attacks.")]
     public float fireDelay = 0;  // 0 = no delay
 
-    [Tooltip("Value to help position weapons when drawn.")]
-    public float rotation = 0;
-
     [Tooltip("Trigger action of this weapon. Automatic weapons continue firing while the fire button is held down. Semiautomatic weapons fire with each button press. Single-shot is not implemented.")]
     // Semiauto could still require a reload if clip sizes are implemented
     // Single-shot would perform similarly to a bolt-action rifle, as in needing a manual reload after every shot.

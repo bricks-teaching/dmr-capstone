@@ -213,6 +213,7 @@ GameObject:
   - component: {fileID: 8058960905273010060}
   - component: {fileID: 1654383433059896188}
   - component: {fileID: 6100890681935123577}
+  - component: {fileID: 7120718365223262698}
   m_Layer: 0
   m_Name: fish cannon
   m_TagString: Untagged
@@ -228,14 +229,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7759176646751844329}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.4999999, y: 0.4, z: -2}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8942616833544122677}
   - {fileID: 1241585244762073515}
   m_Father: {fileID: 1865584234548786046}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.074157715, y: 0, z: 0}
 --- !u!33 &8058960905273010060
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -305,7 +306,6 @@ MonoBehaviour:
   bulletCost: 22
   deviation: 6
   fireDelay: 1.7
-  rotation: 10
   action: 2
   projectileType: 1
   missileHomingTargetLayer:
@@ -319,3 +319,20 @@ MonoBehaviour:
   fireSound: {fileID: 8300000, guid: 17d1cc09103cfafcaac9fa24c4518281, type: 3}
   autoStart: {fileID: 0}
   autoStop: {fileID: 0}
+--- !u!111 &7120718365223262698
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7759176646751844329}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 8b99d469d02f5bfcf87c92b19d3fc573, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 8b99d469d02f5bfcf87c92b19d3fc573, type: 2}
+  - {fileID: 7400000, guid: fec05a6b18c49c03ba6749f8ca7ff5da, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0

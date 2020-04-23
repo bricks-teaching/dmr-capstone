@@ -5,8 +5,7 @@ using System.Collections.Generic;
 using FiscalShock.Procedural;
 using FiscalShock.GUI;
 
-public class ShopScript : MonoBehaviour
-{
+public class ShopScript : MonoBehaviour {
     public GameObject tutorial;
     public GameObject debugMenu;
     private AudioSource audioS;
@@ -127,7 +126,7 @@ public class ShopScript : MonoBehaviour
 
     void Update() {
         if (playerIsInTriggerZone) {
-            if (Input.GetKeyDown(Settings.interactKey)) {
+            if (Input.GetKeyDown(Settings.interactKey) && !tutorial.activeSelf) {
                 Time.timeScale = 0;
                 Settings.forceUnlockCursorState();
                 shopPanel.SetActive(true);

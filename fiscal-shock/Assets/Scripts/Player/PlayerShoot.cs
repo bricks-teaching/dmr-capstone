@@ -17,6 +17,8 @@ public class PlayerFiringState {
     public bool weaponCooling;
     public bool holsteringWeapon;
     public bool drawingWeapon;
+
+    public int lastWeapon = -1;
 }
 
 public class PlayerShoot : MonoBehaviour {
@@ -48,6 +50,7 @@ public class PlayerShoot : MonoBehaviour {
     /// </summary>
     private bool firing;
     private float animatedTime;
+    private Animation weaponAnimator;
 
     public void OnFire(InputAction.CallbackContext cont) {
         if (cont.phase == InputActionPhase.Canceled || Time.timeScale == 0) {
@@ -91,7 +94,6 @@ public class PlayerShoot : MonoBehaviour {
         if (guns == null || guns.Count < 1) {
             guns = new List<GameObject>();
         }
-        LoadWeapon();
     }
 
     public void resetFeed() {
@@ -107,7 +109,12 @@ public class PlayerShoot : MonoBehaviour {
         if (guns == null || guns.Count < 1) {
             return;
         }
-        LoadWeapon();
+        if (guns.Count <= slot) {
+            slot = 0;
+        }
+        if (state.lastWeapon >= 0 && state.lastWeapon < guns.Count && weapon == guns[state.lastWeapon]) {
+            weapon.SetActive(true);
+        }
     }
 
     private void hideWeapon() {
@@ -155,30 +162,30 @@ public class PlayerShoot : MonoBehaviour {
 
         // Don't proceed to try firing until we're done changing weapons
         // If we don't have a weapon by this point, we can't continue
-        if (state.drawingWeapon || state.holsteringWeapon || weapon == null) {
+        if (weaponAnimator.isPlaying || state.drawingWeapon || state.holsteringWeapon || weapon == null || !weapon.activeSelf) {
             return;
         }
 
         /**********************************************************************/
 
         // After this point, only continue if we're trying to fire
-        if (!firing) {
+        if (!firing || state.alreadyFired) {
             return;
         }
 
         // Make sure player has enough money to fire
         if (!StateManager.inStoryTutorial && StateManager.cashOnHand < currentWeaponStats.bulletCost) {
-            if (!state.alreadyFired) {  // otherwise, the sound is auto fired
+            //if (!state.alreadyFired) {  // otherwise, the sound is auto fired
                 stopFiringAuto();
                 gunAudioSource.PlayOneShot(outOfAmmo, Settings.volume);
                 state.alreadyFired = true;
-            }
+            //}
             return;
         }
 
         // Can we fire yet?
         if (state.weaponCooling) {
-            if (!state.alreadyFired && !state.firingAutomatic) {  // otherwise, the sound is auto fired
+            if (!state.firingAutomatic) {  // otherwise, the sound is auto fired
                 gunAudioSource.PlayOneShot(fireRateSound, Settings.volume);
                 state.alreadyFired = true;
             }
@@ -200,7 +207,6 @@ public class PlayerShoot : MonoBehaviour {
         }
         state.weaponCooling = true;
 
-        // Fade the crosshair if we're not allowed to shoot.
         crossHair.color = new Color(1f, 1f, 1f, 0.3f);
         for (float i = 0; i < currentWeaponStats.fireDelay; i += Time.deltaTime) {
             crossHair.fillAmount = i/currentWeaponStats.fireDelay;
@@ -217,7 +223,7 @@ public class PlayerShoot : MonoBehaviour {
     /// Updates weapon slot and enables weapon object
     /// </summary>
     public void LoadWeapon() {
-        if ((guns == null || guns.Count-1 < slot) || ((weapon != null && weapon.activeSelf) && (guns[slot] == weapon || state.holsteringWeapon))) {
+        if (state.lastWeapon >= 0 && (guns == null || state.holsteringWeapon || guns[slot] == weapon)) {
             return;
         }
         state.drawingWeapon = true;
@@ -229,36 +235,47 @@ public class PlayerShoot : MonoBehaviour {
 
         // The weapon select functions already verify the new slot is good
         weapon = guns[slot];
+        weaponAnimator = weapon.GetComponent<Animation>();
         weapon.SetActive(true);
+        state.lastWeapon = slot;
         currentWeaponStats = weapon.GetComponent<WeaponStats>();
     }
 
+    /// <summary>
+    /// If player is currently holstering or drawing a weapon, alter weapon position to animate the process.
+    /// </summary>
     private void playWeaponAnimation() {
-        // If player is currently holstering or drawing a weapon, alter weapon position to animate the process.
+        if (weapon == null) {
+            return;
+        }
+
         if (state.drawingWeapon) {
-            if ((weapon.transform.parent.position - weapon.transform.position).magnitude > .1) {
-                weapon.transform.position = (weapon.transform.position + weapon.transform.parent.position) / 2;
+            state.holsteringWeapon = false;
+            if (!weaponAnimator.isPlaying && animatedTime == 0) {
+                weaponAnimator["draw"].speed = 2;
+                weaponAnimator.Play("draw");
             }
-            Vector3 rotationVector = transform.rotation.eulerAngles;
-            rotationVector.x += currentWeaponStats.rotation;
-            weapon.transform.rotation = Quaternion.Slerp(weapon.transform.parent.rotation, Quaternion.Euler(rotationVector), Time.fixedDeltaTime * 6);
             // After animation has run set weapon changing to false
-            if (animatedTime >= 0.9f) {
+            if (animatedTime >= (weaponAnimator.clip.length * 0.5f)) {
                 animatedTime = 0f;
                 state.drawingWeapon = false;
                 crossHair.enabled = currentWeaponStats.showCrosshair;
+                weapon.transform.rotation = weapon.transform.parent.rotation;
+                return;
             }
             animatedTime += Time.deltaTime;
         // ---------------------------------------------------------------------
         } else if (state.holsteringWeapon) {
-            weapon.transform.position -= (transform.up * 5f) + transform.forward;
-            Vector3 rotationVector = transform.rotation.eulerAngles;
-            weapon.transform.rotation = Quaternion.Slerp(weapon.transform.parent.rotation, Quaternion.Euler(rotationVector), Time.fixedDeltaTime * 6);
+            state.drawingWeapon = false;
+            if (!weaponAnimator.isPlaying && animatedTime == 0) {
+                weaponAnimator.Play("holster");
+            }
             // After animation has run, get the new weapon
-            if (animatedTime >= 0.8f) {
+            if (animatedTime >= weaponAnimator.clip.length) {
                 animatedTime = 0f;
                 state.holsteringWeapon = false;
                 LoadWeapon();
+                return;
             }
             animatedTime += Time.deltaTime;
         }

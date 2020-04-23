@@ -211,14 +211,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3523152100263174595}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.01745245, z: 0, w: 0.99984777}
   m_LocalPosition: {x: 1, y: -0.4, z: 1.16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8670191201193946697}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -2, z: 0}
 --- !u!1 &5254342815494393118
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,6 +369,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8670191201193946697}
   - component: {fileID: 1791585938930561494}
+  - component: {fileID: 6502660136138975721}
   m_Layer: 0
   m_Name: MilkHose
   m_TagString: Untagged
@@ -384,7 +385,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5623286387654990938}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.53, y: 0, z: -0.25}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children:
   - {fileID: 6099552728091104807}
@@ -395,7 +396,7 @@ Transform:
   - {fileID: 3350551328887020226}
   m_Father: {fileID: 6300237158488943092}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 450, y: 0, z: 0}
 --- !u!114 &1791585938930561494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -418,7 +419,6 @@ MonoBehaviour:
   bulletCost: 1
   deviation: 6
   fireDelay: 0
-  rotation: 10
   action: 1
   projectileType: 0
   missileHomingTargetLayer:
@@ -432,6 +432,23 @@ MonoBehaviour:
   fireSound: {fileID: 8300000, guid: 17d1cc09103cfafcaac9fa24c4518281, type: 3}
   autoStart: {fileID: 8300000, guid: 001e214e672bcfca3bfc9629b29b7ea0, type: 3}
   autoStop: {fileID: 8300000, guid: 2de02b952b04e73f99d6d04968a598e9, type: 3}
+--- !u!111 &6502660136138975721
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5623286387654990938}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 8b99d469d02f5bfcf87c92b19d3fc573, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 8b99d469d02f5bfcf87c92b19d3fc573, type: 2}
+  - {fileID: 7400000, guid: fec05a6b18c49c03ba6749f8ca7ff5da, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &8935805645891183990
 GameObject:
   m_ObjectHideFlags: 0

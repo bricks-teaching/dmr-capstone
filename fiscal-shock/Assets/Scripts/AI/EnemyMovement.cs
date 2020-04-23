@@ -76,10 +76,6 @@ public class EnemyMovement : MonoBehaviour {
         Vector2 flatPosition = new Vector2(transform.position.x, transform.position.z);
         Vector2 playerFlatPosition = new Vector2(player.transform.position.x, player.transform.position.z);
 
-        if (gameObject.tag == "Lobber") {
-            playerDirection.y = 0;
-        }
-
         Quaternion rotationToPlayer = Quaternion.LookRotation(playerDirection);
 
         // Need 2D distance - will only consider how far away enemy is from player on x,z plane.
