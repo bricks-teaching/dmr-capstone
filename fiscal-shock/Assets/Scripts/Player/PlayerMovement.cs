@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public CharacterController controller;
 
+    //References to control the attributes of movement
     public float speed = 12f;
     public float gravity = -50f;
     public float jumpBy = 1.5f;
@@ -24,21 +25,26 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask obstacleMask;
     public LayerMask decorationMask;
 
+    //References for the keyboard input, check if you're touching the ground and velocity
     public Vector3 velocity;
     bool isGrounded;
     public InputActionAsset inputActions;
 
+    //References to movement and jumping by player
     private Vector2 movement;
     private bool jumping;
 
+    //Player gets the player input and performs the action. 
     void Awake() {
         gameObject.GetComponent<PlayerInput>().actions = inputActions;
     }
 
+    //Player moves based off Input action
     public void OnMovement(InputAction.CallbackContext cont) {
         movement = cont.ReadValue<Vector2>();
     }
 
+    //Player jumps based off Input action
     public void OnJump(InputAction.CallbackContext cont) {
         jumping = cont.phase == InputActionPhase.Performed;
     }
@@ -46,8 +52,6 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // not implemented new input system
-        //Vector3 tdm = (transform.right * movement.x) + (transform.forward * movement.y);
 
         //Creates sphere around object to check if it has collided with a ground layer
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance,groundMask | obstacleMask | decorationMask);
@@ -81,6 +85,7 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
     }
 
+    //Teleports the player to a specific destination
     public void teleport(Vector3 destination) {
         controller.enabled = false;
         transform.position = destination;
