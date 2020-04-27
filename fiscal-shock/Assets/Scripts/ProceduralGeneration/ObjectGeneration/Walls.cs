@@ -144,23 +144,34 @@ namespace FiscalShock.Procedural {
 
             //For each edge in the voronoi graph, chech if ether vertex is within the Hall Width distance to the spaning tree. If it is, remove the wall.
             foreach( Edge vEdge in d.vd.edges){
-                float hallWidth = 5;
+                float hallWidth = 9;
                 bool withinHallWidth = false;
 
                 foreach (Edge e in d.spanningTree) {
                     float slope = (e.p.y - e.q.y) / (e.p.x - e.q.x);
+                    float minY = Mathf.Min(e.p.y,e.q.y) - hallWidth;
+                    float minX = Mathf.Min(e.p.x,e.q.x) - hallWidth;
+                    float maxY = Mathf.Max(e.p.y,e.q.y) - hallWidth;
+                    float maxX = Mathf.Max(e.p.x,e.q.x) - hallWidth;
                     float intercept = e.p.y - (slope * e.p.x);
-                    float candidate0 = vEdge.p.y - ((slope * vEdge.p.x) + intercept); //distance to spanning tree edge from vertex 1 in y direction.
-                    float candidate1 = vEdge.p.x - ((vEdge.p.x - slope) / intercept); //distance to spanning tree edge from vertex 1 in x direction.
-                    float candidate2 = vEdge.q.x - ((vEdge.q.x - slope) / intercept); //distance to spanning tree edge from vertex 2 in y direction.
-                    float candidate3 = vEdge.q.y - ((slope * vEdge.q.x) + intercept); //distance to spanning tree edge from vertex 2 in x direction.
+                    if(vEdge.p.y < maxY && vEdge.p.y > minY){
+                        if(Mathf.Abs(vEdge.p.y - ((slope * vEdge.p.x) + intercept)) < hallWidth){
+                            withinHallWidth = true;
+                        } //distance to spanning tree edge from vertex 1 in y direction.
+                    } else if(vEdge.p.x < maxX && vEdge.p.x > minX){
+                        if(Mathf.Abs(vEdge.p.x - ((vEdge.p.y - intercept) / slope)) < hallWidth){
+                            withinHallWidth = true;
+                        } //distance to spanning tree edge from vertex 1 in x direction.
+                    } else if(vEdge.q.x < maxX && vEdge.q.x > minX){
+                        if(Mathf.Abs(vEdge.q.x - ((vEdge.q.y - intercept) / slope)) < hallWidth){
+                            withinHallWidth = true;
+                        } //distance to spanning tree edge from vertex 2 in y direction.
+                    } else if(vEdge.q.y < maxY && vEdge.q.y > minY){
+                        if(Mathf.Abs(vEdge.q.y - ((slope * vEdge.q.x) + intercept)) < hallWidth){
+                            withinHallWidth = true;
+                        } //distance to spanning tree edge from vertex 2 in x direction.
+                    }
 
-                    if(Mathf.Abs(candidate0) < hallWidth || Mathf.Abs(candidate1) < hallWidth || Mathf.Abs(candidate2) < hallWidth ||Mathf.Abs(candidate3) < hallWidth){
-                        withinHallWidth = true;
-                    }
-                    if((candidate0 > 0 && candidate3 < 0) || (candidate0 < 0 && candidate3 > 0)){
-                        withinHallWidth = true;
-                    }
                     if(withinHallWidth){
                         break;
                     }
