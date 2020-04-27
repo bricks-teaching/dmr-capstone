@@ -176,24 +176,53 @@
 <dl class="class">
 <dt id="_CPPv414PlayerMovement">
 <span id="_CPPv314PlayerMovement"></span><span id="_CPPv214PlayerMovement"></span><span id="PlayerMovement"></span><span class="target" id="classPlayerMovement"></span><em class="property">class </em><code class="sig-name descname">PlayerMovement</code> : <em class="property">public</em> MonoBehaviour<a class="headerlink" href="#_CPPv414PlayerMovement" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Here is the tutorial I followed: Player Movement: <a class="reference external" href="https://www.youtube.com/watch?v=_QajrabyTJc&amp;t=1s">https://www.youtube.com/watch?v=_QajrabyTJc&amp;t=1s</a></p>
-<p>Character Controller documentation: <a class="reference external" href="https://docs.unity3d.com/Manual/class-CharacterController.html">https://docs.unity3d.com/Manual/class-CharacterController.html</a> </p>
+<dd><p>Here is the tutorial I followed: Player Movement: <a class="reference external" href="https://www.youtube.com/watch?v=_QajrabyTJc&amp;t=1s">https://www.youtube.com/watch?v=_QajrabyTJc&amp;t=1s</a> Character Controller documentation: <a class="reference external" href="https://docs.unity3d.com/Manual/class-CharacterController.html">https://docs.unity3d.com/Manual/class-CharacterController.html</a> </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Functions</p>
 <dl class="function">
 <dt>
 <span class="target" id="classPlayerMovement_1a1f17dc40fff09736e3b9c8a2effe9852"></span><code class="sig-name descname">void PlayerMovement.OnMovement(InputAction.CallbackContext cont)</code></dt>
-<dd></dd></dl>
+<dd><p>Player moves based off Input action </p>
+<p><dl>
+<dt><strong>Return</strong></dt><dd><p></p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist">
+<li><code class="docutils literal notranslate"><span class="pre">cont</span></code></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="function">
 <dt>
 <span class="target" id="classPlayerMovement_1a562f678581e74a9d5eae439b5fd18e27"></span><code class="sig-name descname">void PlayerMovement.OnJump(InputAction.CallbackContext cont)</code></dt>
-<dd></dd></dl>
+<dd><p>Player jumps based off Input action </p>
+<p><dl>
+<dt><strong>Return</strong></dt><dd><p></p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist">
+<li><code class="docutils literal notranslate"><span class="pre">cont</span></code></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="function">
 <dt>
 <span class="target" id="classPlayerMovement_1ab543e977ab83bb47bd9fb74ce48cee0d"></span><code class="sig-name descname">void PlayerMovement.teleport(Vector3 destination)</code></dt>
-<dd></dd></dl>
+<dd><p>Teleports the player to a specific destination </p>
+<p><dl>
+<dt><strong>Return</strong></dt><dd><p></p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist">
+<li><code class="docutils literal notranslate"><span class="pre">destination</span></code></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
@@ -206,7 +235,8 @@
 <dl class="member">
 <dt>
 <span class="target" id="classPlayerMovement_1a6800716352b83358ea16bc706dd88cbb"></span><code class="sig-name descname">float PlayerMovement.speed = 12f</code></dt>
-<dd></dd></dl>
+<dd><p>References to control the attributes of movement </p>
+</dd></dl>
 
 <dl class="member">
 <dt>
@@ -221,7 +251,8 @@
 <dl class="member">
 <dt>
 <span class="target" id="classPlayerMovement_1a4c733d8e1fcc9ffd7223ac3182b380f5"></span><code class="sig-name descname">Transform PlayerMovement.groundCheck</code></dt>
-<dd></dd></dl>
+<dd><p>Reference to ground body that checks if it has touched a ground layer. </p>
+</dd></dl>
 
 <dl class="member">
 <dt>
@@ -231,7 +262,8 @@
 <dl class="member">
 <dt>
 <span class="target" id="classPlayerMovement_1a92f6c79205a9d653fd67bcd5f5f700ce"></span><code class="sig-name descname">LayerMask PlayerMovement.groundMask</code></dt>
-<dd></dd></dl>
+<dd><p>Reference to ground layer, obstacle and decoration masks </p>
+</dd></dl>
 
 <dl class="member">
 <dt>
@@ -246,7 +278,8 @@
 <dl class="member">
 <dt>
 <span class="target" id="classPlayerMovement_1a4e2768e4dc1b861f333bbba31917872e"></span><code class="sig-name descname">Vector3 PlayerMovement.velocity</code></dt>
-<dd></dd></dl>
+<dd><p>References for the keyboard input, check if you’re touching the ground and velocity </p>
+</dd></dl>
 
 <dl class="member">
 <dt>
@@ -259,12 +292,24 @@
 <dl class="function">
 <dt>
 <span class="target" id="classPlayerMovement_1a589e2f9da48918ca04fea0c418f46d32"></span><code class="sig-name descname">void PlayerMovement.Awake()</code></dt>
-<dd></dd></dl>
+<dd><p>Assigns the input system configuration to the player’s input controller </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p></p>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="function">
 <dt>
 <span class="target" id="classPlayerMovement_1aaf9b77d7177d538be9c1447d08191322"></span><code class="sig-name descname">void PlayerMovement.Update()</code></dt>
-<dd></dd></dl>
+<dd><p>Update is called once per frame </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p></p>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
@@ -277,7 +322,8 @@
 <dl class="member">
 <dt>
 <span class="target" id="classPlayerMovement_1a1e98dcce3dde4517cc6b39c36292819b"></span><code class="sig-name descname">Vector2 PlayerMovement.movement</code></dt>
-<dd></dd></dl>
+<dd><p>References to movement and jumping by player </p>
+</dd></dl>
 
 <dl class="member">
 <dt>
