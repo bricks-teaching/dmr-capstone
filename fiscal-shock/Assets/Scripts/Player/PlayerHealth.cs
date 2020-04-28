@@ -67,7 +67,7 @@ public class PlayerHealth : MonoBehaviour {
     }
 
     /// <summary>
-    /// Shows the player flashlight within the dungeons.
+    /// Enables invincibility when the player loads in.
     /// </summary>
     public IEnumerator enableIframes(float duration) {
         if (playerFlashlight == null) {  // if start in dungeon scene
@@ -84,7 +84,7 @@ public class PlayerHealth : MonoBehaviour {
 
     /// <summary>
     /// Used to disable invincibility after players have a few seconds to position
-    /// or if they are currently attacking themselves.
+    /// or if they are currently attacking something.
     /// </summary>
     private void Update() {
         // Disable invincibility:

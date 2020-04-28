@@ -79,7 +79,7 @@ public class ShopScript : MonoBehaviour {
     }
 
     /// <summary>
-    /// Sets up the players inventory and shotting script for later use.
+    /// Sets up the shops inventory and shooting script for later use.
     /// Generates weapons for the shops inventory whenever the player enters the hub.
     /// </summary>
     void Start() {
