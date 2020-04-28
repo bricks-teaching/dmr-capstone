@@ -46,6 +46,7 @@ namespace FiscalShock.AI {
             foreach(Edge side in spawnSite.sides) {
                 // Check that the edge isn't a wall.
                 if (!side.isWall) {
+                    // TODO: Is it necessary to check bounds here still?
                     // TODO: Add the bounds checking here.
                     // 1) Check if the first edge coordinate is out of the ground area.
                     // 2) If 1., check if the second edge coordinate is out of the ground area.

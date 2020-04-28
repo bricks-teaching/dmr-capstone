@@ -41,6 +41,9 @@ namespace FiscalShock.Procedural {
         public List<Cell> validCells { get; private set; }
         public Voronoi navigableGraph { get; private set; }
         private List<Cell> reachableCells;
+        private List<Vertex> validSpawnPoints => reachableCells.SelectMany(c => c.vertices).Distinct().ToList();
+        public Vector3 topRightWallCorner { get; set; }
+        public Vector3 bottomLeftWallCorner { get; set; }
 
         /* Scene organization */
         public List<GameObject> enemies { get; } = new List<GameObject>();
@@ -286,13 +289,7 @@ namespace FiscalShock.Procedural {
         /// </summary>
         private void randomizeCells() {
             Debug.Log("Randomizing and spawning environmental objects");
-            foreach (Cell cell in vd.cells) {
-            //foreach (Cell cell in validCells) {
-                // Don't spawn things on the convex hull for now
-                if (isPointOnOrNearConvexHull(cell.site) || cell.sides.All(e => e.isWall)) {
-                    continue;
-                }
-
+            foreach (Cell cell in reachableCells) {
                 // Roll 1d100 to see if we can spawn something
                 float randSpawn = mt.NextFloat();
                 if (randSpawn > currentDungeonType.globalObjectRate) {
@@ -325,13 +322,7 @@ namespace FiscalShock.Procedural {
         /// </summary>
         private void spawnEnemies() {
             Debug.Log("Spawning enemies");
-            foreach (Cell cell in vd.cells) {
-            //foreach (Cell cell in validCells) {
-                // Don't spawn things on the convex hull for now
-                if (isPointOnOrNearConvexHull(cell.site) || cell.sides.All(e => e.isWall)) {
-                    continue;
-                }
-
+            foreach (Cell cell in reachableCells) {
                 float enemySpawn = mt.NextFloat();
                 if (enemySpawn < currentDungeonType.enemyRate) {
                     GameObject enemy = spawnEnemy(currentDungeonType.randomEnemies, cell);
@@ -474,7 +465,7 @@ namespace FiscalShock.Procedural {
             // Code very similar to player spawn.
             Vertex spawnPoint;
             do {
-                spawnPoint = masterDt.vertices[mt.Next(masterDt.vertices.Count - 1)];
+                spawnPoint = validSpawnPoints[mt.Next(validSpawnPoints.Count - 1)];
             } while (spawnPoint.cell.hasPortal);
 
             // BUG: This code may not work with the new setup.

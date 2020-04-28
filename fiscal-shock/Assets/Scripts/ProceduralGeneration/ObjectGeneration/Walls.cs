@@ -12,29 +12,60 @@ namespace FiscalShock.Procedural {
         private readonly static float FATTEST_CONTROLLER = 6f;
 
         /// <summary>
-        /// Calls all functions to create walls in a dungeon
+        /// Main function to generate walls and update pathfinding graphs.
+        /// The order of functions is important! Some variables are set in
+        /// certain functions, and other conditions check for the existence
+        /// of walls under the expectation that they are (or are not) there.
         /// </summary>
-        /// <param name="d"></param>
+        /// <param name="d">dungeoneer object</param>
+        /// <returns>list of cells that may be used for A* pathfinding</returns>
         public static List<Cell> setWalls(Dungeoneer d) {
+            // Create walls everywhere, except for the rooms. This also
+            // excludes the exteriors of the rooms.
             constructWallsOnVoronoi(d);
+
+            // Create walls on the exteriors of the rooms.
             constructWallsOnRooms(d);
+
+            // Eliminate walls where corridors should exist.
             List<GameObject> wallsToKeep = destroyWallsForCorridors(d);
 
+            // Bounding box needs to be set up before reachableCells.
+            // This function sets the min/max vectors on the dungeoneer
+            // object that reachableCells needs to check.
+            constructEnemyAvoidanceBoundingBox(d);
+
+            // Enumerate reachable cells for A* pathfinding.
+            // Note: Close-range pathfinding does not take reachable cells into
+            // account.
+            // A cell is only "A*-reachable" under the following conditions:
+            // 1. At least one of its sides is not a wall
+            // 2. None of its vertices exist outside the bounds of the walls
+            // The bounds are tracked as 3D vertices, so the 2D cell vertex's y
+            // must be compared to the 3D corner's z.
             List<Cell> reachableCells = d.vd.cells.Where(c => {
-                c.reachable = !c.sides.All(s => s.isWall);
+                c.reachable = (
+                    !c.sides.All(s => s.isWall)
+                    && !c.vertices.Any(v =>
+                           v.x < d.bottomLeftWallCorner.x
+                        || v.x > d.topRightWallCorner.x
+                        || v.y < d.bottomLeftWallCorner.z
+                        || v.y > d.topRightWallCorner.z)
+                    );
                 return c.reachable;
             }).ToList();
 
+            // Extraneous walls must be destroyed *after* reachableCells are
+            // determined. Otherwise, the cleared area is considered reachable.
             destroyLagWalls(d, wallsToKeep);
-            constructEnemyAvoidanceBoundingBox(d);
 
             return reachableCells;
         }
 
-        // TODO: Actually use this?
         /// <summary>
         /// Stand up trigger zones on the bounding box of the world for
-        /// enemy movement AI to detect using raycasts.
+        /// enemy movement AI to detect using raycasts. Also stands up
+        /// walls to prevent the player from falling off of the world.
         /// </summary>
         private static void constructEnemyAvoidanceBoundingBox(Dungeoneer d) {
             GameObject trigger = GameObject.Find("EnemyAvoidanceTrigger");
@@ -44,6 +75,10 @@ namespace FiscalShock.Procedural {
             Vector3 topLeft = new Vector3(0, 0, floorBounds.extents.z*2);
             Vector3 topRight = new Vector3(floorBounds.extents.x*2, 0, floorBounds.extents.z*2);
             Vector3 bottomLeft = new Vector3(0, 0, 0);
+
+            // Update the dungeoneer object with info about the min/max reachable points. These points are implied by the bounds of the floor.
+            d.topRightWallCorner = floorBounds.max;
+            d.bottomLeftWallCorner = floorBounds.min;
 
             float xlen = Vector3.Distance(topLeft, topRight);
             float zlen = Vector3.Distance(topLeft, bottomLeft);
@@ -68,6 +103,8 @@ namespace FiscalShock.Procedural {
             side.transform.parent = prefab.transform.parent;
             GameObject sidewall = UnityEngine.Object.Instantiate(wall, side.transform);
             sidewall.transform.localScale = new Vector3(1, 1, 1);
+            // Change the tag. Tag is used for destroying unnecessary walls.
+            sidewall.tag = "Obstacle";
         }
 
         /// <summary>
@@ -143,9 +180,10 @@ namespace FiscalShock.Procedural {
         }
 
         /// <summary>
-        /// Remakes walls with a gate and corridor extending outward
+        /// Destroys wall objects where corridors should exist
         /// </summary>
         /// <param name="d"></param>
+        /// <returns>list of walls that are valid</returns>
         private static List<GameObject> destroyWallsForCorridors(Dungeoneer d) {
             LayerMask wallMask = 1 << LayerMask.NameToLayer("Wall");
             List<GameObject> wallsToKeep = new List<GameObject>();
