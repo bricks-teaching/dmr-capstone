@@ -211,6 +211,9 @@ namespace FiscalShock.Graphs {
         public bool hasPortal { get; set; }
         public VoronoiRoom room { get; set; }
 
+        // PATHFINDING ONLY
+        public bool reachable = true;
+
         public Cell(Vertex delaunayVertex) {
             site = delaunayVertex;
             id = site.id;

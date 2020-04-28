@@ -112,15 +112,13 @@ namespace FiscalShock.Pathfinding {
 
             VertexNode node = currentNode.Value;
 
-            int i = 0;
             while (node != null) {
                 path.Push(node.associatedLocation);
                 node = node.previousOnPath;
-                i++;
             }
 
             // DEBUG: Debug code. Remove or refactor for debugging mode.
-            Debug.Log("TOTAL NODES PASSED: " + i);
+            Debug.Log("TOTAL NODES PASSED: " + path.Count);
 
             return path;
         }

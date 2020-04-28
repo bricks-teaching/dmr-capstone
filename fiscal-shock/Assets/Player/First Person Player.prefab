@@ -181,7 +181,7 @@ MonoBehaviour:
   delaunayRenderHeight: 1.2
   renderVoronoi: 1
   voronoiColor: {r: 0, g: 1, b: 0.98118925, a: 0}
-  voronoiRenderHeight: 1.2
+  voronoiRenderHeight: 17
   renderMasterDelaunay: 0
   masterDelaunayColor: {r: 1, g: 0, b: 0, a: 0}
   masterDelaunayRenderHeight: 1.2
@@ -195,7 +195,7 @@ MonoBehaviour:
   edgeMat: {fileID: 2100000, guid: 4c59fd6ae625a9500b147fcf863adeb3, type: 2}
   renderNavigableGraph: 1
   navigableGraphColor: {r: 1, g: 0.5504546, b: 0.2830189, a: 1}
-  navigableRenderHeight: 2.4
+  navigableRenderHeight: 18
 --- !u!1 &208130074868200894
 GameObject:
   m_ObjectHideFlags: 0

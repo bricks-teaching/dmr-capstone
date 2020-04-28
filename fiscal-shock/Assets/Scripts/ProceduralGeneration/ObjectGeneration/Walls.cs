@@ -20,7 +20,10 @@ namespace FiscalShock.Procedural {
             constructWallsOnRooms(d);
             List<GameObject> wallsToKeep = destroyWallsForCorridors(d);
 
-            List<Cell> reachableCells = d.vd.cells.Where(c => !c.sides.All(s => s.isWall)).ToList();
+            List<Cell> reachableCells = d.vd.cells.Where(c => {
+                c.reachable = !c.sides.All(s => s.isWall);
+                return c.reachable;
+            }).ToList();
 
             destroyLagWalls(d, wallsToKeep);
             constructEnemyAvoidanceBoundingBox(d);

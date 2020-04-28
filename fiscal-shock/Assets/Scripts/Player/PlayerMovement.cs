@@ -37,18 +37,10 @@ public class PlayerMovement : MonoBehaviour
         foreach(Edge side in originalSpawn.cell.sides) {
             // Check that the edge isn't a wall.
             if (!side.isWall) {
-                // Check if the first edge coordinate is out of the ground area.
-                if (side.p.x < hivemind.bounds[0] || side.p.x > hivemind.bounds[1]
-                || side.p.y < hivemind.bounds[2] || side.p.y > hivemind.bounds[3]) {
-                    // Check the second edge coordinate.
-                    if (side.q.x < hivemind.bounds[0] || side.q.x > hivemind.bounds[1]
-                    || side.q.y < hivemind.bounds[2] || side.q.y > hivemind.bounds[3]) {
-                        continue;
-                    }
-
-                    hivemind.lastPlayerLocation = side.q;
-                    break;
-                }
+                // TODO: Add the bounds checking here.
+                // 1) Check if the first edge coordinate is out of the ground area.
+                // 2) If 1., check if the second edge coordinate is out of the ground area.
+                // 3) If 2., continue onto the next side.
 
                 hivemind.lastPlayerLocation = side.p;
                 break;

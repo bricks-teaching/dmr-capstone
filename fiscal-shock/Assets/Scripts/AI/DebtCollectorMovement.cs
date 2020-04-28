@@ -46,18 +46,10 @@ namespace FiscalShock.AI {
             foreach(Edge side in spawnSite.sides) {
                 // Check that the edge isn't a wall.
                 if (!side.isWall) {
-                    // Check if the first edge coordinate is out of the ground area.
-                    if (side.p.x < hivemind.bounds[0] || side.p.x > hivemind.bounds[1]
-                    || side.p.y < hivemind.bounds[2] || side.p.y > hivemind.bounds[3]) {
-                        // Check the second edge coordinate.
-                        if (side.q.x < hivemind.bounds[0] || side.q.x > hivemind.bounds[1]
-                        || side.q.y < hivemind.bounds[2] || side.q.y > hivemind.bounds[3]) {
-                            continue;
-                        }
-
-                        lastVisitedNode = side.q;
-                        break;
-                    }
+                    // TODO: Add the bounds checking here.
+                    // 1) Check if the first edge coordinate is out of the ground area.
+                    // 2) If 1., check if the second edge coordinate is out of the ground area.
+                    // 3) If 2., continue onto the next side.
 
                     lastVisitedNode = side.p;
                     break;
@@ -112,14 +104,14 @@ namespace FiscalShock.AI {
                 path = pathfinder.findPath(lastVisitedNode, hivemind.lastPlayerLocation);
 
                 // DEBUG: Move into debug code or remove.
-                StreamWriter writer = new StreamWriter("/home/ybautista/Desktop/new_path.txt");
-                Vertex[] pathNodes = path.ToArray();
+                // StreamWriter writer = new StreamWriter("/home/ybautista/Desktop/UnityOutput/new_path.txt");
+                // Vertex[] pathNodes = path.ToArray();
 
-                foreach (Vertex node in pathNodes) {
-                    writer.Write(node.vector + "\n");
-                }
+                // foreach (Vertex node in pathNodes) {
+                //     writer.Write(node.vector + "\n");
+                // }
 
-                writer.Close();
+                // writer.Close();
 
                 // TODO: Handle this better. Right now, could lead to infinite loop,
                 // but will be a very rare bug, realistically.

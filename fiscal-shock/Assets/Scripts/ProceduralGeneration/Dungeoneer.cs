@@ -41,7 +41,6 @@ namespace FiscalShock.Procedural {
         public List<Cell> validCells { get; private set; }
         public Voronoi navigableGraph { get; private set; }
         private List<Cell> reachableCells;
-        private GameObject debtCollector;
 
         /* Scene organization */
         public List<GameObject> enemies { get; } = new List<GameObject>();
@@ -51,6 +50,7 @@ namespace FiscalShock.Procedural {
         public GameObject enemyOrganizer { get; private set; }
         public GameObject thingOrganizer { get; private set; }
         public GameObject cellColliderOrganizer { get; private set; }
+        private GameObject debtCollector;
 
         public void Start() {
             Settings.loadSettings();
@@ -237,8 +237,9 @@ namespace FiscalShock.Procedural {
             Debug.Log("Setting player node collision triggers.");
             setPlayerCollisions();
 
-            Debug.Log("Spawning the debt collector.");
-            spawnDebtCollector();
+            // TODO: UNCOMMENT
+            // Debug.Log("Spawning the debt collector.");
+            // spawnDebtCollector();
         }
 
         /// <summary>

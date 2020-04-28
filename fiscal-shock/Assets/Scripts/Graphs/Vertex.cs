@@ -24,6 +24,10 @@ namespace FiscalShock.Graphs {
         // Edges incident (having this vertex as an endpoint)
         public List<Edge> incidentEdges { get; set; } = new List<Edge>();
 
+        // PATHFINDING ONLY
+        internal bool isOnWall { get; set; } = false;
+        internal bool walkable { get; set; } = true;
+
         /* Begin overloaded constructors */
         public Vertex(float xX, float yY) {
             vector = new Vector2(xX, yY);

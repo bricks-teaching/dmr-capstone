@@ -70,7 +70,7 @@ namespace FiscalShock.Demo {
         [Tooltip("Material with a specific shader to color lines properly in game view. Don't change it unless you have a good reason!")]
         public Material edgeMat;
 
-        [Tooltip("Whether to render the Voronoi diagram used for A* navigation.")]
+        [Tooltip("Whether and what to render of the Voronoi diagram used for A* navigation.")]
         public bool renderNavigableGraph;
 
         [Tooltip("Color of the navigable graph vertices.")]

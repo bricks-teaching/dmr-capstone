@@ -1,3 +1,4 @@
+using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -37,11 +38,49 @@ namespace FiscalShock.Graphs {
 
         /// <summary>
         /// Generates a Voronoi diagram given a list of cells.
+        /// Filters wall-locked edges out.
         /// </summary>
         /// <param name="cellList"></param>
+
+        // TODO: Send in the bounds here.
         public Voronoi (List<Cell> cellList) {
             cells = cellList;
             edges = cellList.SelectMany(c => c.sides).Distinct().ToList();
+            edges = edges.Where(edge => {
+                if (edge.isWall) {
+                    if (edge.cells.Count(c => c.reachable) > 1) {
+                        edge.p.walkable = false;
+                        edge.q.walkable = false;
+                    }
+
+                    else if (edge.cells.Any(c => c.room != null)) {
+                        edge.p.walkable = false;
+                        edge.q.walkable = false;
+                    }
+
+                    else {
+                        if (edge.p.incidentEdges.Count(e => !e.isWall) < 1) {
+                            edge.p.walkable = false;
+                        }
+
+                        if (edge.q.incidentEdges.Count(e => !e.isWall) < 1) {
+                            edge.q.walkable = false;
+                        }
+                    }
+
+                    // TODO: Check if both point p and point q are within bounds.
+                    // Mark out of bounds as not walkable.
+
+                    edge.p.isOnWall = true;
+                    edge.q.isOnWall = true;
+                }
+
+                edge.isWalkable = edge.p.walkable && edge.q.walkable;
+
+                // Return true only on non-walls or when both edges are walkable.
+                return !edge.isWall || edge.isWalkable;
+            }).ToList();
+
             vertices = cellList.SelectMany(c => c.vertices).Distinct().ToList();
         }
 
