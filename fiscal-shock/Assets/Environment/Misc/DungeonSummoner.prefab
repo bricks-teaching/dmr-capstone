@@ -51,3 +51,9 @@ MonoBehaviour:
     typeEnum: 0
   - gameObject: {fileID: 0}
     typeEnum: 1
+  debugWeapons:
+  - {fileID: 1094064583168317089, guid: ba1a8906c0df00e5d9d82251b2832875, type: 3}
+  - {fileID: 3961932855569333518, guid: 0385b27ee1e40c61db8e25b36971ec03, type: 3}
+  debugCash: 1000
+  timesEntered: 1
+  currentFloor: 1

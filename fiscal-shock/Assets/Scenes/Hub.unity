@@ -750,21 +750,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: LoadingScreen
       objectReference: {fileID: 0}
-    - target: {fileID: 8457115162116187907, guid: 3df1f54d1485f5354891126c61ba8d15,
-        type: 3}
-      propertyPath: m_RenderMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8457115162116187907, guid: 3df1f54d1485f5354891126c61ba8d15,
-        type: 3}
-      propertyPath: m_AdditionalShaderChannelsFlag
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 8457115162116188158, guid: 3df1f54d1485f5354891126c61ba8d15,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3df1f54d1485f5354891126c61ba8d15, type: 3}
 --- !u!1 &890536645
@@ -2075,18 +2060,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc80d3b2923d4355ab61104953d890f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1946645654 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7284600360293930027, guid: 84799466cc8d9f321a88138ad2940097,
-    type: 3}
-  m_PrefabInstance: {fileID: 7284600360293930008}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 311c0a8abebacb74f941a1fe8d51a266, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1972142715
 GameObject:
   m_ObjectHideFlags: 0
@@ -2487,25 +2460,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3732291387043160752, guid: 80c269370517631b786b88b234882b1c,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4512086404360708426, guid: 80c269370517631b786b88b234882b1c,
         type: 3}
       propertyPath: m_Name
       value: Loan Shark
-      objectReference: {fileID: 0}
-    - target: {fileID: 5602052160280962990, guid: 80c269370517631b786b88b234882b1c,
-        type: 3}
-      propertyPath: m_UiScaleMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5602420468938309236, guid: 80c269370517631b786b88b234882b1c,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5602420469146460741, guid: 80c269370517631b786b88b234882b1c,
         type: 3}
@@ -2599,21 +2557,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 890536646}
     m_Modifications:
-    - target: {fileID: 1975974028840901186, guid: 84799466cc8d9f321a88138ad2940097,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4251745424732073394, guid: 84799466cc8d9f321a88138ad2940097,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385689623530712043, guid: 84799466cc8d9f321a88138ad2940097,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7284600359687109890, guid: 84799466cc8d9f321a88138ad2940097,
         type: 3}
       propertyPath: m_Name
@@ -2673,26 +2616,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7284600360910256602, guid: 84799466cc8d9f321a88138ad2940097,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1946645654}
-    - target: {fileID: 7284600360910256602, guid: 84799466cc8d9f321a88138ad2940097,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: dismissTutorial
-      objectReference: {fileID: 0}
-    - target: {fileID: 7284600361333633369, guid: 84799466cc8d9f321a88138ad2940097,
-        type: 3}
-      propertyPath: m_text
-      value: Money makes the world go 'round. Especially here, where your wallet
-        is literally your life! The only weapons you can buy here use money as ammunition.
-        To pay off your debts, you'll need to manage your finances wisely, <i>and</i>
-        be careful while hunting down the bots. You can view your credit score from
-        the pause menu. Your credit rating determines the kind of deals lenders are
-        willing to make with you.
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84799466cc8d9f321a88138ad2940097, type: 3}

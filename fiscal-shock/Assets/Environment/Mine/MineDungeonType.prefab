@@ -238,7 +238,7 @@ PrefabInstance:
     - target: {fileID: 8117157573788985409, guid: bf0c8c2b9625c9ba29d85229184ca17f,
         type: 3}
       propertyPath: enemyRate
-      value: 0.35
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 8117157573788985409, guid: bf0c8c2b9625c9ba29d85229184ca17f,
         type: 3}
@@ -501,7 +501,7 @@ PrefabInstance:
     - target: {fileID: 8117157573788985409, guid: bf0c8c2b9625c9ba29d85229184ca17f,
         type: 3}
       propertyPath: obstacles.Array.data[11].weight
-      value: 0.368
+      value: 0.304
       objectReference: {fileID: 0}
     - target: {fileID: 8117157573788985409, guid: bf0c8c2b9625c9ba29d85229184ca17f,
         type: 3}
@@ -511,7 +511,7 @@ PrefabInstance:
     - target: {fileID: 8117157573788985409, guid: bf0c8c2b9625c9ba29d85229184ca17f,
         type: 3}
       propertyPath: obstacles.Array.data[12].weight
-      value: 0.424
+      value: 0.335
       objectReference: {fileID: 0}
     - target: {fileID: 8117157573788985409, guid: bf0c8c2b9625c9ba29d85229184ca17f,
         type: 3}
@@ -521,7 +521,7 @@ PrefabInstance:
     - target: {fileID: 8117157573788985409, guid: bf0c8c2b9625c9ba29d85229184ca17f,
         type: 3}
       propertyPath: obstacles.Array.data[13].weight
-      value: 0.43
+      value: 0.329
       objectReference: {fileID: 0}
     - target: {fileID: 8117157573788985409, guid: bf0c8c2b9625c9ba29d85229184ca17f,
         type: 3}
@@ -571,7 +571,7 @@ PrefabInstance:
     - target: {fileID: 8117157573788985409, guid: bf0c8c2b9625c9ba29d85229184ca17f,
         type: 3}
       propertyPath: obstacles.Array.data[18].weight
-      value: 0.688
+      value: 0.279
       objectReference: {fileID: 0}
     - target: {fileID: 8117157573788985409, guid: bf0c8c2b9625c9ba29d85229184ca17f,
         type: 3}
@@ -581,7 +581,7 @@ PrefabInstance:
     - target: {fileID: 8117157573788985409, guid: bf0c8c2b9625c9ba29d85229184ca17f,
         type: 3}
       propertyPath: obstacles.Array.data[19].weight
-      value: 0.618
+      value: 0.113
       objectReference: {fileID: 0}
     - target: {fileID: 8117157573788985409, guid: bf0c8c2b9625c9ba29d85229184ca17f,
         type: 3}
@@ -601,7 +601,7 @@ PrefabInstance:
     - target: {fileID: 8117157573788985409, guid: bf0c8c2b9625c9ba29d85229184ca17f,
         type: 3}
       propertyPath: obstacles.Array.data[21].weight
-      value: 0.655
+      value: 0.163
       objectReference: {fileID: 0}
     - target: {fileID: 8117157573788985409, guid: bf0c8c2b9625c9ba29d85229184ca17f,
         type: 3}
@@ -621,7 +621,7 @@ PrefabInstance:
     - target: {fileID: 8117157573788985409, guid: bf0c8c2b9625c9ba29d85229184ca17f,
         type: 3}
       propertyPath: obstacles.Array.data[23].weight
-      value: 0.683
+      value: 0.159
       objectReference: {fileID: 0}
     - target: {fileID: 8117157573788985409, guid: bf0c8c2b9625c9ba29d85229184ca17f,
         type: 3}
@@ -641,7 +641,7 @@ PrefabInstance:
     - target: {fileID: 8117157573788985409, guid: bf0c8c2b9625c9ba29d85229184ca17f,
         type: 3}
       propertyPath: obstacles.Array.data[25].weight
-      value: 0.637
+      value: 0.169
       objectReference: {fileID: 0}
     - target: {fileID: 8117157573788985409, guid: bf0c8c2b9625c9ba29d85229184ca17f,
         type: 3}

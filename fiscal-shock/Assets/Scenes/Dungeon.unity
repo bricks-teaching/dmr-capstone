@@ -1137,11 +1137,6 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 965116058272088900, guid: f84aca466460e50539423ad7e6c6f6d0,
         type: 3}
-      propertyPath: debugWeapons.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 965116058272088900, guid: f84aca466460e50539423ad7e6c6f6d0,
-        type: 3}
       propertyPath: dungeonThemes.Array.data[0].gameObject
       value: 
       objectReference: {fileID: 1773018386}
@@ -1150,38 +1145,6 @@ PrefabInstance:
       propertyPath: dungeonThemes.Array.data[1].gameObject
       value: 
       objectReference: {fileID: 427768196}
-    - target: {fileID: 965116058272088900, guid: f84aca466460e50539423ad7e6c6f6d0,
-        type: 3}
-      propertyPath: seed
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 965116058272088900, guid: f84aca466460e50539423ad7e6c6f6d0,
-        type: 3}
-      propertyPath: debugCash
-      value: 1000
-      objectReference: {fileID: 0}
-    - target: {fileID: 965116058272088900, guid: f84aca466460e50539423ad7e6c6f6d0,
-        type: 3}
-      propertyPath: timesEntered
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 965116058272088900, guid: f84aca466460e50539423ad7e6c6f6d0,
-        type: 3}
-      propertyPath: currentFloor
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 965116058272088900, guid: f84aca466460e50539423ad7e6c6f6d0,
-        type: 3}
-      propertyPath: debugWeapons.Array.data[0]
-      value: 
-      objectReference: {fileID: 1094064583168317089, guid: ba1a8906c0df00e5d9d82251b2832875,
-        type: 3}
-    - target: {fileID: 965116058272088900, guid: f84aca466460e50539423ad7e6c6f6d0,
-        type: 3}
-      propertyPath: debugWeapons.Array.data[1]
-      value: 
-      objectReference: {fileID: 3961932855569333518, guid: 0385b27ee1e40c61db8e25b36971ec03,
-        type: 3}
     - target: {fileID: 965116058272088901, guid: f84aca466460e50539423ad7e6c6f6d0,
         type: 3}
       propertyPath: m_Name
@@ -1480,51 +1443,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: MineDungeonType
       objectReference: {fileID: 0}
-    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
-        type: 3}
-      propertyPath: enemyRate
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
-        type: 3}
-      propertyPath: obstacles.Array.data[23].weight
-      value: 0.159
-      objectReference: {fileID: 0}
-    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
-        type: 3}
-      propertyPath: obstacles.Array.data[25].weight
-      value: 0.169
-      objectReference: {fileID: 0}
-    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
-        type: 3}
-      propertyPath: obstacles.Array.data[21].weight
-      value: 0.163
-      objectReference: {fileID: 0}
-    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
-        type: 3}
-      propertyPath: obstacles.Array.data[19].weight
-      value: 0.113
-      objectReference: {fileID: 0}
-    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
-        type: 3}
-      propertyPath: obstacles.Array.data[18].weight
-      value: 0.279
-      objectReference: {fileID: 0}
-    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
-        type: 3}
-      propertyPath: obstacles.Array.data[12].weight
-      value: 0.335
-      objectReference: {fileID: 0}
-    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
-        type: 3}
-      propertyPath: obstacles.Array.data[11].weight
-      value: 0.304
-      objectReference: {fileID: 0}
-    - target: {fileID: 3016848092569763617, guid: 9fab72962231bdd5c88e42061619ec50,
-        type: 3}
-      propertyPath: obstacles.Array.data[13].weight
-      value: 0.329
-      objectReference: {fileID: 0}
     - target: {fileID: 3016848092569763618, guid: 9fab72962231bdd5c88e42061619ec50,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1593,21 +1511,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TempleDungeonType
-      objectReference: {fileID: 0}
-    - target: {fileID: 8117157573788985409, guid: bf0c8c2b9625c9ba29d85229184ca17f,
-        type: 3}
-      propertyPath: enemyRate
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8117157573788985409, guid: bf0c8c2b9625c9ba29d85229184ca17f,
-        type: 3}
-      propertyPath: width
-      value: 500
-      objectReference: {fileID: 0}
-    - target: {fileID: 8117157573788985409, guid: bf0c8c2b9625c9ba29d85229184ca17f,
-        type: 3}
-      propertyPath: height
-      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 8117157573788985410, guid: bf0c8c2b9625c9ba29d85229184ca17f,
         type: 3}

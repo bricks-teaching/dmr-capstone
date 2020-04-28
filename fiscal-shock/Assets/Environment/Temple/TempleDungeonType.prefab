@@ -780,7 +780,7 @@ PrefabInstance:
     - target: {fileID: 8032028084769514502, guid: 4bfc7ba460738530a8495f9edf06b48f,
         type: 3}
       propertyPath: enemyRate
-      value: 0.35
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 8032028084769514502, guid: 4bfc7ba460738530a8495f9edf06b48f,
         type: 3}
