@@ -5,6 +5,10 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
+/// <summary>
+/// Takes care of damage taken by the player and manages misc functions
+/// like invincibility and the player flashlight.
+/// </summary>
 public class PlayerHealth : MonoBehaviour {
     private GameObject hitVignette;
     private float timeMultiplier = 0.01f;
@@ -45,6 +49,10 @@ public class PlayerHealth : MonoBehaviour {
         yield return null;
     }
 
+    /// <summary>
+    /// Activates when the player is hit, if not dead the player loses money
+    /// equal to the damage taken. If the player is out of money, they lose.
+    /// </summary>
     public void takeDamage(float damage) {
         if (!invincible && !StateManager.playerDead) {
             StateManager.cashOnHand -= damage;
@@ -58,6 +66,9 @@ public class PlayerHealth : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Shows the player flashlight within the dungeons.
+    /// </summary>
     public IEnumerator enableIframes(float duration) {
         if (playerFlashlight == null) {  // if start in dungeon scene
             playerFlashlight = GameObject.FindGameObjectWithTag("Player Flashlight").GetComponent<Light>();
@@ -71,6 +82,10 @@ public class PlayerHealth : MonoBehaviour {
         yield return null;
     }
 
+    /// <summary>
+    /// Used to disable invincibility after players have a few seconds to position
+    /// or if they are currently attacking themselves.
+    /// </summary>
     private void Update() {
         // Disable invincibility:
         // - after 2 seconds when any key is pressed (you get 5 seconds to reposition)

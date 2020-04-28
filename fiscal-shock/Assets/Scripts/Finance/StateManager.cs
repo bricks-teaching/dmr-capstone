@@ -54,6 +54,10 @@ public enum DungeonTypeEnum {
     Mine
 }
 
+/// <summary>
+/// Creditor objects used to determine the threat level and
+/// whether they have been paid recently or not.
+/// </summary>
 public class CreditorData {
     public bool paid = false;
     public int threatLevel = 0;
@@ -224,7 +228,7 @@ public static class StateManager
         // Poor ------------------
         } else if (creditScore < PoorCredit.max && creditScore >= PoorCredit.min) {
             currentRating = PoorCredit;
-        // WTF are you doing? ----
+        // What are you doing? ----
         } else if (creditScore < AbysmalCredit.max) {
             currentRating = AbysmalCredit;
         }
@@ -353,6 +357,9 @@ public static class DefaultState {
     public readonly static bool startedFromDungeon = true;
 }
 
+/// <summary>
+/// Establishes some basic values for credit score manipulation.
+/// </summary>
 public struct CreditScore {
     public int min;
     public int max;

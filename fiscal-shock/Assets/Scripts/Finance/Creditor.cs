@@ -7,6 +7,10 @@ using System.Globalization;
 using System.Collections.Generic;
 using System;
 
+/// <summary>
+/// Runs the loan businesses in the hub, allows for payment and 
+/// acquisition of debt. Also manages the GUI text fields.
+/// </summary>
 public class Creditor : MonoBehaviour {
     public AudioClip paymentSound;
     public AudioClip failureSound;
@@ -54,7 +58,10 @@ public class Creditor : MonoBehaviour {
         }
     }
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Ran on start. Adds creditors to tracker if not already there,
+    ///  adds initial debt and sets the interest rate text for that day.
+    /// </summary>
     void Start()
     {
         audioS = GetComponent<AudioSource>();
@@ -91,7 +98,10 @@ public class Creditor : MonoBehaviour {
         }
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Checks if the player is in range and is pressing the interaction key. 
+    /// If so, it will activate the cursor and turn on the menu
+    /// </summary>
     void Update()
     {
         if (playerIsInTriggerZone) {

@@ -1,6 +1,11 @@
 ﻿using UnityEngine;
 using TMPro;
 
+/// <summary>
+/// Connects information about a loan to the inspector. This allows us to determine what
+/// kind of loans that a creditor can give out and accept payment for. We also use ValidLoan
+/// to establish dialog text for the lenders, giving each a personality.
+/// </summary>
 [System.Serializable]
 public class ValidLoan : MonoBehaviour
 {

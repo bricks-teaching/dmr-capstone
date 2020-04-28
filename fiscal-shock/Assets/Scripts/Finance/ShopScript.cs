@@ -5,6 +5,10 @@ using System.Collections.Generic;
 using FiscalShock.Procedural;
 using FiscalShock.GUI;
 
+/// <summary>
+/// This is the script that runs the shop. Weapons are generated and 
+/// the shop sells these to the player.
+/// </summary>
 public class ShopScript : MonoBehaviour {
     public GameObject tutorial;
     public GameObject debugMenu;
@@ -20,6 +24,9 @@ public class ShopScript : MonoBehaviour {
     private PlayerShoot playerShoot;
     private Inventory playerInventory;
     private readonly int MAX_GUNS = 9;
+    /// <summary>
+    /// Dialog options for the shopkeeper, selected at random.
+    /// </summary>
     private readonly string[] purchaseDialogs = {
         "Alright, here ya go, try not to get yourself kilt. No, really, I mean kilt, not killed, but don't do that either.",
         "Pretty weird that the only way to make money around here is scrapping robots, innit?"
@@ -34,11 +41,17 @@ public class ShopScript : MonoBehaviour {
         "I'll pay more than anybody for your leftovers. 10% is still more than 0%!"
     };
 
+    /// <summary>
+    /// Selects a dialog string from the dialog sets up above.
+    /// </summary>
     private string getRandomDialog(string[] dialogs) {
         int val = Random.Range(0, dialogs.Length);
         return dialogs[val];
     }
 
+    /// <summary>
+    /// Detects the player and shows the tutorial if not already seen.
+    /// </summary>
     void OnTriggerEnter(Collider col) {
         if (col.gameObject.tag == "Player") {
             playerIsInTriggerZone = true;
@@ -51,6 +64,9 @@ public class ShopScript : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Dismisses the tutorial and allows normal gameplay to continue.
+    /// </summary>
     public void dismissTutorial() {
         tutorial.SetActive(false);
         Time.timeScale = 1;
@@ -62,6 +78,10 @@ public class ShopScript : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Sets up the players inventory and shotting script for later use.
+    /// Generates weapons for the shops inventory whenever the player enters the hub.
+    /// </summary>
     void Start() {
         audioS = GetComponent<AudioSource>();
         shopPanel.SetActive(false);
@@ -94,6 +114,10 @@ public class ShopScript : MonoBehaviour {
         return acceptablePrices;
     }
 
+    /// <summary>
+    /// Generates new weapons in the shop. Every slot in the inventory gets
+    /// a new weapon and all buttons and markers are set to defaults.
+    /// </summary>
     public void generateNewWeapons() {
         Debug.Log($"Populating {inventorySlots.Count} shop slots");
         inventory.Clear();
@@ -124,6 +148,11 @@ public class ShopScript : MonoBehaviour {
         inventorySlots[slot].infoBlock.SetActive(false);
     }
 
+
+    /// <summary>
+    /// Determines if the player is in range of the shop and pressing the interact key.
+    /// If so, it activates the menu and unlocks the cursor.
+    /// </summary>
     void Update() {
         if (playerIsInTriggerZone) {
             if (Input.GetKeyDown(Settings.interactKey) && !tutorial.activeSelf) {
@@ -205,6 +234,10 @@ public class ShopScript : MonoBehaviour {
     }
 }
 
+/// <summary>
+/// Data for each shop inventory slot. Shows some basic text and data
+/// about the weapon in question
+/// </summary>
 [System.Serializable]
 public class ShopInventorySlot {
     public GameObject buttonObject;
